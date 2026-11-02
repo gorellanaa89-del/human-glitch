@@ -1,5 +1,5 @@
 # Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
-approved: true
+approved: false
 title: "Why Smart People Feel Like Frauds (Impostor Syndrome Explained)"
 thumbnail_text: "THEY'LL FIND OUT"
 # ISO date-time in UTC. Leave empty to upload as a private draft without a schedule.

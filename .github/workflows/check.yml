@@ -1,0 +1,35 @@
+name: Check connections
+
+# Tests the voice, stock footage and YouTube connections. Produces and uploads nothing.
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Voice (Edge TTS)
+        if: always()
+        run: python tools/check_connections.py voice
+
+      - name: Stock footage (Pixabay)
+        if: always()
+        env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: python tools/check_connections.py stock
+
+      - name: YouTube login
+        if: always()
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python tools/check_connections.py youtube

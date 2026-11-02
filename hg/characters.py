@@ -344,7 +344,7 @@ def _glitch(expression: str) -> Image.Image:
 
 def _finish(img: Image.Image, height: int, rim, split: bool = False) -> Image.Image:
     """Downsample and add a soft rim light (and, for GLITCH, a magenta/cyan split)."""
-    w = int(height * BASE_W / BASE_H)
+    w = int(height * img.width / img.height)
     img = img.resize((w, height), Image.LANCZOS)
     pad = height // 12
     out = Image.new("RGBA", (w + 2 * pad, height + 2 * pad), (0, 0, 0, 0))

@@ -57,9 +57,11 @@ def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = Fal
 
 
 def write_srt(words: list[Word], out: Path) -> Path:
-    blocks = []
+    blocks, prev_end = [], 0.0
     for i, line in enumerate(group(words, 9, 3.5), 1):
         text = " ".join(w[2] for w in line)
-        blocks.append(f"{i}\n{_srt_time(line[0][0])} --> {_srt_time(line[-1][1] + 0.2)}\n{text}\n")
+        start = max(line[0][0], prev_end)
+        prev_end = max(start + 0.3, line[-1][1] + 0.2)
+        blocks.append(f"{i}\n{_srt_time(start)} --> {_srt_time(prev_end)}\n{text}\n")
     out.write_text("\n".join(blocks), encoding="utf-8")
     return out

@@ -80,7 +80,7 @@ def _scene_video(i, scene, seconds, work: Path, used: set) -> tuple[Path, Path |
             if remaining <= 0.05:
                 break
         if remaining > 0.05:
-            bg = graphics.background(scene.title, work / f"s{i}_bg.png")
+            bg = graphics.background(scene.title, work / f"s{i}_bg.png", card=scene.card)
             seg = work / f"s{i}_seg{n}.mp4"
             _background_clip(bg, remaining, seg)
             segs.append(seg)

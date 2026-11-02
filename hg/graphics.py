@@ -89,7 +89,8 @@ def scene_card(text: str, label: str, out: Path, w: int = 1920, h: int = 1080, s
     img = _grid(w, h)
     d = ImageDraw.Draw(img)
     small = ImageFont.truetype(font_mono(), int(h * 0.026))
-    d.text((int(w * 0.04), int(h * 0.05)), f"{CHANNEL} // {label}", font=small, fill=GREEN)
+    tag = f"SCENE {label}"
+    d.text((int(w * 0.96 - d.textlength(tag, font=small)), int(h * 0.05)), tag, font=small, fill=GREEN)
     font, lines = _fit(d, text.upper(), font_mono(), int(w * 0.84), int(h * 0.6), start=int(h * 0.12))
     _glitch_text(img, lines, font, w / 2, h / 2, GREEN)
     img = _slice_shift(_vignette(img), seed)
@@ -97,9 +98,13 @@ def scene_card(text: str, label: str, out: Path, w: int = 1920, h: int = 1080, s
     return out
 
 
-def background(title: str, out: Path, w: int = 1920, h: int = 1080) -> Path:
+def background(title: str, out: Path, w: int = 1920, h: int = 1080, card: str = "") -> Path:
     img = _grid(w, h)
     d = ImageDraw.Draw(img)
+    if card:
+        big, lines = _fit(d, card.upper(), font_mono(), int(w * 0.9), int(h * 0.7), start=int(h * 0.14))
+        _glitch_text(img, lines, big, w / 2, h * 0.45, (24, 64, 44), offset=2)
+        d = ImageDraw.Draw(img)
     font = ImageFont.truetype(font_mono(), int(h * 0.05))
     d.text((int(w * 0.04), int(h * 0.88)), f"> {title.lower()}_", font=font, fill=(34, 70, 52))
     _vignette(img).save(out)

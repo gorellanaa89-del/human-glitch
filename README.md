@@ -14,7 +14,7 @@ Human Glitch channel (psychology told as stories, English with a Spanish audio t
 | `captions.en.srt`, `captions.es.srt` | Caption files |
 | `description.txt` | Description with chapters |
 
-Everything runs on GitHub Actions for free: Microsoft Edge voices (no key), Pexels
+Everything runs on GitHub Actions for free: Microsoft Edge voices (no key), Pixabay
 stock footage (free key), ffmpeg, and the YouTube Data API.
 
 ## Weekly routine
@@ -31,7 +31,7 @@ stock footage (free key), ffmpeg, and the YouTube Data API.
 
 ```markdown
 # Scene: The interview
-> keywords: office night laptop woman     (Pexels search for b-roll)
+> keywords: office night laptop woman     (stock footage search)
 > card: THEY MADE A MISTAKE               (big text on the scene's opening card)
 
 Narration paragraphs...
@@ -45,7 +45,8 @@ Add these in the repository: Settings > Secrets and variables > Actions > New re
 
 | Secret | Where to get it |
 | --- | --- |
-| `PEXELS_API_KEY` | Free at pexels.com/api (optional: without it scenes use branded animated cards) |
+| `PIXABAY_API_KEY` | Free at pixabay.com/api/docs (signed in, the key shows under Parameters). Optional: without a stock key scenes use branded animated cards |
+| `PEXELS_API_KEY` | Optional second source, if Pexels issues you a key |
 | `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` | See `tools/youtube-setup.md` |
 
 ## Run locally (optional)

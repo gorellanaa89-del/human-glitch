@@ -1,0 +1,23 @@
+# Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
+approved: false
+title: "Why Smart People Feel Like Frauds (Impostor Syndrome Explained)"
+thumbnail_text: "THEY'LL FIND OUT"
+# ISO date-time in UTC. Leave empty to upload as a private draft without a schedule.
+publish_at: ""
+# Mark true only if the visuals include realistic AI-generated people or events.
+synthetic_media: false
+short_scene: 3
+tags:
+  - impostor syndrome
+  - psychology
+  - self doubt
+  - workplace psychology
+  - imposter phenomenon
+  - confidence
+  - high achievers
+description: |
+  Einstein called himself an "involuntary swindler." Maya Angelou feared being found out after eleven books. If you've ever felt like a fraud at work, you're in good company. In this video we explore the story behind impostor syndrome, why it hits high achievers hardest, and four research-backed ways to quiet it.
+
+  {chapters}
+
+  Human Glitch: decoding the bugs in the human mind.

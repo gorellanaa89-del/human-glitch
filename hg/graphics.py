@@ -77,7 +77,8 @@ def _slice_shift(img: Image.Image, seed: int, bands: int = 5) -> Image.Image:
     w, h = img.size
     out = img.copy()
     for _ in range(bands):
-        y = rnd.randint(0, h - 40)
+        # Keep slices off the top label/watermark and the bottom subtitle area.
+        y = rnd.randint(int(h * 0.15), int(h * 0.78))
         bh = rnd.randint(6, 28)
         dx = rnd.choice([-1, 1]) * rnd.randint(12, 48)
         band = img.crop((0, y, w, y + bh))
@@ -105,8 +106,10 @@ def background(title: str, out: Path, w: int = 1920, h: int = 1080, card: str = 
         big, lines = _fit(d, card.upper(), font_mono(), int(w * 0.9), int(h * 0.7), start=int(h * 0.14))
         _glitch_text(img, lines, big, w / 2, h * 0.45, (24, 64, 44), offset=2)
         d = ImageDraw.Draw(img)
-    font = ImageFont.truetype(font_mono(), int(h * 0.05))
-    d.text((int(w * 0.04), int(h * 0.88)), f"> {title.lower()}_", font=font, fill=(34, 70, 52))
+    font = ImageFont.truetype(font_mono(), int(h * 0.03))
+    # Top-right, away from the subtitles at the bottom and the watermark at top-left.
+    tag = f"> {title.lower()}_"
+    d.text((int(w * 0.96 - d.textlength(tag, font=font)), int(h * 0.04)), tag, font=font, fill=(34, 70, 52))
     _vignette(img).save(out)
     return out
 

@@ -45,12 +45,16 @@ def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = Fal
         "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
     )
     events = []
-    for line in group(words, 4 if vertical else 6, 2.6):
+    lines = group(words, 4 if vertical else 6, 2.6)
+    for li, line in enumerate(lines):
         parts = []
         for i, (s, e, txt) in enumerate(line):
             nxt = line[i + 1][0] if i + 1 < len(line) else e
             parts.append(f"{{\\k{max(1, int(round((nxt - s) * 100)))}}}{txt}")
         start, end = line[0][0], line[-1][1] + 0.15
+        if li + 1 < len(lines):
+            # Never overlap the next line, or libass stacks both on screen.
+            end = min(end, lines[li + 1][0][0])
         events.append(f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Default,,0,0,0,,{' '.join(parts)}")
     out.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
     return out

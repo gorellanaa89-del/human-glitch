@@ -4,6 +4,7 @@ engine="edge" uses Microsoft Edge's free online voices (no key needed).
 engine="silent" writes silence with estimated timings, for testing the pipeline offline.
 """
 import asyncio
+import time
 from pathlib import Path
 
 from . import media
@@ -40,7 +41,16 @@ def synthesize(text: str, voice: str, wav: Path, engine: str = "edge", rate: str
     """Write a 48 kHz mono WAV with SCENE_GAP of trailing silence and return word timings."""
     if engine == "edge":
         mp3 = wav.with_suffix(".mp3")
-        words = asyncio.run(_edge(text.replace("\n\n", " "), voice, mp3, rate))
+        words = None
+        for attempt in range(4):  # the free voice service sometimes drops a request
+            try:
+                words = asyncio.run(_edge(text.replace("\n\n", " "), voice, mp3, rate))
+                break
+            except Exception as e:  # noqa: BLE001
+                if attempt == 3:
+                    raise
+                print(f"  voice request failed ({e.__class__.__name__}), retrying...")
+                time.sleep(5 * (attempt + 1))
         media.run(["-i", mp3, "-af", f"apad=pad_dur={SCENE_GAP}", "-ar", "48000", "-ac", "1", wav])
         mp3.unlink()
     elif engine == "silent":

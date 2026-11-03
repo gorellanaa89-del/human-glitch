@@ -1,79 +1,113 @@
-# Scene: The interview
+# Scene: The promotion
+> part: hook
 > keywords: office night laptop woman
-> card: THEY MADE A MISTAKE
+> card: SHE GOT THE JOB
+> cast: sarah:happy -> sarah:worried
 
-Sarah just got the job. Senior analyst, a big salary, a team of her own. Her friends are celebrating. Her parents are proud. And Sarah? Sarah is terrified.
+Sarah just got the promotion she worked three years for. Senior Analyst. Her own team. Her boss shook her hand in front of everyone.
 
-Because in her head, there's a voice that won't stop repeating one sentence: they made a mistake. Sooner or later, they'll find out I'm not good enough.
+So why is she sitting alone in the office at nine p.m., staring at her screen, feeling like she just stole something?
 
-If that voice sounds familiar, stay with me. Because the story of that voice begins in a university office almost fifty years ago, and it ends with some of the smartest people in history admitting they felt exactly like Sarah.
+If you've ever felt like that, like any minute now someone will tap you on the shoulder and say "we made a mistake", this video is for you. Because that feeling isn't random. It's an old program running in your brain, and once you understand it, it loses a lot of its power.
 
-This is Human Glitch, where we decode the bugs in the human mind. Today's glitch: impostor syndrome.
+# Scene: Sarah's story
+> part: story
+> keywords: office meeting team presentation
+> card: SARAH, SENIOR ANALYST
+> cast: sarah:neutral, elena:happy, richard:smug
 
-# Scene: Two psychologists notice a pattern
-> keywords: university library old documents
-> card: 1978: THE IMPOSTOR PHENOMENON
+Let's go back a few weeks.
 
-It's the 1970s, at Georgia State University. Two psychologists, Pauline Clance and Suzanne Imes, are counseling students and professionals. And they keep hearing the same confession.
+Sarah is the person everyone goes to when the numbers don't add up. She stays late, she double-checks everything, and she has never missed a deadline. When the Senior Analyst role opened, Elena, the Head of People, didn't hesitate. Sarah was the obvious choice.
 
-These were not struggling people. They had top grades, advanced degrees, impressive careers. And yet, one after another, they said the same thing: I'm not really that smart. I just got lucky. I fooled everyone.
+Everyone thought so. Her team. Her friends. Even Richard, the Operations Director, who rarely compliments anyone, said "well deserved".
 
-In 1978, Clance and Imes published a paper describing more than 150 of these high-achieving women. They gave the feeling a name: the impostor phenomenon.
+Everyone, except Sarah.
 
-What surprised them most was this: success didn't cure it. Every promotion, every award, every compliment only raised the stakes. More success meant more people who could one day discover the truth.
+The day of the announcement, she smiled, she said thank you, she made a short speech. And all the while, a little voice in her head kept saying something that nobody else could hear.
 
-Later research showed it isn't limited to women. Men feel it too, across professions, ages and cultures. One review of dozens of studies in 2020 found rates anywhere from 9 to 82 percent, depending on the group and how it was measured.
+# Scene: Meet The Impostor
+> part: bug
+> keywords: office desk night lamp
+> card: THE IMPOSTOR
+> cast: sarah:worried, bug:impostor:worried
 
-# Scene: Even geniuses feel it
-> keywords: books writer desk vintage
-> card: "AN INVOLUNTARY SWINDLER"
+This is that voice. Let's give it a face.
 
-If you think brilliant people are immune, consider this.
+Meet The Impostor.
 
-Shortly before his death, Albert Einstein confided to a friend that the exaggerated esteem for his work made him uneasy. He said he felt like an involuntary swindler.
+It shows up right after good news, and it always says the same thing: "It was luck. You fooled them. Sooner or later, they'll find out."
 
-The man who rewrote our understanding of time and space felt like a fraud.
+Psychologists have a name for this. In 1978, Pauline Clance and Suzanne Imes, two psychologists at Georgia State University, noticed that many of the high-achieving women they worked with, people with top grades and impressive careers, shared the same secret belief: that they weren't really capable, and that their success was a mistake. They called it the impostor phenomenon.
 
-And Maya Angelou, the poet and author celebrated around the world, once said: I have written eleven books, but each time I think, uh oh, they're going to find out now.
+Later research showed it isn't only women. Men feel it too, in every profession and culture. A 2020 review of dozens of studies found rates from 9 to 82 percent, depending on the group and how it was measured.
 
-Eleven books. And she still waited to be exposed.
+And it doesn't spare geniuses. Near the end of his life, Albert Einstein told a friend that the exaggerated esteem for his work made him feel like an "involuntary swindler". The poet Maya Angelou said that after eleven books, she still thought: "Uh oh, they're going to find out now."
 
-# Scene: Why your brain does this
-> keywords: stress work deadline
-> card: SUCCESS = LUCK?
+# Scene: What it does to Sarah
+> part: consequence
+> keywords: stress work deadline coffee
+> card: 9 COMPLIMENTS, 1 COMMENT
+> cast: sarah:worried, bug:impostor:worried, bug:filter:sad
 
-So why does this happen? Clance described a cycle that keeps the impostor feeling alive.
+Here is what The Impostor does to Sarah's week.
 
-It starts with a new task: a project, an exam, a presentation. Anxiety kicks in. Some people respond by overpreparing, working twice as hard as anyone else. Others procrastinate, then rush at the last minute.
+She starts arriving earlier and leaving later. Not because there's more work, but because she has to prove, every single day, that she deserves the job.
 
-Then the task goes well. And here's the trap. The overpreparer thinks: I only succeeded because I worked so hard. A truly smart person wouldn't need to. The procrastinator thinks: I got lucky.
+She stops asking questions in meetings. If she asks, they might notice what she doesn't know.
 
-Either way, the success never counts as proof of ability. So the next task feels just as dangerous as the first.
+When a project goes well, she doesn't celebrate. She thinks: "I only managed it because I worked twice as hard. A truly smart person wouldn't need to." Success never counts as proof. So the next task feels just as dangerous as the first.
 
-There's another piece. People who feel like impostors usually hold themselves to very high standards. They compare their messy behind-the-scenes with everyone else's polished highlight reel. Of course they come up short.
+And The Impostor rarely travels alone. On Friday, Sarah presents to the leadership team. Nine people tell her it was excellent. One person suggests a different chart. Guess which comment she replays all weekend.
 
-# Scene: How to quiet the impostor
-> keywords: notebook writing calm desk
-> card: 4 WAYS TO DEBUG IT
+That's a second bug, The Filter. It keeps the one negative detail and throws away everything else. Together, these two can turn a great week into proof that you're failing.
 
-The good news: you don't need to silence the voice completely. You just need to stop obeying it. Here are four ideas psychologists often recommend.
+# Scene: Why it exists
+> part: why
+> keywords: savanna landscape sunrise
+> card: AN OLD ALARM
+> cast: bug:impostor:neutral
 
-One: name it. When the thought appears, say to yourself: that's the impostor feeling. A feeling is not a fact. Naming it creates a little distance.
+But here's the important part. The Impostor is not your enemy. It's an old alarm, and once, it was very useful.
 
-Two: keep an evidence file. Save the emails that thank you, the results you delivered, the problems you solved. When your mind says you're a fraud, open the file and look at the data.
+For most of human history, we lived in small groups. Being part of the group meant food, protection and survival. Being pushed out could cost you your life.
 
-Three: talk about it. Impostor feelings grow in silence. When people share them with a mentor or a colleague, they usually discover that others feel the same way, often the very people they admire.
+So our brains became very good at one question: "Do I belong here? Am I good enough for them to keep me?"
 
-Four: change I don't know into I don't know yet. Nobody starts a new role knowing everything. Learning on the job is not proof that you don't belong. It's the job.
+If you were new to the group, or suddenly had a more important role, paying close attention to how others saw you was a smart move. Doubt kept you careful. It made you work hard and avoid mistakes that could get you rejected.
 
-# Scene: The real sign
+The problem is that this alarm was built for a world where being rejected was a matter of life and death. Today, the group is your office, and a promotion triggers the same old signal: new position, more eyes on you, danger. The alarm isn't broken. It's just out of date.
+
+# Scene: The update
+> part: update
+> keywords: coffee conversation office two women
+> card: WHAT DID YOU DO?
+> cast: sarah:worried, elena:happy, bug:impostor:neutral -> bug:impostor:happy
+
+A month later, Elena notices that Sarah looks exhausted, and invites her for a coffee.
+
+Sarah finally says it out loud: "I think you picked the wrong person. I just got lucky."
+
+Elena doesn't argue. She asks a question instead: "Okay. What did you do to get here?"
+
+Sarah starts listing. The model she rebuilt that saved the team two weeks. The error she caught before it reached a client. The three new analysts she trained. The more she talks, the quieter The Impostor gets.
+
+That's the update. You don't have to destroy the voice. You just have to stop taking it as the truth. Here are three ways to do it.
+
+One: name it. When the thought shows up, say: "That's The Impostor talking." A feeling is not a fact, and naming it gives you a little distance.
+
+Two: ask the update question. "What did I actually do to get this?" Then answer with facts, not feelings. Some people keep an evidence file with thank-you emails and results, so the facts are there when the doubt arrives.
+
+Three: say it to someone you trust. The Impostor grows in silence. When Sarah told Elena, she discovered something surprising. Elena felt exactly the same way when she became Head of People.
+
+# Scene: What it really means
+> part: close
 > keywords: woman walking office morning
 > card: YOU CARE. THAT'S THE SIGN.
+> cast: sarah:happy, bug:impostor:happy
 
-Remember Sarah? Months later, she still hears the voice sometimes. But now she knows what it is.
+Sarah still hears The Impostor sometimes. It still shows up after good news. But now she knows what it is: an old alarm trying to protect her. She thanks it, and keeps going.
 
-And she noticed something. The colleagues who worried about not being good enough were usually the ones who prepared the most, asked the best questions and cared the most about getting it right.
+Feeling like an impostor doesn't mean you are one. Very often, it means you're growing, and that you care about doing the work well.
 
-Feeling like an impostor doesn't mean you are one. Often, it means you care about doing the work well.
-
-If this story felt familiar, tell me in the comments: when did you last feel like an impostor? And subscribe to Human Glitch, because next week we're exploring why some bosses can't stop micromanaging, and what it says about them.
+Now tell me in the comments: when was the last time you felt like an impostor? And subscribe to Human Glitch, because next time we meet Richard, and the bug that makes some bosses sure they're always right.

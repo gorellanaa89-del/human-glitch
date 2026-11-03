@@ -1,67 +1,85 @@
-# Scene: La entrevista
+# Scene: El ascenso
 
-Sarah acaba de conseguir el trabajo. Analista senior, buen sueldo, un equipo propio. Sus amigos lo celebran. Sus padres están orgullosos. ¿Y Sarah? Sarah está aterrada.
+Sarah acaba de recibir el ascenso por el que trabajó tres años. Analista senior. Su propio equipo. Su jefa le dio la mano delante de todos.
 
-Porque en su cabeza hay una voz que repite una sola frase: se equivocaron. Tarde o temprano van a descubrir que no soy suficiente.
+Entonces, ¿por qué está sola en la oficina a las nueve de la noche, mirando la pantalla y sintiendo que acaba de robarse algo?
 
-Si esa voz te suena, quédate. Porque la historia de esa voz empieza en una oficina universitaria hace casi cincuenta años, y termina con algunas de las personas más brillantes de la historia admitiendo que se sentían exactamente como Sarah.
+Si alguna vez te sentiste así, como si en cualquier momento alguien fuera a tocarte el hombro para decirte "nos equivocamos", este video es para ti. Porque esa sensación no es casualidad. Es un programa antiguo que corre en tu cerebro, y cuando lo entiendes, pierde gran parte de su poder.
 
-Esto es Human Glitch, donde desciframos los errores de la mente humana. El error de hoy: el síndrome del impostor.
+# Scene: La historia de Sarah
 
-# Scene: Dos psicólogas notan un patrón
+Volvamos unas semanas atrás.
 
-Es la década de 1970, en la Universidad Estatal de Georgia. Dos psicólogas, Pauline Clance y Suzanne Imes, atienden a estudiantes y profesionales, y escuchan una y otra vez la misma confesión.
+Sarah es la persona a la que todos buscan cuando los números no cuadran. Se queda hasta tarde, revisa todo dos veces y nunca ha incumplido un plazo. Cuando se abrió el puesto de analista senior, Elena, la directora de personas, no lo dudó. Sarah era la elección obvia.
 
-No eran personas con problemas para rendir: tenían las mejores notas, posgrados y carreras impresionantes. Y aun así, una tras otra, decían lo mismo: en realidad no soy tan inteligente. Tuve suerte. Engañé a todos.
+Todos lo pensaban. Su equipo. Sus amigos. Hasta Richard, el director de operaciones, que casi nunca felicita a nadie, le dijo "bien merecido".
 
-En 1978 publicaron un estudio sobre más de 150 de estas mujeres exitosas y le pusieron nombre a esa sensación: el fenómeno del impostor.
+Todos, menos Sarah.
 
-Lo que más les sorprendió fue que el éxito no lo curaba. Cada ascenso, cada premio, cada elogio solo subía la apuesta: más éxito significaba más gente que algún día podría descubrir la verdad.
+El día del anuncio sonrió, dio las gracias y dijo unas palabras. Y mientras tanto, una vocecita en su cabeza repetía algo que nadie más podía oír.
 
-Investigaciones posteriores mostraron que no afecta solo a mujeres: los hombres también lo sienten, en todas las profesiones, edades y culturas. Una revisión de decenas de estudios en 2020 encontró tasas de entre 9 y 82 por ciento, según el grupo y la forma de medirlo.
+# Scene: Conoce a The Impostor
 
-# Scene: Hasta los genios lo sienten
+Esa es la voz. Pongámosle cara.
 
-Si crees que los genios son inmunes, escucha esto.
+Te presento a The Impostor, el impostor.
 
-Poco antes de morir, Albert Einstein le confesó a un amigo que la estima exagerada por su obra lo incomodaba. Dijo que se sentía como un estafador involuntario.
+Aparece justo después de una buena noticia y siempre dice lo mismo: "Fue suerte. Los engañaste. Tarde o temprano se van a dar cuenta".
 
-El hombre que cambió nuestra forma de entender el tiempo y el espacio se sentía un fraude.
+La psicología tiene un nombre para esto. En 1978, Pauline Clance y Suzanne Imes, dos psicólogas de la Universidad Estatal de Georgia, notaron que muchas de las mujeres exitosas con las que trabajaban, personas con las mejores notas y carreras impresionantes, compartían la misma creencia secreta: que en realidad no eran capaces y que su éxito era un error. Lo llamaron el fenómeno del impostor.
 
-Y Maya Angelou, poeta y escritora celebrada en todo el mundo, dijo una vez: he escrito once libros, pero cada vez pienso: ay, ahora sí van a descubrirme.
+Investigaciones posteriores mostraron que no afecta solo a mujeres. Los hombres también lo sienten, en todas las profesiones y culturas. Una revisión de decenas de estudios en 2020 encontró tasas de entre 9 y 82 por ciento, según el grupo y la forma de medirlo.
 
-Once libros. Y seguía esperando que la desenmascararan.
+Y no perdona ni a los genios. Hacia el final de su vida, Albert Einstein le contó a un amigo que la estima exagerada por su obra lo hacía sentir como un "estafador involuntario". La poeta Maya Angelou decía que, después de once libros, todavía pensaba: "Ay, ahora sí van a descubrirme".
 
-# Scene: Por qué tu cerebro hace esto
+# Scene: Lo que le hace a Sarah
 
-¿Por qué pasa esto? Clance describió un ciclo que mantiene viva la sensación de impostor.
+Esto es lo que The Impostor le hace a la semana de Sarah.
 
-Empieza con una tarea nueva: un proyecto, un examen, una presentación. Llega la ansiedad. Algunas personas responden preparándose de más, trabajando el doble que los demás. Otras lo postergan y corren a última hora.
+Empieza a llegar más temprano y a irse más tarde. No porque haya más trabajo, sino porque siente que tiene que demostrar, cada día, que merece el puesto.
 
-Luego la tarea sale bien. Y aquí está la trampa. Quien se preparó de más piensa: solo lo logré porque trabajé muchísimo; alguien realmente inteligente no lo necesitaría. Quien lo postergó piensa: tuve suerte.
+Deja de hacer preguntas en las reuniones. Si pregunta, podrían notar lo que no sabe.
 
-En ambos casos, el éxito nunca cuenta como prueba de capacidad, y la siguiente tarea se siente igual de peligrosa que la primera.
+Cuando un proyecto sale bien, no lo celebra. Piensa: "Solo lo logré porque trabajé el doble. Alguien realmente inteligente no lo necesitaría". El éxito nunca cuenta como prueba. Así que la siguiente tarea se siente tan peligrosa como la primera.
 
-Hay algo más: quienes se sienten impostores suelen exigirse muchísimo. Comparan su detrás de cámaras desordenado con los mejores momentos de los demás. Claro que salen perdiendo.
+Y The Impostor casi nunca viaja solo. El viernes, Sarah presenta ante la gerencia. Nueve personas le dicen que estuvo excelente. Una sugiere cambiar un gráfico. Adivina qué comentario repite en su cabeza todo el fin de semana.
 
-# Scene: Cómo calmar al impostor
+Ese es un segundo bug, The Filter, el filtro. Se queda con el único detalle negativo y descarta todo lo demás. Juntos, estos dos pueden convertir una gran semana en la prueba de que estás fallando.
 
-La buena noticia es que no necesitas callar esa voz por completo. Solo necesitas dejar de obedecerla. Estas son cuatro ideas que los psicólogos suelen recomendar.
+# Scene: Por qué existe
 
-Uno: ponle nombre. Cuando aparezca el pensamiento, dite: esto es la sensación de impostor. Un sentimiento no es un hecho, y nombrarlo crea distancia.
+Pero aquí viene lo importante. The Impostor no es tu enemigo. Es una alarma antigua, y alguna vez fue muy útil.
 
-Dos: guarda un archivo de pruebas. Guarda los correos de agradecimiento, los resultados que lograste, los problemas que resolviste. Cuando tu mente diga que eres un fraude, abre el archivo y mira los datos.
+Durante la mayor parte de la historia humana vivimos en grupos pequeños. Pertenecer al grupo significaba comida, protección y supervivencia. Ser expulsado podía costarte la vida.
 
-Tres: háblalo. La sensación de impostor crece en silencio. Cuando la compartes con un mentor o un colega, casi siempre descubres que otros sienten lo mismo, muchas veces las mismas personas que admiras.
+Así que nuestro cerebro se volvió muy bueno en una pregunta: "¿Pertenezco aquí? ¿Soy lo bastante bueno para que me quieran conservar?".
 
-Cuatro: cambia no lo sé por todavía no lo sé. Nadie empieza un puesto nuevo sabiéndolo todo. Aprender en el trabajo no prueba que no perteneces ahí. Es parte del trabajo.
+Si eras nuevo en el grupo, o de pronto tenías un rol más importante, estar muy atento a cómo te veían los demás era una buena estrategia. La duda te mantenía cuidadoso. Te hacía esforzarte y evitar errores que pudieran costarte el rechazo.
 
-# Scene: La verdadera señal
+El problema es que esa alarma se construyó para un mundo donde el rechazo era cuestión de vida o muerte. Hoy el grupo es tu oficina, y un ascenso dispara la misma señal antigua: nueva posición, más miradas sobre ti, peligro. La alarma no está rota. Solo está desactualizada.
 
-¿Recuerdas a Sarah? Meses después, todavía escucha la voz a veces, pero ahora sabe lo que es.
+# Scene: La actualización
 
-Y notó algo: los colegas que se preocupaban por no ser suficientes eran casi siempre los que más se preparaban, hacían las mejores preguntas y más se esforzaban por hacerlo bien.
+Un mes después, Elena nota que Sarah se ve agotada y la invita a tomar un café.
 
-Sentirte impostor no significa que lo seas. Muchas veces significa que te importa hacer bien tu trabajo.
+Por fin, Sarah lo dice en voz alta: "Creo que eligieron a la persona equivocada. Solo tuve suerte".
 
-Si esta historia te sonó familiar, cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste impostor? Y suscríbete a Human Glitch, porque la próxima semana veremos por qué algunos jefes no pueden dejar de controlar todo, y qué dice eso de ellos.
+Elena no discute. En cambio, le hace una pregunta: "Está bien. ¿Qué hiciste tú para llegar aquí?".
+
+Sarah empieza a enumerar. El modelo que rehízo y que le ahorró dos semanas al equipo. El error que detectó antes de que llegara a un cliente. Los tres analistas nuevos que entrenó. Mientras más habla, más se calla The Impostor.
+
+Esa es la actualización. No tienes que destruir la voz. Solo tienes que dejar de tomarla como la verdad. Aquí van tres formas de hacerlo.
+
+Uno: ponle nombre. Cuando aparezca el pensamiento, dite: "Ese es The Impostor hablando". Un sentimiento no es un hecho, y nombrarlo te da un poco de distancia.
+
+Dos: hazte la pregunta de la actualización. "¿Qué hice realmente para lograr esto?". Y responde con hechos, no con sensaciones. Hay personas que guardan un archivo de evidencias con correos de agradecimiento y resultados, para tener los hechos a mano cuando llega la duda.
+
+Tres: cuéntaselo a alguien de confianza. The Impostor crece en silencio. Cuando Sarah se lo contó a Elena, descubrió algo sorprendente: Elena se sintió exactamente igual cuando se convirtió en directora de personas.
+
+# Scene: Lo que de verdad significa
+
+Sarah todavía escucha a The Impostor de vez en cuando. Todavía aparece después de las buenas noticias. Pero ahora sabe lo que es: una alarma antigua que intenta protegerla. Le da las gracias y sigue adelante.
+
+Sentirte un impostor no significa que lo seas. Muchas veces significa que estás creciendo, y que te importa hacer bien tu trabajo.
+
+Ahora cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Human Glitch, porque en el próximo video conocemos a Richard y al bug que hace que algunos jefes estén seguros de tener siempre la razón.

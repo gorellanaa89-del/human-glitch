@@ -8,7 +8,7 @@ on:
         description: "YouTube video ID"
         required: true
       privacy:
-        description: "check, public, unlisted or private"
+        description: "check, public, unlisted, private, or search (video_id = text to search channels for)"
         required: true
         default: "check"
       at:
@@ -31,7 +31,9 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: |
-          if [ -n "${{ inputs.at }}" ]; then
+          if [ "${{ inputs.privacy }}" = "search" ]; then
+            python tools/channel_search.py "${{ inputs.video_id }}"
+          elif [ -n "${{ inputs.at }}" ]; then
             python -m hg visibility "${{ inputs.video_id }}" --privacy "${{ inputs.privacy }}" --at "${{ inputs.at }}"
           else
             python -m hg visibility "${{ inputs.video_id }}" --privacy "${{ inputs.privacy }}"

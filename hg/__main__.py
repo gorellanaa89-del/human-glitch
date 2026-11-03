@@ -34,12 +34,18 @@ def main(argv=None):
     u = sub.add_parser("upload", help="upload a rendered episode")
     u.add_argument("episode", type=Path)
     u.add_argument("--no-shorts", action="store_true", help="upload only the long video (Shorts kept for TikTok)")
+    v = sub.add_parser("visibility", help="check, publish or schedule an uploaded video")
+    v.add_argument("video_id")
+    v.add_argument("--privacy", default="check", choices=["check", "public", "unlisted", "private"])
+    v.add_argument("--at", default=None, help="schedule: UTC time like 2026-11-04T00:00:00Z")
     r = sub.add_parser("run-approved", help="render and upload every approved episode not yet uploaded")
     r.add_argument("--tts", default="edge", choices=["edge", "silent"])
     args = p.parse_args(argv)
 
     if args.cmd == "build":
         print(json.dumps(render.build(args.episode, args.tts, args.max_seconds, None if args.scene is None else args.scene - 1), indent=2, ensure_ascii=False))
+    elif args.cmd == "visibility":
+        print(json.dumps(youtube.set_visibility(args.video_id, args.privacy, args.at), indent=2))
     elif args.cmd == "scenes":
         from .script import parse_script
         print(json.dumps(list(range(1, len(parse_script(args.episode / "script.en.md")) + 1))))

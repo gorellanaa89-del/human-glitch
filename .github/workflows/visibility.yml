@@ -1,0 +1,38 @@
+name: Video visibility
+
+# Check, publish or schedule a video already on the channel. privacy=check only reads its status.
+on:
+  workflow_dispatch:
+    inputs:
+      video_id:
+        description: "YouTube video ID"
+        required: true
+      privacy:
+        description: "check, public, unlisted or private"
+        required: true
+        default: "check"
+      at:
+        description: "Optional: schedule time in UTC, e.g. 2026-11-04T00:00:00Z (video goes public then)"
+        required: false
+        default: ""
+
+jobs:
+  visibility:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: |
+          if [ -n "${{ inputs.at }}" ]; then
+            python -m hg visibility "${{ inputs.video_id }}" --privacy "${{ inputs.privacy }}" --at "${{ inputs.at }}"
+          else
+            python -m hg visibility "${{ inputs.video_id }}" --privacy "${{ inputs.privacy }}"
+          fi

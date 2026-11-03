@@ -123,3 +123,21 @@ def upload(episode: Path, shorts: bool = True) -> dict:
         done[sh["file"]] = _insert(yt, out / sh["file"], snippet, dict(status))
         log_path.write_text(json.dumps(log, indent=2))
     return log
+
+
+def set_visibility(video_id: str, privacy: str = "public", publish_at: str | None = None) -> dict:
+    """Make an uploaded video public now, or schedule it (privacy stays private until publish_at, UTC ISO).
+    Returns the video's status as YouTube reports it afterwards."""
+    yt = _service()
+    cur = yt.videos().list(part="status", id=video_id).execute()["items"][0]["status"]
+    print("before:", json.dumps(cur))
+    status = {"privacyStatus": privacy, "selfDeclaredMadeForKids": cur.get("selfDeclaredMadeForKids", False),
+              "embeddable": cur.get("embeddable", True), "license": cur.get("license", "youtube"),
+              "publicStatsViewable": cur.get("publicStatsViewable", True)}
+    if publish_at:
+        status.update(privacyStatus="private", publishAt=publish_at)
+    if privacy == "check":
+        return cur
+    res = yt.videos().update(part="status", body={"id": video_id, "status": status}).execute()["status"]
+    print("after:", json.dumps(res))
+    return res

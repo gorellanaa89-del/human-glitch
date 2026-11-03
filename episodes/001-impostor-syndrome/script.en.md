@@ -5,6 +5,8 @@
 > cast: sarah:happy -> sarah:worried
 > set: office
 > switch: 0.15
+> note@0: 3 YEARS | Senior Analyst. Her own team.
+> note@1: 9:00 PM | Alone in the office
 
 Sarah just got the promotion she worked three years for. Senior Analyst. Her own team. Her boss shook her hand in front of everyone.
 
@@ -18,10 +20,12 @@ Stay until the end, because the way Sarah finally deals with it is surprisingly 
 > part: story
 > keywords: office meeting team presentation
 > card: SARAH, SENIOR ANALYST
-> cast: richard:smug, sarah:neutral -> sarah:worried, elena:happy, daniel:surprised
+> cast: richard:smug, sarah:neutral -> sarah:worried, elena:happy, daniel:surprised, margaret:happy
 > set: meeting
-> enter: daniel@6
+> enter: daniel@6, margaret@7
 > switch: 0.6
+> note@1: "THE SMART ONE" | school, university, work
+> note@2: OBVIOUS CHOICE | Elena, Head of People
 
 Let's go back a few weeks.
 

@@ -9,6 +9,10 @@ on:
       episode:
         description: "Episode folder, e.g. 001-impostor-syndrome"
         required: true
+      seconds:
+        description: "Only render the first N seconds (quick test). Empty = whole episode"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -39,7 +43,12 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Render
-        run: python -m hg build "episodes/${{ inputs.episode }}"
+        run: |
+          if [ -n "${{ inputs.seconds }}" ]; then
+            python -m hg build "episodes/${{ inputs.episode }}" --max-seconds "${{ inputs.seconds }}"
+          else
+            python -m hg build "episodes/${{ inputs.episode }}"
+          fi
 
       - name: Keep the full files
         if: always()

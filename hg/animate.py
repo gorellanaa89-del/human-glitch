@@ -12,6 +12,7 @@ a patched bug shrinking a little, and camera cuts between a wide and a close sho
 Frames are piped straight into ffmpeg, so a scene costs one encode.
 """
 import math
+import re
 import random
 import subprocess
 from dataclasses import dataclass
@@ -106,7 +107,11 @@ class SceneRenderer:
         self.label_for = {a.name for a in self.actors if a.is_bug and a.name not in labeled}
         labeled.update(self.label_for)
         self._sprites = {}
+        self._labels = {}
         self._build_world()
+        self.words = self._ensure_words(scene.narration, words)
+        self.quotes = self._quotes()
+        self.notes = self._notes(ex)
         self._build_shots()
 
     # ---- world and camera ----
@@ -143,37 +148,222 @@ class SceneRenderer:
         xs = [self._world_x(b) for b in self.actors]
         return (min(xs) + max(xs)) / 2, top, a  # frame the whole group, so nobody is cut at the edge
 
-    def _build_shots(self):
-        """Paragraph-driven cuts between a wide shot and a close shot."""
-        cuts = [0.0]
-        for t in self.paras[1:]:
-            if t - cuts[-1] >= 4.0 and self.seconds - t >= 3.0:
-                cuts.append(t)
-        self.cuts = cuts
-        fx, fy, self.focus_actor = self._focus()
-        wide = (1.0, self.ox + self.w / 2, self.world_h - self.h / 2)
-        xs = [self._world_x(b) for b in self.actors] or [fx]
-        group_w = max(xs) - min(xs) + self.person_h * 0.9
-        z = max(1.0, min(1.3, self.w / max(1, group_w)))
-        vw, vh = self.w / z, self.h / z
-        cx = min(max(fx, vw / 2), self.world_w - vw / 2)
-        cy = min(max(fy + vh * 0.18, vh / 2), self.world_h - vh / 2)
-        close = (z, cx, cy)
-        self.shots = []
-        for i, _ in enumerate(cuts):
-            cam = wide if (i % 2 == 0 or self.focus_actor is None) else close
-            self.shots.append(cam)
-        self._views = {}
+    # ---- timing helpers ----
+    def _ensure_words(self, narration, words):
+        if words:
+            return list(words)
+        toks = narration.split()  # silent test renders: spread the words evenly
+        step = self.seconds / max(1, len(toks))
+        return [(i * step, (i + 0.8) * step, t) for i, t in enumerate(toks)]
 
-    def _view(self, cam):
-        if cam not in self._views:
-            z, cx, cy = cam
+    def _quotes(self):
+        """Spans of quoted speech in the narration: (start, end, text, speaker)."""
+        out, cur = [], None
+        for i, (s, e, t) in enumerate(self.words):
+            if cur is None and t[:1] in "\"“":
+                cur = [i]
+            if cur is not None:
+                core = t.rstrip(".,!?;:")
+                closes = core[-1:] in "\"”" and (i > cur[0] or sum(core.count(q) for q in "\"“”") >= 2)
+                if closes or i - cur[0] > 60:
+                    cur.append(i)
+                    a, b = cur
+                    out.append((a, b))
+                    cur = None
+        spans = []
+        names = {a.name: a for a in self.actors}
+        aliases = {a.name: (bugs.BUGS[a.name][0].split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
+        for a, b in out:
+            before = " ".join(w[2] for w in self.words[max(0, a - 14):a]).lower()
+            speaker, best = None, -1
+            for name, alias in aliases.items():
+                k = before.rfind(alias)
+                if k > best:
+                    speaker, best = names[name], k
+            if b - a + 1 < (2 if speaker else 3):  # very short quotes only when someone is named saying them
+                continue
+            t0 = self.words[a][0]
+            if speaker is None or self.enter_t.get(speaker.name, 0) > t0:
+                vis = [x for x in self.actors if self.enter_t[x.name] <= t0]
+                bug_vis = [x for x in vis if x.is_bug]
+                speaker = bug_vis[0] if bug_vis else (vis[0] if vis else None)
+            if speaker is None:
+                continue
+            idx = list(range(a, b + 1))
+            step = -(-len(idx) // -(-len(idx) // 11))  # even chunks of at most 11 words
+            for k in range(0, len(idx), step):  # long quotes become a sequence of bubbles
+                chunk = idx[k:k + step]
+                text = re.sub(r'^[\"“]+|[\"”]+[.,;:]*$', "", " ".join(self.words[j][2] for j in chunk))
+                spans.append((self.words[chunk[0]][0], self.words[chunk[-1]][1] + 0.35, text, speaker))
+        return spans
+
+    def _notes(self, ex):
+        notes = []
+        for key, val in ex.items():
+            if key.startswith("note@"):
+                para = int(key.split("@")[1])
+                if para < len(self.paras):
+                    t0 = self.paras[para]
+                    t1 = self.paras[para + 1] if para + 1 < len(self.paras) else self.seconds
+                    title, _, sub = val.partition("|")
+                    notes.append((t0 + 0.2, min(t1, t0 + 4.2), title.strip(), sub.strip()))
+        return notes
+
+    # ---- shots ----
+    def _cam_for(self, kind, actor=None):
+        portrait = self.portrait
+        if kind == "wide":
+            return (1.0, self.ox + self.w / 2, self.world_h - self.h / 2)
+        if kind == "group":
+            xs = [self._world_x(b) for b in self.actors]
+            group_w = max(xs) - min(xs) + self.person_h * 0.9
+            z = max(1.0, min(1.3, self.w / max(1, group_w)))
+            fx, fy, _ = self._focus()
+            return self._clamp(z, fx, fy + (self.h / z) * 0.18)
+        if actor.is_bug:
+            z = {"mid": 1.5, "solo": 1.95, "close": 2.5}[kind] * (0.7 if portrait else 1.0)
+            return self._clamp(z, self._world_x(actor), self.bug_feet - self.bug_h * (0.42 if kind != "close" else 0.55))
+        z = {"mid": 1.35, "solo": 1.7, "close": 2.3}[kind] * (0.77 if portrait else 1.0)
+        head = {"mid": 0.5, "solo": 0.52, "close": 0.6}[kind]
+        return self._clamp(z, self._world_x(actor), self.person_bottom - self.person_h * head)
+
+    def _clamp(self, z, cx, cy):
+        vw, vh = self.w / z, self.h / z
+        return (z, min(max(cx, vw / 2), self.world_w - vw / 2), min(max(cy, vh / 2), self.world_h - vh / 2))
+
+    def _build_shots(self):
+        """Cut every few seconds on sentence ends, mixing wide, group and single close-ups that drift slowly.
+        Quotes cut to the speaker; entrances cut to a shot that shows the newcomer."""
+        W = self.words
+        forced = {}
+        for t0, t1, text, spk in self.quotes:
+            forced[round(t0, 2)] = ("solo", spk)
+        for a in self.actors:
+            if self.enter_t[a.name] > 0:
+                forced[round(self.enter_t[a.name], 2)] = ("enter", a)
+        cuts = [0.0]
+        kinds = [("wide", None)]
+        for i, (s, e, t) in enumerate(W):
+            nxt = W[i + 1][0] if i + 1 < len(W) else None
+            if nxt is None or self.seconds - nxt < 1.5:
+                continue
+            gap = nxt - cuts[-1]
+            key = round(nxt, 2)
+            if key in forced and gap >= 1.2:
+                cuts.append(nxt); kinds.append(forced[key]); continue
+            # end of a quote: go back out to a wider shot
+            if any(abs(q[1] - 0.35 - e) < 0.01 for q in self.quotes) and gap >= 1.2:
+                cuts.append(nxt); kinds.append(None); continue
+            sentence_end = t.rstrip("\"”")[-1:] in ".?!"
+            if (sentence_end and gap >= 2.4) or (t[-1:] in ",;:" and gap >= 3.8) or gap >= 5.0:
+                cuts.append(nxt); kinds.append(None)
+        # fill free choices, never repeating the previous framing
+        options = [("wide", None)] + ([("group", None)] if len(self.actors) > 1 else []) + \
+            [(k, a) for a in self.actors for k in ("mid", "solo", "close")]
+        prev = None
+        self.cams = []
+        for i, (c, k) in enumerate(zip(cuts, kinds)):
+            if k is not None and k[0] == "enter":
+                k = ("wide", None) if len(self.actors) > 2 else ("group", None)
+            if k is None:
+                avail = [o for o in options if _fresh(o, prev) and (o[1] is None or self.enter_t[o[1].name] <= c + 0.01)]
+                k = self.rng.choice(avail) if avail else ("wide", None)
+            if len(self.actors) == 0:
+                k = ("wide", None)
+            z, cx, cy = self._cam_for(k[0], k[1])
+            end = cuts[i + 1] if i + 1 < len(cuts) else self.seconds
+            drift = (self.w / z) * (0.035 if k[0] != "wide" else 0.02) * (1 if i % 2 == 0 else -1)
+            z, cx0, cy0 = self._clamp(z, cx - drift / 2, cy)
+            z, cx1, cy1 = self._clamp(z, cx + drift / 2, cy)
+            self.cams.append((c, end, z, cx0, cy0, cx1, cy1))
+            prev = k
+        self.cuts = cuts
+        self._shot_bgs = {}
+        self._bubble_cache = {}
+        self._note_cache = {}
+
+    def _shot_layers(self, i):
+        if i not in self._shot_bgs:
+            c, end, z, cx0, cy0, cx1, cy1 = self.cams[i]
             vw, vh = self.w / z, self.h / z
-            box = (cx - vw / 2, cy - vh / 2, cx + vw / 2, cy + vh / 2)
-            bg = self.bg.resize((self.w, self.h), Image.LANCZOS, box=box)
-            fr = self.front.resize((self.w, self.h), Image.LANCZOS, box=box) if self.front else None
-            self._views[cam] = (bg, fr, {})
-        return self._views[cam]
+            x0 = min(cx0, cx1) - vw / 2
+            x1 = max(cx0, cx1) + vw / 2
+            y0 = cy0 - vh / 2
+            size = (int(round((x1 - x0) * z)), self.h)
+            box = (x0, y0, x1, y0 + vh)
+            bg = self.bg.resize(size, Image.LANCZOS, box=box)
+            fr = self.front.resize(size, Image.LANCZOS, box=box) if self.front else None
+            self._shot_bgs = {i: (bg, fr, x0)}  # keep only the current shot in memory
+        return self._shot_bgs[i]
+
+    def _bubble(self, qi, text, hx, hy, z):
+        key = (qi, round(hx), round(hy))
+        if key not in self._bubble_cache:
+            from PIL import ImageDraw, ImageFont
+            fsize = int(self.h * (0.034 if self.portrait else 0.05))
+            font = ImageFont.truetype(str(sketch.HAND_FONT), fsize)
+            d = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+            maxw = self.w * (0.7 if self.portrait else 0.36)
+            lines, cur = [], ""
+            for wd in text.split():
+                trial = (cur + " " + wd).strip()
+                if d.textlength(trial, font=font) > maxw and cur:
+                    lines.append(cur); cur = wd
+                else:
+                    cur = trial
+            lines.append(cur)
+            tw = max(d.textlength(l, font=font) for l in lines)
+            th = len(lines) * fsize * 1.15
+            bw, bh = tw + fsize * 1.6, th + fsize * 1.2
+            side = 1 if hx < self.w * 0.55 else -1
+            bx = hx + side * (bw / 2 + self.w * 0.05)
+            bx = min(max(bx, bw / 2 + 20), self.w - bw / 2 - 20)
+            by = max(bh / 2 + 24, min(hy - bh * 0.35, self.h * 0.45))
+            img = Image.new("RGBA", (self.w * sketch.SS, self.h * sketch.SS), (0, 0, 0, 0))
+            p = sketch.Pencil(img, 31 + qi)
+            pts = sketch.ellipse_pts(bx, by, bw / 2 * 1.08, bh / 2 * 1.12, n=60)
+            tip = (hx + side * self.w * 0.03, hy - self.h * 0.02)
+            base_a = (bx - side * bw * 0.18, by + bh * 0.3)
+            base_b = (bx - side * bw * 0.02, by + bh * 0.42)
+            p.shape([base_a, tip, base_b], (255, 255, 255), 3.5, wobble=0.8)
+            p.shape(pts, (255, 255, 255), 4.0, wobble=1.0)
+            img = img.resize((self.w, self.h), Image.LANCZOS)
+            dd = ImageDraw.Draw(img)
+            for li, line in enumerate(lines):
+                dd.text((bx, by - th / 2 + (li + 0.5) * fsize * 1.15), line, font=font, fill=sketch.INK, anchor="mm")
+            bbox = img.getbbox()
+            self._bubble_cache = {key: (img.crop(bbox), bbox[:2])}
+        return self._bubble_cache[key]
+
+    def _note(self, title, sub):
+        key = (title, sub)
+        if key not in self._note_cache:
+            from PIL import ImageDraw, ImageFont
+            from .config import BRAND_BLUE, BRAND_GRAY
+            img = Image.new("RGB", (self.w, self.h), (250, 247, 238))
+            d = ImageDraw.Draw(img)
+            for y in range(int(self.h * 0.12), self.h, int(self.h * 0.07)):
+                d.line([(0, y), (self.w, y)], fill=(226, 232, 240), width=2)
+            d.line([(int(self.w * 0.08), 0), (int(self.w * 0.08), self.h)], fill=(240, 190, 190), width=3)
+            big = int(self.h * (0.09 if self.portrait else 0.15))
+            font = ImageFont.truetype(str(sketch.HAND_FONT), big)
+            while d.textlength(title, font=font) > self.w * 0.8 and big > 30:
+                big -= 4
+                font = ImageFont.truetype(str(sketch.HAND_FONT), big)
+            cy = self.h * (0.44 if sub else 0.5)
+            d.text((self.w / 2, cy), title, font=font, fill=sketch.INK, anchor="mm")
+            tl = d.textlength(title, font=font)
+            tmp = Image.new("RGBA", (self.w * sketch.SS, self.h * sketch.SS), (0, 0, 0, 0))
+            p = sketch.Pencil(tmp, 77)
+            yline = cy + big * 0.62
+            p.line(sketch.bez((self.w / 2 - tl / 2, yline), (self.w / 2 - tl / 6, yline + 8), (self.w / 2 + tl / 6, yline - 6), (self.w / 2 + tl / 2, yline + 4)), 6, BRAND_BLUE)
+            tmp = tmp.resize((self.w, self.h), Image.LANCZOS)
+            img.paste(tmp, (0, 0), tmp)
+            if sub:
+                sf = ImageFont.truetype(str(sketch.HAND_FONT), int(big * 0.42))
+                d.text((self.w / 2, cy + big * 1.15), sub, font=sf, fill=BRAND_GRAY, anchor="mm")
+            self._note_cache = {key: img}
+        return self._note_cache[key]
 
     def _to_screen(self, cam, x, y):
         z, cx, cy = cam
@@ -190,8 +380,10 @@ class SceneRenderer:
         return self._sprites[key]
 
     def _label(self, cam, a: Actor, sx, sy, height):
-        view = self._view(cam)[2]
-        key = (a.name, round(sx), round(sy), height)
+        view = self._labels
+        key = (a.name, round(sx / 3), round(sy / 3), height)
+        if len(view) > 40:
+            view.clear()
         if key not in view:
             img = Image.new("RGBA", (self.w, self.h), (0, 0, 0, 0))
             size = int(height * 0.16)
@@ -220,14 +412,23 @@ class SceneRenderer:
             y += hgt
         return out
 
+
     # ---- frames ----
     def frame(self, t: float) -> Image.Image:
-        shot = max(i for i, c in enumerate(self.cuts) if c <= t)
-        cam = self.shots[shot]
-        z = cam[0]
-        bg, fr, _ = self._view(cam)
-        img = bg.copy()
-        labels = []
+        for t0, t1, title, sub in self.notes:
+            if t0 <= t < t1:
+                return self._note(title, sub).copy()
+        i = max(k for k, c in enumerate(self.cuts) if c <= t)
+        c, end, z, cx0, cy0, cx1, cy1 = self.cams[i]
+        u = 0.0 if end - c < 0.01 else (t - c) / (end - c)
+        u = u * u * (3 - 2 * u)
+        cx, cy = cx0 + (cx1 - cx0) * u, cy0 + (cy1 - cy0) * u
+        bg, fr, x0 = self._shot_layers(i)
+        off = int(round((cx - self.w / z / 2 - x0) * z))
+        off = min(max(off, 0), bg.width - self.w)
+        img = bg.crop((off, 0, off + self.w, self.h))
+        cam = (z, cx, cy)
+        labels, heads = [], {}
         for a in self.actors:
             t0 = self.enter_t[a.name]
             if t < t0:
@@ -247,25 +448,39 @@ class SceneRenderer:
                 wx, wy = self._world_x(a), self.bug_feet
             else:
                 height = int(self.person_h * z)
+                height -= height % 2
                 bob = math.sin(2 * math.pi * (t + a.seed * 0.9) / 3.2) * 4 * z
                 if a.expr1 and abs(t - self.t_switch) < 0.25:  # small hop on the expression change
                     bob -= math.sin(math.pi * (t - self.t_switch + 0.25) / 0.5) * 14 * z
+                if t0 == 0:  # rise into frame at the start of the scene
+                    k = min(1.0, max(0.0, (t - a.seed * 0.12) / 0.45))
+                    bob += (1 - k) ** 2 * height * 0.5
                 wx, wy = self._world_x(a), self.person_bottom
             spr = self._sprite(a, expr, blink, height)
             sx, sy = self._to_screen(cam, wx, wy)
             x, y = int(sx - spr.width / 2), int(sy - spr.height + bob)
+            if x > self.w or x + spr.width < 0:
+                continue
+            heads[a.name] = (sx, sy - spr.height * (0.82 if not a.is_bug else 0.7) + bob)
             age = t - t0
             if a.is_bug and age < 0.5:
                 g = self._glitch(spr, self.rng, 1.0 - age / 0.5)
                 img.paste(g, (x - 40, y - 40), g)
             else:
                 img.paste(spr, (x, y), spr)
-            if a.name in self.label_for and 0.6 < age < 5.5:
-                labels.append(self._label(cam, a, sx, sy, height))
+            if a.name in self.label_for and 0.6 < age < 5.5 and not any(q[0] <= t < q[1] for q in self.quotes):
+                labels.append(self._label((z, cx, cy), a, sx, sy, height))
         if fr is not None:
-            img.paste(fr, (0, 0), fr)
+            fc = fr.crop((off, 0, off + self.w, self.h))
+            img.paste(fc, (0, 0), fc)
         for lab in labels:
             img.paste(lab, (0, 0), lab)
+        for qi, (q0, q1, text, spk) in enumerate(self.quotes):
+            if q0 <= t < q1 and spk.name in heads:
+                hx, hy = heads[spk.name]
+                b, pos = self._bubble(qi, text, hx, hy, z)
+                img.paste(b, pos, b)
+                break
         return img
 
     def render(self, out: Path, crf: int = 21):
@@ -282,6 +497,21 @@ class SceneRenderer:
             if proc.wait() != 0:
                 raise RuntimeError(f"ffmpeg failed while rendering {out}")
         return out
+
+
+_STEPS = ("mid", "solo", "close")
+
+
+def _fresh(option, prev) -> bool:
+    """A new shot must look clearly different from the last one: another framing, and on the same
+    person a jump of at least two sizes (mid to close), so cuts never feel like a small jitter."""
+    if prev is None:
+        return True
+    if option[0] == prev[0] and option[1] is prev[1]:
+        return False
+    if option[1] is not None and option[1] is prev[1] and option[0] in _STEPS and prev[0] in _STEPS:
+        return abs(_STEPS.index(option[0]) - _STEPS.index(prev[0])) > 1
+    return option[0] != prev[0] or option[1] is not prev[1]
 
 
 def is_animated(scene) -> bool:

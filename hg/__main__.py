@@ -27,6 +27,7 @@ def main(argv=None):
     b = sub.add_parser("build", help="render one episode folder")
     b.add_argument("episode", type=Path)
     b.add_argument("--tts", default="edge", choices=["edge", "silent"])
+    b.add_argument("--max-seconds", type=float, default=None, help="render only the opening, for quick tests")
     u = sub.add_parser("upload", help="upload a rendered episode")
     u.add_argument("episode", type=Path)
     r = sub.add_parser("run-approved", help="render and upload every approved episode not yet uploaded")
@@ -34,7 +35,7 @@ def main(argv=None):
     args = p.parse_args(argv)
 
     if args.cmd == "build":
-        print(json.dumps(render.build(args.episode, args.tts), indent=2, ensure_ascii=False))
+        print(json.dumps(render.build(args.episode, args.tts, args.max_seconds), indent=2, ensure_ascii=False))
     elif args.cmd == "upload":
         print(json.dumps(youtube.upload(args.episode), indent=2))
     else:

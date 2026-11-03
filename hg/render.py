@@ -146,7 +146,9 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path,
     return out
 
 
-def build(episode: Path, engine: str = "edge") -> dict:
+def build(episode: Path, engine: str = "edge", max_seconds: float | None = None) -> dict:
+    """Render an episode. With max_seconds, only the opening is rendered (a quick test): narration is cut
+    at that point and the Short and thumbnail are skipped."""
     meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
     scenes = parse_script(episode / "script.en.md")
     es_path = episode / "script.es.md"
@@ -165,10 +167,20 @@ def build(episode: Path, engine: str = "edge") -> dict:
     labeled: set = set()  # bugs whose name label was already shown
     t = 0.0
     for i, sc in enumerate(scenes):
+        if max_seconds and t >= max_seconds - 0.5:
+            scenes = scenes[:i]
+            break
         print(f"Scene {i + 1}/{len(scenes)}: {sc.title}")
         wav = work / f"s{i}_en.wav"
         words = _attach_punctuation(tts.synthesize(sc.narration, VOICES["en"], wav, engine, VOICE_RATE["en"]), sc.narration)
         seconds = media.duration(wav)
+        full_seconds = seconds
+        if max_seconds and t + seconds > max_seconds:
+            seconds = max_seconds - t
+            cut_wav = work / f"s{i}_en_cut.wav"
+            media.run(["-i", wav, "-t", f"{seconds:.3f}", "-af", f"afade=t=out:st={max(0, seconds - 0.6):.3f}:d=0.6", cut_wav])
+            wav = cut_wav
+            words = [w for w in words if w[0] < seconds]
         if animate.is_animated(sc):
             video = work / f"s{i}_video.mp4"
             animate.render_scene(sc, seconds, words, video, (W, H), labeled, seed=i)
@@ -187,7 +199,11 @@ def build(episode: Path, engine: str = "edge") -> dict:
             es_sc = scenes_es[i]
             ew = _attach_punctuation(tts.synthesize(es_sc.narration, VOICES["es"], es_raw, engine, VOICE_RATE["es"]), es_sc.narration)
             es_wav = work / f"s{i}_es.wav"
-            tempo, cut = _fit_spanish(es_raw, seconds, es_wav)
+            tempo, cut = _fit_spanish(es_raw, full_seconds, es_wav)
+            if seconds < full_seconds:
+                es_cut = work / f"s{i}_es_cut.wav"
+                media.run(["-i", es_wav, "-t", f"{seconds:.3f}", "-af", f"afade=t=out:st={max(0, seconds - 0.6):.3f}:d=0.6", es_cut])
+                es_wav = es_cut
             if cut:
                 warnings.append(f"Scene {i + 1}: Spanish narration is too long and was cut at the end; shorten it.")
             es_wavs.append(es_wav)
@@ -219,6 +235,8 @@ def build(episode: Path, engine: str = "edge") -> dict:
         files.update(audio_es="audio.es.m4a", captions_es="captions.es.srt")
 
     idx = int(meta.get("short_scene") or 0) - 1
+    if max_seconds:
+        idx = -1  # a test of the opening: no Short or thumbnail
     frame = None
     if 0 <= idx < len(scenes) and animate.is_animated(scenes[idx]):
         frame = work / "thumb_frame.png"

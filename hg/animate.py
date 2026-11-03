@@ -58,12 +58,15 @@ def paragraph_starts(narration: str, words, seconds: float) -> list[float]:
     counts = [len(p.split()) for p in paras]
     total = sum(counts) or 1
     starts, cum = [], 0
+    # a scene cut short for a test keeps only its first words: map paragraphs one word to one word
+    scale = len(words) / total if words and len(words) >= 0.9 * total else 1.0
     for c in counts:
         if not words:
             starts.append(seconds * cum / total)
+        elif round(cum * scale) >= len(words):
+            starts.append(seconds + 1.0)  # paragraph falls after the cut: never reached
         else:
-            idx = min(len(words) - 1, round(cum * len(words) / total))
-            starts.append(0.0 if cum == 0 else words[idx][0])
+            starts.append(0.0 if cum == 0 else words[round(cum * scale)][0])
         cum += c
     return starts
 

@@ -136,6 +136,8 @@ def set_visibility(video_id: str, privacy: str = "public", publish_at: str | Non
               "publicStatsViewable": cur.get("publicStatsViewable", True)}
     if publish_at:
         status.update(privacyStatus="private", publishAt=publish_at)
+    elif privacy == "private":
+        status["publishAt"] = None  # cancel any scheduled publication
     if privacy == "check":
         return cur
     res = yt.videos().update(part="status", body={"id": video_id, "status": status}).execute()["status"]

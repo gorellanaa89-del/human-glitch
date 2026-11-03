@@ -33,6 +33,7 @@ def main(argv=None):
     sc.add_argument("episode", type=Path)
     u = sub.add_parser("upload", help="upload a rendered episode")
     u.add_argument("episode", type=Path)
+    u.add_argument("--no-shorts", action="store_true", help="upload only the long video (Shorts kept for TikTok)")
     r = sub.add_parser("run-approved", help="render and upload every approved episode not yet uploaded")
     r.add_argument("--tts", default="edge", choices=["edge", "silent"])
     args = p.parse_args(argv)
@@ -43,7 +44,7 @@ def main(argv=None):
         from .script import parse_script
         print(json.dumps(list(range(1, len(parse_script(args.episode / "script.en.md")) + 1))))
     elif args.cmd == "upload":
-        print(json.dumps(youtube.upload(args.episode), indent=2))
+        print(json.dumps(youtube.upload(args.episode, shorts=not args.no_shorts), indent=2))
     else:
         eps = _approved_pending()
         if not eps:

@@ -58,7 +58,9 @@ def _caption(yt, video_id: str, srt: Path, lang: str, name: str):
     ).execute()
 
 
-def upload(episode: Path) -> dict:
+def upload(episode: Path, shorts: bool = True) -> dict:
+    """Upload the long video (private) with captions and thumbnail; Shorts too unless shorts=False
+    (for example when they are kept for TikTok)."""
     meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
     out = episode / "output"
     log_path = episode / "uploaded.json"
@@ -99,11 +101,12 @@ def upload(episode: Path) -> dict:
                 except Exception as e:
                     print(f"  {lang} captions not uploaded: {e}")
 
+    shorts_wanted = shorts
     report = json.loads((out / "report.json").read_text()) if (out / "report.json").exists() else {}
     shorts = report.get("files", {}).get("shorts") or (
         [{"file": "short.mp4", "lang": "en", "title": meta["title"].split("(")[0].strip()}] if (out / "short.mp4").exists() else [])
     done = log.setdefault("shorts", {})
-    for sh in shorts:
+    for sh in shorts if shorts_wanted else []:
         if sh["file"] in done or not (out / sh["file"]).exists():
             continue
         es = sh["lang"] == "es"

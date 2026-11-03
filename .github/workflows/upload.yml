@@ -1,0 +1,78 @@
+name: Upload a rendered episode
+
+# Uploads the files a "Render episode" run already made (no re-render), as a private video,
+# with English and Spanish captions and the thumbnail. Run only after the episode was approved.
+on:
+  workflow_dispatch:
+    inputs:
+      episode:
+        description: "Episode folder, e.g. 001-impostor-syndrome"
+        required: true
+      run_id:
+        description: "ID of the Render episode run whose files to upload"
+        required: true
+      shorts:
+        description: "Also upload the Shorts to YouTube (yes/no)"
+        required: false
+        default: "no"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: render-${{ inputs.episode }}
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: episodes/${{ inputs.episode }}/output/
+
+      - name: Upload to YouTube (private)
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: |
+          ls -la "episodes/${{ inputs.episode }}/output/"
+          if [ "${{ inputs.shorts }}" = "yes" ]; then
+            python -m hg upload "episodes/${{ inputs.episode }}"
+          else
+            python -m hg upload "episodes/${{ inputs.episode }}" --no-shorts
+          fi
+
+      - name: Record what was uploaded
+        if: always()
+        run: |
+          git config user.name "human-glitch-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add "episodes/${{ inputs.episode }}/uploaded.json" 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "Record upload of ${{ inputs.episode }}" && git push)
+
+      - name: Hand over the Spanish audio track and the Shorts (branch deliveries)
+        if: success()
+        run: |
+          OUT="episodes/${{ inputs.episode }}/output"
+          P=$(mktemp -d)
+          mkdir -p "$P/${{ inputs.episode }}"
+          cp "$OUT/audio.es.m4a" "$OUT"/short-*.mp4 "$OUT"/captions.*.srt "$P/${{ inputs.episode }}/" 2>/dev/null || true
+          cd "$P"
+          git init -q -b deliveries
+          git config user.name "human-glitch-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -qm "Deliveries for ${{ inputs.episode }}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" deliveries

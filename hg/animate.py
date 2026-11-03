@@ -110,6 +110,7 @@ class SceneRenderer:
         self.label_for = {a.name for a in self.actors if a.is_bug and a.name not in labeled}
         labeled.update(self.label_for)
         self._sprites = {}
+        self._tilts = {}
         self._labels = {}
         self._build_world()
         self.words = self._ensure_words(scene.narration, words)
@@ -339,34 +340,56 @@ class SceneRenderer:
         return self._bubble_cache[key]
 
     def _note(self, title, sub):
+        """A lined paper card with a big handwritten fact. It slides over the scene in the upper part of
+        the frame, so it never covers the subtitles at the bottom."""
         key = (title, sub)
         if key not in self._note_cache:
-            from PIL import ImageDraw, ImageFont
+            from PIL import ImageDraw, ImageFilter, ImageFont
             from .config import BRAND_BLUE, BRAND_GRAY
-            img = Image.new("RGB", (self.w, self.h), (250, 247, 238))
-            d = ImageDraw.Draw(img)
-            for y in range(int(self.h * 0.12), self.h, int(self.h * 0.07)):
-                d.line([(0, y), (self.w, y)], fill=(226, 232, 240), width=2)
-            d.line([(int(self.w * 0.08), 0), (int(self.w * 0.08), self.h)], fill=(240, 190, 190), width=3)
-            big = int(self.h * (0.09 if self.portrait else 0.15))
+            cw = int(self.w * (0.86 if self.portrait else 0.44))
+            big = int(self.h * (0.07 if self.portrait else 0.12))
             font = ImageFont.truetype(str(sketch.HAND_FONT), big)
-            while d.textlength(title, font=font) > self.w * 0.8 and big > 30:
+            d0 = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+            while d0.textlength(title, font=font) > cw * 0.84 and big > 30:
                 big -= 4
                 font = ImageFont.truetype(str(sketch.HAND_FONT), big)
-            cy = self.h * (0.44 if sub else 0.5)
-            d.text((self.w / 2, cy), title, font=font, fill=sketch.INK, anchor="mm")
+            sf = ImageFont.truetype(str(sketch.HAND_FONT), int(big * 0.42))
+            ch = int(big * (2.3 if sub else 1.7))
+            pad = 40
+            card = Image.new("RGBA", (cw + pad * 2, ch + pad * 2), (0, 0, 0, 0))
+            shadow = Image.new("RGBA", card.size, (0, 0, 0, 0))
+            ImageDraw.Draw(shadow).rounded_rectangle((pad + 10, pad + 14, pad + cw + 10, pad + ch + 14), 10, fill=(5, 28, 44, 90))
+            card.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(10)))
+            d = ImageDraw.Draw(card)
+            d.rounded_rectangle((pad, pad, pad + cw, pad + ch), 10, fill=(250, 247, 238, 255), outline=sketch.INK + (255,), width=3)
+            for y in range(pad + int(ch * 0.2), pad + ch - 6, int(big * 0.42)):
+                d.line([(pad + 4, y), (pad + cw - 4, y)], fill=(222, 229, 240, 255), width=2)
+            d.line([(pad + int(cw * 0.08), pad + 3), (pad + int(cw * 0.08), pad + ch - 3)], fill=(240, 190, 190, 255), width=3)
+            cx = pad + cw / 2
+            ty = pad + big * 0.85
+            d.text((cx, ty), title, font=font, fill=sketch.INK + (255,), anchor="mm")
             tl = d.textlength(title, font=font)
-            tmp = Image.new("RGBA", (self.w * sketch.SS, self.h * sketch.SS), (0, 0, 0, 0))
-            p = sketch.Pencil(tmp, 77)
-            yline = cy + big * 0.62
-            p.line(sketch.bez((self.w / 2 - tl / 2, yline), (self.w / 2 - tl / 6, yline + 8), (self.w / 2 + tl / 6, yline - 6), (self.w / 2 + tl / 2, yline + 4)), 6, BRAND_BLUE)
-            tmp = tmp.resize((self.w, self.h), Image.LANCZOS)
-            img.paste(tmp, (0, 0), tmp)
+            yl = ty + big * 0.6
+            d.line([(cx - tl / 2, yl), (cx - tl / 6, yl + 5), (cx + tl / 6, yl - 3), (cx + tl / 2, yl + 3)], fill=BRAND_BLUE + (255,), width=6, joint="curve")
             if sub:
-                sf = ImageFont.truetype(str(sketch.HAND_FONT), int(big * 0.42))
-                d.text((self.w / 2, cy + big * 1.15), sub, font=sf, fill=BRAND_GRAY, anchor="mm")
-            self._note_cache = {key: img}
+                d.text((cx, yl + big * 0.62), sub, font=sf, fill=BRAND_GRAY + (255,), anchor="mm")
+            card = card.rotate(-2.5 if len(self._note_cache) % 2 == 0 else 2.0, resample=Image.BICUBIC, expand=True)
+            self._note_cache[key] = card
         return self._note_cache[key]
+
+    def _note_pos(self, card, t, t0, t1):
+        """Slide in from the left with a little overshoot, hold, then slide back out."""
+        x_rest = int(self.w * (0.07 if self.portrait else 0.04))
+        y = int(self.h * (0.06 if not self.portrait else 0.08))
+        x_off = -card.width - 20
+        if t - t0 < 0.4:
+            u = (t - t0) / 0.4
+            k = 1 - (1 - u) ** 3 + 0.08 * math.sin(math.pi * u)
+            return int(x_off + (x_rest - x_off) * k), y
+        if t1 - t < 0.3:
+            u = 1 - (t1 - t) / 0.3
+            return int(x_rest + (x_off - x_rest) * u * u), y
+        return x_rest, y + int(4 * math.sin(2 * math.pi * (t - t0) / 2.4))
 
     def _to_screen(self, cam, x, y):
         z, cx, cy = cam
@@ -381,6 +404,24 @@ class SceneRenderer:
             else:
                 self._sprites[key] = sketch.draw(a.name, expr, height=height, blink=blink)
         return self._sprites[key]
+
+    def _tilt(self, spr, a, expr, blink, height, angle):
+        """Rotate a sprite a few degrees around its feet (cached in 1-degree steps).
+        Returns the rotated sprite and the x shift that keeps the feet in place."""
+        deg = round(angle * 2) / 2
+        if deg == 0:
+            return spr, 0
+        key = (a.name, expr, blink, height, deg)
+        if key not in self._tilts:
+            if len(self._tilts) > 400:
+                self._tilts.clear()
+            self._tilts[key] = spr.rotate(deg, resample=Image.BICUBIC, expand=True)
+        r = self._tilts[key]
+        # rotating about the centre moves the feet sideways; shift back so they stay put,
+        # and drop the extra height that expand adds below the feet
+        dx = -spr.height / 2 * math.sin(math.radians(deg))
+        pad_y = (r.height - spr.height) / 2
+        return r.crop((0, 0, r.width, int(r.height - pad_y))), dx
 
     def _label(self, cam, a: Actor, sx, sy, height):
         view = self._labels
@@ -418,9 +459,6 @@ class SceneRenderer:
 
     # ---- frames ----
     def frame(self, t: float) -> Image.Image:
-        for t0, t1, title, sub in self.notes:
-            if t0 <= t < t1:
-                return self._note(title, sub).copy()
         i = max(k for k, c in enumerate(self.cuts) if c <= t)
         c, end, z, cx0, cy0, cx1, cy1 = self.cams[i]
         u = 0.0 if end - c < 0.01 else (t - c) / (end - c)
@@ -447,21 +485,36 @@ class SceneRenderer:
                     scale = 1.0 - 0.18 * k
                 height = int(self.bug_h * z * scale)
                 height -= height % 4
-                bob = -abs(math.sin(2 * math.pi * (t + a.seed) / 1.6)) * 10 * z
+                bob = -abs(math.sin(2 * math.pi * (t + a.seed) / 1.6)) * 16 * z
+                angle = 6 * math.sin(2 * math.pi * (t + a.seed) / 2.2)
+                sway = 14 * z * math.sin(2 * math.pi * (t + a.seed * 0.5) / 3.1)
                 wx, wy = self._world_x(a), self.bug_feet
             else:
                 height = int(self.person_h * z)
                 height -= height % 2
-                bob = math.sin(2 * math.pi * (t + a.seed * 0.9) / 3.2) * 4 * z
-                if a.expr1 and abs(t - self.t_switch) < 0.25:  # small hop on the expression change
-                    bob -= math.sin(math.pi * (t - self.t_switch + 0.25) / 0.5) * 14 * z
+                # idle: breathe, lean from side to side and shift weight, each person at their own pace
+                ph = t + a.seed * 0.9
+                bob = math.sin(2 * math.pi * ph / 2.6) * 7 * z
+                angle = 2.2 * math.sin(2 * math.pi * ph / 3.4) + 1.2 * math.sin(2 * math.pi * ph / 1.7)
+                sway = 10 * z * math.sin(2 * math.pi * ph / 4.1)
+                talking = any(q0 <= t < q1 and spk is a for q0, q1, _, spk in self.quotes)
+                if talking:  # the speaker bounces and nods while the bubble is up
+                    bob -= abs(math.sin(2 * math.pi * t / 0.42)) * 12 * z
+                    angle += 3 * math.sin(2 * math.pi * t / 0.84)
+                if a.expr1 and abs(t - self.t_switch) < 0.35:  # a hop on the expression change
+                    bob -= math.sin(math.pi * (t - self.t_switch + 0.35) / 0.7) * 30 * z
+                if 0 < t0 and 0 <= t - t0 < 0.45:  # people who join later pop up into place
+                    k = (t - t0) / 0.45
+                    bob += (1 - k) ** 2 * height * 0.35
                 if t0 == 0:  # rise into frame at the start of the scene
                     k = min(1.0, max(0.0, (t - a.seed * 0.12) / 0.45))
                     bob += (1 - k) ** 2 * height * 0.5
                 wx, wy = self._world_x(a), self.person_bottom
             spr = self._sprite(a, expr, blink, height)
             sx, sy = self._to_screen(cam, wx, wy)
-            x, y = int(sx - spr.width / 2), int(sy - spr.height + bob)
+            sx += sway
+            spr, dx = self._tilt(spr, a, expr, blink, height, angle)
+            x, y = int(sx - spr.width / 2 + dx), int(sy - spr.height + bob)
             if x > self.w or x + spr.width < 0:
                 continue
             heads[a.name] = (sx, sy - spr.height * (0.82 if not a.is_bug else 0.7) + bob)
@@ -478,12 +531,16 @@ class SceneRenderer:
             img.paste(fc, (0, 0), fc)
         for lab in labels:
             img.paste(lab, (0, 0), lab)
+        note = next((n for n in self.notes if n[0] <= t < n[1]), None)
         for qi, (q0, q1, text, spk) in enumerate(self.quotes):
-            if q0 <= t < q1 and spk.name in heads:
+            if note is None and q0 <= t < q1 and spk.name in heads:
                 hx, hy = heads[spk.name]
                 b, pos = self._bubble(qi, text, hx, hy, z)
                 img.paste(b, pos, b)
                 break
+        if note is not None:
+            card = self._note(note[2], note[3])
+            img.paste(card, self._note_pos(card, t, note[0], note[1]), card)
         return img
 
     def render(self, out: Path, crf: int = 21):

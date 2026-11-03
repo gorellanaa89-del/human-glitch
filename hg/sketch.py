@@ -400,7 +400,10 @@ def _bug(kind: str, expr: str) -> Image.Image:
 
 def draw(name: str, expression: str | None = None, height: int = 700) -> Image.Image:
     """Return a character as a transparent RGBA image `height` pixels tall."""
-    if name == "glitch":
+    if name in ("neuro", "host"):  # the channel host
+        from . import hosts
+        return hosts.draw("neuro", expression or "happy", height)
+    if name == "glitch":  # retired host, kept for reference
         img = _glitch(expression or "happy")
     elif name in BUGS:
         img = _bug(name, expression or "neutral")

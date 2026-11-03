@@ -65,11 +65,25 @@ def _body_pts():
     return ellipse_pts(CX, CY, *BR, n=90)
 
 
-def _antennae(p, col, droop=False):
-    for side in (-1, 1):
-        tip = (CX + side * 110, 300 if not droop else 420)
-        p.line(bez((CX + side * 50, 470), (CX + side * 70, 400), (tip[0], tip[1] + 50), tip), 5)
-        p.shape(ellipse_pts(*tip, 18, 18, n=20), col, 4.5)
+HEAD_STYLE = "antennae"  # antennae | none | pixels | signal | sprout
+
+
+def _antennae(p, col, droop=False, style=None):
+    style = style or HEAD_STYLE
+    if style == "antennae":
+        for side in (-1, 1):
+            tip = (CX + side * 110, 300 if not droop else 420)
+            p.line(bez((CX + side * 50, 470), (CX + side * 70, 400), (tip[0], tip[1] + 50), tip), 5)
+            p.shape(ellipse_pts(*tip, 18, 18, n=20), col, 4.5)
+    elif style == "pixels":  # glitch fragments breaking off the top of the head
+        for x, y, r in ((CX - 40, 410, 18), (CX + 30, 386, 22), (CX + 90, 420, 14), (CX - 6, 350, 12), (CX + 70, 330, 9)):
+            p.shape([(x - r, y - r), (x + r, y - r), (x + r, y + r), (x - r, y + r)], col, 4, wobble=0.6)
+    elif style == "signal":  # little wifi arcs: the mind is "transmitting"
+        for k in range(3):
+            p.line(ellipse_pts(CX, 450, 34 + k * 30, 30 + k * 26, math.pi * 1.25, math.pi * 1.75, 16), 5.5)
+        _dot(p, CX, 430, 9)
+    elif style == "sprout":  # one curly hair, like a thought that won't lie down
+        p.line(bez((CX, 446), (CX - 10, 380), (CX + 60, 360), (CX + 40, 400)) + bez((CX + 40, 400), (CX + 26, 420), (CX + 10, 400), (CX + 24, 388))[1:], 6)
 
 
 def _feet(p, col):
@@ -262,10 +276,13 @@ def draw_full(kind: str, expr: str | None = None) -> Image.Image:
         img = _canvas()
         p = Pencil(img, 60 + list(BUGS).index(kind))
         white, dark = (250, 250, 250), DARK
+        if HEAD_STYLE != "antennae":
+            _antennae(p, white)
         for side, c in ((-1, white), (1, dark)):
-            tip = (CX + side * 110, 300)
-            p.line(bez((CX + side * 50, 470), (CX + side * 70, 400), (tip[0], tip[1] + 50), tip), 5)
-            p.shape(ellipse_pts(*tip, 18, 18, n=20), c, 4.5)
+            if HEAD_STYLE == "antennae":
+                tip = (CX + side * 110, 300)
+                p.line(bez((CX + side * 50, 470), (CX + side * 70, 400), (tip[0], tip[1] + 50), tip), 5)
+                p.shape(ellipse_pts(*tip, 18, 18, n=20), c, 4.5)
             p.shape(ellipse_pts(CX + side * 70, 830, 44, 24, n=28), c, 4.5)
         pts = _body_pts()
         _poly(p, pts, white)

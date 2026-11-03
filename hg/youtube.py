@@ -99,16 +99,24 @@ def upload(episode: Path) -> dict:
                 except Exception as e:
                     print(f"  {lang} captions not uploaded: {e}")
 
-    if (out / "short.mp4").exists() and "short_id" not in log:
+    report = json.loads((out / "report.json").read_text()) if (out / "report.json").exists() else {}
+    shorts = report.get("files", {}).get("shorts") or (
+        [{"file": "short.mp4", "lang": "en", "title": meta["title"].split("(")[0].strip()}] if (out / "short.mp4").exists() else [])
+    done = log.setdefault("shorts", {})
+    for sh in shorts:
+        if sh["file"] in done or not (out / sh["file"]).exists():
+            continue
+        es = sh["lang"] == "es"
         snippet = {
-            "title": f"{meta['title'].split('(')[0].strip()} #Shorts"[:100],
-            "description": f"Full story on the channel. #psychology #shorts\n\n{meta.get('tags', [''])[0]}",
+            "title": f"{sh['title']} #Shorts"[:100],
+            "description": ("Historia completa en el canal. #psicologia #shorts" if es
+                            else "Full story on the channel. #psychology #shorts"),
             "tags": meta.get("tags", []),
             "categoryId": "27",
-            "defaultLanguage": "en",
-            "defaultAudioLanguage": "en",
+            "defaultLanguage": sh["lang"],
+            "defaultAudioLanguage": sh["lang"],
         }
-        print("Uploading Short...")
-        log["short_id"] = _insert(yt, out / "short.mp4", snippet, dict(status))
+        print(f"Uploading Short {sh['file']}...")
+        done[sh["file"]] = _insert(yt, out / sh["file"], snippet, dict(status))
         log_path.write_text(json.dumps(log, indent=2))
     return log

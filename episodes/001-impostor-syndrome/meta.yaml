@@ -6,6 +6,24 @@ thumbnail_text: "THEY'LL FIND OUT"
 publish_at: ""
 # Mark true only if the visuals include realistic AI-generated people or events.
 synthetic_media: false
+# Shorts cut from the long video: scene number (1 = first scene) and a title per language.
+shorts:
+  - scene: 1
+    en: "Why Do I Feel Like a Fraud After Good News?"
+    es: "¿Por qué me siento un fraude después de una buena noticia?"
+  - scene: 5
+    en: "Meet The Impostor: The Voice That Says It Was Luck"
+    es: "Conoce al impostor: la voz que dice que fue suerte"
+  - scene: 8
+    en: "9 Compliments and 1 Comment. Which One Do You Remember?"
+    es: "9 elogios y 1 crítica: ¿cuál recuerdas?"
+  - scene: 9
+    en: "Why Your Brain Thinks You're a Fraud"
+    es: "Por qué tu cerebro cree que eres un fraude"
+  - scene: 13
+    en: "Skill Gap or Impostor Syndrome? Ask This"
+    es: "¿Te falta una habilidad o es el impostor? Pregúntate esto"
+# Scene used for the thumbnail.
 short_scene: 5
 tags:
   - impostor syndrome
@@ -16,7 +34,7 @@ tags:
   - confidence
   - high achievers
 description: |
-  Sarah just got the promotion she worked three years for, so why does she feel like a fraud? Meet The Impostor: an old alarm in your brain that kept our ancestors in the group, and still goes off after good news. In this video we follow Sarah's story, see where the feeling comes from, and learn three simple ways to update it.
+  Sarah just got the promotion she worked three years for, so why does she feel like a fraud? Meet The Impostor: an old alarm in your brain that kept our ancestors in the group, and still goes off after good news. In this video we follow Sarah's story, see where the feeling comes from, and learn five simple ways to update it.
 
   {chapters}
 

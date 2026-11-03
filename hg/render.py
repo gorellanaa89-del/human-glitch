@@ -113,7 +113,10 @@ def _chapters(titles, offsets):
     return "\n".join(lines)
 
 
-def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path, scene=None) -> Path | None:
+def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path, scene=None,
+           name: str = "short.mp4", vertical_cache: dict | None = None, timing_words=None) -> Path | None:
+    """A vertical Short from one scene: subtitles burned in (karaoke), cut at the last full sentence before 58 s.
+    `words` are the subtitle words (any language); `timing_words` (English) time the animation."""
     limit = 58.0
     end = None
     for s, e, t in words:
@@ -127,12 +130,19 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path,
         return None
     end += 0.3
     animated = scene is not None and animate.is_animated(scene)
-    ass = subtitles.write_ass([w for w in words if w[1] <= end], work / "short.ass", SHORT_W, SHORT_H,
+    stem = Path(name).stem
+    ass = subtitles.write_ass([w for w in words if w[1] <= end], work / f"{stem}.ass", SHORT_W, SHORT_H,
                               vertical=True, top=animated)
-    out = out_dir / "short.mp4"
+    out = out_dir / name
     if animated:
-        vertical = work / "short_v.mp4"
-        animate.render_scene(scene, end, words, vertical, (SHORT_W, SHORT_H), set(), seed=7)
+        # one vertical animation per scene, shared by every language (long enough for the longest cut)
+        cache = vertical_cache if vertical_cache is not None else {}
+        key = id(scene)
+        if key not in cache:
+            vertical = work / f"{stem}_v.mp4"
+            animate.render_scene(scene, min(59.0, media.duration(scene_wav)), timing_words or words, vertical, (SHORT_W, SHORT_H), set(), seed=7)
+            cache[key] = vertical
+        vertical = cache[key]
         media.run(["-i", vertical, "-i", scene_wav, "-t", f"{end:.3f}", "-vf", f"subtitles={ass}",
                    "-c:v", "libx264", "-preset", "faster", "-crf", "21", "-pix_fmt", "yuv420p",
                    "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out])
@@ -162,7 +172,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
     warnings, used = [], set()
 
     en_wavs, es_wavs, videos, offsets = [], [], [], []
-    en_words, es_words, scene_words = [], [], []
+    en_words, es_words, scene_words, scene_es_words = [], [], [], []
     first_frame_src = None
     labeled: set = set()  # bugs whose name label was already shown
     t = 0.0
@@ -207,20 +217,21 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
             if cut:
                 warnings.append(f"Scene {i + 1}: Spanish narration is too long and was cut at the end; shorten it.")
             es_wavs.append(es_wav)
-            es_words += [w for w in _shift(ew, t, 1 / tempo) if w[0] < t + seconds]
+            local_es = [w for w in _shift(ew, 0.0, 1 / tempo) if w[0] < seconds]
+            scene_es_words.append(local_es)
+            es_words += _shift(local_es, t)
         t += seconds
 
     body = work / "body.mp4"
     media.concat_files(videos, body)
     en_wav = work / "en.wav"
     media.concat_files(en_wavs, en_wav, reencode_audio=True)
-    ass = subtitles.write_ass(en_words, work / "en.ass", W, H)
     mark = graphics.watermark(work / "watermark.png")
 
     final = out_dir / "video.mp4"
     print("Rendering final video...")
     media.run(["-i", body, "-i", en_wav, "-i", mark,
-               "-filter_complex", f"[0:v][2:v]overlay=0:0,subtitles={ass}[v]",
+               "-filter_complex", "[0:v][2:v]overlay=0:0[v]",
                "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "faster", "-crf", "20",
                "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", final])
 
@@ -233,14 +244,6 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
         media.run(["-i", es_wav, "-c:a", "aac", "-b:a", "160k", out_dir / "audio.es.m4a"])
         subtitles.write_srt(es_words, out_dir / "captions.es.srt")
         files.update(audio_es="audio.es.m4a", captions_es="captions.es.srt")
-        # a full Spanish cut (Spanish voice + Spanish subtitles) to review, or to publish on its own
-        es_ass = subtitles.write_ass(es_words, work / "es.ass", W, H)
-        print("Rendering Spanish video...")
-        media.run(["-i", body, "-i", es_wav, "-i", mark,
-                   "-filter_complex", f"[0:v][2:v]overlay=0:0,subtitles={es_ass}[v]",
-                   "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "faster", "-crf", "20",
-                   "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out_dir / "video.es.mp4"])
-        files["video_es"] = "video.es.mp4"
 
     idx = int(meta.get("short_scene") or 0) - 1
     if max_seconds:
@@ -258,10 +261,29 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
         graphics.thumbnail(meta.get("thumbnail_text") or meta["title"], out_dir / "thumbnail.jpg", frame)
     files["thumbnail"] = "thumbnail.jpg"
 
-    if 0 <= idx < len(scenes):
-        short = _short(videos[idx], en_wavs[idx], scene_words[idx], out_dir, work, scenes[idx])
-        if short:
-            files["short"] = short.name
+    # Shorts: one per listed scene and language, with the subtitles burned in
+    short_specs = meta.get("shorts") or ([{"scene": idx + 1}] if 0 <= idx < len(scenes) else [])
+    if max_seconds:
+        short_specs = []
+    shorts, vcache = [], {}
+    for spec in short_specs:
+        k = int(spec["scene"]) - 1
+        if not 0 <= k < len(scenes):
+            continue
+        langs = [("en", en_wavs[k], scene_words[k])]
+        if scenes_es:
+            langs.append(("es", es_wavs[k], scene_es_words[k]))
+        for lang, wav, words in langs:
+            if lang != "en" and not spec.get(lang):
+                continue
+            print(f"Short: scene {k + 1} ({lang})")
+            f = _short(videos[k], wav, words, out_dir, work, scenes[k], name=f"short-{k + 1:02d}-{lang}.mp4",
+                       vertical_cache=vcache, timing_words=scene_words[k])
+            if f:
+                shorts.append({"file": f.name, "scene": k + 1, "lang": lang,
+                               "title": spec.get(lang) or meta["title"].split("(")[0].strip()})
+    if shorts:
+        files["shorts"] = shorts
 
     description = meta.get("description", "").replace("{chapters}", _chapters([s.title for s in scenes], offsets))
     (out_dir / "description.txt").write_text(description, encoding="utf-8")

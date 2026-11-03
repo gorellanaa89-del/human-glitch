@@ -380,7 +380,8 @@ class SceneRenderer:
     def _note_pos(self, card, t, t0, t1):
         """Slide in from the left with a little overshoot, hold, then slide back out."""
         x_rest = int(self.w * (0.07 if self.portrait else 0.04))
-        y = int(self.h * (0.06 if not self.portrait else 0.08))
+        # in a Short the subtitles sit at the top, so the card goes below them
+        y = int(self.h * (0.06 if not self.portrait else 0.27))
         x_off = -card.width - 20
         if t - t0 < 0.4:
             u = (t - t0) / 0.4

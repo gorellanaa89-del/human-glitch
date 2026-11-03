@@ -113,8 +113,13 @@ def _chapters(titles, offsets):
     return "\n".join(lines)
 
 
+def _vertical(scene, scene_wav: Path, words, out: Path):
+    animate.render_scene(scene, min(59.0, media.duration(scene_wav)), words, out, (SHORT_W, SHORT_H), set(), seed=7)
+
+
 def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path, scene=None,
-           name: str = "short.mp4", vertical_cache: dict | None = None, timing_words=None) -> Path | None:
+           name: str = "short.mp4", vertical_cache: dict | None = None, timing_words=None,
+           vertical_path: Path | None = None) -> Path | None:
     """A vertical Short from one scene: subtitles burned in (karaoke), cut at the last full sentence before 58 s.
     `words` are the subtitle words (any language); `timing_words` (English) time the animation."""
     limit = 58.0
@@ -135,12 +140,13 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path,
                               vertical=True, top=animated)
     out = out_dir / name
     if animated:
-        # one vertical animation per scene, shared by every language (long enough for the longest cut)
+        # one vertical animation per scene, shared by every language (and maybe rendered by a parallel job)
         cache = vertical_cache if vertical_cache is not None else {}
         key = id(scene)
         if key not in cache:
-            vertical = work / f"{stem}_v.mp4"
-            animate.render_scene(scene, min(59.0, media.duration(scene_wav)), timing_words or words, vertical, (SHORT_W, SHORT_H), set(), seed=7)
+            vertical = vertical_path or work / f"{stem}_v.mp4"
+            if not vertical.exists():
+                _vertical(scene, scene_wav, timing_words or words, vertical)
             cache[key] = vertical
         vertical = cache[key]
         media.run(["-i", vertical, "-i", scene_wav, "-t", f"{end:.3f}", "-vf", f"subtitles={ass}",
@@ -156,9 +162,12 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path,
     return out
 
 
-def build(episode: Path, engine: str = "edge", max_seconds: float | None = None) -> dict:
+def build(episode: Path, engine: str = "edge", max_seconds: float | None = None, only_scene: int | None = None) -> dict:
     """Render an episode. With max_seconds, only the opening is rendered (a quick test): narration is cut
-    at that point and the Short and thumbnail are skipped."""
+    at that point and the Short and thumbnail are skipped. With only_scene (0-based), only that scene's voice,
+    picture and vertical Short picture are made and cached in output/work, so scenes can be rendered on several
+    machines at once; a later full build reuses every cached scene."""
+    import json as _json
     meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
     scenes = parse_script(episode / "script.en.md")
     es_path = episode / "script.es.md"
@@ -180,11 +189,33 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
         if max_seconds and t >= max_seconds - 0.5:
             scenes = scenes[:i]
             break
+        bug_names = {a.name for a in animate.parse_cast(sc.extra.get("cast", "")) if a.is_bug}
+        if only_scene is not None and i != only_scene:
+            labeled.update(bug_names)  # keep the "first appearance" labels identical to a full build
+            continue
+        cache_file = work / f"s{i}.json"
+        if not max_seconds and cache_file.exists():
+            c = _json.loads(cache_file.read_text())
+            print(f"Scene {i + 1}/{len(scenes)}: {sc.title} (already rendered)")
+            labeled.update(bug_names)
+            wav, video, seconds = work / f"s{i}_en.wav", work / c["video"], c["seconds"]
+            words = [tuple(w) for w in c["words"]]
+            offsets.append(t); en_wavs.append(wav); videos.append(video)
+            scene_words.append(words); en_words += _shift(words, t)
+            if scenes_es:
+                es_wavs.append(work / f"s{i}_es.wav")
+                local_es = [tuple(w) for w in c["es_words"]]
+                scene_es_words.append(local_es); es_words += _shift(local_es, t)
+                if c.get("es_cut"):
+                    warnings.append(f"Scene {i + 1}: Spanish narration is too long and was cut at the end; shorten it.")
+            t += seconds
+            continue
         print(f"Scene {i + 1}/{len(scenes)}: {sc.title}")
         wav = work / f"s{i}_en.wav"
         words = _attach_punctuation(tts.synthesize(sc.narration, VOICES["en"], wav, engine, VOICE_RATE["en"]), sc.narration)
         seconds = media.duration(wav)
         full_seconds = seconds
+        cut = False
         if max_seconds and t + seconds > max_seconds:
             seconds = max_seconds - t
             cut_wav = work / f"s{i}_en_cut.wav"
@@ -220,6 +251,14 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
             local_es = [w for w in _shift(ew, 0.0, 1 / tempo) if w[0] < seconds]
             scene_es_words.append(local_es)
             es_words += _shift(local_es, t)
+        labeled.update(bug_names)
+        if not max_seconds:
+            cache_file.write_text(_json.dumps({"video": Path(video).name, "seconds": seconds, "words": words,
+                                               "es_words": scene_es_words[-1] if scenes_es else [], "es_cut": bool(cut)}))
+        if only_scene is not None:
+            if any(int(sp["scene"]) - 1 == i for sp in meta.get("shorts") or []) and animate.is_animated(sc):
+                _vertical(sc, wav, words, work / f"short-{i + 1:02d}_v.mp4")
+            return {"scene": i + 1, "seconds": round(seconds, 1)}
         t += seconds
 
     body = work / "body.mp4"
@@ -278,7 +317,8 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
                 continue
             print(f"Short: scene {k + 1} ({lang})")
             f = _short(videos[k], wav, words, out_dir, work, scenes[k], name=f"short-{k + 1:02d}-{lang}.mp4",
-                       vertical_cache=vcache, timing_words=scene_words[k])
+                       vertical_cache=vcache, timing_words=scene_words[k],
+                       vertical_path=work / f"short-{k + 1:02d}_v.mp4")
             if f:
                 shorts.append({"file": f.name, "scene": k + 1, "lang": lang,
                                "title": spec.get(lang) or meta["title"].split("(")[0].strip()})

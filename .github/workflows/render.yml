@@ -22,7 +22,58 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # List the scenes so each one can be drawn on its own machine at the same time.
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      scenes: ${{ steps.list.outputs.scenes }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          N=$(grep -c '^# Scene:' "episodes/${{ inputs.episode }}/script.en.md")
+          echo "scenes=$(python3 -c "print(list(range(1, $N + 1)))")" >> "$GITHUB_OUTPUT"
+
+  # One machine per scene: voice (EN + ES), the animated picture and, if the scene has a Short, its vertical picture.
+  scene:
+    needs: plan
+    if: inputs.seconds == ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: true
+      matrix:
+        scene: ${{ fromJson(needs.plan.outputs.scenes) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ffmpeg and fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          sudo apt-get install -y fonts-inter fonts-jetbrains-mono || true
+          fc-cache -f
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Render scene ${{ matrix.scene }}
+        run: python -m hg build "episodes/${{ inputs.episode }}" --scene ${{ matrix.scene }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scene-${{ matrix.scene }}
+          path: episodes/${{ inputs.episode }}/output/work/
+          retention-days: 1
+
+  # Join the scenes, mix the audio, cut the Shorts, push the previews.
   render:
+    needs: [plan, scene]
+    if: always() && needs.plan.result == 'success' && (needs.scene.result == 'success' || needs.scene.result == 'skipped')
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
@@ -41,6 +92,14 @@ jobs:
           cache: pip
 
       - run: pip install -r requirements.txt
+
+      - name: Collect the rendered scenes
+        if: inputs.seconds == ''
+        uses: actions/download-artifact@v4
+        with:
+          pattern: scene-*
+          merge-multiple: true
+          path: episodes/${{ inputs.episode }}/output/work/
 
       - name: Render
         run: |

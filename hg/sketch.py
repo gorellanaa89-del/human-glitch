@@ -17,7 +17,7 @@ W0, H0 = 600, 900
 INK = (34, 30, 38)
 WHITE = (255, 255, 255)
 HAND_FONT = Path(__file__).resolve().parent.parent / "assets" / "fonts" / "PatrickHand-Regular.ttf"
-GLITCH_BLUE = (56, 182, 255)  # Potencia People light blue (provisional until the exact hex is confirmed)
+GLITCH_BLUE = (90, 183, 230)  # Potencia People light blue #5AB7E6
 EXPRESSIONS = ("neutral", "happy", "worried", "surprised", "smug", "sad")
 
 

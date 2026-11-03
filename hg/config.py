@@ -5,10 +5,18 @@ W, H = 1920, 1080
 FPS = 30
 SHORT_W, SHORT_H = 1080, 1920
 
-BG = (11, 15, 20)
-GREEN = (57, 255, 136)
-MAGENTA = (255, 46, 136)
-CYAN = (0, 229, 255)
+# Brand palette, matched to Potencia People (potenciapeople.com), sampled from the site on 2026-11-03.
+BRAND_BLUE = (58, 99, 216)     # #3A63D8 primary (buttons, numbers)
+BRAND_MID = (75, 116, 232)     # #4B74E8 gradient start
+BRAND_LIGHT = (90, 183, 230)   # #5AB7E6 light blue, gradient end
+BRAND_NAVY = (5, 28, 44)       # #051C2C headings / dark background
+BRAND_GRAY = (77, 87, 97)      # #4D5761 body text
+BRAND_PAPER = (240, 240, 240)  # #F0F0F0 light background
+
+BG = BRAND_NAVY
+GREEN = BRAND_LIGHT  # legacy name: the main accent used across cards and thumbnails
+MAGENTA = (255, 46, 136)  # only for the glitch colour split
+CYAN = BRAND_MID
 WHITE = (240, 244, 248)
 
 CHANNEL = "HUMAN GLITCH"

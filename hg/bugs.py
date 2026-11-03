@@ -25,18 +25,18 @@ def _font(size):
 # name -> (display name, family, colour, default expression)
 BUGS = {
     # family 1: cognitive distortions
-    "impostor": ("The Impostor", 1, (150, 110, 220), "smug"),
+    "impostor": ("The Impostor", 1, (150, 110, 220), "worried"),
     "catastrophizer": ("The Catastrophizer", 1, (235, 85, 80), "scream"),
-    "mind_reader": ("The Mind Reader", 1, (190, 120, 215), "smug"),
-    "fortune_teller": ("The Fortune Teller", 1, (110, 190, 240), "smug"),
-    "all_or_nothing": ("The All-or-Nothing", 1, (250, 250, 250), "angry"),
+    "mind_reader": ("The Mind Reader", 1, (190, 120, 215), "worried"),
+    "fortune_teller": ("The Fortune Teller", 1, (110, 190, 240), "worried"),
+    "all_or_nothing": ("The All-or-Nothing", 1, (250, 250, 250), "worried"),
     "filter": ("The Filter", 1, (110, 190, 95), "sad"),
-    "should": ("The Should", 1, (165, 165, 175), "angry"),
-    "labeler": ("The Labeler", 1, (248, 205, 60), "smug"),
+    "should": ("The Should", 1, (165, 165, 175), "worried"),
+    "labeler": ("The Labeler", 1, (248, 205, 60), "sad"),
     "generalizer": ("The Generalizer", 1, (245, 145, 55), "sad"),
-    "blamer": ("The Blamer", 1, (165, 115, 80), "angry"),
+    "blamer": ("The Blamer", 1, (165, 115, 80), "sad"),
     # family 2: decision biases
-    "know_it_all": ("The Know-It-All", 2, (235, 185, 60), "smug"),
+    "know_it_all": ("The Know-It-All", 2, (235, 185, 60), "happy"),
     "echo": ("The Echo", 2, (60, 200, 195), "happy"),
     "anchor": ("The Anchor", 2, (60, 80, 140), "neutral"),
     "hoarder": ("The Hoarder", 2, (145, 155, 75), "worried"),
@@ -162,7 +162,7 @@ def _core(kind, expr, look=(0, 0), antennae=True, arms=True, belly=True, seed=0)
     if arms:
         for side in (-1, 1):
             _arm(p, col, side, hand=False)
-    _eyes(p, expr, col, look)
+    _eyes(p, expr, col, (look[0], look[1] - 30) if kind == "impostor" else look)
     _brows(p, expr)
     _mouth(p, expr)
     return img, p
@@ -215,10 +215,11 @@ def draw_full(kind: str, expr: str | None = None) -> Image.Image:
 
     if kind == "impostor":
         img, p = _core(kind, e)
-        p.shape([(CX - 122, 560), (CX + 122, 560), (CX + 130, 610), (CX, 600), (CX - 130, 610)], (40, 30, 54), 4)
-        for cx, cy in EYES:
-            _dot(p, cx, cy - 4, 20, WHITE)
-            _dot(p, cx + 4, cy, 8)
+        if e != "happy":  # once patched, the mask comes off
+            p.shape([(CX - 122, 560), (CX + 122, 560), (CX + 130, 610), (CX, 600), (CX - 130, 610)], (40, 30, 54), 4)
+            for cx, cy in EYES:
+                _dot(p, cx, cy - 4, 20, WHITE)
+                _dot(p, cx + 4, cy - 2, 8)
 
     elif kind == "catastrophizer":
         img, p = _core(kind, "spiral" if e == "scream" else e, antennae=False)
@@ -276,10 +277,11 @@ def draw_full(kind: str, expr: str | None = None) -> Image.Image:
         cx, cy = EYES[1]
         p.shape(ellipse_pts(cx, cy, *ER, n=40), WHITE, 5)
         _dot(p, cx - 4, cy + 20, 9)
-        lid = ellipse_pts(cx, cy, ER[0] + 7, ER[1] + 7, math.pi, 2 * math.pi, 30) + [(cx + ER[0] + 7, cy + 4), (cx - ER[0] - 7, cy + 4)]
-        _poly(p, lid, dark)
-        p.line([(cx - ER[0] + 4, cy + 4), (cx + ER[0] - 4, cy + 2)], 5, WHITE)
-        _brows(p, "angry", (INK, WHITE))
+        if e in ("smug", "angry"):
+            lid = ellipse_pts(cx, cy, ER[0] + 7, ER[1] + 7, math.pi, 2 * math.pi, 30) + [(cx + ER[0] + 7, cy + 4), (cx - ER[0] - 7, cy + 4)]
+            _poly(p, lid, dark)
+            p.line([(cx - ER[0] + 4, cy + 4), (cx + ER[0] - 4, cy + 2)], 5, WHITE)
+        _brows(p, e, (INK, WHITE))
         p.line([(CX - 26, 694), (CX, 694)], 5, INK)
         p.line([(CX, 694), (CX + 26, 694)], 5, WHITE)
         _rot_text(img, "0", CX - 80, 760, -6, 64, (200, 200, 205))

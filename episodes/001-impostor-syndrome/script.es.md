@@ -1,40 +1,36 @@
 # Scene: El ascenso
 
-Sarah acaba de recibir el ascenso por el que trabajó tres años. Analista senior. Su propio equipo. Su jefa le dio la mano delante de todos.
+Sarah acaba de recibir el ascenso por el que trabajó tres años. Analista senior. Su propio equipo.
 
-Entonces, ¿por qué está sola en la oficina a las nueve de la noche, mirando la pantalla y sintiendo que acaba de robarse algo?
+Entonces, ¿por qué está sola en la oficina a las nueve de la noche, sintiendo que acaba de robarse algo?
 
-Si alguna vez te sentiste así, como si en cualquier momento alguien fuera a tocarte el hombro para decirte "nos equivocamos", este video es para ti. Porque esa sensación no es casualidad. Es un programa antiguo que corre en tu cerebro. Fue creado para protegerte, y cuando lo entiendes, pierde gran parte de su poder.
+Si alguna vez sentiste que alguien te iba a tocar el hombro para decirte "nos equivocamos", este video es para ti. Esa sensación es un programa antiguo de tu cerebro. Fue creado para protegerte, y cuando lo entiendes, pierde su poder.
 
-Quédate hasta el final, porque la forma en que Sarah por fin lo enfrenta es sorprendentemente simple, y puedes usarla mañana mismo.
-
-# Scene: La historia de Sarah
+# Scene: La inteligente
 
 Volvamos unas semanas atrás.
 
-Sarah siempre fue "la inteligente". En el colegio era la que terminaba el examen primero. En la universidad era a quien llamaban sus compañeros la noche antes de una entrega. Y en el trabajo es la persona a la que todos buscan cuando los números no cuadran. Se queda hasta tarde, revisa todo dos veces y nunca ha incumplido un plazo.
+Sarah siempre fue "la inteligente". La que terminaba el examen primero. La compañera a quien todos llamaban antes de una entrega. En el trabajo, es a quien buscas cuando los números no cuadran.
 
-Cuando se abrió el puesto de analista senior, Elena, la directora de personas, no lo dudó. Sarah era la elección obvia.
+Cuando se abrió el puesto de analista senior, Elena, la directora de personas, no lo dudó. Hasta Richard, el director de operaciones, que casi nunca felicita a nadie, le dijo "bien merecido".
 
-Todos lo pensaban. Su equipo. Sus amigos. Hasta Richard, el director de operaciones, que casi nunca felicita a nadie, le dijo "bien merecido".
+Todos estaban seguros. Todos, menos Sarah.
 
-Todos, menos Sarah.
+# Scene: Primera mañana
 
-El día del anuncio sonrió, dio las gracias y dijo unas palabras. Y mientras tanto, una vocecita en su cabeza repetía algo que nadie más podía oír.
+En su primera mañana como líder, Daniel, el analista más nuevo, le preguntó por un modelo de proyección que ella nunca había usado.
 
-En su primera mañana como líder del equipo, la voz se hizo más fuerte. Daniel, el analista más nuevo, le hizo una pregunta sobre un modelo de proyección que ella nunca había usado. Sarah sintió que se le calentaba la cara. Dijo "déjame revisarlo", fue a su escritorio y pasó las dos horas siguientes leyendo sobre el tema a escondidas, aterrada de que alguien notara que no lo sabía ya.
+A Sarah se le calentó la cara. Dijo "déjame revisarlo", y pasó dos horas leyendo a escondidas, aterrada de que alguien lo notara.
 
-Luego pasó Margaret, de Finanzas, y le dijo con cariño: "Te toca un puesto grande, ¿eh?". Margaret lo dijo para animarla. Sarah lo escuchó como una advertencia.
+Luego pasó Margaret, de Finanzas, y le dijo con cariño: "Te toca un puesto grande, ¿eh?". Margaret quería animarla. Sarah lo escuchó como una advertencia.
 
 # Scene: Esa noche
 
-Esa noche, Sarah llega tarde a casa. Su mamá la llama, tan orgullosa que casi no puede hablar: "¡Mi hija, analista senior!". Sarah se ríe, le da las gracias y cuelga lo más rápido que puede.
+Esa noche la llama su mamá, tan orgullosa que casi no puede hablar. Sarah le da las gracias y cuelga rápido. Siente que tiene en la mano un boleto con el nombre de otra persona.
 
-No se siente orgullosa. Se siente como si tuviera en la mano un boleto con el nombre de otra persona.
+Revisa el teléfono. Una excompañera lanzó su empresa. Un colega da una charla en un congreso. Todos se ven muy seguros. Nadie parece asustado.
 
-Abre el teléfono y empieza a deslizar. Una excompañera acaba de lanzar su empresa. Un colega de su trabajo anterior da una charla en un congreso. Todos se ven muy seguros. Nadie parece asustado.
-
-Antes de dormir, abre una nota en el teléfono y escribe una lista. No de lo que ha logrado, sino de lo que todavía no sabe. Proyecciones avanzadas. Liderar personas. Presentar ante el directorio. La lista llega a catorce cosas.
+Antes de dormir, escribe una lista. No de lo que ha logrado, sino de lo que todavía no sabe. Llega a catorce cosas.
 
 Se queda despierta mirando el techo, con una frase dándole vueltas en la cabeza.
 
@@ -46,92 +42,108 @@ Te presento a The Impostor, el impostor.
 
 Aparece justo después de una buena noticia y siempre dice lo mismo: "Fue suerte. Los engañaste. Tarde o temprano se van a dar cuenta".
 
-La psicología tiene un nombre para esto. En 1978, Pauline Clance y Suzanne Imes, dos psicólogas de la Universidad Estatal de Georgia, notaron que muchas de las mujeres exitosas con las que trabajaban, personas con las mejores notas y carreras impresionantes, compartían la misma creencia secreta: que en realidad no eran capaces y que su éxito era un error. Lo llamaron el fenómeno del impostor.
+En 1978, las psicólogas Pauline Clance y Suzanne Imes notaron que muchas mujeres exitosas con las que trabajaban compartían la misma creencia secreta: que su éxito era un error. Lo llamaron el fenómeno del impostor. No es una enfermedad mental. Es un patrón de pensamiento, y los patrones se pueden notar y cambiar.
 
-Investigaciones posteriores mostraron que no afecta solo a mujeres. Los hombres también lo sienten, en todas las profesiones y culturas. Una revisión de decenas de estudios en 2020 encontró tasas de entre 9 y 82 por ciento, según el grupo y la forma de medirlo. En otras palabras, si lo sientes, estás muy lejos de estar solo.
+Luego se vio que los hombres también lo sienten, en todas las profesiones. Una revisión de 2020 encontró tasas de entre 9 y 82 por ciento, según el grupo. Médicos, ingenieros, artistas, ejecutivos. Si lo sientes, no estás solo.
 
-Y no perdona ni a los genios. Hacia el final de su vida, Albert Einstein le contó a un amigo que la estima exagerada por su obra lo hacía sentir como un "estafador involuntario". La poeta Maya Angelou decía que, después de once libros, todavía pensaba: "Ay, ahora sí van a descubrirme".
+# Scene: A quién visita
 
-The Impostor suele aparecer en momentos muy específicos: cuando empiezas un trabajo nuevo, te ascienden, entras a un grupo donde te sientes distinto a los demás o llegas a una sala llena de personas que admiras. También le encantan las personas que crecieron escuchando que eran "superdotadas" o "las inteligentes". Cuando tu identidad se basa en ser capaz, cualquier momento de no saber se siente como una amenaza a quien eres.
+Tampoco perdona a los genios. Albert Einstein llegó a llamarse a sí mismo un "estafador involuntario". Después de once libros, Maya Angelou todavía pensaba: "Ay, ahora sí van a descubrirme".
 
-Fíjate en algo importante: The Impostor no visita a quienes no les importa. Visita a quienes se están estirando hacia algo nuevo.
+The Impostor aparece en momentos concretos: un trabajo nuevo, un ascenso, una sala llena de gente que admiras. Y le encantan quienes crecieron escuchando que eran "los inteligentes", porque si tu identidad es ser capaz, no saber se siente como una amenaza.
 
-¿Cómo saber si The Impostor te está visitando? Aquí van cuatro señales comunes. Explicas tus logros con suerte, buen momento o la ayuda de otros, pero explicas tus errores con tu propia falta de capacidad. Te incomoda que te elogien y cambias rápido de tema. Te preparas mucho más de lo que la tarea necesita, por si acaso. Y evitas pedir ayuda, porque pedirla se siente como confesar. Si te reconociste en dos o más, sigue mirando. Estás a punto de ver de dónde viene esto.
+Fíjate en esto: no visita a quienes no les importa. Visita a quienes se están estirando hacia algo nuevo.
+
+Cuatro señales comunes. Explicas tus logros con suerte y tus errores con tu falta de capacidad. Los elogios te incomodan. Te preparas de más, por si acaso. Y evitas pedir ayuda, porque pedirla se siente como confesar.
 
 # Scene: Lo que le hace a Sarah
 
 Esto es lo que The Impostor le hace a la semana de Sarah.
 
-Empieza a llegar más temprano y a irse más tarde. No porque haya más trabajo, sino porque siente que tiene que demostrar, cada día, que merece el puesto.
+Llega más temprano y se va más tarde, para demostrar cada día que merece el puesto. Deja de preguntar en las reuniones, para que nadie note lo que no sabe.
 
-Deja de hacer preguntas en las reuniones. Si pregunta, podrían notar lo que no sabe.
+Cuando un proyecto sale bien, piensa: "Solo lo logré porque trabajé el doble". Pauline Clance lo llamó el ciclo del impostor. Una tarea nueva trae ansiedad, luego exceso de trabajo o postergación. Sale bien, y el éxito se explica de otra forma. El éxito nunca cuenta como prueba, así que la siguiente tarea se siente igual de peligrosa.
 
-Cuando un proyecto sale bien, no lo celebra. Piensa: "Solo lo logré porque trabajé el doble. Alguien realmente inteligente no lo necesitaría". Pauline Clance describió esto como el ciclo del impostor. Una tarea nueva dispara la ansiedad. Algunas personas responden preparándose de más, otras postergándolo hasta el último minuto. Luego la tarea sale bien, y el éxito se explica de otra forma: "solo trabajé demasiado" o "tuve suerte". El éxito nunca cuenta como prueba. Así que la siguiente tarea se siente tan peligrosa como la primera, y el ciclo vuelve a empezar.
+Fíjate en la trampa. Mientras más trabaja, más cree que lo necesitaba, y menos cree que es capaz. La prueba que busca nunca puede llegar, porque ya decidió cómo explicarla.
 
-Y The Impostor casi nunca viaja solo. El viernes, Sarah presenta ante la gerencia. Nueve personas le dicen que estuvo excelente. Una sugiere cambiar un gráfico. Adivina qué comentario repite en su cabeza todo el fin de semana.
+# Scene: Nueve y uno
 
-El sábado en la mañana está en el supermercado, todavía rehaciendo ese gráfico en su cabeza. El domingo en la noche no puede dormir. Abre la laptop y cambia la diapositiva cinco veces, aunque nadie se lo pidió.
+El viernes, Sarah presenta ante la gerencia. Nueve personas le dicen que estuvo excelente. Una sugiere cambiar un gráfico. Adivina qué comentario repite todo el fin de semana. El sábado en el supermercado sigue rehaciendo ese gráfico en su cabeza. El domingo en la noche cambia la diapositiva cinco veces.
 
-Ese es un segundo bug, The Filter, el filtro. Se queda con el único detalle negativo y descarta todo lo demás. Juntos, estos dos pueden convertir una gran semana en la prueba de que estás fallando.
+Ese es un segundo bug, The Filter, el filtro. Se queda con el único detalle negativo y descarta el resto. Juntos, estos dos convierten una gran semana en la prueba de que estás fallando.
 
-También hay un costo para su equipo. Como Sarah teme parecer que no puede con todo, deja de delegar. Rehace ella misma el análisis de Daniel en vez de enseñarle. Daniel empieza a pensar que ella no confía en él. El equipo se vuelve más lento, Sarah se cansa más y la voz se hace más fuerte.
-
-Si esto sigue durante meses, el resultado suele ser el agotamiento, el burnout. No porque la persona no sea suficiente, sino porque está cargando el trabajo y un secreto al mismo tiempo.
+Su equipo también paga. Por miedo a parecer sobrepasada, Sarah deja de delegar y rehace el trabajo de Daniel. Daniel cree que no confía en él. El equipo se vuelve lento, Sarah se cansa y la voz se hace más fuerte. Meses así suelen terminar en burnout.
 
 # Scene: Por qué existe
 
 Pero aquí viene lo importante. The Impostor no es tu enemigo. Es una alarma antigua, y alguna vez fue muy útil.
 
-Durante la mayor parte de la historia humana vivimos en grupos pequeños. Pertenecer al grupo significaba comida, protección y supervivencia. Ser expulsado podía costarte la vida.
+Durante casi toda la historia humana vivimos en grupos pequeños. Pertenecer significaba comida y protección. Ser expulsado podía costarte la vida. Así que el cerebro se volvió experto en una pregunta: "¿Soy lo bastante bueno para que me quieran conservar?".
 
-Así que nuestro cerebro se volvió muy bueno en una pregunta: "¿Pertenezco aquí? ¿Soy lo bastante bueno para que me quieran conservar?".
+Imagina a una ancestra uniéndose a un grupo nuevo. Si actuaba como si lo supiera todo, podían expulsarla. Si se sentía algo insegura, observaba y demostraba su valor, la aceptaban. Esa voz que decía "cuidado, eres nueva" la mantenía con vida.
 
-Si eras nuevo en el grupo, o de pronto tenías un rol más importante, estar muy atento a cómo te veían los demás era una buena estrategia. La duda te mantenía cuidadoso. Te hacía esforzarte, cuidar tus pasos y evitar errores que pudieran costarte el rechazo.
+La duda hacía que nuestros ancestros se esforzaran, cuidaran sus pasos y evitaran errores que podían costarles el rechazo. En ese mundo, sentirse un poco impostor era una habilidad para sobrevivir.
 
-Imagina a una de nuestras ancestras uniéndose a un grupo nuevo después de que el suyo se dispersó. Si llegaba actuando como si lo supiera todo, ignoraba las reglas y tomaba más de lo que le tocaba, podían expulsarla. Pero si se sentía un poco insegura, observaba con atención, aprendía cómo funcionaban las cosas y demostraba su valor, tenía muchas más probabilidades de ser aceptada. Esa vocecita que decía "cuidado, eres nueva, te están mirando" la mantenía con vida.
+# Scene: Alarma vieja, oficina nueva
 
-Hay otra pieza. En esos grupos pequeños te comparabas con unas cuantas decenas de personas, y las veías como realmente eran: cansadas, equivocadas, asustadas, a veces brillantes. Hoy comparas tu detrás de cámaras desordenado con lo mejor de los demás: la presentación impecable, el colega seguro de sí mismo, el perfil perfecto en internet. Claro que sales perdiendo. Estás comparando tu interior con el exterior de los demás.
+Hay otra pieza. Antes veías a unas pocas decenas de personas tal como eran: cansadas, equivocadas, asustadas. Hoy comparas tu detrás de cámaras con lo mejor de los demás. Claro que sales perdiendo.
 
-El problema es que esa alarma se construyó para un mundo donde el rechazo era cuestión de vida o muerte. Hoy el grupo es tu oficina, y un ascenso dispara la misma señal antigua: nueva posición, más miradas sobre ti, peligro. La alarma no está rota. Solo está desactualizada.
+Y un ascenso dispara la señal antigua: nueva posición, más miradas, peligro. El corazón se acelera, las manos se enfrían. Tu cuerpo reacciona ante una sala de reuniones como ante una tribu que decide si te acepta.
 
-Incluso puedes sentirlo en el cuerpo. En tu primer día en un puesto nuevo, el corazón se acelera, las manos se enfrían, el estómago se aprieta. Es la misma respuesta que preparaba a nuestros ancestros para enfrentar el peligro. Tu cuerpo reacciona ante una sala de reuniones nueva como si fuera una tribu nueva decidiendo si te acepta. No es señal de que algo ande mal contigo. Es señal de que tu cerebro hace exactamente aquello para lo que evolucionó.
+No es señal de que algo ande mal contigo. Es señal de que tu cerebro hace exactamente aquello para lo que evolucionó: proteger tu lugar en el grupo.
+
+La alarma no está rota. Solo está desactualizada.
+
+# Scene: Café con Elena
+
+Un mes después, Elena nota que Sarah se ve agotada y la invita a un café.
+
+Por fin, Sarah lo dice: "Creo que eligieron a la persona equivocada. Solo tuve suerte".
+
+Elena no discute. Le pregunta: "Está bien. ¿Qué hiciste tú para llegar aquí?".
+
+Sarah empieza a enumerar. El modelo que rehízo y ahorró dos semanas. El error que detectó antes de que lo viera un cliente. Los tres analistas que entrenó. Mientras más habla, más se calla The Impostor.
+
+Entonces Elena le dice: "Cuando me nombraron directora de personas, pasé seis meses esperando que alguien descubriera que no tenía idea de lo que hacía. Todavía lo siento a veces".
+
+Sarah se queda mirándola. Si hasta Elena lo siente, quizás esa sensación no dice nada sobre la capacidad.
 
 # Scene: La actualización
 
-Un mes después, Elena nota que Sarah se ve agotada y la invita a tomar un café.
+Esa es la actualización. No destruyes la voz. Dejas de tomarla como la verdad. Cinco formas.
 
-Por fin, Sarah lo dice en voz alta: "Creo que eligieron a la persona equivocada. Solo tuve suerte".
+Uno: ponle nombre. "Ese es The Impostor hablando". Un sentimiento no es un hecho, y nombrarlo te da distancia, como escuchar una alarma y saber que es solo un simulacro.
 
-Elena no discute. No le dice "no seas tonta". En cambio, le hace una pregunta: "Está bien. ¿Qué hiciste tú para llegar aquí?".
+Dos: hazte la pregunta de la actualización. "¿Qué hice realmente para lograr esto?". Responde con hechos. Guarda un archivo con agradecimientos y logros, para que cuando llegue la duda leas hechos, no sensaciones.
 
-Sarah empieza a enumerar. El modelo que rehízo y que le ahorró dos semanas al equipo. El error que detectó antes de que llegara a un cliente. Los tres analistas nuevos que entrenó. Mientras más habla, más se calla The Impostor.
+Tres: cuéntaselo a alguien de confianza. The Impostor crece en silencio, y muchas veces escucharás: "A mí también". Decirlo en voz alta le quita el secreto, y el secreto es lo que le da poder.
 
-Entonces Elena le cuenta algo que no esperaba: "Cuando me nombraron directora de personas, pasé mis primeros seis meses esperando que alguien descubriera que no tenía idea de lo que hacía. Todavía lo siento a veces".
+Cuatro: cambia "no sé" por "todavía no sé". Aprender en el trabajo no prueba que no perteneces. Es el trabajo. La próxima vez que Daniel le pregunta algo nuevo, Sarah responde: "Buena pregunta. Averigüémoslo juntos".
 
-Esa es la actualización. No tienes que destruir la voz. Solo tienes que dejar de tomarla como la verdad. Aquí van cinco formas de hacerlo.
+Cinco: compárate con tu yo del pasado. Hace un año, ¿habrías podido hacer lo que hiciste esta semana? Esa es la comparación que dice la verdad.
 
-Uno: ponle nombre. Cuando aparezca el pensamiento, dite: "Ese es The Impostor hablando". Un sentimiento no es un hecho, y nombrarlo te da un poco de distancia.
+Pruébalo ahora. Piensa en algo que lograste este año y que sueles explicar con suerte. Nombra tres cosas que hiciste tú para lograrlo. Es la primera página de tu archivo de evidencias.
 
-Dos: hazte la pregunta de la actualización. "¿Qué hice realmente para lograr esto?". Y responde con hechos, no con sensaciones. Hay personas que guardan un archivo de evidencias con correos de agradecimiento, resultados y logros, para tener los hechos a mano cuando llega la duda.
+En las semanas siguientes, Sarah prueba las cinco. Crea una carpeta llamada "Hechos", y cada vez que alguien le agradece, lo guarda ahí. La voz no desaparece. Solo deja de ser la que manda.
 
-Tres: cuéntaselo a alguien de confianza. The Impostor crece en silencio. Muchas veces, la persona a quien se lo cuentas te dirá lo mismo que Elena: "A mí también me pasa".
+# Scene: ¿Brecha o glitch?
 
-Cuatro: cambia "no sé" por "todavía no sé". Nadie empieza un puesto nuevo sabiéndolo todo. Aprender en el trabajo no es prueba de que no perteneces. Es el trabajo. La próxima vez que Daniel le pregunta algo nuevo, Sarah responde: "Buena pregunta. Averigüémoslo juntos". Daniel aprende, y Sarah deja de esconderse.
+Una aclaración importante. A veces de verdad te falta una habilidad. Es normal, y no es The Impostor.
 
-Cinco: compárate con tu yo del pasado, no con lo mejor de los demás. Hace un año, ¿habrías podido hacer lo que hiciste esta semana? Esa es la comparación que dice la verdad.
+La diferencia es esta. Una brecha de habilidad suena así: "Necesito aprender esto". Apunta a algo que puedes hacer.
 
-En las semanas siguientes, Sarah prueba las cinco. Crea una carpeta en su laptop llamada "Hechos", y cada vez que alguien le agradece, lo guarda ahí. Cuando The Impostor aparece antes de una reunión importante, se dice: "Hola, alarma vieja. Sé que intentas ayudar". Admite que suena un poco tonto, pero funciona. La voz no desaparece. Solo deja de ser la que manda.
+The Impostor suena así: "Soy un fraude". Apunta a quién eres, y nunca viene con un plan.
 
-Probemos ahora mismo. Piensa en algo que lograste el último año, algo que sueles explicar con suerte. Ahora nombra tres cosas que tú hiciste para que pasara. No lo que hicieron otros, ni el buen momento. Lo que hiciste tú. Si pudiste nombrar aunque sea una, la historia de The Impostor se acaba de debilitar un poco. Anótala. Es la primera página de tu propio archivo de evidencias.
+Así que cuando aparezca la duda, pregúntate: ¿esto es sobre algo que puedo aprender, o sobre quién soy? Si es una habilidad, haz un plan. Si es sobre quién eres, es la alarma vieja hablando.
 
 # Scene: Lo que de verdad significa
 
-Sarah todavía escucha a The Impostor de vez en cuando. Todavía aparece después de las buenas noticias. Pero ahora sabe lo que es: una alarma antigua que intenta protegerla. Le da las gracias y sigue adelante. Vuelve a delegar, hace preguntas en las reuniones y, el viernes, también recuerda los nueve elogios.
+Sarah todavía escucha a The Impostor a veces. Ahora le dice: "Hola, alarma vieja. Sé que intentas ayudar". Y sigue adelante. Vuelve a delegar, hace preguntas en las reuniones y, el viernes, también recuerda los nueve elogios.
 
-Y una tarde nota a Daniel mirando su pantalla, un poco pálido, antes de su primera presentación con un cliente. Reconoce esa mirada. Se sienta a su lado y le pregunta: "¿Qué hiciste para prepararte?". Daniel empieza a enumerar y, mientras habla, sus hombros se relajan. Sarah sonríe. La pregunta que la ayudó a ella ahora ayuda a alguien más.
+Una tarde, Daniel está pálido antes de su primera presentación con un cliente. Sarah se sienta a su lado y le pregunta: "¿Qué hiciste para prepararte?". Mientras enumera, sus hombros se relajan. Sarah sonríe. La pregunta que la ayudó a ella ahora ayuda a alguien más.
 
-Entonces, un resumen rápido. The Impostor es la voz que dice que tu éxito fue suerte. Aparece cuando creces. Existe porque, para nuestros ancestros, pertenecer era sobrevivir. Y lo actualizas poniéndole nombre, mirando los hechos, hablando del tema, dándote permiso para aprender y comparándote con quien eras antes.
+Resumen rápido. The Impostor dice que tu éxito fue suerte. Aparece cuando creces, porque para nuestros ancestros pertenecer era sobrevivir. Lo actualizas poniéndole nombre, mirando los hechos, hablando del tema, aprendiendo sin esconderte y comparándote con quien eras.
 
-Sentirte un impostor no significa que lo seas. Muchas veces significa que estás creciendo, y que te importa hacer bien tu trabajo.
+Sentirte un impostor no significa que lo seas. Muchas veces significa que estás creciendo, y que te importa.
 
-Ahora cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Human Glitch, porque en el próximo video conocemos a Richard y al bug que hace que algunos jefes estén seguros de tener siempre la razón.
+Cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Human Glitch, porque en el próximo video conocemos a Richard y al bug que hace que algunos jefes estén seguros de tener siempre la razón.

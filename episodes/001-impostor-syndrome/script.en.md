@@ -4,42 +4,45 @@
 > card: SHE GOT THE JOB
 > cast: sarah:happy -> sarah:worried
 > set: office
-> switch: 0.15
+> switch: 0.3
 > note@0: 3 YEARS | Senior Analyst. Her own team.
 > note@1: 9:00 PM | Alone in the office
 
-Sarah just got the promotion she worked three years for. Senior Analyst. Her own team. Her boss shook her hand in front of everyone.
+Sarah just got the promotion she worked three years for. Senior Analyst. Her own team.
 
-So why is she sitting alone in the office at nine p.m., staring at her screen, feeling like she just stole something?
+So why is she alone in the office at nine p.m., feeling like she just stole something?
 
-If you've ever felt like that, like any minute now someone will tap you on the shoulder and say "we made a mistake", this video is for you. Because that feeling isn't random. It's an old program running in your brain. It was built to protect you, and once you understand it, it loses a lot of its power.
+If you've ever felt that someone will tap you on the shoulder and say "we made a mistake", this video is for you. That feeling is an old program in your brain. It was built to protect you, and once you understand it, it loses its power.
 
-Stay until the end, because the way Sarah finally deals with it is surprisingly simple, and you can use it tomorrow morning.
-
-# Scene: Sarah's story
+# Scene: The smart one
 > part: story
 > keywords: office meeting team presentation
 > card: SARAH, SENIOR ANALYST
-> cast: richard:smug, sarah:neutral -> sarah:worried, elena:happy, daniel:surprised, margaret:happy
+> cast: richard:smug, sarah:neutral -> sarah:worried, elena:happy
 > set: meeting
-> enter: daniel@6, margaret@7
-> switch: 0.6
+> switch: 0.8
 > note@1: "THE SMART ONE" | school, university, work
 > note@2: OBVIOUS CHOICE | Elena, Head of People
 
 Let's go back a few weeks.
 
-Sarah has always been "the smart one". At school, she was the kid who finished the exam first. At university, she was the one classmates called the night before a deadline. And at work, she's the person everyone goes to when the numbers don't add up. She stays late, she double-checks everything, and she has never missed a deadline.
+Sarah has always been "the smart one". The kid who finished the exam first. The classmate everyone called before a deadline. At work, she's the person you go to when the numbers don't add up.
 
-When the Senior Analyst role opened, Elena, the Head of People, didn't hesitate. Sarah was the obvious choice.
+When the Senior Analyst role opened, Elena, the Head of People, didn't hesitate. Even Richard, the Operations Director, who rarely compliments anyone, said "well deserved".
 
-Everyone thought so. Her team. Her friends. Even Richard, the Operations Director, who rarely compliments anyone, said "well deserved".
+Everyone was sure. Everyone, except Sarah.
 
-Everyone, except Sarah.
+# Scene: First morning
+> part: story
+> keywords: office desk morning coffee
+> card: DAY ONE
+> cast: sarah:worried, daniel:surprised, margaret:happy
+> set: office
+> enter: daniel@0, margaret@2
 
-The day of the announcement, she smiled, she said thank you, she made a short speech. And all the while, a little voice in her head kept saying something that nobody else could hear.
+On her first morning as team lead, Daniel, the newest analyst, asked her about a forecasting model she had never used.
 
-On her first morning as team lead, it got louder. Daniel, the newest analyst, asked her a question about a forecasting model she had never used. Sarah felt her face go hot. She said "let me get back to you", walked to her desk and spent the next two hours reading about it in secret, terrified that someone would notice she didn't already know.
+Sarah felt her face go hot. She said "let me get back to you", and spent two hours reading about it in secret, terrified someone would notice.
 
 Then Margaret from Finance passed by and said, kindly, "Big shoes to fill, huh?" Margaret meant it as encouragement. Sarah heard it as a warning.
 
@@ -49,14 +52,13 @@ Then Margaret from Finance passed by and said, kindly, "Big shoes to fill, huh?"
 > card: THAT NIGHT
 > cast: sarah:sad
 > set: home_night
+> note@2: 14 ITEMS | things she doesn't know yet
 
-That night, Sarah gets home late. Her mother calls, so proud she can barely speak. "My daughter, a senior analyst!" Sarah laughs, says thank you, and hangs up as fast as she can.
+That night, her mother calls, so proud she can barely speak. Sarah says thank you and hangs up fast. She feels like she's holding a ticket with someone else's name on it.
 
-She doesn't feel proud. She feels like she's holding a ticket with someone else's name on it.
+She scrolls her phone. A former classmate launched a company. A colleague is speaking at a conference. Everyone looks so sure. Nobody looks scared.
 
-She opens her phone and starts scrolling. A former classmate just launched a company. A colleague from her last job is speaking at a conference. Everyone looks so sure of themselves. Nobody looks scared.
-
-Before going to bed, she opens a note on her phone and writes a list. Not of the things she has achieved. Of the things she doesn't know yet. Advanced forecasting. Managing people. Presenting to the board. The list grows to fourteen items.
+Before bed, she writes a list. Not of what she has achieved, but of what she doesn't know yet. It grows to fourteen items.
 
 She lies awake looking at the ceiling, with one sentence going round and round in her head.
 
@@ -67,6 +69,8 @@ She lies awake looking at the ceiling, with one sentence going round and round i
 > cast: sarah:worried, bug:impostor:worried
 > set: office
 > enter: bug:impostor@1
+> note@3: 1978 | Clance & Imes, Georgia State
+> note@4: 9% TO 82% | depending on the study
 
 That voice, let's give it a face.
 
@@ -74,43 +78,56 @@ Meet The Impostor.
 
 It shows up right after good news, and it always says the same thing: "It was luck. You fooled them. Sooner or later, they'll find out."
 
-Psychologists have a name for this. In 1978, Pauline Clance and Suzanne Imes, two psychologists at Georgia State University, noticed that many of the high-achieving women they worked with, people with top grades and impressive careers, shared the same secret belief: that they weren't really capable, and that their success was a mistake. They called it the impostor phenomenon.
+In 1978, psychologists Pauline Clance and Suzanne Imes noticed that many high-achieving women they worked with shared the same secret belief: that their success was a mistake. They called it the impostor phenomenon. It isn't a mental illness. It's a pattern of thinking, and patterns can be noticed and changed.
 
-Later research showed it isn't only women. Men feel it too, in every profession and culture. A 2020 review of dozens of studies found rates from 9 to 82 percent, depending on the group and how it was measured. In other words, if you feel it, you are very far from alone.
+Later research showed men feel it too, in every profession. A 2020 review found rates from 9 to 82 percent, depending on the group. Doctors, engineers, artists, executives. If you feel it, you are far from alone.
 
-And it doesn't spare geniuses. Near the end of his life, Albert Einstein told a friend that the exaggerated esteem for his work made him feel like an "involuntary swindler". The poet Maya Angelou said that after eleven books, she still thought: "Uh oh, they're going to find out now."
+# Scene: Who it visits
+> part: bug
+> keywords: conference room audience
+> card: IT VISITS GROWERS
+> cast: sarah:neutral, bug:impostor:worried
+> set: meeting
+> note@3: 4 SIGNS | luck · praise · over-prep · no help
 
-The Impostor tends to visit at very specific moments: when you start a new job, get a promotion, join a group where you feel different from everyone else, or step into a room full of people you admire. It also loves people who grew up being called "gifted" or "the smart one". When your identity is built on being capable, any moment of not knowing feels like a threat to who you are.
+It doesn't spare geniuses either. Albert Einstein once called himself an "involuntary swindler". After eleven books, Maya Angelou still thought: "Uh oh, they're going to find out now."
 
-Notice something important: The Impostor doesn't visit people who don't care. It visits people who are stretching into something new.
+The Impostor visits at specific moments: a new job, a promotion, a room full of people you admire. And it loves people who grew up being called "the smart one", because when your identity is being capable, not knowing feels like a threat.
 
-How do you know if The Impostor is visiting you? Here are four common signs. You explain your wins with luck, timing or other people's help, but you explain your mistakes with your own lack of ability. You feel uncomfortable when someone praises you, and you quickly change the subject. You prepare far more than the task needs, just in case. And you avoid asking for help, because asking feels like confessing. If you recognized yourself in two or more, keep watching. You're about to see where this comes from.
+Notice this: it doesn't visit people who don't care. It visits people who are stretching into something new.
+
+Four common signs. You explain wins with luck and mistakes with your lack of ability. Praise makes you uncomfortable. You over-prepare, just in case. And you avoid asking for help, because asking feels like confessing.
 
 # Scene: What it does to Sarah
 > part: consequence
 > keywords: stress work deadline coffee
-> card: 9 COMPLIMENTS, 1 COMMENT
-> cast: sarah:worried, bug:impostor:worried, bug:filter:sad
+> card: THE IMPOSTOR CYCLE
+> cast: sarah:worried, bug:impostor:worried
 > set: office
-> enter: bug:filter@6
+> note@2: THE IMPOSTOR CYCLE | anxiety → overwork → "luck" → repeat
 
 Here is what The Impostor does to Sarah's week.
 
-She starts arriving earlier and leaving later. Not because there's more work, but because she feels she has to prove, every single day, that she deserves the job.
+She arrives earlier and leaves later, to prove every day that she deserves the job. She stops asking questions in meetings, so nobody notices what she doesn't know.
 
-She stops asking questions in meetings. If she asks, they might notice what she doesn't know.
+When a project goes well, she thinks: "I only managed because I worked twice as hard." Pauline Clance called this the impostor cycle. A new task brings anxiety, then over-work or putting it off. It goes well, and the success gets explained away. Success never counts as proof, so the next task feels just as dangerous.
 
-When a project goes well, she doesn't celebrate. She thinks: "I only managed it because I worked twice as hard. A truly smart person wouldn't need to." Pauline Clance described this as the impostor cycle. A new task triggers anxiety. Some people respond by over-preparing, others by putting it off until the last minute. Then the task goes well, and the success gets explained away: "I just worked too hard" or "I got lucky". Success never counts as proof. So the next task feels just as dangerous as the first, and the cycle starts again.
+Notice the trap. The harder she works, the more she believes she needed to, and the less she believes she's capable. The proof she's looking for can never arrive, because she has already decided how to explain it.
 
-And The Impostor rarely travels alone. On Friday, Sarah presents to the leadership team. Nine people tell her it was excellent. One person suggests a different chart. Guess which comment she replays all weekend.
+# Scene: Nine and one
+> part: consequence
+> keywords: presentation meeting feedback
+> card: 9 COMPLIMENTS, 1 COMMENT
+> cast: richard:neutral, sarah:worried, daniel:neutral, bug:impostor:worried, bug:filter:sad
+> set: meeting
+> enter: bug:filter@1
+> note@0: 9 vs 1 | compliments vs one comment
 
-Saturday morning, she's at the supermarket, still rewriting that chart in her head. Sunday night, she can't sleep. She opens her laptop and changes the slide five times, even though nobody asked her to.
+On Friday, Sarah presents to leadership. Nine people say it was excellent. One suggests a different chart. Guess which comment she replays all weekend. Saturday at the supermarket, she's still redrawing that chart in her head. Sunday night, she changes the slide five times.
 
-That's a second bug, The Filter. It keeps the one negative detail and throws away everything else. Together, these two can turn a great week into proof that you're failing.
+That's a second bug, The Filter. It keeps the one negative detail and throws away the rest. Together, these two can turn a great week into proof that you're failing.
 
-There's a cost her team pays too. Because Sarah is afraid of looking like she can't handle things, she stops delegating. She redoes Daniel's analysis herself instead of teaching him. Daniel starts to think she doesn't trust him. The team gets slower, Sarah gets more tired, and the voice gets louder.
-
-If this goes on for months, the result is often exhaustion, or burnout. Not because the person isn't good enough, but because they are carrying the job and a secret at the same time.
+Her team pays too. Afraid of looking overwhelmed, Sarah stops delegating and redoes Daniel's work herself. Daniel thinks she doesn't trust him. The team slows down, Sarah gets more tired, and the voice gets louder. Months of this often end in burnout.
 
 # Scene: Why it exists
 > part: why
@@ -118,71 +135,113 @@ If this goes on for months, the result is often exhaustion, or burnout. Not beca
 > card: AN OLD ALARM
 > cast: bug:impostor:neutral
 > set: savanna
+> note@1: SMALL GROUPS | belonging = survival
 
 But here's the important part. The Impostor is not your enemy. It's an old alarm, and once, it was very useful.
 
-For most of human history, we lived in small groups. Being part of the group meant food, protection and survival. Being pushed out could cost you your life.
+For most of human history, we lived in small groups. Belonging meant food and protection. Being pushed out could cost you your life. So our brains got very good at one question: "Am I good enough for them to keep me?"
 
-So our brains became very good at one question: "Do I belong here? Am I good enough for them to keep me?"
+Imagine an ancestor joining a new group. If she acted like she knew everything, she might be pushed out. If she felt a little unsure, watched carefully and proved her value, she was accepted. That voice saying "careful, you're new here" kept her alive.
 
-If you were new to the group, or suddenly had a more important role, paying close attention to how others saw you was a smart move. Doubt kept you careful. It made you work hard, watch your step and avoid mistakes that could get you rejected.
+Doubt made our ancestors work hard, watch their step and avoid the mistakes that could get them rejected. In that world, a little impostor feeling was a survival skill.
 
-Imagine one of our ancestors, joining a new group after hers was scattered. If she walked in acting like she knew everything, ignored the rules and took more than her share, she might be pushed out. But if she felt a little unsure, watched carefully, learned how things worked and proved her value, she was much more likely to be accepted. That small voice saying "be careful, you're new here, they're watching" was keeping her alive.
+# Scene: Old alarm, new office
+> part: why
+> keywords: office window city
+> card: OUT OF DATE
+> cast: sarah:worried, bug:impostor:neutral
+> set: office
+> note@0: INSIDE vs OUTSIDE | your backstage, their highlight reel
 
-There's another piece. In those small groups, you compared yourself with a few dozen people, and you saw them as they really were: tired, wrong, scared, sometimes brilliant. Today, you compare your messy backstage with everyone else's highlight reel: the polished presentation, the confident colleague, the perfect profile online. Of course you come up short. You're comparing your inside to their outside.
+There's another piece. Back then you saw a few dozen people as they really were: tired, wrong, scared. Today you compare your messy backstage with everyone else's highlight reel. Of course you come up short.
 
-The problem is that this alarm was built for a world where being rejected was a matter of life and death. Today, the group is your office, and a promotion triggers the same old signal: new position, more eyes on you, danger. The alarm isn't broken. It's just out of date.
+And a promotion triggers the old signal: new position, more eyes on you, danger. Your heart races, your hands get cold. Your body reacts to a meeting room like a tribe deciding whether to keep you.
 
-You can even feel it in your body. On your first day in a new role, your heart beats faster, your hands get cold, your stomach tightens. That is the same response that prepared our ancestors to face danger. Your body is reacting to a new meeting room as if it were a new tribe deciding whether to keep you. It's not a sign that something is wrong with you. It's a sign that your brain is doing exactly what it evolved to do.
+It's not a sign that something is wrong with you. It's a sign that your brain is doing exactly what it evolved to do: protecting your place in the group.
 
-# Scene: The update
+The alarm isn't broken. It's just out of date.
+
+# Scene: Coffee with Elena
 > part: update
-> keywords: coffee conversation office two women
+> keywords: coffee conversation two women
 > card: WHAT DID YOU DO?
 > cast: sarah:worried -> sarah:happy, elena:happy, bug:impostor:worried -> bug:impostor:happy
 > set: cafe
 > enter: bug:impostor@1
-> switch: 0.3
+> switch: 0.55
 
-A month later, Elena notices that Sarah looks exhausted, and invites her for a coffee.
+A month later, Elena notices Sarah looks exhausted, and invites her for a coffee.
 
-Sarah finally says it out loud: "I think you picked the wrong person. I just got lucky."
+Sarah finally says it: "I think you picked the wrong person. I just got lucky."
 
-Elena doesn't argue. She doesn't say "don't be silly". She asks a question instead: "Okay. What did you do to get here?"
+Elena doesn't argue. She asks: "Okay. What did you do to get here?"
 
-Sarah starts listing. The model she rebuilt that saved the team two weeks. The error she caught before it reached a client. The three new analysts she trained. The more she talks, the quieter The Impostor gets.
+Sarah starts listing. The model she rebuilt that saved two weeks. The error she caught before a client saw it. The three analysts she trained. The more she talks, the quieter The Impostor gets.
 
-Then Elena tells her something she didn't expect. "When I became Head of People, I spent my first six months waiting for someone to discover I had no idea what I was doing. I still feel it sometimes."
+Then Elena says: "When I became Head of People, I spent six months waiting for someone to discover I had no idea what I was doing. I still feel it sometimes."
 
-That's the update. You don't have to destroy the voice. You just have to stop taking it as the truth. Here are five ways to do it.
+Sarah stares at her. If Elena, of all people, feels it, maybe the feeling says nothing about ability at all.
 
-One: name it. When the thought shows up, say: "That's The Impostor talking." A feeling is not a fact, and naming it gives you a little distance.
+# Scene: The update
+> part: update
+> keywords: notebook desk morning
+> card: FIVE UPDATES
+> cast: sarah:happy, bug:impostor:happy
+> set: cafe
+> note@1: 1. NAME IT | "That's The Impostor talking"
+> note@2: 2. ASK | What did I actually do?
+> note@3: 3. SAY IT | it grows in silence
+> note@4: 4. "NOT YET" | I don't know... yet
+> note@5: 5. PAST YOU | not their highlight reel
 
-Two: ask the update question. "What did I actually do to get this?" Then answer with facts, not feelings. Some people keep an evidence file with thank-you emails, results and wins, so the facts are there when the doubt arrives.
+That's the update. You don't destroy the voice. You stop taking it as the truth. Five ways.
 
-Three: say it to someone you trust. The Impostor grows in silence. Very often, the person you tell will say what Elena said: "Me too."
+One: name it. "That's The Impostor talking." A feeling is not a fact, and naming it gives you a little distance, like hearing an alarm and knowing it's only a drill.
 
-Four: change "I don't know" into "I don't know yet". Nobody starts a new role knowing everything. Learning on the job is not proof that you don't belong. It is the job. The next time Daniel asks her something new, Sarah says: "Good question. Let's figure it out together." Daniel learns, and Sarah stops hiding.
+Two: ask the update question. "What did I actually do to get this?" Answer with facts. Keep an evidence file of thank-you emails and wins, so when the doubt arrives, you read facts, not feelings.
 
-Five: compare yourself with your past self, not with other people's highlight reels. A year ago, could you have done what you did this week? That's the comparison that tells the truth.
+Three: tell someone you trust. The Impostor grows in silence, and very often you'll hear: "Me too." Saying it out loud removes the secret, and the secret is where it gets its power.
 
-Over the next few weeks, Sarah tries all five. She starts a folder on her laptop called "Facts", and every time someone thanks her, she saves it. When The Impostor shows up before a big meeting, she says to herself, "Hello, old alarm. I know you're trying to help." It sounds a little silly, she admits, but it works. The voice doesn't disappear. It just stops being the one in charge.
+Four: change "I don't know" into "I don't know yet". Learning on the job isn't proof you don't belong. It is the job. The next time Daniel asks her something new, Sarah says: "Good question. Let's figure it out together."
 
-Let's try it right now. Think of one thing you achieved in the last year, something you usually explain with luck. Now name three things you actually did to make it happen. Not what others did, not the timing. What you did. If you could name even one, The Impostor's story just got a little weaker. Write it down. That's the first page of your own evidence file.
+Five: compare yourself with your past self. A year ago, could you have done what you did this week? That's the comparison that tells the truth.
+
+Try it now. Think of one thing you achieved this year that you usually explain with luck. Name three things you did to make it happen. That's the first page of your evidence file.
+
+Over the next weeks, Sarah tries all five. She starts a folder called "Facts", and every time someone thanks her, she saves it. The voice doesn't disappear. It just stops being the one in charge.
+
+# Scene: Gap or glitch?
+> part: update
+> keywords: office desk learning
+> card: GAP OR GLITCH?
+> cast: sarah:neutral, bug:impostor:happy
+> set: office
+> note@1: SKILL GAP | "I need to learn this"
+> note@2: GLITCH | "I am a fraud"
+
+One important note. Sometimes you really are missing a skill. That's normal, and it isn't The Impostor.
+
+Here's the difference. A skill gap sounds like: "I need to learn this." It points to something you can do.
+
+The Impostor sounds like: "I am a fraud." It points to who you are, and it never comes with a plan.
+
+So when the doubt shows up, ask: is this about something I can learn, or about who I am? If it's a skill, make a plan. If it's about who you are, that's the old alarm talking.
 
 # Scene: What it really means
 > part: close
 > keywords: woman walking office morning
 > card: YOU CARE. THAT'S THE SIGN.
-> cast: sarah:happy, bug:impostor:happy
+> cast: sarah:happy, daniel:worried -> daniel:happy, bug:impostor:happy
 > set: office
+> switch: 0.3
+> note@2: RECAP | name · facts · talk · learn · compare
 
-Sarah still hears The Impostor sometimes. It still shows up after good news. But now she knows what it is: an old alarm trying to protect her. She thanks it, and keeps going. She delegates again, she asks questions in meetings, and on Friday, she remembers the nine compliments too.
+Sarah still hears The Impostor sometimes. Now she says: "Hello, old alarm. I know you're trying to help." And she keeps going. She delegates again, asks questions in meetings, and on Friday she remembers the nine compliments too.
 
-And one afternoon, she notices Daniel staring at his screen, a little pale, before his first presentation to a client. She recognizes that look. She sits next to him and asks: "What did you do to prepare for this?" Daniel starts listing, and as he talks, his shoulders drop. Sarah smiles. The question that helped her is now helping someone else.
+One afternoon, Daniel looks pale before his first client presentation. Sarah sits next to him and asks: "What did you do to prepare?" As he lists, his shoulders drop. Sarah smiles. The question that helped her is now helping someone else.
 
-So, quick recap. The Impostor is the voice that says your success was luck. It shows up when you grow. It exists because, for our ancestors, belonging was survival. And you update it by naming it, looking at the facts, talking about it, giving yourself permission to learn, and comparing yourself with who you were.
+Quick recap. The Impostor says your success was luck. It shows up when you grow, because for our ancestors, belonging was survival. You update it by naming it, checking the facts, talking about it, learning out loud, and comparing yourself with who you were.
 
-Feeling like an impostor doesn't mean you are one. Very often, it means you're growing, and that you care about doing the work well.
+Feeling like an impostor doesn't mean you are one. Very often, it means you're growing, and that you care.
 
-Now tell me in the comments: when was the last time you felt like an impostor? And subscribe to Human Glitch, because next time we meet Richard, and the bug that makes some bosses sure they're always right.
+Tell me in the comments: when did you last feel like an impostor? And subscribe to Human Glitch, because next time we meet Richard, and the bug that makes some bosses sure they're always right.

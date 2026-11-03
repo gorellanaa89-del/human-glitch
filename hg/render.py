@@ -113,13 +113,47 @@ def _chapters(titles, offsets):
     return "\n".join(lines)
 
 
+def _short_frame(title: str, out: Path) -> Path:
+    """The still 1080x1920 frame of a Short: navy background, the title handwritten in white at the top,
+    the channel name above it, and a thin light-blue line framing the picture area."""
+    from PIL import Image, ImageDraw, ImageFont
+    from .config import BRAND_LIGHT, BRAND_NAVY
+    from . import sketch
+    img = Image.new("RGB", (SHORT_W, SHORT_H), BRAND_NAVY)
+    d = ImageDraw.Draw(img)
+    small = ImageFont.truetype(str(sketch.HAND_FONT), 44)
+    d.text((SHORT_W / 2, 150), "HUMAN GLITCH", font=small, fill=BRAND_LIGHT, anchor="mm")
+    size = 92
+    while True:
+        font = ImageFont.truetype(str(sketch.HAND_FONT), size)
+        lines, cur = [], ""
+        for wd in title.split():
+            trial = (cur + " " + wd).strip()
+            if d.textlength(trial, font=font) > SHORT_W - 140 and cur:
+                lines.append(cur); cur = wd
+            else:
+                cur = trial
+        if cur:
+            lines.append(cur)
+        if len(lines) <= 3 or size <= 60:
+            break
+        size -= 8
+    y0 = 360 - (len(lines) - 1) * size * 0.55
+    for k, line in enumerate(lines):
+        d.text((SHORT_W / 2, y0 + k * size * 1.1), line, font=font, fill=(255, 255, 255), anchor="mm")
+    d.rectangle((0, 552, SHORT_W, 560), fill=BRAND_LIGHT)
+    d.rectangle((0, 1320, SHORT_W, 1328), fill=BRAND_LIGHT)
+    img.save(out)
+    return out
+
+
 def _vertical(scene, scene_wav: Path, words, out: Path):
     animate.render_scene(scene, min(59.0, media.duration(scene_wav)), words, out, (SHORT_W, SHORT_H), set(), seed=7)
 
 
 def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path, scene=None,
            name: str = "short.mp4", vertical_cache: dict | None = None, timing_words=None,
-           vertical_path: Path | None = None) -> Path | None:
+           vertical_path: Path | None = None, title: str | None = None) -> Path | None:
     """A vertical Short from one scene: subtitles burned in (karaoke), cut at the last full sentence before 58 s.
     `words` are the subtitle words (any language); `timing_words` (English) time the animation."""
     limit = 58.0
@@ -136,23 +170,23 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path,
     end += 0.3
     animated = scene is not None and animate.is_animated(scene)
     stem = Path(name).stem
-    ass = subtitles.write_ass([w for w in words if w[1] <= end], work / f"{stem}.ass", SHORT_W, SHORT_H,
-                              vertical=True, top=animated)
     out = out_dir / name
     if animated:
-        # one vertical animation per scene, shared by every language (and maybe rendered by a parallel job)
-        cache = vertical_cache if vertical_cache is not None else {}
-        key = id(scene)
-        if key not in cache:
-            vertical = vertical_path or work / f"{stem}_v.mp4"
-            if not vertical.exists():
-                _vertical(scene, scene_wav, timing_words or words, vertical)
-            cache[key] = vertical
-        vertical = cache[key]
-        media.run(["-i", vertical, "-i", scene_wav, "-t", f"{end:.3f}", "-vf", f"subtitles={ass}",
+        # Short layout: title band on top, the scene's own 16:9 animation in the middle (nothing re-laid out,
+        # so characters never pile up), karaoke subtitles in their own band below, never over a face.
+        ass = subtitles.write_ass([w for w in words if w[1] <= end], work / f"{stem}.ass", SHORT_W, SHORT_H,
+                                  vertical=True, margin=0.115)
+        frame = _short_frame(title or "", work / f"{stem}_frame.png")
+        mid_h, mid_y = 760, 560
+        fc = (f"[1:v]scale=-2:{mid_h},crop={SHORT_W}:{mid_h}[mid];"
+              f"[0:v][mid]overlay=0:{mid_y},subtitles={ass}[v]")
+        media.run(["-loop", "1", "-framerate", "30", "-i", frame, "-i", scene_video, "-i", scene_wav,
+                   "-t", f"{end:.3f}", "-filter_complex", fc, "-map", "[v]", "-map", "2:a",
                    "-c:v", "libx264", "-preset", "faster", "-crf", "21", "-pix_fmt", "yuv420p",
                    "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out])
         return out
+    ass = subtitles.write_ass([w for w in words if w[1] <= end], work / f"{stem}.ass", SHORT_W, SHORT_H,
+                              vertical=True)
     fc = (f"[0:v]scale={SHORT_W}:{SHORT_H}:force_original_aspect_ratio=increase,crop={SHORT_W}:{SHORT_H},"
           f"boxblur=20:2,eq=brightness=-0.15[bg];"
           f"[0:v]scale={SHORT_W}:-2[fg];[bg][fg]overlay=0:(H-h)/2-160,subtitles={ass}[v]")
@@ -256,8 +290,6 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             cache_file.write_text(_json.dumps({"video": Path(video).name, "seconds": seconds, "words": words,
                                                "es_words": scene_es_words[-1] if scenes_es else [], "es_cut": bool(cut)}))
         if only_scene is not None:
-            if any(int(sp["scene"]) - 1 == i for sp in meta.get("shorts") or []) and animate.is_animated(sc):
-                _vertical(sc, wav, words, work / f"short-{i + 1:02d}_v.mp4")
             return {"scene": i + 1, "seconds": round(seconds, 1)}
         t += seconds
 
@@ -318,7 +350,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             print(f"Short: scene {k + 1} ({lang})")
             f = _short(videos[k], wav, words, out_dir, work, scenes[k], name=f"short-{k + 1:02d}-{lang}.mp4",
                        vertical_cache=vcache, timing_words=scene_words[k],
-                       vertical_path=work / f"short-{k + 1:02d}_v.mp4")
+                       vertical_path=work / f"short-{k + 1:02d}_v.mp4", title=spec.get(lang))
             if f:
                 shorts.append({"file": f.name, "scene": k + 1, "lang": lang,
                                "title": spec.get(lang) or meta["title"].split("(")[0].strip()})

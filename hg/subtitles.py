@@ -29,9 +29,10 @@ def _srt_time(t: float) -> str:
     return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d},{ms % 1000:03d}"
 
 
-def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = False, top: bool = False) -> Path:
+def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = False, top: bool = False,
+              margin: float | None = None) -> Path:
     size = int(h * (0.044 if vertical else 0.06))
-    margin_v = int(h * (0.12 if top else 0.27 if vertical else 0.08))
+    margin_v = int(h * (margin if margin is not None else 0.12 if top else 0.27 if vertical else 0.08))
     align = 8 if top else 2
     header = (
         "[Script Info]\nScriptType: v4.00+\n"

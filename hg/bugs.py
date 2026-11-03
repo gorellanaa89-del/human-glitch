@@ -65,7 +65,7 @@ def _body_pts():
     return ellipse_pts(CX, CY, *BR, n=90)
 
 
-HEAD_STYLE = "antennae"  # antennae | none | pixels | signal | sprout
+HEAD_STYLE = "pixels"  # antennae | none | pixels | signal | sprout
 
 
 def _antennae(p, col, droop=False, style=None):

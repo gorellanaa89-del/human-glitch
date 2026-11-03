@@ -32,7 +32,7 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: |
           if [ "${{ inputs.privacy }}" = "search" ]; then
-            python tools/channel_search.py "${{ inputs.video_id }}"
+            PYTHONPATH=. python tools/channel_search.py "${{ inputs.video_id }}"
           elif [ -n "${{ inputs.at }}" ]; then
             python -m hg visibility "${{ inputs.video_id }}" --privacy "${{ inputs.privacy }}" --at "${{ inputs.at }}"
           else

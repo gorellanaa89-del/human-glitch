@@ -7,7 +7,7 @@ from pathlib import Path
 import yaml
 
 from . import animate, broll, graphics, media, subtitles, tts
-from .config import BROLL_SECONDS, CARD_SECONDS, FPS, H, MAX_ES_TEMPO, SHORT_H, SHORT_W, VOICES, W
+from .config import BROLL_SECONDS, CARD_SECONDS, FPS, H, MAX_ES_TEMPO, SHORT_H, SHORT_W, VOICE_RATE, VOICES, W
 from .script import parse_script
 
 X264 = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p", "-r", str(FPS), "-an"]
@@ -167,7 +167,7 @@ def build(episode: Path, engine: str = "edge") -> dict:
     for i, sc in enumerate(scenes):
         print(f"Scene {i + 1}/{len(scenes)}: {sc.title}")
         wav = work / f"s{i}_en.wav"
-        words = _attach_punctuation(tts.synthesize(sc.narration, VOICES["en"], wav, engine), sc.narration)
+        words = _attach_punctuation(tts.synthesize(sc.narration, VOICES["en"], wav, engine, VOICE_RATE["en"]), sc.narration)
         seconds = media.duration(wav)
         if animate.is_animated(sc):
             video = work / f"s{i}_video.mp4"
@@ -185,7 +185,7 @@ def build(episode: Path, engine: str = "edge") -> dict:
         if scenes_es:
             es_raw = work / f"s{i}_es_raw.wav"
             es_sc = scenes_es[i]
-            ew = _attach_punctuation(tts.synthesize(es_sc.narration, VOICES["es"], es_raw, engine), es_sc.narration)
+            ew = _attach_punctuation(tts.synthesize(es_sc.narration, VOICES["es"], es_raw, engine, VOICE_RATE["es"]), es_sc.narration)
             es_wav = work / f"s{i}_es.wav"
             tempo, cut = _fit_spanish(es_raw, seconds, es_wav)
             if cut:

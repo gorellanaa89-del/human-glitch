@@ -26,6 +26,18 @@ En su primera mañana como líder del equipo, la voz se hizo más fuerte. Daniel
 
 Luego pasó Margaret, de Finanzas, y le dijo con cariño: "Te toca un puesto grande, ¿eh?". Margaret lo dijo para animarla. Sarah lo escuchó como una advertencia.
 
+# Scene: Esa noche
+
+Esa noche, Sarah llega tarde a casa. Su mamá la llama, tan orgullosa que casi no puede hablar: "¡Mi hija, analista senior!". Sarah se ríe, le da las gracias y cuelga lo más rápido que puede.
+
+No se siente orgullosa. Se siente como si tuviera en la mano un boleto con el nombre de otra persona.
+
+Abre el teléfono y empieza a deslizar. Una excompañera acaba de lanzar su empresa. Un colega de su trabajo anterior da una charla en un congreso. Todos se ven muy seguros. Nadie parece asustado.
+
+Antes de dormir, abre una nota en el teléfono y escribe una lista. No de lo que ha logrado, sino de lo que todavía no sabe. Proyecciones avanzadas. Liderar personas. Presentar ante el directorio. La lista llega a catorce cosas.
+
+Se queda despierta mirando el techo, con una frase dándole vueltas en la cabeza.
+
 # Scene: Conoce a The Impostor
 
 Esa voz, pongámosle cara.
@@ -82,6 +94,8 @@ Hay otra pieza. En esos grupos pequeños te comparabas con unas cuantas decenas 
 
 El problema es que esa alarma se construyó para un mundo donde el rechazo era cuestión de vida o muerte. Hoy el grupo es tu oficina, y un ascenso dispara la misma señal antigua: nueva posición, más miradas sobre ti, peligro. La alarma no está rota. Solo está desactualizada.
 
+Incluso puedes sentirlo en el cuerpo. En tu primer día en un puesto nuevo, el corazón se acelera, las manos se enfrían, el estómago se aprieta. Es la misma respuesta que preparaba a nuestros ancestros para enfrentar el peligro. Tu cuerpo reacciona ante una sala de reuniones nueva como si fuera una tribu nueva decidiendo si te acepta. No es señal de que algo ande mal contigo. Es señal de que tu cerebro hace exactamente aquello para lo que evolucionó.
+
 # Scene: La actualización
 
 Un mes después, Elena nota que Sarah se ve agotada y la invita a tomar un café.
@@ -108,9 +122,13 @@ Cinco: compárate con tu yo del pasado, no con lo mejor de los demás. Hace un a
 
 En las semanas siguientes, Sarah prueba las cinco. Crea una carpeta en su laptop llamada "Hechos", y cada vez que alguien le agradece, lo guarda ahí. Cuando The Impostor aparece antes de una reunión importante, se dice: "Hola, alarma vieja. Sé que intentas ayudar". Admite que suena un poco tonto, pero funciona. La voz no desaparece. Solo deja de ser la que manda.
 
+Probemos ahora mismo. Piensa en algo que lograste el último año, algo que sueles explicar con suerte. Ahora nombra tres cosas que tú hiciste para que pasara. No lo que hicieron otros, ni el buen momento. Lo que hiciste tú. Si pudiste nombrar aunque sea una, la historia de The Impostor se acaba de debilitar un poco. Anótala. Es la primera página de tu propio archivo de evidencias.
+
 # Scene: Lo que de verdad significa
 
 Sarah todavía escucha a The Impostor de vez en cuando. Todavía aparece después de las buenas noticias. Pero ahora sabe lo que es: una alarma antigua que intenta protegerla. Le da las gracias y sigue adelante. Vuelve a delegar, hace preguntas en las reuniones y, el viernes, también recuerda los nueve elogios.
+
+Y una tarde nota a Daniel mirando su pantalla, un poco pálido, antes de su primera presentación con un cliente. Reconoce esa mirada. Se sienta a su lado y le pregunta: "¿Qué hiciste para prepararte?". Daniel empieza a enumerar y, mientras habla, sus hombros se relajan. Sarah sonríe. La pregunta que la ayudó a ella ahora ayuda a alguien más.
 
 Entonces, un resumen rápido. The Impostor es la voz que dice que tu éxito fue suerte. Aparece cuando creces. Existe porque, para nuestros ancestros, pertenecer era sobrevivir. Y lo actualizas poniéndole nombre, mirando los hechos, hablando del tema, dándote permiso para aprender y comparándote con quien eras antes.
 

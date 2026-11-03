@@ -12,10 +12,10 @@ from .config import SCENE_GAP
 Word = tuple[float, float, str]  # start, end, text
 
 
-async def _edge(text: str, voice: str, mp3: Path) -> list[Word]:
+async def _edge(text: str, voice: str, mp3: Path, rate: str = "+0%") -> list[Word]:
     import edge_tts
 
-    comm = edge_tts.Communicate(text, voice, boundary="WordBoundary")
+    comm = edge_tts.Communicate(text, voice, rate=rate, boundary="WordBoundary")
     words: list[Word] = []
     with open(mp3, "wb") as f:
         async for chunk in comm.stream():
@@ -36,11 +36,11 @@ def _estimate(text: str, wps: float = 2.6) -> list[Word]:
     return words
 
 
-def synthesize(text: str, voice: str, wav: Path, engine: str = "edge") -> list[Word]:
+def synthesize(text: str, voice: str, wav: Path, engine: str = "edge", rate: str = "+0%") -> list[Word]:
     """Write a 48 kHz mono WAV with SCENE_GAP of trailing silence and return word timings."""
     if engine == "edge":
         mp3 = wav.with_suffix(".mp3")
-        words = asyncio.run(_edge(text.replace("\n\n", " "), voice, mp3))
+        words = asyncio.run(_edge(text.replace("\n\n", " "), voice, mp3, rate))
         media.run(["-i", mp3, "-af", f"apad=pad_dur={SCENE_GAP}", "-ar", "48000", "-ac", "1", wav])
         mp3.unlink()
     elif engine == "silent":

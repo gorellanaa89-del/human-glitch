@@ -75,7 +75,7 @@ def _layout(actors: list[Actor], portrait: bool):
     if n == 1:
         order[0].x = 0.5 if not order[0].is_bug else 0.45
         return
-    span = (0.5 if portrait else 0.36) if n == 2 else min(0.64, 0.2 * (n - 1))
+    span = (0.42 if portrait else 0.36) if n == 2 else min(0.64, 0.2 * (n - 1))
     for i, a in enumerate(order):
         a.x = 0.5 - span / 2 + span * i / (n - 1)
 
@@ -120,8 +120,8 @@ class SceneRenderer:
         self.front = front.resize((self.world_w, self.world_h), Image.LANCZOS) if front else None
         self.ox = (self.world_w - self.w) / 2  # world x of the frame's left edge in the wide shot
         unit = self.world_h / 1080
-        self.person_h = int((0.66 if not self.portrait else 0.44) * self.world_h)
-        self.bug_h = int((0.38 if not self.portrait else 0.27) * self.world_h)
+        self.person_h = int((0.66 if not self.portrait else 0.50) * self.world_h)
+        self.bug_h = int((0.38 if not self.portrait else 0.30) * self.world_h)
         if self.set_name == "meeting":
             self.person_h = int(self.person_h * 1.0)
         self.person_bottom = self.world_h + int(30 * unit)

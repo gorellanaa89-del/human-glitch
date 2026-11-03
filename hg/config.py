@@ -21,6 +21,10 @@ WHITE = (240, 244, 248)
 
 CHANNEL = "HUMAN GLITCH"
 
+# Speaking rate per language (edge-tts format). English is slowed a little: calmer storytelling,
+# and it leaves room for the Spanish track, which needs more words for the same content.
+VOICE_RATE = {"en": "-10%", "es": "+0%"}
+
 VOICES = {
     "en": "en-US-AndrewNeural",
     "es": "es-MX-JorgeNeural",

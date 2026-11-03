@@ -39,6 +39,23 @@ On her first morning as team lead, it got louder. Daniel, the newest analyst, as
 
 Then Margaret from Finance passed by and said, kindly, "Big shoes to fill, huh?" Margaret meant it as encouragement. Sarah heard it as a warning.
 
+# Scene: That night
+> part: story
+> keywords: night apartment window city
+> card: THAT NIGHT
+> cast: sarah:sad
+> set: home_night
+
+That night, Sarah gets home late. Her mother calls, so proud she can barely speak. "My daughter, a senior analyst!" Sarah laughs, says thank you, and hangs up as fast as she can.
+
+She doesn't feel proud. She feels like she's holding a ticket with someone else's name on it.
+
+She opens her phone and starts scrolling. A former classmate just launched a company. A colleague from her last job is speaking at a conference. Everyone looks so sure of themselves. Nobody looks scared.
+
+Before going to bed, she opens a note on her phone and writes a list. Not of the things she has achieved. Of the things she doesn't know yet. Advanced forecasting. Managing people. Presenting to the board. The list grows to fourteen items.
+
+She lies awake looking at the ceiling, with one sentence going round and round in her head.
+
 # Scene: Meet The Impostor
 > part: bug
 > keywords: office desk night lamp
@@ -112,6 +129,8 @@ There's another piece. In those small groups, you compared yourself with a few d
 
 The problem is that this alarm was built for a world where being rejected was a matter of life and death. Today, the group is your office, and a promotion triggers the same old signal: new position, more eyes on you, danger. The alarm isn't broken. It's just out of date.
 
+You can even feel it in your body. On your first day in a new role, your heart beats faster, your hands get cold, your stomach tightens. That is the same response that prepared our ancestors to face danger. Your body is reacting to a new meeting room as if it were a new tribe deciding whether to keep you. It's not a sign that something is wrong with you. It's a sign that your brain is doing exactly what it evolved to do.
+
 # Scene: The update
 > part: update
 > keywords: coffee conversation office two women
@@ -145,6 +164,8 @@ Five: compare yourself with your past self, not with other people's highlight re
 
 Over the next few weeks, Sarah tries all five. She starts a folder on her laptop called "Facts", and every time someone thanks her, she saves it. When The Impostor shows up before a big meeting, she says to herself, "Hello, old alarm. I know you're trying to help." It sounds a little silly, she admits, but it works. The voice doesn't disappear. It just stops being the one in charge.
 
+Let's try it right now. Think of one thing you achieved in the last year, something you usually explain with luck. Now name three things you actually did to make it happen. Not what others did, not the timing. What you did. If you could name even one, The Impostor's story just got a little weaker. Write it down. That's the first page of your own evidence file.
+
 # Scene: What it really means
 > part: close
 > keywords: woman walking office morning
@@ -153,6 +174,8 @@ Over the next few weeks, Sarah tries all five. She starts a folder on her laptop
 > set: office
 
 Sarah still hears The Impostor sometimes. It still shows up after good news. But now she knows what it is: an old alarm trying to protect her. She thanks it, and keeps going. She delegates again, she asks questions in meetings, and on Friday, she remembers the nine compliments too.
+
+And one afternoon, she notices Daniel staring at his screen, a little pale, before his first presentation to a client. She recognizes that look. She sits next to him and asks: "What did you do to prepare for this?" Daniel starts listing, and as he talks, his shoulders drop. Sarah smiles. The question that helped her is now helping someone else.
 
 So, quick recap. The Impostor is the voice that says your success was luck. It shows up when you grow. It exists because, for our ancestors, belonging was survival. And you update it by naming it, looking at the facts, talking about it, giving yourself permission to learn, and comparing yourself with who you were.
 

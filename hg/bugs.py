@@ -16,6 +16,7 @@ BR = (170, 200)            # body radii
 EYES = ((CX - 60, 590), (CX + 60, 590))
 ER = (44, 56)
 DARK = (45, 42, 52)
+_BLINK = False
 
 
 def _font(size):
@@ -102,6 +103,9 @@ def _arm(p, col, side, end=None, hand=True):
 def _eyes(p, expr, col, look=(0, 0), skip=()):
     for i, (cx, cy) in enumerate(EYES):
         if i in skip:
+            continue
+        if _BLINK and expr != "happy":
+            p.line(ellipse_pts(cx, cy + 14, 34, 14, math.pi * 0.1, math.pi * 0.9, 20), 6)
             continue
         side = -1 if i == 0 else 1
         if expr == "happy":
@@ -229,7 +233,7 @@ def draw_full(kind: str, expr: str | None = None) -> Image.Image:
 
     if kind == "impostor":
         img, p = _core(kind, e)
-        if e != "happy":  # once patched, the mask comes off
+        if e != "happy" and not _BLINK:  # once patched, the mask comes off
             p.shape([(CX - 122, 560), (CX + 122, 560), (CX + 130, 610), (CX, 600), (CX - 130, 610)], (40, 30, 54), 4)
             for cx, cy in EYES:
                 _dot(p, cx, cy - 4, 20, WHITE)
@@ -474,8 +478,14 @@ def draw_full(kind: str, expr: str | None = None) -> Image.Image:
     return img
 
 
-def draw(kind: str, expression: str | None = None, height: int = 600) -> Image.Image:
+def draw(kind: str, expression: str | None = None, height: int = 600, blink: bool = False) -> Image.Image:
     """Return a bug as a transparent RGBA image `height` pixels tall."""
-    img = draw_full(kind, expression).crop((0, 260 * SS, W * SS, 900 * SS))
+    global _BLINK
+    _BLINK = blink
+    try:
+        img = draw_full(kind, expression)
+    finally:
+        _BLINK = False
+    img = img.crop((0, 260 * SS, W * SS, 900 * SS))
     w = int(height * img.width / img.height)
     return img.resize((w, height), Image.LANCZOS)

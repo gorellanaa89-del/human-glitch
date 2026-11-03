@@ -29,9 +29,10 @@ def _srt_time(t: float) -> str:
     return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d},{ms % 1000:03d}"
 
 
-def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = False) -> Path:
+def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = False, top: bool = False) -> Path:
     size = int(h * (0.044 if vertical else 0.06))
-    margin_v = int(h * (0.27 if vertical else 0.08))
+    margin_v = int(h * (0.12 if top else 0.27 if vertical else 0.08))
+    align = 8 if top else 2
     header = (
         "[Script Info]\nScriptType: v4.00+\n"
         f"PlayResX: {w}\nPlayResY: {h}\nWrapStyle: 0\n\n"
@@ -39,9 +40,9 @@ def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = Fal
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
         "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
         "Alignment, MarginL, MarginR, MarginV, Encoding\n"
-        # Spoken words turn brand green (BGR &H0088FF39); upcoming words are white.
-        f"Style: Default,{SUB_FONT},{size},&H0088FF39,&H00F8F4F0,&H00000000,&H64000000,"
-        f"-1,0,0,0,100,100,0,0,1,{max(3, size // 14)},0,2,80,80,{margin_v},1\n\n"
+        # Spoken words turn brand light blue #5AB7E6 (BGR &H00E6B75A); upcoming words are white; navy outline.
+        f"Style: Default,{SUB_FONT},{size},&H00E6B75A,&H00F8F4F0,&H002C1C05,&H64000000,"
+        f"-1,0,0,0,100,100,0,0,1,{max(3, size // 14)},0,{align},80,80,{margin_v},1\n\n"
         "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
     )
     events = []

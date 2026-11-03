@@ -4,6 +4,7 @@
 > card: SHE GOT THE JOB
 > cast: sarah:happy -> sarah:worried
 > set: office
+> switch: 0.15
 
 Sarah just got the promotion she worked three years for. Senior Analyst. Her own team. Her boss shook her hand in front of everyone.
 
@@ -17,8 +18,10 @@ Stay until the end, because the way Sarah finally deals with it is surprisingly 
 > part: story
 > keywords: office meeting team presentation
 > card: SARAH, SENIOR ANALYST
-> cast: sarah:neutral, elena:happy, richard:smug
+> cast: richard:smug, sarah:neutral -> sarah:worried, elena:happy, daniel:surprised
 > set: meeting
+> enter: daniel@6
+> switch: 0.6
 
 Let's go back a few weeks.
 
@@ -42,6 +45,7 @@ Then Margaret from Finance passed by and said, kindly, "Big shoes to fill, huh?"
 > card: THE IMPOSTOR
 > cast: sarah:worried, bug:impostor:worried
 > set: office
+> enter: bug:impostor@1
 
 That voice, let's give it a face.
 
@@ -67,6 +71,7 @@ How do you know if The Impostor is visiting you? Here are four common signs. You
 > card: 9 COMPLIMENTS, 1 COMMENT
 > cast: sarah:worried, bug:impostor:worried, bug:filter:sad
 > set: office
+> enter: bug:filter@6
 
 Here is what The Impostor does to Sarah's week.
 
@@ -111,8 +116,10 @@ The problem is that this alarm was built for a world where being rejected was a 
 > part: update
 > keywords: coffee conversation office two women
 > card: WHAT DID YOU DO?
-> cast: sarah:worried, elena:happy, bug:impostor:neutral -> bug:impostor:happy
+> cast: sarah:worried -> sarah:happy, elena:happy, bug:impostor:worried -> bug:impostor:happy
 > set: cafe
+> enter: bug:impostor@1
+> switch: 0.3
 
 A month later, Elena notices that Sarah looks exhausted, and invites her for a coffee.
 

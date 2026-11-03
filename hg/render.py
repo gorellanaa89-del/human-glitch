@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from . import broll, graphics, media, subtitles, tts
+from . import animate, broll, graphics, media, subtitles, tts
 from .config import BROLL_SECONDS, CARD_SECONDS, FPS, H, MAX_ES_TEMPO, SHORT_H, SHORT_W, VOICES, W
 from .script import parse_script
 
@@ -113,7 +113,7 @@ def _chapters(titles, offsets):
     return "\n".join(lines)
 
 
-def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path) -> Path | None:
+def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path, scene=None) -> Path | None:
     limit = 58.0
     end = None
     for s, e, t in words:
@@ -126,11 +126,20 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path)
     if not end:
         return None
     end += 0.3
-    ass = subtitles.write_ass([w for w in words if w[1] <= end], work / "short.ass", SHORT_W, SHORT_H, vertical=True)
+    animated = scene is not None and animate.is_animated(scene)
+    ass = subtitles.write_ass([w for w in words if w[1] <= end], work / "short.ass", SHORT_W, SHORT_H,
+                              vertical=True, top=animated)
+    out = out_dir / "short.mp4"
+    if animated:
+        vertical = work / "short_v.mp4"
+        animate.render_scene(scene, end, words, vertical, (SHORT_W, SHORT_H), set(), seed=7)
+        media.run(["-i", vertical, "-i", scene_wav, "-t", f"{end:.3f}", "-vf", f"subtitles={ass}",
+                   "-c:v", "libx264", "-preset", "faster", "-crf", "21", "-pix_fmt", "yuv420p",
+                   "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out])
+        return out
     fc = (f"[0:v]scale={SHORT_W}:{SHORT_H}:force_original_aspect_ratio=increase,crop={SHORT_W}:{SHORT_H},"
           f"boxblur=20:2,eq=brightness=-0.15[bg];"
           f"[0:v]scale={SHORT_W}:-2[fg];[bg][fg]overlay=0:(H-h)/2-160,subtitles={ass}[v]")
-    out = out_dir / "short.mp4"
     media.run(["-i", scene_video, "-i", scene_wav, "-t", f"{end:.3f}", "-filter_complex", fc,
                "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "21",
                "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out])
@@ -153,13 +162,19 @@ def build(episode: Path, engine: str = "edge") -> dict:
     en_wavs, es_wavs, videos, offsets = [], [], [], []
     en_words, es_words, scene_words = [], [], []
     first_frame_src = None
+    labeled: set = set()  # bugs whose name label was already shown
     t = 0.0
     for i, sc in enumerate(scenes):
         print(f"Scene {i + 1}/{len(scenes)}: {sc.title}")
         wav = work / f"s{i}_en.wav"
         words = _attach_punctuation(tts.synthesize(sc.narration, VOICES["en"], wav, engine), sc.narration)
         seconds = media.duration(wav)
-        video, broll_seg = _scene_video(i, sc, seconds, work, used)
+        if animate.is_animated(sc):
+            video = work / f"s{i}_video.mp4"
+            animate.render_scene(sc, seconds, words, video, (W, H), labeled, seed=i)
+            broll_seg = None
+        else:
+            video, broll_seg = _scene_video(i, sc, seconds, work, used)
         first_frame_src = first_frame_src or broll_seg
         offsets.append(t)
         en_wavs.append(wav)
@@ -190,7 +205,7 @@ def build(episode: Path, engine: str = "edge") -> dict:
     print("Rendering final video...")
     media.run(["-i", body, "-i", en_wav, "-i", mark,
                "-filter_complex", f"[0:v][2:v]overlay=0:0,subtitles={ass}[v]",
-               "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+               "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "faster", "-crf", "20",
                "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", final])
 
     files = {"video": final.name}
@@ -203,16 +218,22 @@ def build(episode: Path, engine: str = "edge") -> dict:
         subtitles.write_srt(es_words, out_dir / "captions.es.srt")
         files.update(audio_es="audio.es.m4a", captions_es="captions.es.srt")
 
+    idx = int(meta.get("short_scene") or 0) - 1
     frame = None
-    if first_frame_src:
+    if 0 <= idx < len(scenes) and animate.is_animated(scenes[idx]):
+        frame = work / "thumb_frame.png"
+        media.run(["-ss", f"{media.duration(videos[idx]) * 0.35:.2f}", "-i", videos[idx], "-frames:v", "1", frame])
+    elif first_frame_src:
         frame = work / "thumb_frame.png"
         media.run(["-ss", "1", "-i", first_frame_src, "-frames:v", "1", frame])
-    graphics.thumbnail(meta.get("thumbnail_text") or meta["title"], out_dir / "thumbnail.jpg", frame)
+    if 0 <= idx < len(scenes) and animate.is_animated(scenes[idx]):
+        animate.thumbnail(scenes[idx], meta.get("thumbnail_text") or meta["title"], out_dir / "thumbnail.jpg")
+    else:
+        graphics.thumbnail(meta.get("thumbnail_text") or meta["title"], out_dir / "thumbnail.jpg", frame)
     files["thumbnail"] = "thumbnail.jpg"
 
-    idx = int(meta.get("short_scene") or 0) - 1
     if 0 <= idx < len(scenes):
-        short = _short(videos[idx], en_wavs[idx], scene_words[idx], out_dir, work)
+        short = _short(videos[idx], en_wavs[idx], scene_words[idx], out_dir, work, scenes[idx])
         if short:
             files["short"] = short.name
 

@@ -19,6 +19,7 @@ WHITE = (255, 255, 255)
 HAND_FONT = Path(__file__).resolve().parent.parent / "assets" / "fonts" / "PatrickHand-Regular.ttf"
 GLITCH_BLUE = (90, 183, 230)  # Potencia People light blue #5AB7E6
 EXPRESSIONS = ("neutral", "happy", "worried", "surprised", "smug", "sad")
+_BLINK = False  # set by draw(blink=True): eyes drawn closed, everything else unchanged
 
 
 def shade(c, k):
@@ -139,6 +140,10 @@ def _arm(side):
 def _eyes(p: Pencil, expr, col):
     (lx, ly), (rx, ry) = EYES
     ex, ey = EYE_R
+    if _BLINK and expr != "happy":
+        for cx, cy in EYES:
+            p.line(ellipse_pts(cx, cy + 20, 44, 18, math.pi * 0.1, math.pi * 0.9, 20), 6)
+        return
     for i, (cx, cy) in enumerate(EYES):
         side = -1 if i == 0 else 1
         if expr == "happy":
@@ -398,8 +403,17 @@ def _bug(kind: str, expr: str) -> Image.Image:
     return img
 
 
-def draw(name: str, expression: str | None = None, height: int = 700) -> Image.Image:
+def draw(name: str, expression: str | None = None, height: int = 700, blink: bool = False) -> Image.Image:
     """Return a character as a transparent RGBA image `height` pixels tall."""
+    global _BLINK
+    _BLINK = blink
+    try:
+        return _draw(name, expression, height)
+    finally:
+        _BLINK = False
+
+
+def _draw(name, expression, height):
     if name in ("neuro", "host"):  # the channel host
         from . import hosts
         return hosts.draw("neuro", expression or "happy", height)

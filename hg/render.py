@@ -233,6 +233,14 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None)
         media.run(["-i", es_wav, "-c:a", "aac", "-b:a", "160k", out_dir / "audio.es.m4a"])
         subtitles.write_srt(es_words, out_dir / "captions.es.srt")
         files.update(audio_es="audio.es.m4a", captions_es="captions.es.srt")
+        # a full Spanish cut (Spanish voice + Spanish subtitles) to review, or to publish on its own
+        es_ass = subtitles.write_ass(es_words, work / "es.ass", W, H)
+        print("Rendering Spanish video...")
+        media.run(["-i", body, "-i", es_wav, "-i", mark,
+                   "-filter_complex", f"[0:v][2:v]overlay=0:0,subtitles={es_ass}[v]",
+                   "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "faster", "-crf", "20",
+                   "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out_dir / "video.es.mp4"])
+        files["video_es"] = "video.es.mp4"
 
     idx = int(meta.get("short_scene") or 0) - 1
     if max_seconds:

@@ -71,6 +71,10 @@ jobs:
             ffmpeg -loglevel error -y -i "$OUT/video.mp4" -vf scale=-2:540 -c:v libx264 -preset veryfast -crf 32 \
               -c:a aac -b:a 64k -movflags +faststart "$P/preview-720p.mp4"
           fi
+          if [ -f "$OUT/video.es.mp4" ]; then
+            ffmpeg -loglevel error -y -i "$OUT/video.es.mp4" -vf scale=-2:720 -c:v libx264 -preset veryfast -crf 30 \
+              -c:a aac -b:a 96k -movflags +faststart "$P/preview-es-720p.mp4"
+          fi
           cp "$OUT/short.mp4" "$OUT/thumbnail.jpg" "$OUT/report.json" "$OUT/description.txt" "$P/" 2>/dev/null || true
           mkdir -p "$P/frames"
           D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUT/video.mp4")

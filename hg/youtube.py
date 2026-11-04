@@ -6,6 +6,7 @@ so everything goes up as private; publish_at schedules it when the account allow
 """
 import json
 import os
+import time
 from pathlib import Path
 
 import yaml
@@ -248,10 +249,20 @@ def sync_playlists(episodes_dir: Path | None = None) -> dict:
             vid = log.get(key)
             if not vid:
                 continue
-            items = yt.playlistItems().list(part="snippet", playlistId=ids[lang], videoId=vid).execute()
-            if not items.get("items"):
-                yt.playlistItems().insert(part="snippet", body={"snippet": {
-                    "playlistId": ids[lang], "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
+            try:
+                found = yt.playlistItems().list(part="snippet", playlistId=ids[lang], videoId=vid).execute().get("items")
+            except Exception:  # a playlist created seconds ago can still answer "not found"
+                found = []
+            if not found:
+                for attempt in range(6):
+                    try:
+                        yt.playlistItems().insert(part="snippet", body={"snippet": {
+                            "playlistId": ids[lang], "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
+                        break
+                    except Exception:
+                        if attempt == 5:
+                            raise
+                        time.sleep(10)
                 print(f"added {vid} to {PLAYLISTS[lang][0]}")
             report.setdefault(PLAYLISTS[lang][0], []).append(vid)
     report["playlist_ids"] = ids

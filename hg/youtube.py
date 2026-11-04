@@ -209,4 +209,50 @@ def upload_es(episode: Path) -> dict:
             _caption(yt, vid, out / "captions.es.srt", "es", "Español")
         except Exception as e:
             print(f"  es captions not uploaded: {e}")
+    try:
+        sync_playlists(episode.parent)
+    except Exception as e:
+        print(f"  playlists not updated: {e}")
     return log
+
+
+PLAYLISTS = {
+    "en": ("English episodes", "Every Inside Voice Psychology story in English."),
+    "es": ("Episodios en español", "Todas las historias de Inside Voice Psychology en español."),
+}
+
+
+def sync_playlists(episodes_dir: Path | None = None) -> dict:
+    """Make sure the channel has one public playlist per language and that every uploaded long video
+    (uploaded.json: video_id = English, es_video_id = Spanish) is in the right one. Safe to run again."""
+    episodes_dir = episodes_dir or Path(__file__).resolve().parent.parent / "episodes"
+    yt = _service()
+    existing = {}
+    req = yt.playlists().list(part="snippet", mine=True, maxResults=50)
+    while req:
+        res = req.execute()
+        existing.update({p["snippet"]["title"]: p["id"] for p in res.get("items", [])})
+        req = yt.playlists().list_next(req, res)
+    ids = {}
+    for lang, (title, desc) in PLAYLISTS.items():
+        if title not in existing:
+            body = {"snippet": {"title": title, "description": desc, "defaultLanguage": lang},
+                    "status": {"privacyStatus": "public"}}
+            existing[title] = yt.playlists().insert(part="snippet,status", body=body).execute()["id"]
+            print(f"created playlist {title}: {existing[title]}")
+        ids[lang] = existing[title]
+    report = {}
+    for log_path in sorted(episodes_dir.glob("*/uploaded.json")):
+        log = json.loads(log_path.read_text())
+        for lang, key in (("en", "video_id"), ("es", "es_video_id")):
+            vid = log.get(key)
+            if not vid:
+                continue
+            items = yt.playlistItems().list(part="snippet", playlistId=ids[lang], videoId=vid).execute()
+            if not items.get("items"):
+                yt.playlistItems().insert(part="snippet", body={"snippet": {
+                    "playlistId": ids[lang], "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
+                print(f"added {vid} to {PLAYLISTS[lang][0]}")
+            report.setdefault(PLAYLISTS[lang][0], []).append(vid)
+    report["playlist_ids"] = ids
+    return report

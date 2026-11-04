@@ -34,6 +34,7 @@ def main(argv=None):
     u = sub.add_parser("upload", help="upload a rendered episode")
     u.add_argument("episode", type=Path)
     u.add_argument("--no-shorts", action="store_true", help="upload only the long video (Shorts kept for TikTok)")
+    u.add_argument("--spanish", action="store_true", help="upload the Spanish version as its own video")
     v = sub.add_parser("visibility", help="check, publish or schedule an uploaded video")
     v.add_argument("video_id")
     v.add_argument("--privacy", default="check", choices=["check", "public", "unlisted", "private"])
@@ -50,7 +51,10 @@ def main(argv=None):
         from .script import parse_script
         print(json.dumps(list(range(1, len(parse_script(args.episode / "script.en.md")) + 1))))
     elif args.cmd == "upload":
-        print(json.dumps(youtube.upload(args.episode, shorts=not args.no_shorts), indent=2))
+        if args.spanish:
+            print(json.dumps(youtube.upload_es(args.episode), indent=2))
+        else:
+            print(json.dumps(youtube.upload(args.episode, shorts=not args.no_shorts), indent=2))
     else:
         eps = _approved_pending()
         if not eps:

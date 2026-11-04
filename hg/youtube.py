@@ -143,3 +143,70 @@ def set_visibility(video_id: str, privacy: str = "public", publish_at: str | Non
     res = yt.videos().update(part="status", body={"id": video_id, "status": status}).execute()["status"]
     print("after:", json.dumps(res))
     return res
+
+
+def upload_es(episode: Path) -> dict:
+    """Upload the Spanish version as its own private video: the same picture with the Spanish voice track
+    (audio.es.m4a), Spanish title/description from meta.yaml `es:`, Spanish chapters, captions and a
+    Spanish thumbnail. Used while the channel cannot add a second audio track to the English video."""
+    import re
+    import subprocess
+
+    from googleapiclient.http import MediaFileUpload
+
+    from . import animate
+    from .script import parse_script
+
+    meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
+    es = meta.get("es") or {}
+    out = episode / "output"
+    log_path = episode / "uploaded.json"
+    log = json.loads(log_path.read_text()) if log_path.exists() else {}
+    if log.get("es_video_id"):
+        print(f"Spanish video already uploaded: {log['es_video_id']}")
+        return log
+
+    video = out / "video.es.mp4"
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(out / "video.mp4"), "-i", str(out / "audio.es.m4a"),
+                    "-map", "0:v", "-map", "1:a", "-c", "copy", "-shortest", "-movflags", "+faststart", str(video)],
+                   check=True)
+
+    # Spanish chapters: the English timestamps with the Spanish scene titles.
+    stamps = re.findall(r"^(\d\d:\d\d) ", (out / "description.txt").read_text(encoding="utf-8"), re.M)
+    titles = [s.title for s in parse_script(episode / "script.es.md")]
+    chapters = "\n".join(f"{t} {n}" for t, n in zip(stamps, titles))
+    description = es.get("description", "").replace("{chapters}", chapters)
+
+    thumb = out / "thumbnail.es.jpg"
+    try:
+        idx = int(meta.get("short_scene") or 1) - 1
+        animate.thumbnail(parse_script(episode / "script.en.md")[idx], es.get("thumbnail_text") or es["title"], thumb)
+    except Exception as e:
+        print(f"  Spanish thumbnail not drawn: {e}")
+
+    yt = _service()
+    snippet = {
+        "title": es["title"][:100],
+        "description": description[:5000],
+        "tags": es.get("tags") or meta.get("tags", []),
+        "categoryId": "27",
+        "defaultLanguage": "es",
+        "defaultAudioLanguage": "es",
+    }
+    status = {"privacyStatus": "private", "selfDeclaredMadeForKids": False,
+              "containsSyntheticMedia": bool(meta.get("synthetic_media"))}
+    print("Uploading Spanish video...")
+    log["es_video_id"] = _insert(yt, video, snippet, status)
+    log_path.write_text(json.dumps(log, indent=2))
+    vid = log["es_video_id"]
+    if thumb.exists():
+        try:
+            yt.thumbnails().set(videoId=vid, media_body=MediaFileUpload(str(thumb))).execute()
+        except Exception as e:
+            print(f"  thumbnail not set (verify the channel at youtube.com/verify): {e}")
+    if (out / "captions.es.srt").exists():
+        try:
+            _caption(yt, vid, out / "captions.es.srt", "es", "Español")
+        except Exception as e:
+            print(f"  es captions not uploaded: {e}")
+    return log

@@ -1,7 +1,7 @@
-# Human Glitch
+# Inside Voice Psychology
 
 Free pipeline that turns a reviewed script into a finished YouTube video for the
-Human Glitch channel (psychology told as stories, English with a Spanish audio track).
+Inside Voice Psychology channel (formerly Human Glitch) (psychology told as stories, English with a Spanish audio track).
 
 ## What it makes for each episode
 

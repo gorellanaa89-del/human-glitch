@@ -19,7 +19,7 @@ MAGENTA = (255, 46, 136)  # only for the glitch colour split
 CYAN = BRAND_MID
 WHITE = (240, 244, 248)
 
-CHANNEL = "HUMAN GLITCH"
+CHANNEL = "INSIDE VOICE PSYCHOLOGY"
 
 # Speaking rate per language (edge-tts format). English is slowed a little: calmer storytelling,
 # and it leaves room for the Spanish track, which needs more words for the same content.

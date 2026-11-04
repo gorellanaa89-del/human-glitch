@@ -244,4 +244,4 @@ Quick recap. The Impostor says your success was luck. It shows up when you grow,
 
 Feeling like an impostor doesn't mean you are one. Very often, it means you're growing, and that you care.
 
-Tell me in the comments: when did you last feel like an impostor? And subscribe to Human Glitch, because next time we meet Richard, and the bug that makes some bosses sure they're always right.
+Tell me in the comments: when did you last feel like an impostor? And subscribe to Inside Voice Psychology, because next time we meet Richard, and the bug that makes some bosses sure they're always right.

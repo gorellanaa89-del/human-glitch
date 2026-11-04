@@ -146,4 +146,4 @@ Resumen rápido. The Impostor dice que tu éxito fue suerte. Aparece cuando crec
 
 Sentirte un impostor no significa que lo seas. Muchas veces significa que estás creciendo, y que te importa.
 
-Cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Human Glitch, porque en el próximo video conocemos a Richard y al bug que hace que algunos jefes estén seguros de tener siempre la razón.
+Cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Inside Voice Psychology, porque en el próximo video conocemos a Richard y al bug que hace que algunos jefes estén seguros de tener siempre la razón.

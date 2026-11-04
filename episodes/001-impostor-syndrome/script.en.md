@@ -125,7 +125,7 @@ Notice the trap. The harder she works, the more she believes she needed to, and 
 
 On Friday, Sarah presents to leadership. Nine people say it was excellent. One suggests a different chart. Guess which comment she replays all weekend. Saturday at the supermarket, she's still redrawing that chart in her head. Sunday night, she changes the slide five times.
 
-That's a second bug, The Filter. It keeps the one negative detail and throws away the rest. Together, these two can turn a great week into proof that you're failing.
+That's a second voice, The Filter. It keeps the one negative detail and throws away the rest. Together, these two can turn a great week into proof that you're failing.
 
 Her team pays too. Afraid of looking overwhelmed, Sarah stops delegating and redoes Daniel's work herself. Daniel thinks she doesn't trust him. The team slows down, Sarah gets more tired, and the voice gets louder. Months of this often end in burnout.
 
@@ -210,14 +210,14 @@ Try it now. Think of one thing you achieved this year that you usually explain w
 
 Over the next weeks, Sarah tries all five. She starts a folder called "Facts", and every time someone thanks her, she saves it. The voice doesn't disappear. It just stops being the one in charge.
 
-# Scene: Gap or glitch?
+# Scene: Gap or voice?
 > part: update
 > keywords: office desk learning
-> card: GAP OR GLITCH?
+> card: GAP OR VOICE?
 > cast: sarah:neutral, bug:impostor:happy
 > set: office
 > note@1: SKILL GAP | "I need to learn this"
-> note@2: GLITCH | "I am a fraud"
+> note@2: THE VOICE | "I am a fraud"
 
 One important note. Sometimes you really are missing a skill. That's normal, and it isn't The Impostor.
 
@@ -244,4 +244,4 @@ Quick recap. The Impostor says your success was luck. It shows up when you grow,
 
 Feeling like an impostor doesn't mean you are one. Very often, it means you're growing, and that you care.
 
-Tell me in the comments: when did you last feel like an impostor? And subscribe to Inside Voice Psychology, because next time we meet Richard, and the bug that makes some bosses sure they're always right.
+Tell me in the comments: when did you last feel like an impostor? And subscribe to Inside Voice Psychology, because next time we meet Richard, and the voice that makes some bosses sure they're always right.

@@ -70,7 +70,7 @@ Fíjate en la trampa. Mientras más trabaja, más cree que lo necesitaba, y meno
 
 El viernes, Sarah presenta ante la gerencia. Nueve personas le dicen que estuvo excelente. Una sugiere cambiar un gráfico. Adivina qué comentario repite todo el fin de semana. El sábado en el supermercado sigue rehaciendo ese gráfico en su cabeza. El domingo en la noche cambia la diapositiva cinco veces.
 
-Ese es un segundo bug, The Filter, el filtro. Se queda con el único detalle negativo y descarta el resto. Juntos, estos dos convierten una gran semana en la prueba de que estás fallando.
+Esa es una segunda voz, The Filter, el filtro. Se queda con el único detalle negativo y descarta el resto. Juntos, estos dos convierten una gran semana en la prueba de que estás fallando.
 
 Su equipo también paga. Por miedo a parecer sobrepasada, Sarah deja de delegar y rehace el trabajo de Daniel. Daniel cree que no confía en él. El equipo se vuelve lento, Sarah se cansa y la voz se hace más fuerte. Meses así suelen terminar en burnout.
 
@@ -126,7 +126,7 @@ Pruébalo ahora. Piensa en algo que lograste este año y que sueles explicar con
 
 En las semanas siguientes, Sarah prueba las cinco. Crea una carpeta llamada "Hechos", y cada vez que alguien le agradece, lo guarda ahí. La voz no desaparece. Solo deja de ser la que manda.
 
-# Scene: ¿Brecha o glitch?
+# Scene: ¿Brecha o voz?
 
 Una aclaración importante. A veces de verdad te falta una habilidad. Es normal, y no es The Impostor.
 
@@ -146,4 +146,4 @@ Resumen rápido. The Impostor dice que tu éxito fue suerte. Aparece cuando crec
 
 Sentirte un impostor no significa que lo seas. Muchas veces significa que estás creciendo, y que te importa.
 
-Cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Inside Voice Psychology, porque en el próximo video conocemos a Richard y al bug que hace que algunos jefes estén seguros de tener siempre la razón.
+Cuéntame en los comentarios: ¿cuándo fue la última vez que te sentiste un impostor? Y suscríbete a Inside Voice Psychology, porque en el próximo video conocemos a Richard y a la voz que hace que algunos jefes estén seguros de tener siempre la razón.

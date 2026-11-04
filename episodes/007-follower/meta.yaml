@@ -1,0 +1,51 @@
+# Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
+approved: false
+title: "Why You Can't Say No (People Pleasing Explained)"
+thumbnail_text: "JUST SAY YES"
+publish_at: ""
+synthetic_media: false
+shorts:
+  - scene: 1
+    en: "Do You Say Yes When You Mean No?"
+    es: "¿Dices que sí cuando quieres decir que no?"
+  - scene: 6
+    en: "3 Out of 4 People Ignored Their Own Eyes"
+    es: "3 de cada 4 personas ignoraron sus propios ojos"
+  - scene: 7
+    en: "4 Signs You're a People Pleaser"
+    es: "4 señales de que complaces a todos"
+  - scene: 12
+    en: "The Question That Shows What You Really Want"
+    es: "La pregunta que muestra lo que de verdad quieres"
+  - scene: 13
+    en: "How to Say No Without Losing People"
+    es: "Cómo decir que no sin perder a nadie"
+short_scene: 5
+tags:
+  - people pleasing
+  - how to say no
+  - asch conformity experiment
+  - psychology
+  - workplace psychology
+  - boundaries
+description: |
+  Daniel said yes eleven times before lunch. Meet The Follower: the voice that makes us agree, go along with the group and say yes when we mean no. We follow Daniel's story, look at Solomon Asch's famous experiment, see why going along kept our ancestors alive, and learn four ways to say a kind no.
+
+  {chapters}
+
+  Inside Voice Psychology: the stories behind the voice in your head.
+es:
+  title: "Por qué no puedes decir que no (complacer a todos, explicado)"
+  thumbnail_text: "SOLO DI QUE SÍ"
+  tags:
+    - complacer a los demás
+    - cómo decir que no
+    - experimento de asch
+    - psicología
+    - límites
+  description: |
+    Daniel dijo que sí once veces antes del almuerzo. Conoce a The Follower: la voz que nos hace estar de acuerdo, seguir al grupo y decir que sí cuando queremos decir que no. Seguimos la historia de Daniel, vemos el famoso experimento de Solomon Asch, entendemos por qué seguir al grupo mantuvo vivos a nuestros ancestros y aprendemos cuatro formas de decir un no amable.
+
+    {chapters}
+
+    Inside Voice Psychology: las historias detrás de la voz en tu cabeza.

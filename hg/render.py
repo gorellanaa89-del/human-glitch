@@ -117,12 +117,12 @@ def _short_frame(title: str, out: Path) -> Path:
     """The still 1080x1920 frame of a Short: navy background, the title handwritten in white at the top,
     the channel name above it, and a thin light-blue line framing the picture area."""
     from PIL import Image, ImageDraw, ImageFont
-    from .config import BRAND_LIGHT, BRAND_NAVY
+    from .config import BRAND_LIGHT, BRAND_NAVY, CHANNEL
     from . import sketch
     img = Image.new("RGB", (SHORT_W, SHORT_H), BRAND_NAVY)
     d = ImageDraw.Draw(img)
     small = ImageFont.truetype(str(sketch.HAND_FONT), 44)
-    d.text((SHORT_W / 2, 150), "HUMAN GLITCH", font=small, fill=BRAND_LIGHT, anchor="mm")
+    d.text((SHORT_W / 2, 150), CHANNEL, font=small, fill=BRAND_LIGHT, anchor="mm")
     size = 92
     while True:
         font = ImageFont.truetype(str(sketch.HAND_FONT), size)

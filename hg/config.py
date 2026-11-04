@@ -21,9 +21,9 @@ WHITE = (240, 244, 248)
 
 CHANNEL = "INSIDE VOICE PSYCHOLOGY"
 
-# Speaking rate per language (edge-tts format). English is slowed a little: calmer storytelling,
-# and it leaves room for the Spanish track, which needs more words for the same content.
-VOICE_RATE = {"en": "-10%", "es": "+0%"}
+# Speaking rate per language (edge-tts format). Normal speed keeps the stories moving
+# (the earlier -10% felt slow); Spanish a little faster, as it needs more words for the same content.
+VOICE_RATE = {"en": "+0%", "es": "+5%"}
 
 VOICES = {
     "en": "en-US-AndrewNeural",
@@ -31,7 +31,7 @@ VOICES = {
 }
 
 # Seconds of silence after each scene's narration.
-SCENE_GAP = 0.6
+SCENE_GAP = 0.35
 # Length of the title card that opens each scene.
 CARD_SECONDS = 3.0
 # Length of each stock clip used as b-roll.

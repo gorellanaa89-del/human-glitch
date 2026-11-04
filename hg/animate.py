@@ -259,7 +259,7 @@ class SceneRenderer:
             if any(abs(q[1] - 0.35 - e) < 0.01 for q in self.quotes) and gap >= 1.2:
                 cuts.append(nxt); kinds.append(None); continue
             sentence_end = t.rstrip("\"”")[-1:] in ".?!"
-            if (sentence_end and gap >= 2.4) or (t[-1:] in ",;:" and gap >= 3.8) or gap >= 5.0:
+            if (sentence_end and gap >= CUT_MIN) or (t[-1:] in ",;:" and gap >= CUT_COMMA) or gap >= CUT_MAX:
                 cuts.append(nxt); kinds.append(None)
         # fill free choices, never repeating the previous framing
         options = [("wide", None)] + ([("group", None)] if len(self.actors) > 1 else []) + \
@@ -276,7 +276,7 @@ class SceneRenderer:
                 k = ("wide", None)
             z, cx, cy = self._cam_for(k[0], k[1])
             end = cuts[i + 1] if i + 1 < len(cuts) else self.seconds
-            drift = (self.w / z) * (0.035 if k[0] != "wide" else 0.02) * (1 if i % 2 == 0 else -1)
+            drift = (self.w / z) * (DRIFT if k[0] != "wide" else DRIFT * 0.6) * (1 if i % 2 == 0 else -1)
             z, cx0, cy0 = self._clamp(z, cx - drift / 2, cy)
             z, cx1, cy1 = self._clamp(z, cx + drift / 2, cy)
             self.cams.append((c, end, z, cx0, cy0, cx1, cy1))
@@ -532,6 +532,12 @@ class SceneRenderer:
             img.paste(fc, (0, 0), fc)
         for lab in labels:
             img.paste(lab, (0, 0), lab)
+        # slow push in (or pull out on alternate shots) across each shot, so the picture never sits still
+        k = PUSH * (u if i % 2 == 0 else 1 - u)
+        if k > 0.002:
+            cw, ch = self.w / (1 + k), self.h / (1 + k)
+            zx, zy = (self.w - cw) / 2, (self.h - ch) * 0.4
+            img = img.resize((self.w, self.h), Image.BILINEAR, box=(zx, zy, zx + cw, zy + ch))
         note = next((n for n in self.notes if n[0] <= t < n[1]), None)
         for qi, (q0, q1, text, spk) in enumerate(self.quotes):
             if note is None and q0 <= t < q1 and spk.name in heads:
@@ -561,6 +567,12 @@ class SceneRenderer:
 
 
 _STEPS = ("mid", "solo", "close")
+
+# Pacing: seconds between cuts (at a sentence end / at a comma / at most), sideways drift per shot
+# (fraction of the view) and how much each shot slowly zooms.
+CUT_MIN, CUT_COMMA, CUT_MAX = 1.8, 3.0, 4.0
+DRIFT = 0.06
+PUSH = 0.07
 
 
 def _fresh(option, prev) -> bool:

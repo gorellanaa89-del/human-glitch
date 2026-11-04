@@ -1,0 +1,53 @@
+# Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
+approved: false
+title: "Why the Least Skilled Feel the Most Sure (The Dunning-Kruger Effect)"
+thumbnail_text: "TWO WEEKS, TOPS"
+# ISO date-time in UTC. Leave empty to upload as a private draft without a schedule.
+publish_at: ""
+# Mark true only if the visuals include realistic AI-generated people or events.
+synthetic_media: false
+shorts:
+  - scene: 1
+    en: "Have You Ever Been Completely Sure and Completely Wrong?"
+    es: "¿Alguna vez estuviste totalmente seguro y totalmente equivocado?"
+  - scene: 6
+    en: "They Scored 12th but Guessed 62nd"
+    es: "Sacaron el puesto 12 y creyeron el 62"
+  - scene: 7
+    en: "93% of Drivers Think They're Above Average"
+    es: "El 93 % cree que maneja mejor que el promedio"
+  - scene: 12
+    en: "One Question That Humbles Any Boss"
+    es: "La pregunta que baja de la nube a cualquier jefe"
+  - scene: 13
+    en: "Can You Explain How a Zipper Works?"
+    es: "¿Puedes explicar cómo funciona un cierre?"
+short_scene: 5
+tags:
+  - dunning kruger effect
+  - overconfidence
+  - psychology
+  - workplace psychology
+  - leadership
+  - cognitive bias
+description: |
+  Richard promised the new system in two weeks. It took fourteen. Meet The Know-It-All: the voice that makes us feel most sure exactly where we know the least. We follow Richard's story, look at the Dunning-Kruger research, see why confidence helped our ancestors, and learn four ways to give your certainty a check-up.
+
+  {chapters}
+
+  Inside Voice Psychology: the stories behind the voice in your head.
+es:
+  title: "Por qué los que menos saben se sienten más seguros (el efecto Dunning-Kruger)"
+  thumbnail_text: "DOS SEMANAS, MÁXIMO"
+  tags:
+    - efecto dunning kruger
+    - exceso de confianza
+    - psicología
+    - liderazgo
+    - sesgos cognitivos
+  description: |
+    Richard prometió el sistema nuevo en dos semanas. Tomó catorce. Conoce a The Know-It-All: la voz que nos hace sentir más seguros justo donde menos sabemos. Seguimos la historia de Richard, vemos la investigación de Dunning y Kruger, entendemos por qué la seguridad ayudó a nuestros ancestros y aprendemos cuatro formas de hacerle un chequeo a tu certeza.
+
+    {chapters}
+
+    Inside Voice Psychology: las historias detrás de la voz en tu cabeza.

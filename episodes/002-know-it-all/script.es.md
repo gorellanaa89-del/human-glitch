@@ -1,12 +1,12 @@
 # Scene: Dos semanas, máximo
 
-Déjame contarte la historia de Richard Hale, un hombre que en veinte años nunca ha admitido que no estaba seguro de algo.
+Déjame contarte de Richard Hale, que en veinte años nunca ha admitido dudar de algo.
 
-Por eso hoy, cuando se para frente a toda la empresa, no duda ni un segundo. Promete que el sistema nuevo estará funcionando en dos semanas. Dos semanas, como máximo.
+Por eso hoy, frente a toda la empresa, no duda ni un segundo. Promete que el sistema nuevo estará funcionando en dos semanas. Dos semanas, máximo.
 
 Sin embargo, en la última fila, Daniel ya sabe que tomará por lo menos tres meses. Y aun así, no dice nada.
 
-Ahora dime, ¿alguna vez estuviste completamente seguro de algo y, al final, estabas completamente equivocado? ¿O quizás trabajaste con alguien que siempre lo estaba? Pues bien, esa certeza tiene una voz, y es una de las más antiguas de tu cabeza.
+Ahora dime, ¿alguna vez estuviste totalmente seguro de algo y al final estabas equivocado? ¿O trabajaste con alguien que siempre lo estaba? Pues esa certeza tiene una voz, y es una de las más antiguas de tu cabeza.
 
 # Scene: El hombre de las respuestas
 
@@ -28,11 +28,11 @@ Y la verdad, ¿quién podría culparlo? Cuando el jefe con más experiencia se r
 
 # Scene: Los números de Margaret
 
-Unos días después, Margaret, de Finanzas, aparece con una hoja de cálculo. Según sus datos, proyectos parecidos en otras empresas tomaron de tres a seis meses y costaron el triple del presupuesto de Richard.
+Días después, Margaret, de Finanzas, trae una hoja de cálculo: proyectos parecidos en otras empresas tomaron de tres a seis meses y costaron el triple del presupuesto.
 
 Pero Richard casi ni la mira. "Esas empresas no me tenían a mí."
 
-Margaret ya ha visto esta película antes. Así que cierra su laptop en silencio y anota la fecha en su cuaderno, por si acaso.
+Margaret ya conoce esta película. Así que cierra su laptop y anota la fecha en su cuaderno, por si acaso.
 
 # Scene: Conoce a The Know-It-All
 
@@ -42,7 +42,7 @@ Te presento a The Know-It-All, el sabelotodo.
 
 Es la voz que te susurra: "Tú ya sabes esto. Preguntar es de principiantes. ¿Y dudar? Dudar es de débiles."
 
-En 1999, los psicólogos Justin Kruger y David Dunning, de la Universidad de Cornell, decidieron ponerla a prueba. Evaluaron a varias personas en lógica, gramática y humor, y después les pidieron adivinar qué tan bien les había ido.
+En 1999, los psicólogos Justin Kruger y David Dunning, de Cornell, la pusieron a prueba. Evaluaron a varias personas en lógica, gramática y humor, y luego les pidieron adivinar cómo les había ido.
 
 # Scene: El 12 y el 62
 
@@ -112,17 +112,17 @@ Y así, por primera vez en mucho tiempo, Richard lo admite. "No estoy seguro."
 
 # Scene: La actualización
 
-Y esa es la actualización. No se trata de apagar tu seguridad, sino de hacerle un chequeo. Aquí tienes cuatro formas de hacerlo.
+Esa es la actualización: no se trata de apagar tu seguridad, sino de hacerle un chequeo. Aquí van cuatro formas.
 
-Primero, ponle nombre. Cuando te sientas completamente seguro, dite a ti mismo que es The Know-It-All el que habla. Porque la certeza es una sensación, no un hecho.
+Primero, ponle nombre. Cuando te sientas totalmente seguro, dite que es The Know-It-All el que habla, porque la certeza es una sensación, no un hecho.
 
-Segundo, explícalo paso a paso. Los estudios muestran que cuando la gente intenta explicar cómo funciona algo, como un cierre o un inodoro, descubre lo poco que sabe. Si no puedes explicar los pasos, probablemente todavía no los conoces.
+Segundo, explícalo paso a paso. Los estudios muestran que cuando la gente intenta explicar cómo funciona algo, como un cierre o un inodoro, descubre lo poco que sabe. Si no puedes explicar los pasos, es que todavía no los conoces.
 
-Tercero, pregúntate qué te demostraría que estás equivocado, y luego consúltalo con quien más sepa del tema. Casi siempre, es la persona más callada de la sala.
+Tercero, pregúntate qué te demostraría que estás equivocado, y consulta a quien más sepa. Casi siempre es la persona más callada de la sala.
 
-Y cuarto, lleva la cuenta. Anota tus predicciones y compáralas después con lo que pasó. Richard dijo dos semanas, ¿recuerdas? Tomó catorce. Y ese número vale más que cualquier opinión.
+Y cuarto, lleva la cuenta: anota tus predicciones y luego compáralas con lo que pasó. Richard dijo dos semanas, ¿recuerdas? Tomó catorce. Y ese número vale más que cualquier opinión.
 
-Haz la prueba ahora mismo. Piensa en algo de tu trabajo de lo que estés completamente seguro, y pregúntate: ¿qué me demostraría que estoy equivocado, y quién podría saberlo?
+Haz la prueba ahora: piensa en algo del trabajo de lo que estés totalmente seguro, y pregúntate qué te demostraría lo contrario y quién podría saberlo.
 
 # Scene: Lo que de verdad significa
 

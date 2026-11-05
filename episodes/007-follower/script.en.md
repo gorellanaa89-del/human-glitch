@@ -7,13 +7,13 @@
 > switch: 0.5
 > note@1: 11 | yeses before lunch
 
-By noon on Monday, Daniel has said yes eleven times.
+It's Monday, and by noon, Daniel has already said yes eleven times.
 
-Yes to Richard's report. Yes to Margaret's spreadsheet. Yes to covering a meeting, ordering a cake, and staying late on Thursday. Yes to a weekend shift he really didn't want.
+Yes to Richard's report. Yes to Margaret's spreadsheet. Then yes to covering a meeting, to ordering a cake, and to staying late on Thursday. And finally, yes to a weekend shift he really, really didn't want.
 
-At 7 p.m. he's still at his desk, doing everyone's work except his own.
+So at seven p.m., there he is, still at his desk, doing everyone's work except his own.
 
-If you've ever said yes while everything inside you was screaming no, this video is for you. That yes comes from a voice, and it's trying to keep you safe.
+Now, if you've ever said yes while everything inside you was screaming no, this video is for you. Because that yes comes from a voice, and believe it or not, it's trying to keep you safe.
 
 # Scene: The nice guy
 > part: story
@@ -21,13 +21,13 @@ If you've ever said yes while everything inside you was screaming no, this video
 > card: DANIEL, PRODUCT ASSOCIATE
 > cast: daniel:happy, sarah:neutral, margaret:happy
 > set: office
-> note@1: "ALWAYS HAPPY TO HELP" | his email signature
+> note@1: ALWAYS HAPPY TO HELP | his email signature
 
-Daniel joined the company four months ago. Everyone agrees he's the nicest person on the floor.
+You see, Daniel joined the company four months ago, and everyone agrees he's the nicest person on the floor.
 
-His email signature literally says "always happy to help". He laughs at every joke, agrees in every meeting, and has never once said no to anyone.
+In fact, his email signature literally says he's always happy to help. He laughs at every joke, he agrees in every meeting, and he has never once said no to anyone.
 
-People love him. But lately, Daniel doesn't love his life.
+And people love him for it. But lately, Daniel doesn't love his life very much.
 
 # Scene: The meeting
 > part: story
@@ -37,11 +37,11 @@ People love him. But lately, Daniel doesn't love his life.
 > set: meeting
 > note@2: 5 HANDS UP | 1 doubt, unspoken
 
-In Tuesday's meeting, Richard proposes cutting the testing phase to launch faster. Daniel knows it's a bad idea. He has the numbers on his laptop.
+Take Tuesday's meeting, for example. Richard proposes skipping the testing phase so they can launch faster. And Daniel knows it's a bad idea. He even has the numbers right there on his laptop.
 
-Richard asks: "Everyone agree?" One hand goes up. Then another. Then everyone's.
+Then Richard asks: "Everyone agree?" One hand goes up. Then another. And then, everyone's.
 
-Daniel looks around, and his hand goes up too. Later, he can't even explain why.
+So Daniel looks around the room, and slowly, his hand goes up too. Later that day, he can't even explain why.
 
 # Scene: The weekend
 > part: story
@@ -51,11 +51,11 @@ Daniel looks around, and his hand goes up too. Later, he can't even explain why.
 > set: home_night
 > note@1: 3 MISSED | calls from his sister
 
-On Saturday, his sister calls three times. He doesn't pick up. He's finishing Margaret's spreadsheet.
+Then comes Saturday. His sister calls him three times, but he doesn't pick up, because he's busy finishing Margaret's spreadsheet.
 
-His sister finally writes: "You never have time anymore."
+Eventually, she sends him a message, telling him he never has time anymore.
 
-He types "sorry, work", and stares at the ceiling. Somewhere along the way, being liked became a full-time job.
+He types back "sorry, work", and then just stares at the ceiling. Somewhere along the way, being liked had become a full-time job.
 
 # Scene: Meet The Follower
 > part: bug
@@ -66,13 +66,13 @@ He types "sorry, work", and stares at the ceiling. Somewhere along the way, bein
 > enter: bug:follower@1
 > note@3: 1951 | Solomon Asch, Swarthmore
 
-Let's give that yes a face.
+So let's give that yes a face.
 
 Meet The Follower.
 
-It whispers: "Just agree. Don't make waves. If they're all doing it, it must be right."
+It's the voice that whispers: "Just agree. Don't make waves. If everyone's doing it, it must be right."
 
-In 1951, psychologist Solomon Asch ran one of the most famous experiments in history. He showed people a simple question: which of three lines matches a fourth one? The answer was obvious.
+And this voice was put to the test back in 1951, by a psychologist named Solomon Asch. He showed people a really simple question: which of three lines matches a fourth one? Honestly, the answer was obvious.
 
 # Scene: The lines
 > part: bug
@@ -83,11 +83,11 @@ In 1951, psychologist Solomon Asch ran one of the most famous experiments in his
 > note@0: 1 REAL PERSON | 7 actors
 > note@2: 75% | conformed at least once
 
-But the room was full of actors. One by one, they gave the same wrong answer, out loud. Then it was the real person's turn.
+But here's the twist. The room was full of actors. And one by one, out loud, they all gave the same wrong answer. Then it was the real person's turn.
 
-About three out of four people went along with the group at least once, even though they could see the right answer with their own eyes.
+So what happened? About three out of four people went along with the group at least once, even though they could see the right answer with their own eyes.
 
-Afterwards, many said they knew the group was wrong. They just didn't want to be the only one.
+And afterwards, many of them admitted they knew the group was wrong. They just didn't want to be the only one.
 
 # Scene: Who it visits
 > part: bug
@@ -97,9 +97,11 @@ Afterwards, many said they knew the group was wrong. They just didn't want to be
 > set: office
 > note@2: 4 SIGNS | yes · no opinion · sorry · guilt
 
-The Follower loves people who are new to a place, people who grew up keeping the peace at home, and anyone who measures their value by how useful they are.
+Now, The Follower doesn't visit everyone equally. It especially loves people who are new somewhere, people who grew up keeping the peace at home, and anyone who measures their worth by how useful they are.
 
-Four common signs. You say yes before you've thought about it. You wait to hear other opinions before sharing yours. You apologize for things that aren't your fault. And saying no leaves you feeling guilty for days.
+So how do you know it's there? Well, here are four common signs.
+
+You say yes before you've even thought about it. You wait to hear what others think before sharing your opinion. You apologize for things that aren't your fault. And when you finally do say no, you feel guilty for days.
 
 # Scene: What it does to Daniel
 > part: consequence
@@ -109,11 +111,11 @@ Four common signs. You say yes before you've thought about it. You wait to hear 
 > set: office
 > note@2: THE YES TRAP | yes → overload → resentment → yes
 
-Here's what The Follower does to Daniel's month.
+So here's what The Follower does to Daniel's month.
 
-His own project falls behind, because all his time goes to everyone else's. He starts to feel tired, then quietly angry. Not at them, at himself.
+First, his own project falls behind, because all his time goes into everyone else's. Then he starts feeling tired, and after that, quietly angry. And not at them, but at himself.
 
-And here's the trap. The more he says yes, the more people ask him, and the harder the next no becomes.
+And here's the trap. The more he says yes, the more people ask him for things. And so, the harder the next no becomes.
 
 # Scene: The launch
 > part: consequence
@@ -123,11 +125,11 @@ And here's the trap. The more he says yes, the more people ask him, and the hard
 > set: meeting
 > note@1: 200 ERRORS | in the first day
 
-Remember Richard's launch without testing? It goes live on Monday. By the end of the day, customers report two hundred errors.
+And remember Richard's launch, the one without testing? Well, it goes live on Monday. And by the end of the day, customers have reported two hundred errors.
 
-Daniel had seen it coming. He had the numbers. He just didn't want to be the only hand that stayed down.
+Daniel saw it coming. He had the numbers. He just didn't want to be the only hand that stayed down.
 
-His silence didn't protect anyone. It just kept the problem invisible until it was too big.
+In the end, his silence didn't protect anyone. All it did was keep the problem invisible, until it was too big to ignore.
 
 # Scene: Why it exists
 > part: why
@@ -137,11 +139,11 @@ His silence didn't protect anyone. It just kept the problem invisible until it w
 > set: savanna
 > note@1: ALONE = DANGER | the group = survival
 
-But The Follower is not your enemy. For our ancestors, it was a bodyguard.
+But here's the thing: The Follower is not your enemy. For our ancestors, it was actually a bodyguard.
 
-Picture a small group crossing the savanna. Everyone suddenly runs. Do you stop to ask why? The ones who stopped to think often didn't get a second chance. The ones who ran with the group survived.
+Picture a small group crossing the savanna, when suddenly, everyone starts running. Do you stop to ask why? Well, the ones who stopped to think often didn't get a second chance. Meanwhile, the ones who ran with the group survived.
 
-Going along with others was a fast, cheap way to stay safe. The group usually knew something you didn't. And standing apart could cost you your place, and your protection.
+In other words, going along with others was a fast, cheap way to stay safe. After all, the group usually knew something you didn't. And standing apart could cost you your place, and with it, your protection.
 
 # Scene: Old bodyguard, new office
 > part: why
@@ -152,11 +154,11 @@ Going along with others was a fast, cheap way to stay safe. The group usually kn
 > note@0: THEN | a lion
 > note@1: NOW | a spreadsheet
 
-Today, the danger is rarely a lion. It's a spreadsheet, a meeting, a request on Slack.
+Today, though, the danger is rarely a lion. Instead, it's a spreadsheet, a meeting, or a request on Slack.
 
-But your body doesn't know the difference. Disagreeing in a meeting can make your heart race like you're about to be left alone in the dark.
+The problem is, your body can't tell the difference. So disagreeing in a meeting can make your heart race, as if you were about to be left alone in the dark.
 
-The bodyguard isn't broken. It's just protecting you from the wrong things.
+So the bodyguard isn't broken. It's just protecting you from the wrong things.
 
 # Scene: Coffee with Elena
 > part: update
@@ -166,15 +168,15 @@ The bodyguard isn't broken. It's just protecting you from the wrong things.
 > set: cafe
 > switch: 0.55
 
-Elena notices the circles under Daniel's eyes, and invites him for a coffee.
+A few days later, Elena notices the dark circles under Daniel's eyes, and she invites him for a coffee.
 
-He admits he's exhausted. She doesn't give advice. She asks:
+He admits he's exhausted. But instead of giving him advice, she asks him a question.
 
 "If nobody would be upset, what would you have answered this week?"
 
-Daniel laughs. Then he thinks. The list is long: no to the weekend shift, no to the cake, no to the launch.
+At first, Daniel laughs. Then he actually thinks about it. And the list turns out to be long: no to the weekend shift, no to the cake, and definitely no to the launch.
 
-Then Elena tells him something surprising. In Asch's experiment, when just one other person in the room gave the right answer, going along with the wrong answer dropped dramatically. One ally was enough.
+Then Elena tells him something surprising. In Asch's experiment, when just one other person in the room gave the right answer, people going along with the wrong one dropped dramatically. In other words, one ally was enough.
 
 # Scene: The update
 > part: update
@@ -182,22 +184,22 @@ Then Elena tells him something surprising. In Asch's experiment, when just one o
 > card: FOUR UPDATES
 > cast: daniel:happy, bug:follower:happy
 > set: office
-> note@0: 1. PAUSE | "let me check and get back to you"
+> note@0: 1. PAUSE | let me check and get back to you
 > note@1: 2. COUNT THE COST | what do I give up?
 > note@2: 3. NO TO THE TASK | not to the person
 > note@3: 4. BE THE ONE | or find the one
 
-That's the update. You don't stop caring about people. You stop disappearing for them. Four ways.
+And that's the update. You don't stop caring about people. You just stop disappearing for them. Here are four ways to do it.
 
-One: pause. Replace the automatic yes with "let me check and get back to you." Ten minutes is enough for the voice to calm down.
+First, pause. Instead of the automatic yes, tell people you'll check and get back to them. Because ten minutes is usually enough for the voice to calm down.
 
-Two: count the cost. Every yes is a no to something else. Ask: if I say yes to this, what do I give up?
+Second, count the cost. Remember, every yes is a no to something else. So ask yourself: if I say yes to this, what am I giving up?
 
-Three: say no to the task, not to the person. "I can't take this one this week, but I can help you find someone who can."
+Third, say no to the task, not to the person. For example: "I can't take this one this week, but I can help you find someone who can."
 
-Four: be the one, or find the one. If you see a problem, say it. And if speaking alone feels too hard, find one ally before the meeting.
+And fourth, be the one, or find the one. If you see a problem, say it. And if speaking up alone feels too hard, find one ally before the meeting.
 
-Try it now. Think of one yes you gave this week that you didn't mean. What would a kind no have sounded like?
+So try it right now. Think of one yes you gave this week that you didn't really mean. What would a kind no have sounded like?
 
 # Scene: What it really means
 > part: close
@@ -206,16 +208,16 @@ Try it now. Think of one yes you gave this week that you didn't mean. What would
 > cast: daniel:happy, richard:surprised, sarah:happy, bug:follower:happy
 > set: meeting
 > switch: 0.3
-> note@2: RECAP | pause · cost · task · ally
+> note@3: RECAP | pause · cost · task · ally
 
-At the next meeting, Richard asks: "Everyone agree?"
+So, at the next meeting, Richard asks his usual question: "Everyone agree?"
 
-Daniel takes a breath. "Not yet. I have some numbers you should see first." Sarah nods. "I'd like to see them too."
+This time, Daniel takes a breath. "Not yet. There are some numbers you should see first." And then Sarah nods: "I'd like to see them too."
 
-The room goes quiet. Then Richard says: "Okay. Show me." The Follower is still there, but now it walks beside Daniel, not in front of him.
+The room goes quiet. And then Richard says: "Okay. Show me." The Follower is still there, of course. But now it walks beside Daniel, not in front of him.
 
-Quick recap. The Follower makes you say yes and go along with the group. It exists because, for our ancestors, the group meant survival. You update it by pausing, counting the cost, saying no to the task and not the person, and finding one ally.
+So, a quick recap. The Follower makes you say yes and go along with the group. It exists because, for our ancestors, the group meant survival. And you update it by pausing, counting the cost, saying no to the task and not the person, and finding one ally.
 
-Being kind is not the same as saying yes to everything. Sometimes the kindest thing is the honest answer.
+Because being kind is not the same as saying yes to everything. And sometimes, the kindest thing you can give someone is an honest answer.
 
-Tell me in the comments: what's the hardest no you've ever said? And subscribe, because next time we meet Sarah, and the voice that keeps telling her what she should be doing.
+So tell me in the comments: what's the hardest no you've ever said? And subscribe, because next time, we're back with Sarah, and the voice that keeps telling her what she should be doing.

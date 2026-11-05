@@ -16,6 +16,8 @@ De hecho, su firma de correo dice que siempre está feliz de ayudar. Se ríe de 
 
 Y la gente lo quiere por eso. Pero últimamente, a Daniel no le gusta mucho su vida.
 
+Y no es que finja. De verdad le gusta ayudar. El problema es que ya no sabe dónde termina ayudar y dónde empieza desaparecer.
+
 # Scene: La reunión
 
 Por ejemplo, en la reunión del martes, Richard propone saltarse las pruebas para lanzar más rápido. Y Daniel sabe que es mala idea. Hasta tiene los números ahí, en su laptop.
@@ -24,6 +26,8 @@ Entonces Richard pregunta: "¿Todos de acuerdo?". Se levanta una mano. Luego otr
 
 Así que Daniel mira alrededor, y poco a poco, su mano también se levanta. Esa tarde, ni siquiera puede explicar por qué.
 
+¿Y lo peor? No era el único con dudas. Margaret también las tenía. Pero nadie quería ser el primero.
+
 # Scene: El fin de semana
 
 Luego llega el sábado. Su hermana lo llama tres veces, pero no contesta, porque está terminando la hoja de cálculo de Margaret.
@@ -31,6 +35,8 @@ Luego llega el sábado. Su hermana lo llama tres veces, pero no contesta, porque
 Al final, ella le escribe que ya nunca tiene tiempo.
 
 Él responde "perdón, trabajo", y se queda mirando el techo. En algún momento, caer bien se había vuelto un trabajo de tiempo completo.
+
+Y el domingo en la noche siente ese nudo en el estómago. Otra semana de síes está por empezar.
 
 # Scene: Conoce a The Follower
 
@@ -50,6 +56,8 @@ Pero aquí viene el giro. La sala estaba llena de actores. Y uno por uno, en voz
 
 Y después, muchos admitieron que sabían que el grupo se equivocaba. Simplemente no querían ser los únicos.
 
+Piénsalo un segundo. Nadie los obligó. Nadie los amenazó. Bastó la presión de ser el único para dudar de sus propios ojos.
+
 # Scene: A quién visita
 
 Ahora, The Follower no visita a todos por igual. Le encantan los que son nuevos en un lugar, los que crecieron cuidando la paz en casa, y quienes miden su valor por lo útiles que son.
@@ -66,6 +74,8 @@ Primero, su propio proyecto se atrasa, porque todo su tiempo se va en los de los
 
 Y aquí está la trampa. Mientras más dice que sí, más le piden. Y así, más difícil se vuelve el siguiente no.
 
+Y empeora. La gente empieza a ver a Daniel como el que siempre dice que sí. Así que el trabajo extra sigue cayendo en su escritorio.
+
 # Scene: El lanzamiento
 
 ¿Y te acuerdas del lanzamiento de Richard sin pruebas? Bueno, sale el lunes. Y al final del día, los clientes ya reportaron doscientos errores.
@@ -73,6 +83,8 @@ Y aquí está la trampa. Mientras más dice que sí, más le piden. Y así, más
 Daniel lo vio venir. Tenía los números. Solo no quiso ser la única mano abajo.
 
 Al final, su silencio no protegió a nadie. Lo único que hizo fue esconder el problema, hasta que fue imposible ignorarlo.
+
+Y Daniel no es el único. En muchos equipos, quien ve primero el problema es el más nuevo, el más callado, el que menos se atreve a decirlo.
 
 # Scene: Por qué existe
 
@@ -82,6 +94,8 @@ Imagina un grupo pequeño cruzando la sabana, y de pronto, todos empiezan a corr
 
 O sea, seguir a los demás era una forma rápida y barata de estar a salvo. Al fin y al cabo, el grupo casi siempre sabía algo que tú no. Y apartarte podía costarte tu lugar, y con él, tu protección.
 
+Incluso hoy, una parte de tu cerebro trata el quedar fuera como una amenaza. De hecho, algunos estudios sugieren que el rechazo social activa zonas parecidas a las del dolor físico.
+
 # Scene: Guardaespaldas viejo, oficina nueva
 
 Hoy, en cambio, el peligro casi nunca es un león. Es una hoja de cálculo, una reunión o un mensaje en Slack.
@@ -89,6 +103,8 @@ Hoy, en cambio, el peligro casi nunca es un león. Es una hoja de cálculo, una 
 El problema es que tu cuerpo no nota la diferencia. Así que llevar la contraria en una reunión te puede acelerar el corazón, como si te fueran a dejar solo en la oscuridad.
 
 Entonces, el guardaespaldas no está roto. Solo te protege de las cosas equivocadas.
+
+Por eso decir que no puede sentirse tan dramático, aunque el pedido sea pequeñito.
 
 # Scene: Café con Elena
 
@@ -115,6 +131,8 @@ Tercero, dile que no a la tarea, no a la persona. Por ejemplo: "Esta semana no p
 Y cuarto, sé el que habla, o busca al que habla. Si ves un problema, dilo. Y si hablar solo te cuesta, busca un aliado antes de la reunión.
 
 Pruébalo ahora mismo. Piensa en un sí que diste esta semana sin quererlo. ¿Cómo habría sonado un no amable?
+
+Y recuerda: el primer no es el más difícil. Después, cada vez cuesta un poco menos.
 
 # Scene: Lo que de verdad significa
 

@@ -29,6 +29,8 @@ In fact, his email signature literally says he's always happy to help. He laughs
 
 And people love him for it. But lately, Daniel doesn't love his life very much.
 
+And it's not that he's fake. He genuinely likes helping. The problem is, he can't tell anymore where helping ends and disappearing begins.
+
 # Scene: The meeting
 > part: story
 > keywords: meeting room discussion team
@@ -43,6 +45,8 @@ Then Richard asks: "Everyone agree?" One hand goes up. Then another. And then, e
 
 So Daniel looks around the room, and slowly, his hand goes up too. Later that day, he can't even explain why.
 
+And the worst part? He wasn't the only one with doubts. Margaret had them too. But nobody wanted to be the first.
+
 # Scene: The weekend
 > part: story
 > keywords: apartment night tired man phone
@@ -56,6 +60,8 @@ Then comes Saturday. His sister calls him three times, but he doesn't pick up, b
 Eventually, she sends him a message, telling him he never has time anymore.
 
 He types back "sorry, work", and then just stares at the ceiling. Somewhere along the way, being liked had become a full-time job.
+
+And on Sunday night, he feels that familiar knot in his stomach. Another week of yeses is about to begin.
 
 # Scene: Meet The Follower
 > part: bug
@@ -89,6 +95,8 @@ So what happened? About three out of four people went along with the group at le
 
 And afterwards, many of them admitted they knew the group was wrong. They just didn't want to be the only one.
 
+Think about that for a second. Nobody forced them. Nobody threatened them. The simple pressure of being the only one was enough to make them doubt their own eyes.
+
 # Scene: Who it visits
 > part: bug
 > keywords: new job first day office
@@ -117,6 +125,8 @@ First, his own project falls behind, because all his time goes into everyone els
 
 And here's the trap. The more he says yes, the more people ask him for things. And so, the harder the next no becomes.
 
+And it gets worse. People start to see Daniel as the one who always says yes. So the extra work keeps landing on his desk.
+
 # Scene: The launch
 > part: consequence
 > keywords: computer error office problem
@@ -130,6 +140,8 @@ And remember Richard's launch, the one without testing? Well, it goes live on Mo
 Daniel saw it coming. He had the numbers. He just didn't want to be the only hand that stayed down.
 
 In the end, his silence didn't protect anyone. All it did was keep the problem invisible, until it was too big to ignore.
+
+And Daniel isn't alone. In many teams, the person who spots a problem first is the newest, the quietest, the one who feels least able to say it.
 
 # Scene: Why it exists
 > part: why
@@ -145,6 +157,8 @@ Picture a small group crossing the savanna, when suddenly, everyone starts runni
 
 In other words, going along with others was a fast, cheap way to stay safe. After all, the group usually knew something you didn't. And standing apart could cost you your place, and with it, your protection.
 
+Even today, part of your brain treats being left out as a threat. In fact, brain studies suggest that social rejection activates some of the same areas as physical pain.
+
 # Scene: Old bodyguard, new office
 > part: why
 > keywords: office open space
@@ -159,6 +173,8 @@ Today, though, the danger is rarely a lion. Instead, it's a spreadsheet, a meeti
 The problem is, your body can't tell the difference. So disagreeing in a meeting can make your heart race, as if you were about to be left alone in the dark.
 
 So the bodyguard isn't broken. It's just protecting you from the wrong things.
+
+And that's why saying no can feel so dramatic, even when the request is tiny.
 
 # Scene: Coffee with Elena
 > part: update
@@ -200,6 +216,8 @@ Third, say no to the task, not to the person. For example: "I can't take this on
 And fourth, be the one, or find the one. If you see a problem, say it. And if speaking up alone feels too hard, find one ally before the meeting.
 
 So try it right now. Think of one yes you gave this week that you didn't really mean. What would a kind no have sounded like?
+
+And remember, the first no is the hardest. After that, it gets a little easier every time.
 
 # Scene: What it really means
 > part: close

@@ -43,6 +43,8 @@ Richard just laughs and pats him on the shoulder. "Kid, I was migrating data bef
 
 And so Daniel goes back to his desk. After all, he's new, he says yes to everything, and Richard sounds so sure. Maybe, he thinks, he's the one who's wrong.
 
+And honestly, can you blame him? When the most senior person in the room laughs at your warning, it takes a lot of courage to say it twice.
+
 # Scene: Margaret's numbers
 > part: story
 > keywords: finance spreadsheet office
@@ -117,6 +119,8 @@ By week six, the system is only twenty percent done. And every Monday, Richard t
 
 So why doesn't he just admit it? Because The Know-It-All won't let him say he was wrong. To him, admitting it feels like losing his place. So instead, he does what the voice tells him: he pushes harder, he blames the vendor, and he promises a new date that he can't keep either.
 
+And the stress starts to show. He snaps at people in meetings, he answers emails at midnight, and he stops sleeping well. Because deep down, a part of him already knows. He just can't say it out loud.
+
 # Scene: The cost
 > part: consequence
 > keywords: team meeting tired
@@ -130,6 +134,8 @@ But here's the thing. The real cost isn't the delay. It's the team.
 Think about it. Daniel stopped warning him after that first laugh. Margaret stopped sending numbers. Little by little, people learned that bad news wasn't welcome, and so it simply stopped arriving.
 
 And that's what The Know-It-All really does to a leader. It doesn't just make him wrong. It quietly removes the people who could have told him.
+
+Researchers who study teams, like Amy Edmondson at Harvard, call this psychological safety: the feeling that you can speak up without being punished for it. And when it disappears, mistakes don't stop. They just go underground.
 
 # Scene: Why it exists
 > part: why
@@ -161,6 +167,8 @@ The problem is, the world changed. A hunt was simple, and you saw the result the
 So in a world like that, sounding sure stops being a strength. Instead, it becomes a risk, because nobody checks your work until it's too late.
 
 In other words, the voice isn't broken. It's just using an old map in a new city.
+
+And notice something else. The more senior you get, the fewer people tell you that you're wrong. So the voice gets louder exactly when you need it to be quieter.
 
 # Scene: Coffee with Elena
 > part: update

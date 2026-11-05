@@ -24,6 +24,8 @@ Richard se ríe y le da una palmada en el hombro. "Muchacho, yo migraba datos an
 
 Y Daniel vuelve a su escritorio. Al fin y al cabo es nuevo, le dice que sí a todo, y Richard suena tan seguro. Quizás, piensa, el equivocado es él.
 
+Y la verdad, ¿cómo culparlo? Cuando el jefe más antiguo se ríe de tu advertencia, hace falta mucho valor para repetirla.
+
 # Scene: Los números de Margaret
 
 Unos días después, Margaret, de Finanzas, llega con una hoja de cálculo. Resulta que proyectos parecidos tomaron de tres a seis meses, y costaron el triple del presupuesto de Richard.
@@ -40,7 +42,7 @@ Conoce a The Know-It-All, el sabelotodo.
 
 Es la voz que te susurra: "Tú ya sabes esto. Preguntar es de principiantes. ¿Y dudar? Dudar es debilidad."
 
-En 1999, dos psicólogos de Cornell, Justin Kruger y David Dunning, decidieron ponerlo a prueba. Le hicieron a varias personas preguntas de lógica, gramática y hasta humor, y luego les pidieron adivinar qué tan bien les había ido.
+En 1999, Justin Kruger y David Dunning, de Cornell, lo pusieron a prueba. Evaluaron a varias personas en lógica, gramática y humor, y luego les pidieron adivinar cómo les fue.
 
 # Scene: El 12 y el 62
 
@@ -66,13 +68,17 @@ En la semana seis, el sistema va apenas al veinte por ciento. Y cada lunes, Rich
 
 ¿Y por qué no lo admite de una vez? Porque The Know-It-All no lo deja decir que se equivocó. Para él, admitirlo es perder su lugar. Así que hace lo que la voz le dice: presiona más, culpa al proveedor y promete otra fecha que tampoco puede cumplir.
 
+Y el estrés se empieza a notar. Le grita a la gente en las reuniones, responde correos a medianoche y ya no duerme bien. Porque en el fondo, una parte de él ya lo sabe. Solo no puede decirlo.
+
 # Scene: El costo
 
 Pero aquí está el punto. El costo real no es el retraso. Es el equipo.
 
-Piénsalo. Daniel dejó de advertirle después de esa primera risa. Margaret dejó de mandarle números. Poco a poco, la gente aprendió que las malas noticias no eran bienvenidas, y simplemente dejaron de llegar.
+Piénsalo. Daniel dejó de advertirle tras esa primera risa. Margaret dejó de mandar números. Poco a poco, la gente aprendió que las malas noticias no eran bienvenidas, y dejaron de llegar.
 
-Y eso es lo que The Know-It-All le hace de verdad a un líder. No solo lo hace equivocarse. Le quita, sin hacer ruido, a las personas que podían avisarle.
+Eso le hace The Know-It-All a un líder. No solo lo hace equivocarse. Le quita, sin ruido, a las personas que podían avisarle.
+
+En Harvard, Amy Edmondson llama a esto seguridad psicológica: sentir que puedes hablar sin que te castiguen. Y cuando desaparece, los errores no se acaban. Solo se esconden.
 
 # Scene: Por qué existe
 
@@ -91,6 +97,8 @@ El problema es que el mundo cambió. Una cacería era simple, y veías el result
 Así que en un mundo así, sonar seguro deja de ser una fortaleza. Se vuelve un riesgo, porque nadie revisa tu trabajo hasta que es demasiado tarde.
 
 En otras palabras, la voz no está rota. Solo usa un mapa viejo en una ciudad nueva.
+
+Y fíjate en algo más. Mientras más alto es tu cargo, menos gente te dice que te equivocas. Así que la voz suena más fuerte justo cuando necesitas que baje.
 
 # Scene: Café con Elena
 

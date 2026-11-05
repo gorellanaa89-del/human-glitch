@@ -21,9 +21,21 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+      - name: Restore cached ffmpeg packages
+        run: echo "IMG=${ImageVersion:-none}" >> "$GITHUB_ENV"
+      - uses: actions/cache/restore@v4
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
       - name: Install ffmpeg and brand fonts
-        timeout-minutes: 25
+        timeout-minutes: 15
         run: bash tools/install-deps.sh
+      - name: Save ffmpeg packages for the next runs
+        uses: actions/cache/save@v4
+        continue-on-error: true
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
       - run: pip install -r requirements.txt
       - name: Render preview frames
         env:

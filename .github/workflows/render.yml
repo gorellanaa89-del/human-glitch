@@ -47,10 +47,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Restore cached ffmpeg packages
+        run: echo "IMG=${ImageVersion:-none}" >> "$GITHUB_ENV"
+      - uses: actions/cache/restore@v4
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
       - name: Install ffmpeg and fonts
-        timeout-minutes: 25
+        timeout-minutes: 15
         run: |
           bash tools/install-deps.sh
+      - name: Save ffmpeg packages for the next runs
+        uses: actions/cache/save@v4
+        continue-on-error: true
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
 
       - uses: actions/setup-python@v5
         with:
@@ -77,10 +89,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Restore cached ffmpeg packages
+        run: echo "IMG=${ImageVersion:-none}" >> "$GITHUB_ENV"
+      - uses: actions/cache/restore@v4
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
       - name: Install ffmpeg and fonts
-        timeout-minutes: 25
+        timeout-minutes: 15
         run: |
           bash tools/install-deps.sh
+      - name: Save ffmpeg packages for the next runs
+        uses: actions/cache/save@v4
+        continue-on-error: true
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
 
       - uses: actions/setup-python@v5
         with:

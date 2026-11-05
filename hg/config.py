@@ -39,12 +39,16 @@ BROLL_SECONDS = 7.0
 # Fastest speed-up allowed when fitting the Spanish track to the English timing.
 MAX_ES_TEMPO = 1.25
 
+# Brand fonts ship with the repository (assets/fonts, SIL Open Font License), so runners need no font packages.
+_FONTS = Path(__file__).resolve().parent.parent / "assets" / "fonts"
 _MONO = [
+    str(_FONTS / "JetBrainsMono-ExtraBold.ttf"),
     "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-ExtraBold.ttf",
     "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
 ]
 _SANS = [
+    str(_FONTS / "Inter-Black.otf"),
     "/usr/share/fonts/opentype/inter/Inter-Black.otf",
     "/usr/share/fonts/opentype/inter/Inter-Bold.otf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",

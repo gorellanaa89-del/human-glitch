@@ -137,6 +137,70 @@ def _arm(side):
     return outer + inner
 
 
+# Arm poses: (upper arm, forearm) angles in degrees from hanging straight down, positive = away from the body.
+UPPER, FORE, ARM_R = 95, 90, 19
+REST = (16, -4)
+POSES = {
+    "rest": (REST, REST),
+    "wave": (REST, (150, 172)),         # second entry is the arm on the right of the picture
+    "point": (REST, (82, 92)),
+    "shrug": ((38, 105), (38, 105)),
+    "cheer": ((150, 168), (150, 168)),
+    "panic": ((145, 185), (145, 185)),  # hands on the head
+    "explain": (REST, (40, 75)),
+    "clasp": ((-12, -45), (-12, -45)),  # hands together in front, nervous
+    "stop": ((60, 160), REST),          # palm up: "wait"
+}
+
+
+def _capsule(a, b, r, n=10):
+    ang = math.atan2(b[1] - a[1], b[0] - a[0])
+    pts = []
+    for (cx, cy), start in ((b, ang - math.pi / 2), (a, ang + math.pi / 2)):
+        for k in range(n + 1):
+            t = start + math.pi * k / n
+            pts.append((cx + r * math.cos(t), cy + r * math.sin(t)))
+    return pts
+
+
+def _limb(side, upper, fore):
+    """Shoulder, elbow and hand points for one arm (side -1 = picture left)."""
+    sh = (300 + side * 104, 450)
+    u, f = math.radians(upper), math.radians(fore)
+    el = (sh[0] + side * UPPER * math.sin(u), sh[1] + UPPER * math.cos(u))
+    hd = (el[0] + side * FORE * math.sin(f), el[1] + FORE * math.cos(f))
+    return sh, el, hd
+
+
+def _hose(sh, el, hd, r0=31, r1=25, n=26):
+    """Rubber-hose arm: a soft curve from shoulder to hand (bent towards the elbow), tapering, round ends."""
+    bp = lambda t: tuple((1 - t) ** 2 * a + 2 * (1 - t) * t * b + t * t * c for a, b, c in zip(sh, el, hd))
+    left, right = [], []
+    for k in range(n + 1):
+        t = k / n
+        x, y = bp(t)
+        dx = 2 * (1 - t) * (el[0] - sh[0]) + 2 * t * (hd[0] - el[0])
+        dy = 2 * (1 - t) * (el[1] - sh[1]) + 2 * t * (hd[1] - el[1])
+        ln = math.hypot(dx, dy) or 1
+        nx, ny = -dy / ln, dx / ln
+        r = r0 + (r1 - r0) * t
+        left.append((x + nx * r, y + ny * r))
+        right.append((x - nx * r, y - ny * r))
+    def cap(c, r, a0):  # half circle, turning the same way at both ends so the outline never crosses
+        return [(c[0] + r * math.cos(a0 - math.pi * k / 10), c[1] + r * math.sin(a0 - math.pi * k / 10)) for k in range(1, 10)]
+    a_end = math.atan2(left[-1][1] - hd[1], left[-1][0] - hd[0])
+    a_start = math.atan2(right[0][1] - sh[1], right[0][0] - sh[0])
+    return left + cap(hd, r1, a_end) + right[::-1] + cap(sh, r0, a_start)
+
+
+def _arms(p: Pencil, col, arms):
+    for side, (upper, fore) in zip((-1, 1), arms):
+        sh, el, hd = _limb(side, upper, fore)
+        el = (el[0] + (el[0] - (sh[0] + hd[0]) / 2) * 0.3, el[1] + (el[1] - (sh[1] + hd[1]) / 2) * 0.3)  # keep the bend visible
+        p.shape(_hose(sh, el, hd), shade(col, 0.93), 5)
+        p.shape(ellipse_pts(hd[0], hd[1], 27, 25, n=28), col, 5)
+
+
 def _eyes(p: Pencil, expr, col):
     (lx, ly), (rx, ry) = EYES
     ex, ey = EYE_R
@@ -260,17 +324,18 @@ def _extras(p: Pencil, b: Bean):
             p.shape(ellipse_pts(x, y, 7, 7, n=14), (250, 248, 240), 2.5)
 
 
-def _bean(b: Bean, expr: str, head=None) -> Image.Image:
+def _bean(b: Bean, expr: str, head=None, arms=None) -> Image.Image:
     img = Image.new("RGBA", (W0 * SS, H0 * SS), (0, 0, 0, 0))
     p = Pencil(img, b.seed)
     col = b.color
     _hair(p, b, front=False)
     p.shape([(284, 370), (316, 370), (318, 410), (282, 410)], shade(col, 0.85), 4)  # neck
     p.shape(_torso(), col, 5.5)
-    for side in (-1, 1):
-        p.shape(_arm(side), shade(col, 0.93), 5)
-        hx = 300 + side * 128
-        p.shape(ellipse_pts(hx, 618, 26, 24, n=28), col, 5)
+    if arms is None:
+        for side in (-1, 1):
+            p.shape(_arm(side), shade(col, 0.93), 5)
+            hx = 300 + side * 128
+            p.shape(ellipse_pts(hx, 618, 26, 24, n=28), col, 5)
     p.hatch(286, 396, 306, 414, 3, 2.5)
     _extras_body = [e for e in b.extras if e in ("tie", "badge", "pearls")]
     if _extras_body:
@@ -293,6 +358,8 @@ def _bean(b: Bean, expr: str, head=None) -> Image.Image:
     if expr == "worried":
         p.shape(bez((452, 150), (440, 180), (436, 196), (452, 198)) + bez((452, 198), (468, 196), (464, 180), (452, 150))[1:],
                 (170, 220, 255), 3.5)
+    if arms is not None:  # posable arms go on top, so a hand can reach the face
+        _arms(p, col, arms)
     return img
 
 
@@ -403,17 +470,18 @@ def _bug(kind: str, expr: str) -> Image.Image:
     return img
 
 
-def draw(name: str, expression: str | None = None, height: int = 700, blink: bool = False) -> Image.Image:
-    """Return a character as a transparent RGBA image `height` pixels tall."""
+def draw(name: str, expression: str | None = None, height: int = 700, blink: bool = False, arms=None) -> Image.Image:
+    """Return a character as a transparent RGBA image `height` pixels tall.
+    arms: ((upper, fore), (upper, fore)) angles (see POSES) for posable arms; None keeps the classic arms."""
     global _BLINK
     _BLINK = blink
     try:
-        return _draw(name, expression, height)
+        return _draw(name, expression, height, arms)
     finally:
         _BLINK = False
 
 
-def _draw(name, expression, height):
+def _draw(name, expression, height, arms=None):
     if name in ("neuro", "host"):  # the channel host
         from . import hosts
         return hosts.draw("neuro", expression or "happy", height)
@@ -423,7 +491,7 @@ def _draw(name, expression, height):
         img = _bug(name, expression or "neutral")
     else:
         b = CAST[name]
-        img = _bean(b, expression or b.default)
+        img = _bean(b, expression or b.default, arms=arms)
     img = img.crop((0, 0, W0 * SS, (860 if name in BUGS else 690) * SS))
     w = int(height * img.width / img.height)
     return img.resize((w, height), Image.LANCZOS)

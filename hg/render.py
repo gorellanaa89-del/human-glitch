@@ -1,4 +1,5 @@
 """Turn an episode folder into a finished long video, a Short, a thumbnail and captions."""
+import os
 import json
 import math
 import re
@@ -203,6 +204,8 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
     machines at once; a later full build reuses every cached scene."""
     import json as _json
     meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
+    from . import sets
+    sets.MODE = os.environ.get("HG_BACKGROUNDS") or meta.get("backgrounds", "drawn")  # "photo": real photos where one exists
     scenes = parse_script(episode / "script.en.md")
     es_path = episode / "script.es.md"
     scenes_es = parse_script(es_path) if es_path.exists() else []

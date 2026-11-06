@@ -181,6 +181,8 @@ def upload_es(episode: Path) -> dict:
     thumb = out / "thumbnail.es.jpg"
     try:
         idx = int(meta.get("short_scene") or 1) - 1
+        from . import sets
+        sets.MODE = meta.get("backgrounds", "drawn")
         animate.thumbnail(parse_script(episode / "script.en.md")[idx], es.get("thumbnail_text") or es["title"], thumb)
     except Exception as e:
         print(f"  Spanish thumbnail not drawn: {e}")

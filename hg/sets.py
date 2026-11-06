@@ -4,9 +4,11 @@ Same pencil style as the cast: flat muted colours, wobbly ink outlines, few deta
 area in the middle so the characters stand out. 1920x1080, characters' feet around y=1000.
 """
 import math
+import os
 import random
+from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 from .sketch import HAND_FONT, INK, SS, WHITE, Pencil, bez, ellipse_pts, shade
 
@@ -210,17 +212,50 @@ def savanna():
     return img
 
 
-SETS = {"office": office, "meeting": meeting, "cafe": cafe, "home_night": home_night, "savanna": savanna}
+SETS = {"office": office, "meeting": meeting, "cafe": cafe, "home_night": home_night, "savanna": savanna,
+        # sets that only exist as photos fall back to the closest drawing
+        "desk": office, "home_day": home_night, "bedroom": home_night}
 
 
 FRONT = {"meeting": meeting_front}
 
 
+# Photo backgrounds (Pixabay, free licence): used when an episode sets `backgrounds: photo` in meta.yaml.
+PHOTOS = Path(__file__).resolve().parent.parent / "assets" / "backgrounds"
+MODE = os.environ.get("HG_BACKGROUNDS", "drawn")
+
+
+def photo(name: str) -> Image.Image | None:
+    """A real photo, softened so the drawn characters stay in front: cover-fit, light blur (depth of field),
+    a little less colour and contrast, and a soft vignette."""
+    path = PHOTOS / f"{name}.jpg"
+    if not path.exists():
+        return None
+    im = Image.open(path).convert("RGB")
+    s = max(W / im.width, H / im.height)
+    im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
+    x0, y0 = (im.width - W) // 2, (im.height - H) // 2
+    im = im.crop((x0, y0, x0 + W, y0 + H)).filter(ImageFilter.GaussianBlur(3.2))
+    im = ImageEnhance.Color(im).enhance(0.85)
+    im = ImageEnhance.Contrast(im).enhance(0.9)
+    vig = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(vig).ellipse((-W * 0.15, -H * 0.25, W * 1.15, H * 1.25), fill=255)
+    vig = vig.filter(ImageFilter.GaussianBlur(W // 10))
+    im = Image.composite(im, ImageEnhance.Brightness(im).enhance(0.72), vig)
+    return im.convert("RGBA")
+
+
 def draw(name: str) -> Image.Image:
     """Return a set as a 1920x1080 RGBA image."""
+    if MODE == "photo":
+        img = photo(name)
+        if img is not None:
+            return img
     return SETS[name]().resize((W, H), Image.LANCZOS)
 
 
 def front(name: str) -> Image.Image | None:
     """Foreground layer to composite over the characters, if the set has one."""
+    if MODE == "photo" and (PHOTOS / f"{name}.jpg").exists():
+        return None
     return FRONT[name]().resize((W, H), Image.LANCZOS) if name in FRONT else None

@@ -13,6 +13,13 @@ on:
         description: "Only render the first N seconds (quick test). Empty = whole episode"
         required: false
         default: ""
+      backgrounds:
+        description: "Override the episode's backgrounds: drawn or photo. Empty = as in meta.yaml"
+        required: false
+        default: ""
+
+env:
+  HG_BACKGROUNDS: ${{ inputs.backgrounds }}
 
 permissions:
   contents: write

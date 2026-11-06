@@ -6,6 +6,11 @@ Each scene in the script can carry these lines:
                                      who is on screen; "a -> b" switches expression mid-scene
   > switch: 0.3                      when the "->" switches happen (fraction of the scene, snapped to a paragraph)
   > enter: bug:filter@6              actor appears at the start of paragraph 6 (0-based) instead of at once
+                                     (people who enter later walk in from the nearest side)
+  > gesture: daniel:wave@0, richard:point@3
+                                     arm gestures at the start of a paragraph (see sketch.POSES);
+                                     people also gesture on their own: when they speak, when their
+                                     expression changes, and at some paragraph changes
 
 What moves: gentle breathing/bobbing, blinking, expression changes, bugs popping in with a glitch,
 a patched bug shrinking a little, and camera cuts between a wide and a close shot on paragraph changes.
@@ -115,6 +120,7 @@ class SceneRenderer:
         self._build_world()
         self.words = self._ensure_words(scene.narration, words)
         self.quotes = self._quotes()
+        self._build_gestures(ex)
         self.notes = self._notes(ex)
         self._build_shots()
 
@@ -200,6 +206,68 @@ class SceneRenderer:
                 text = re.sub(r'^[\"“]+|[\"”]+[.,;:]*$', "", " ".join(self.words[j][2] for j in chunk))
                 spans.append((self.words[chunk[0]][0], self.words[chunk[-1]][1] + 0.35, text, speaker))
         return spans
+
+    def _build_gestures(self, ex):
+        """When each person moves their arms: (start, end, pose)."""
+        self.gest = {a.name: [] for a in self.actors}
+        people = [a for a in self.actors if not a.is_bug]
+        rng = random.Random(self.rng.random())
+
+        def add(name, t0, t1, pose, force=False):
+            g = self.gest.get(name)
+            if g is None or pose not in sketch.POSES or t0 < self.enter_t.get(name, 0) + 1.3:
+                return
+            t1 = min(t1, self.seconds - 0.4)
+            if t1 - t0 < 0.6:
+                return
+            if any(not (t1 + 0.5 < a or t0 > b + 0.5) for a, b, _ in g):
+                if not force:
+                    return
+                g[:] = [x for x in g if t1 + 0.5 < x[0] or t0 > x[1] + 0.5]
+            g.append((t0, t1, pose))
+
+        for spec in [x.strip() for x in ex.get("gesture", "").split(",") if x.strip()]:
+            who, _, para = spec.partition("@")
+            name, _, pose = who.partition(":")
+            k = int(para or 0)
+            t0 = (self.paras[k] if k < len(self.paras) else 0.0) + 0.2
+            add(name, t0, t0 + 2.0, pose, force=True)
+        mood = {"surprised": "cheer", "happy": "cheer", "worried": "panic", "sad": "clasp", "smug": "point"}
+        for a in people:
+            if a.expr1 in mood:
+                add(a.name, self.t_switch + 0.1, self.t_switch + 1.7, mood[a.expr1])
+        for q0, q1, _, spk in self.quotes:
+            if not spk.is_bug:
+                add(spk.name, q0 + 0.1, min(q1, q0 + 2.6), rng.choice(("explain", "explain", "shrug", "point")))
+        idle = {"worried": ("clasp", "panic", "clasp"), "sad": ("clasp",), "smug": ("point", "explain", "stop"),
+                "happy": ("explain", "shrug", "wave"), "surprised": ("shrug", "cheer", "stop")}
+        for k, tp in enumerate(self.paras[1:], 1):
+            if not people or rng.random() > 0.7:
+                continue
+            a = people[k % len(people)]
+            expr = (a.expr1 if a.expr1 and tp >= self.t_switch else a.expr0) or getattr(sketch.CAST.get(a.name), "default", "neutral")
+            add(a.name, tp + 0.25, tp + 1.9, rng.choice(idle.get(expr, ("explain", "shrug", "point"))))
+
+    def _arms_at(self, a, t):
+        rest = sketch.POSES["rest"]
+        arms = rest
+        for g0, g1, pose in self.gest.get(a.name, ()):
+            if g0 - 0.25 <= t < g1 + 0.3:
+                k = (t - g0 + 0.25) / 0.25 if t < g0 else (1 - (t - g1) / 0.3 if t > g1 else 1.0)
+                k = max(0.0, min(1.0, k))
+                k = k * k * (3 - 2 * k)
+                arms = [[r + (p - r) * k for r, p in zip(ra, pa)] for ra, pa in zip(rest, sketch.POSES[pose])]
+                if pose == "wave":
+                    arms[1][1] += 20 * k * math.sin(2 * math.pi * t / 0.55)
+                elif pose in ("explain", "point", "stop"):
+                    arms[1][0] += 7 * k * math.sin(2 * math.pi * t / 0.9)
+                elif pose == "shrug":
+                    for side in arms:
+                        side[1] += 10 * k * math.sin(2 * math.pi * t / 1.1)
+                break
+        if not self.portrait and a.x > 0.55:  # people on the right gesture towards the middle
+            arms = [arms[1], arms[0]]
+        return tuple(tuple(int(round(v / 6) * 6) for v in side) for side in arms)
 
     def _notes(self, ex):
         notes = []
@@ -397,22 +465,24 @@ class SceneRenderer:
         return (x - cx) * z + self.w / 2, (y - cy) * z + self.h / 2
 
     # ---- sprites ----
-    def _sprite(self, a: Actor, expr, blink, height):
-        key = (a.name, expr, blink, height)
+    def _sprite(self, a: Actor, expr, blink, height, arms=None):
+        key = (a.name, expr, blink, height, arms)
         if key not in self._sprites:
+            if len(self._sprites) > 700:
+                self._sprites.clear()
             if a.is_bug:
                 self._sprites[key] = bugs.draw(a.name, expr, height=height, blink=blink)
             else:
-                self._sprites[key] = sketch.draw(a.name, expr, height=height, blink=blink)
+                self._sprites[key] = sketch.draw(a.name, expr, height=height, blink=blink, arms=arms)
         return self._sprites[key]
 
-    def _tilt(self, spr, a, expr, blink, height, angle):
+    def _tilt(self, spr, a, expr, blink, height, angle, arms=None):
         """Rotate a sprite a few degrees around its feet (cached in 1-degree steps).
         Returns the rotated sprite and the x shift that keeps the feet in place."""
         deg = round(angle * 2) / 2
         if deg == 0:
             return spr, 0
-        key = (a.name, expr, blink, height, deg)
+        key = (a.name, expr, blink, height, deg, arms)
         if key not in self._tilts:
             if len(self._tilts) > 400:
                 self._tilts.clear()
@@ -490,6 +560,7 @@ class SceneRenderer:
                 angle = 6 * math.sin(2 * math.pi * (t + a.seed) / 2.2)
                 sway = 14 * z * math.sin(2 * math.pi * (t + a.seed * 0.5) / 3.1)
                 wx, wy = self._world_x(a), self.bug_feet
+                arms = None
             else:
                 height = int(self.person_h * z)
                 height -= height % 2
@@ -504,17 +575,28 @@ class SceneRenderer:
                     angle += 3 * math.sin(2 * math.pi * t / 0.84)
                 if a.expr1 and abs(t - self.t_switch) < 0.35:  # a hop on the expression change
                     bob -= math.sin(math.pi * (t - self.t_switch + 0.35) / 0.7) * 30 * z
-                if 0 < t0 and 0 <= t - t0 < 0.45:  # people who join later pop up into place
-                    k = (t - t0) / 0.45
-                    bob += (1 - k) ** 2 * height * 0.35
+                arms = self._arms_at(a, t)
+                wx, wy = self._world_x(a), self.person_bottom
+                if 0 < t0 and 0 <= t - t0 < WALK:  # people who join later walk in from the nearest side
+                    k = (t - t0) / WALK
+                    k = k if k < 0.8 else 0.8 + (1 - (1 - (k - 0.8) / 0.2) ** 2) * 0.2
+                    side = -1 if a.x < 0.5 else 1
+                    edge = (self.ox if side < 0 else self.ox + self.w) if self.portrait else (0 if side < 0 else self.world_w)
+                    start = edge + side * height * 0.6
+                    wx = start + (wx - start) * k
+                    step = (t - t0) / 0.32
+                    bob = -abs(math.sin(math.pi * step)) * 16 * z
+                    angle = 4 * math.sin(math.pi * step) * (1 - k)
+                    swing = 26 * math.sin(math.pi * step) * (1 - k * 0.7)
+                    arms = tuple(tuple(int(round(v / 6) * 6) for v in pair) for pair in
+                                 ((16 + swing, -4 + swing * 0.6), (16 - swing, -4 - swing * 0.6)))
                 if t0 == 0:  # rise into frame at the start of the scene
                     k = min(1.0, max(0.0, (t - a.seed * 0.12) / 0.45))
                     bob += (1 - k) ** 2 * height * 0.5
-                wx, wy = self._world_x(a), self.person_bottom
-            spr = self._sprite(a, expr, blink, height)
+            spr = self._sprite(a, expr, blink, height, arms)
             sx, sy = self._to_screen(cam, wx, wy)
             sx += sway
-            spr, dx = self._tilt(spr, a, expr, blink, height, angle)
+            spr, dx = self._tilt(spr, a, expr, blink, height, angle, arms)
             x, y = int(sx - spr.width / 2 + dx), int(sy - spr.height + bob)
             if x > self.w or x + spr.width < 0:
                 continue
@@ -573,6 +655,7 @@ _STEPS = ("mid", "solo", "close")
 CUT_MIN, CUT_COMMA, CUT_MAX = 1.8, 3.0, 4.0
 DRIFT = 0.06
 PUSH = 0.07
+WALK = 1.3  # seconds a person takes to walk into the scene
 
 
 def _fresh(option, prev) -> bool:
@@ -608,7 +691,7 @@ def thumbnail(scene, text: str, out: Path) -> Path:
     person = next((a for a in actors if not a.is_bug), None)
     bug = next((a for a in actors if a.is_bug), None)
     if person:
-        spr = sketch.draw(person.name, "worried", height=int(h * 0.92))
+        spr = sketch.draw(person.name, "worried", height=int(h * 0.92), arms=sketch.POSES["panic"])
         img.alpha_composite(spr, (int(w * 0.70 - spr.width / 2), h - spr.height + 20))
     if bug:
         spr = bugs.draw(bug.name, bug.expr0, height=int(h * 0.5))

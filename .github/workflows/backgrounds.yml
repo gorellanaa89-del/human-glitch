@@ -1,0 +1,31 @@
+name: Fetch background photos
+
+# Downloads candidate photo backgrounds from Pixabay into the bg-candidates branch. Uploads nothing to YouTube.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - name: Download candidates
+        env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: python tools/fetch_backgrounds.py candidates
+      - name: Save to the bg-candidates branch
+        run: |
+          cd candidates
+          git init -q -b bg-candidates
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add . && git commit -qm "Background candidates"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" bg-candidates

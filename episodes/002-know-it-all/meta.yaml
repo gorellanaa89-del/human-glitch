@@ -1,5 +1,5 @@
 # Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
-approved: false
+approved: true
 title: "Why the Least Skilled Feel the Most Sure (The Dunning-Kruger Effect)"
 thumbnail_text: "TWO WEEKS, TOPS"
 # ISO date-time in UTC. Leave empty to upload as a private draft without a schedule.

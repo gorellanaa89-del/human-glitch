@@ -3,7 +3,7 @@
 > keywords: office young man busy desk
 > card: 11 YESES BY NOON
 > cast: daniel:happy -> daniel:worried
-> set: office
+> set: open_office
 > switch: 0.5
 > note@1: 11 | yeses before lunch
 
@@ -20,7 +20,7 @@ If you've ever said yes while everything inside you was screaming no, this video
 > keywords: office team friendly colleague
 > card: DANIEL, PRODUCT ASSOCIATE
 > cast: daniel:happy, sarah:neutral, margaret:happy
-> set: office
+> set: breakroom
 > note@1: ALWAYS HAPPY TO HELP | his email signature
 
 To understand it, you need to meet Daniel. He joined the company four months ago, and everyone agrees he's the nicest person on the floor.
@@ -36,7 +36,7 @@ He isn't faking it; he genuinely likes helping. But he can no longer tell where 
 > keywords: meeting room discussion team
 > card: THE BAD IDEA
 > cast: richard:smug, daniel:worried, margaret:neutral
-> set: meeting
+> set: glass_meeting
 > note@2: 5 HANDS UP | 1 doubt, unspoken
 
 Tuesday's meeting makes it even clearer. Richard proposes skipping the testing phase, the step where you check that a product works before customers touch it, to launch faster. Daniel knows it's a mistake, because the numbers are open on his laptop and none of them add up.
@@ -68,7 +68,7 @@ And on Sunday night, that familiar knot shows up in his stomach, because another
 > keywords: office desk crowd
 > card: THE FOLLOWER
 > cast: daniel:worried, bug:follower:neutral
-> set: office
+> set: hallway
 > enter: bug:follower@1
 > note@3: 1951 | Solomon Asch, Swarthmore
 
@@ -102,7 +102,7 @@ And think about what that means. Nobody forced them and there was nothing to win
 > keywords: new job first day office
 > card: THE NEW ONES
 > cast: daniel:worried, sarah:neutral, bug:follower:neutral
-> set: office
+> set: lobby
 > note@2: 4 SIGNS | yes · no opinion · sorry · guilt
 
 Now, The Follower doesn't visit everyone equally. It especially loves people who just arrived somewhere new, people who grew up keeping the peace at home, and anyone who measures their worth by how useful they are.
@@ -116,7 +116,7 @@ You say yes before you've even thought about it. You wait to hear what others th
 > keywords: stress office late night work
 > card: THE COST
 > cast: daniel:sad, bug:follower:neutral
-> set: office
+> set: office_evening
 > note@2: THE YES TRAP | yes → overload → resentment → yes
 
 Here's what The Follower does to Daniel's month.
@@ -132,7 +132,7 @@ And the team gets used to it: Daniel becomes the one who always says yes, so the
 > keywords: computer error office problem
 > card: THE LAUNCH
 > cast: richard:worried, daniel:sad, bug:follower:neutral
-> set: meeting
+> set: boss_office
 > note@1: 200 ERRORS | in the first day
 
 Remember Richard's launch, the one without testing? It goes live on Monday, and by the end of the day customers have reported two hundred errors.
@@ -164,7 +164,7 @@ That's why part of your brain still treats being left out as a threat. Brain stu
 > keywords: office open space
 > card: OUT OF DATE
 > cast: daniel:worried, bug:follower:neutral
-> set: office
+> set: open_office
 > note@0: THEN | a lion
 > note@1: NOW | a spreadsheet
 
@@ -199,7 +199,7 @@ Then Elena tells him something surprising. In Asch's experiment, when just one o
 > keywords: notebook desk calm
 > card: FOUR UPDATES
 > cast: daniel:happy, bug:follower:happy
-> set: office
+> set: home_office
 > note@0: 1. PAUSE | let me check and get back to you
 > note@1: 2. COUNT THE COST | what do I give up?
 > note@2: 3. NO TO THE TASK | not to the person
@@ -224,7 +224,7 @@ And remember, the first no is the hardest, but each one after that gets a little
 > keywords: office meeting confident young man
 > card: KIND IS NOT THE SAME AS YES
 > cast: daniel:happy, richard:surprised, sarah:happy, bug:follower:happy
-> set: meeting
+> set: glass_meeting
 > switch: 0.3
 > note@3: RECAP | pause · cost · task · ally
 

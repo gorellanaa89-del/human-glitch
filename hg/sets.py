@@ -214,7 +214,11 @@ def savanna():
 
 SETS = {"office": office, "meeting": meeting, "cafe": cafe, "home_night": home_night, "savanna": savanna,
         # sets that only exist as photos fall back to the closest drawing
-        "desk": office, "home_day": home_night, "bedroom": home_night}
+        "desk": office, "home_day": home_night, "bedroom": home_night,
+        # second round of photos (2026-11-08)
+        "hallway": office, "lobby": office, "open_office": office, "office_evening": office, "boss_office": office,
+        "glass_meeting": meeting, "breakroom": cafe, "kitchen": home_night, "park": savanna, "rooftop": office,
+        "train": office, "restaurant": cafe, "home_office": home_night, "bathroom": home_night, "street": office}
 
 
 FRONT = {"meeting": meeting_front}

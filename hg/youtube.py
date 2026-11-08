@@ -168,9 +168,12 @@ def upload_es(episode: Path) -> dict:
         return log
 
     video = out / "video.es.mp4"
-    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(out / "video.mp4"), "-i", str(out / "audio.es.m4a"),
-                    "-map", "0:v", "-map", "1:a", "-c", "copy", "-shortest", "-movflags", "+faststart", str(video)],
-                   check=True)
+    report = json.loads((out / "report.json").read_text()) if (out / "report.json").exists() else {}
+    if not (report.get("files", {}).get("video_es") and video.exists()):
+        # no Spanish picture was rendered: the English picture with the Spanish voice
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(out / "video.mp4"), "-i", str(out / "audio.es.m4a"),
+                        "-map", "0:v", "-map", "1:a", "-c", "copy", "-shortest", "-movflags", "+faststart", str(video)],
+                       check=True)
 
     # Spanish chapters: the English timestamps with the Spanish scene titles.
     stamps = re.findall(r"^(\d\d:\d\d) ", (out / "description.txt").read_text(encoding="utf-8"), re.M)

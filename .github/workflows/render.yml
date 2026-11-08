@@ -157,7 +157,11 @@ jobs:
             ffmpeg -loglevel error -y -i "$OUT/video.mp4" -vf scale=-2:540 -c:v libx264 -preset veryfast -crf 32 \
               -c:a aac -b:a 64k -movflags +faststart "$P/preview-720p.mp4"
           fi
-          if [ -f "$OUT/audio.es.m4a" ]; then
+          if [ -f "$OUT/video.es.mp4" ]; then
+            # the Spanish picture (Spanish voice names, bubbles and cards)
+            ffmpeg -loglevel error -y -i "$OUT/video.es.mp4" -vf scale=-2:720 -c:v libx264 -preset veryfast -crf 30 \
+              -c:a aac -b:a 96k -movflags +faststart "$P/preview-es-720p.mp4"
+          elif [ -f "$OUT/audio.es.m4a" ]; then
             # same picture, Spanish voice: what a viewer gets when picking the Spanish track on YouTube
             ffmpeg -loglevel error -y -i "$P/preview-720p.mp4" -i "$OUT/audio.es.m4a" -map 0:v -map 1:a \
               -c:v copy -c:a aac -b:a 96k -shortest -movflags +faststart "$P/preview-es-720p.mp4"

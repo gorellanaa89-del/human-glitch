@@ -14,6 +14,14 @@ Each scene in the script can carry these lines:
 
 What moves: gentle breathing/bobbing, blinking, expression changes, bugs popping in with a glitch,
 a patched bug shrinking a little, and camera cuts between a wide and a close shot on paragraph changes.
+
+Camera language (2026-11-08): besides wide/group/mid/solo/close, each shot can get
+  - over the shoulder: another person's back, big and out of focus, in the foreground
+  - dutch angle: the frame tilted a few degrees, for worried moments and for the voices
+  - low angle (looking up, for confident people) or high angle (looking down, for worried ones)
+  - a whip pan into the shot, a shake and punch-in when a voice pops in
+and every shot has a slow handheld float, parallax (the room moves slower than the people) and
+more background blur the closer the shot is (depth of field).
 Frames are piped straight into ffmpeg, so a scene costs one encode.
 """
 import math
@@ -23,7 +31,8 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-from PIL import Image, ImageChops
+import numpy as np
+from PIL import Image, ImageChops, ImageEnhance, ImageFilter
 
 from . import bugs, sets, sketch
 from .config import FPS
@@ -90,8 +99,10 @@ def _layout(actors: list[Actor], portrait: bool):
 
 
 class SceneRenderer:
-    def __init__(self, scene, seconds: float, words, size, labeled: set | None = None, seed: int = 0):
+    def __init__(self, scene, seconds: float, words, size, labeled: set | None = None, seed: int = 0,
+                 lang: str = "en"):
         self.w, self.h = size
+        self.lang = lang
         self.portrait = self.h > self.w
         self.seconds = seconds
         self.rng = random.Random(seed)
@@ -182,7 +193,7 @@ class SceneRenderer:
                     cur = None
         spans = []
         names = {a.name: a for a in self.actors}
-        aliases = {a.name: (bugs.BUGS[a.name][0].split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
+        aliases = {a.name: (bugs.display_name(a.name, self.lang).split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
         for a, b in out:
             before = " ".join(w[2] for w in self.words[max(0, a - 14):a]).lower()
             speaker, best = None, -1
@@ -334,6 +345,7 @@ class SceneRenderer:
             [(k, a) for a in self.actors for k in ("mid", "solo", "close")]
         prev = None
         self.cams = []
+        self.styles = []
         for i, (c, k) in enumerate(zip(cuts, kinds)):
             if k is not None and k[0] == "enter":
                 k = ("wide", None) if len(self.actors) > 2 else ("group", None)
@@ -348,11 +360,78 @@ class SceneRenderer:
             z, cx0, cy0 = self._clamp(z, cx - drift / 2, cy)
             z, cx1, cy1 = self._clamp(z, cx + drift / 2, cy)
             self.cams.append((c, end, z, cx0, cy0, cx1, cy1))
+            st = self._style(i, c, k, kinds[i] is not None)
+            if st["ots"] is not None:  # rule of thirds: the face we look at moves away from the shoulder
+                sh = st["side"] * (self.w / z) * 0.2
+                cam = self.cams[-1]
+                _, ax, ay = self._clamp(z, cam[3] + sh, cam[4])
+                _, bx, by = self._clamp(z, cam[5] + sh, cam[6])
+                self.cams[-1] = (cam[0], cam[1], z, ax, ay, bx, by)
+            self.styles.append(st)
             prev = k
         self.cuts = cuts
         self._shot_bgs = {}
         self._bubble_cache = {}
         self._note_cache = {}
+
+    def _expr_at(self, a, t):
+        e = a.expr1 if a.expr1 and t >= self.t_switch else a.expr0
+        if e:
+            return e
+        return bugs.BUGS[a.name][3] if a.is_bug else getattr(sketch.CAST.get(a.name), "default", "neutral")
+
+    def _style(self, i, c, k, forced):
+        """Extra camera language for one shot (see the module docstring)."""
+        st = {"dutch": 0.0, "key": 0.0, "ots": None, "whip": 0, "subject": None, "side": 1}
+        if i == 0 or self.portrait:
+            return st
+        rng = self.rng
+        kind, a = k
+        if not forced and rng.random() < WHIP:
+            st["whip"] = rng.choice((-1, 1))
+        if a is None:
+            if kind == "wide" and rng.random() < 0.35:
+                st["key"] = -HIGH  # a look down on the whole room
+            return st
+        expr = self._expr_at(a, c)
+        r = rng.random()
+        if a.is_bug:
+            if kind in ("solo", "close") and r < 0.6:
+                st["dutch"] = rng.choice((-1, 1)) * DUTCH
+            elif r < 0.85:
+                st["key"] = LOW
+            return st
+        if expr in ("worried", "sad", "surprised"):
+            if kind in ("solo", "close") and r < 0.45:
+                st["dutch"] = rng.choice((-1, 1)) * DUTCH * 0.8
+            elif r < 0.8:
+                st["key"] = -HIGH
+        elif expr == "smug" and r < 0.7:
+            st["key"] = LOW
+        elif expr == "happy" and r < 0.3:
+            st["key"] = LOW * 0.7
+        others = [b for b in self.actors if not b.is_bug and b is not a and self.enter_t[b.name] <= c + 0.01]
+        if others and kind in ("mid", "solo") and rng.random() < (0.75 if forced else 0.5):
+            b = min(others, key=lambda o: abs(o.x - a.x))
+            st["ots"], st["subject"] = b, a
+            st["side"] = 1 if b.x > a.x else -1  # the listener's back is on their real side of the room
+        return st
+
+    def _ots_sprite(self, b, height):
+        """A person seen from behind: their shape in their colour, the head in their hair colour, blurred
+        because they are much closer to the camera than the focus."""
+        key = ("ots", b.name, height)
+        if key not in self._sprites:
+            spr = sketch.back(b.name, height)
+            blur = max(2, int(height / 160))
+            pad = blur * 3
+            big = Image.new("RGBA", (spr.width + pad * 2, spr.height + pad), (0, 0, 0, 0))
+            big.paste(spr, (pad, pad))
+            big = big.filter(ImageFilter.GaussianBlur(blur))
+            dark = ImageEnhance.Brightness(big).enhance(0.8)
+            dark.putalpha(big.getchannel("A"))
+            self._sprites[key] = dark
+        return self._sprites[key]
 
     def _shot_layers(self, i):
         if i not in self._shot_bgs:
@@ -365,6 +444,9 @@ class SceneRenderer:
             box = (x0, y0, x1, y0 + vh)
             bg = self.bg.resize(size, Image.LANCZOS, box=box)
             fr = self.front.resize(size, Image.LANCZOS, box=box) if self.front else None
+            blur = max(0.0, z - 1.15) * 2.6 * self.h / 720  # closer shot, softer room
+            if blur > 0.4:
+                bg = bg.filter(ImageFilter.GaussianBlur(blur))
             self._shot_bgs = {i: (bg, fr, x0)}  # keep only the current shot in memory
         return self._shot_bgs[i]
 
@@ -504,7 +586,7 @@ class SceneRenderer:
             size = int(height * 0.16)
             tx = min(self.w - size * 3.2, sx + height * 0.55)
             ty = max(size, sy - height * 0.95)
-            sketch.label(img, bugs.BUGS[a.name][0], (int(tx), int(ty)), size=size,
+            sketch.label(img, bugs.display_name(a.name, self.lang), (int(tx), int(ty)), size=size,
                          arrow_to=(int(sx + height * 0.18), int(sy - height * 0.62)))
             view[key] = img
         return view[key]
@@ -536,15 +618,19 @@ class SceneRenderer:
         u = u * u * (3 - 2 * u)
         cx, cy = cx0 + (cx1 - cx0) * u, cy0 + (cy1 - cy0) * u
         bg, fr, x0 = self._shot_layers(i)
-        off = int(round((cx - self.w / z / 2 - x0) * z))
+        bcx = cx0 + (cx - cx0) * PARALLAX  # the room is further away than the people: it moves less
+        off = int(round((bcx - self.w / z / 2 - x0) * z))
         off = min(max(off, 0), bg.width - self.w)
         img = bg.crop((off, 0, off + self.w, self.h))
         cam = (z, cx, cy)
         labels, heads = [], {}
+        st = self.styles[i]
         for a in self.actors:
             t0 = self.enter_t[a.name]
             if t < t0:
                 continue
+            if st["ots"] is not None and not a.is_bug and a is not st["subject"]:
+                continue  # over the shoulder: only the face we look at (the listener is the shoulder)
             switched = a.expr1 and t >= self.t_switch
             expr = a.expr1 if switched else a.expr0
             period = 3.6 + (a.seed * 0.7) % 1.8
@@ -609,17 +695,21 @@ class SceneRenderer:
                 img.paste(spr, (x, y), spr)
             if a.name in self.label_for and 0.6 < age < 5.5 and not any(q[0] <= t < q[1] for q in self.quotes):
                 labels.append(self._label((z, cx, cy), a, sx, sy, height))
+        b = st["ots"]
+        if b is not None:
+            spr = self._ots_sprite(b, int(self.h * 0.95))
+            side = st["side"]
+            k = u * 0.03
+            px = int((self.w - spr.width * 0.62 - self.w * k) if side > 0 else (-spr.width * 0.38 + self.w * k))
+            py = int(self.h * 0.18)
+            img.paste(spr, (px, py), spr)
         if fr is not None:
             fc = fr.crop((off, 0, off + self.w, self.h))
             img.paste(fc, (0, 0), fc)
         for lab in labels:
             img.paste(lab, (0, 0), lab)
-        # slow push in (or pull out on alternate shots) across each shot, so the picture never sits still
-        k = PUSH * (u if i % 2 == 0 else 1 - u)
-        if k > 0.002:
-            cw, ch = self.w / (1 + k), self.h / (1 + k)
-            zx, zy = (self.w - cw) / 2, (self.h - ch) * 0.4
-            img = img.resize((self.w, self.h), Image.BILINEAR, box=(zx, zy, zx + cw, zy + ch))
+        img, fwd = self._camera(img, t, i, c, u, st)
+        heads = {n: fwd(*p) for n, p in heads.items()}
         note = next((n for n in self.notes if n[0] <= t < n[1]), None)
         for qi, (q0, q1, text, spk) in enumerate(self.quotes):
             if note is None and q0 <= t < q1 and spk.name in heads:
@@ -631,6 +721,62 @@ class SceneRenderer:
             card = self._note(note[2], note[3])
             img.paste(card, self._note_pos(card, t, note[0], note[1]), card)
         return img
+
+    def _camera(self, img, t, i, c, u, st):
+        """Move the finished picture like a camera: slow push in or out, handheld float, dutch tilt,
+        low/high angle keystone, whip pan and the shake when a voice pops in. One resample per frame.
+        Returns the new picture and a function that maps a point of the old picture onto the new one."""
+        w, h = self.w, self.h
+        s = 1 + PUSH * (u if i % 2 == 0 else 1 - u)
+        ang = 0.0 if self.portrait else HANDHELD * (0.6 * math.sin(2 * math.pi * t / 5.3) + 0.4 * math.sin(2 * math.pi * t / 2.9 + 1))
+        tx = w * 0.004 * math.sin(2 * math.pi * t / 4.7)
+        ty = h * 0.004 * math.sin(2 * math.pi * t / 3.7 + 2)
+        ang += st["dutch"] * (0.85 + 0.15 * u)
+        for a in self.actors:  # a voice pops in: punch in and shake
+            age = t - self.enter_t[a.name]
+            if a.is_bug and 0 <= age < 0.5 and self.enter_t[a.name] > 0:
+                d = 1 - age / 0.5
+                s *= 1 + 0.07 * d
+                tx += w * 0.012 * d * math.sin(age * 90)
+                ty += h * 0.012 * d * math.cos(age * 70)
+        whip = 0.0
+        if st["whip"] and t - c < WHIP_T:
+            whip = 1 - (t - c) / WHIP_T
+            tx += st["whip"] * w * 0.3 * whip ** 2
+        th = math.radians(ang)
+        cs, sn = math.cos(th), math.sin(th)
+        s *= abs(cs) + abs(sn) * w / h + 2 * max(abs(tx) / w, abs(ty) / h)
+        Cx, Cy = w / 2, h * 0.45
+        key = st["key"]
+        if abs(s - 1) < 1e-3 and abs(ang) < 1e-3 and not key and not whip:
+            return img, lambda x, y: (x, y)
+        # inverse map (output -> input): in = C + R(-th) (out - C - T) / s
+        def inv(x, y):
+            dx, dy = x - Cx - tx, y - Cy - ty
+            return Cx + (cs * dx + sn * dy) / s, Cy + (-sn * dx + cs * dy) / s
+        dst = [(0, 0), (w, 0), (w, h), (0, h)]
+        src = [inv(*p) for p in dst]
+        if key:  # low angle: the bottom of the picture comes closer; high angle: the top does
+            pair = (2, 3) if key > 0 else (0, 1)
+            k = abs(key) * (0.7 + 0.3 * u)
+            (ax, ay), (bx, by) = src[pair[0]], src[pair[1]]
+            mx, my = (ax + bx) / 2, (ay + by) / 2
+            src[pair[0]] = (ax + (mx - ax) * k, ay + (my - ay) * k)
+            src[pair[1]] = (bx + (mx - bx) * k, by + (my - by) * k)
+        rows, rhs = [], []
+        for (x, y), (X, Y) in zip(dst, src):
+            rows.append([x, y, 1, 0, 0, 0, -X * x, -X * y]); rhs.append(X)
+            rows.append([0, 0, 0, x, y, 1, -Y * x, -Y * y]); rhs.append(Y)
+        coef = np.linalg.solve(np.array(rows, float), np.array(rhs, float))
+        img = img.transform((w, h), Image.PERSPECTIVE, tuple(coef), Image.BILINEAR)
+        if whip > 0.05:  # motion blur while the camera swings
+            smear = img.resize((max(8, int(w / (2 + 30 * whip))), h), Image.BILINEAR).resize((w, h), Image.BILINEAR)
+            img = Image.blend(img, smear, min(1.0, whip * 1.4))
+
+        def fwd(x, y):
+            dx, dy = x - Cx, y - Cy
+            return Cx + tx + s * (cs * dx - sn * dy), Cy + ty + s * (sn * dx + cs * dy)
+        return img, fwd
 
     def render(self, out: Path, crf: int = 21):
         frames = max(1, int(round(self.seconds * FPS)))
@@ -653,8 +799,13 @@ _STEPS = ("mid", "solo", "close")
 # Pacing: seconds between cuts (at a sentence end / at a comma / at most), sideways drift per shot
 # (fraction of the view) and how much each shot slowly zooms.
 CUT_MIN, CUT_COMMA, CUT_MAX = 1.8, 3.0, 4.0
-DRIFT = 0.06
+DRIFT = 0.09
 PUSH = 0.07
+PARALLAX = 0.45   # how far the room moves compared with the people when the camera drifts
+HANDHELD = 0.35   # degrees of slow handheld float
+DUTCH = 5.0       # degrees of a tilted shot
+LOW, HIGH = 0.10, 0.08  # keystone of low and high angle shots
+WHIP, WHIP_T = 0.22, 0.24  # share of free cuts that whip pan in, and how long the swing lasts
 WALK = 1.3  # seconds a person takes to walk into the scene
 
 
@@ -674,8 +825,20 @@ def is_animated(scene) -> bool:
     return "set" in scene.extra or "cast" in scene.extra
 
 
-def render_scene(scene, seconds, words, out: Path, size, labeled=None, seed=0) -> Path:
-    return SceneRenderer(scene, seconds, words, size, labeled, seed).render(out)
+def render_scene(scene, seconds, words, out: Path, size, labeled=None, seed=0, lang="en") -> Path:
+    return SceneRenderer(scene, seconds, words, size, labeled, seed, lang).render(out)
+
+
+def spanish_scene(en_scene, es_scene):
+    """The scene as the Spanish picture sees it: the English staging (set, cast, entrances, gestures) with
+    the Spanish narration, and the Spanish note cards where the Spanish script has its own `> note@` lines."""
+    from dataclasses import replace
+    extra = dict(en_scene.extra)
+    es_notes = {k: v for k, v in es_scene.extra.items() if k.startswith("note@")}
+    if es_notes:
+        extra = {k: v for k, v in extra.items() if not k.startswith("note@")}
+        extra.update(es_notes)
+    return replace(en_scene, narration=es_scene.narration, extra=extra)
 
 
 def thumbnail(scene, text: str, out: Path) -> Path:

@@ -217,7 +217,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
     work.mkdir(parents=True, exist_ok=True)
     warnings, used = [], set()
 
-    en_wavs, es_wavs, videos, offsets = [], [], [], []
+    en_wavs, es_wavs, videos, videos_es, offsets = [], [], [], [], []
     en_words, es_words, scene_words, scene_es_words = [], [], [], []
     first_frame_src = None
     labeled: set = set()  # bugs whose name label was already shown
@@ -241,6 +241,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             scene_words.append(words); en_words += _shift(words, t)
             if scenes_es:
                 es_wavs.append(work / f"s{i}_es.wav")
+                videos_es.append(work / c["video_es"] if c.get("video_es") else video)
                 local_es = [tuple(w) for w in c["es_words"]]
                 scene_es_words.append(local_es); es_words += _shift(local_es, t)
                 if c.get("es_cut"):
@@ -259,6 +260,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             media.run(["-i", wav, "-t", f"{seconds:.3f}", "-af", f"afade=t=out:st={max(0, seconds - 0.6):.3f}:d=0.6", cut_wav])
             wav = cut_wav
             words = [w for w in words if w[0] < seconds]
+        labeled_before = set(labeled)
         if animate.is_animated(sc):
             video = work / f"s{i}_video.mp4"
             animate.render_scene(sc, seconds, words, video, (W, H), labeled, seed=i)
@@ -287,11 +289,20 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             es_wavs.append(es_wav)
             local_es = [w for w in _shift(ew, 0.0, 1 / tempo) if w[0] < seconds]
             scene_es_words.append(local_es)
+            # The Spanish picture: same staging, but the voices' Spanish names, Spanish bubbles and cards,
+            # and cuts that follow the Spanish narration.
+            video_es = video
+            if animate.is_animated(sc) and os.environ.get("HG_ES_PICTURE", "1") != "0":
+                video_es = work / f"s{i}_video_es.mp4"
+                animate.render_scene(animate.spanish_scene(sc, es_sc), seconds, local_es, video_es, (W, H),
+                                     labeled_before, seed=i, lang="es")
+            videos_es.append(video_es)
             es_words += _shift(local_es, t)
         labeled.update(bug_names)
         if not max_seconds:
             cache_file.write_text(_json.dumps({"video": Path(video).name, "seconds": seconds, "words": words,
-                                               "es_words": scene_es_words[-1] if scenes_es else [], "es_cut": bool(cut)}))
+                                               "es_words": scene_es_words[-1] if scenes_es else [], "es_cut": bool(cut),
+                                               "video_es": Path(videos_es[-1]).name if scenes_es else None}))
         if only_scene is not None:
             return {"scene": i + 1, "seconds": round(seconds, 1)}
         t += seconds
@@ -318,6 +329,16 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
         media.run(["-i", es_wav, "-c:a", "aac", "-b:a", "160k", out_dir / "audio.es.m4a"])
         subtitles.write_srt(es_words, out_dir / "captions.es.srt")
         files.update(audio_es="audio.es.m4a", captions_es="captions.es.srt")
+        if any(Path(a) != Path(b) for a, b in zip(videos, videos_es)):
+            body_es = work / "body_es.mp4"
+            media.concat_files(videos_es, body_es)
+            print("Rendering final Spanish video...")
+            media.run(["-i", body_es, "-i", out_dir / "audio.es.m4a", "-i", mark,
+                       "-filter_complex", "[0:v][2:v]overlay=0:0[v]",
+                       "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "faster", "-crf", "20",
+                       "-pix_fmt", "yuv420p", "-c:a", "copy", "-shortest", "-movflags", "+faststart",
+                       out_dir / "video.es.mp4"])
+            files["video_es"] = "video.es.mp4"
 
     idx = int(meta.get("short_scene") or 0) - 1
     if max_seconds:
@@ -351,7 +372,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             if lang != "en" and not spec.get(lang):
                 continue
             print(f"Short: scene {k + 1} ({lang})")
-            f = _short(videos[k], wav, words, out_dir, work, scenes[k], name=f"short-{k + 1:02d}-{lang}.mp4",
+            f = _short(videos_es[k] if lang == "es" and videos_es else videos[k], wav, words, out_dir, work, scenes[k], name=f"short-{k + 1:02d}-{lang}.mp4",
                        vertical_cache=vcache, timing_words=scene_words[k],
                        vertical_path=work / f"short-{k + 1:02d}_v.mp4", title=spec.get(lang))
             if f:

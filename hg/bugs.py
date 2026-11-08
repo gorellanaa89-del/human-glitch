@@ -47,6 +47,20 @@ BUGS = {
     "follower": ("The Follower", 2, (225, 200, 160), "neutral"),
 }
 
+# Spanish names, used in the Spanish picture and scripts (Giancarlo, 2026-11-08: "El Impostor", "El Sabelotodo"...)
+NAMES_ES = {
+    "impostor": "El Impostor", "catastrophizer": "El Catastrofista", "mind_reader": "El Lector de Mentes",
+    "fortune_teller": "El Adivino", "all_or_nothing": "El Todo o Nada", "filter": "El Filtro",
+    "should": "El Debería", "labeler": "El Etiquetador", "generalizer": "El Generalizador",
+    "blamer": "El Culpador", "know_it_all": "El Sabelotodo", "echo": "El Eco", "anchor": "El Ancla",
+    "hoarder": "El Acumulador", "sunk_cost": "El Costo Hundido", "halo": "El Halo",
+    "planner": "El Planificador", "follower": "El Seguidor",
+}
+
+
+def display_name(kind: str, lang: str = "en") -> str:
+    return NAMES_ES.get(kind, BUGS[kind][0]) if lang == "es" else BUGS[kind][0]
+
 
 # ---------- shared parts ----------
 

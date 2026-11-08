@@ -497,6 +497,36 @@ def _draw(name, expression, height, arms=None):
     return img.resize((w, height), Image.LANCZOS)
 
 
+def back(name: str, height: int = 700) -> Image.Image:
+    """A cast member seen from behind (head and shoulders), for over-the-shoulder shots."""
+    b = CAST[name]
+    hc = b.hair_color or shade(b.color, 0.62)
+    img = Image.new("RGBA", (600 * SS, 900 * SS), (0, 0, 0, 0))
+    p = Pencil(img, b.seed + 40)
+    p.shape(bez((40, 900), (50, 720), (120, 650), (230, 640)) + [(370, 640)] +
+            bez((370, 640), (480, 650), (550, 720), (560, 900))[1:], shade(b.color, 0.9), 6)
+    p.shape([(240, 560), (360, 560), (370, 660), (230, 660)], b.color, 5)
+    for ex in (112, 488):
+        p.shape(ellipse_pts(ex, 430, 30, 44), b.color, 5)
+    head = ellipse_pts(300, 410, 190, 176, n=70)
+    p.shape(head, b.color, 6)
+    if b.hair == "long":
+        p.shape(ellipse_pts(300, 400, 200, 186, math.pi, 2 * math.pi, 40) +
+                bez((500, 400), (520, 560), (500, 660), (470, 700)) + [(130, 700)] +
+                bez((130, 700), (100, 660), (80, 560), (100, 400))[1:], hc, 6)
+    elif b.hair == "bob":
+        p.shape(ellipse_pts(300, 405, 204, 190, math.pi * 0.92, math.pi * 2.08, 50) +
+                bez((496, 470), (470, 520), (400, 530), (300, 528)) + bez((300, 528), (200, 530), (130, 520), (104, 470)), hc, 6)
+    else:
+        p.shape(ellipse_pts(300, 405, 196, 182, math.pi * 1.02, math.pi * 1.98, 50) +
+                bez((490, 380), (450, 470), (380, 492), (300, 490)) + bez((300, 490), (220, 492), (150, 470), (110, 380)), hc, 6)
+        if b.hair == "bun":
+            p.shape(ellipse_pts(300, 300, 80, 70), hc, 6)
+    img = img.resize((600, 900), Image.LANCZOS)
+    img = img.crop(img.getchannel("A").getbbox())
+    return img.resize((int(height * img.width / img.height), height), Image.LANCZOS)
+
+
 # ---------- scene helpers ----------
 
 def background(color, w=1920, h=1080) -> Image.Image:

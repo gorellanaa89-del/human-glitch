@@ -3,6 +3,13 @@ name: Fetch background photos
 # Downloads candidate photo backgrounds from Pixabay into the bg-candidates branch. Uploads nothing to YouTube.
 on:
   workflow_dispatch:
+    inputs:
+      group:
+        description: "first (original rooms) or more (second round of places)"
+        default: "first"
+      branch:
+        description: "branch to save the contact sheets to"
+        default: "bg-candidates"
 
 permissions:
   contents: write
@@ -20,12 +27,12 @@ jobs:
       - name: Download candidates
         env:
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
-        run: python tools/fetch_backgrounds.py candidates
+        run: python tools/fetch_backgrounds.py candidates "${{ inputs.group }}"
       - name: Save to the bg-candidates branch
         run: |
           cd candidates
-          git init -q -b bg-candidates
+          git init -q -b "${{ inputs.branch }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add . && git commit -qm "Background candidates"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" bg-candidates
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "${{ inputs.branch }}"

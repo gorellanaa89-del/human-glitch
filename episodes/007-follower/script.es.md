@@ -1,5 +1,5 @@
 # Scene: Sí, sí, sí
-> note@1: 11 | síes antes del almuerzo
+> note@1: 11 VECES SÍ | antes del almuerzo
 
 Es lunes y, antes del mediodía, Daniel ya dijo que sí once veces.
 

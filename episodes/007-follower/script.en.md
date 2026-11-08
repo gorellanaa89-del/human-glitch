@@ -78,7 +78,7 @@ Meet The Follower, the voice that goes wherever the group goes.
 
 It's the voice that whispers: "Just agree. Don't make waves. If everyone's doing it, it must be right."
 
-And in 1951, a psychologist named Solomon Asch decided to put that voice to the test. The task looked almost too easy: which of three lines matched a fourth one? Any child could get it right.
+And in 1951, a psychologist named Solomon Asch decided to put that voice to the test. The task looked almost too easy. One card showed a single line, and another card showed three lines of different lengths. People just had to say which of the three was as long as the first one, something any child could do.
 
 # Scene: The lines
 > part: bug

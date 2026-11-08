@@ -51,7 +51,7 @@ Te presento al Seguidor, la voz que va adonde va el grupo.
 
 Es la voz que te susurra: "Solo di que sí. No hagas olas. Si todos lo hacen, debe estar bien."
 
-Y en 1951, un psicólogo llamado Solomon Asch decidió ponerla a prueba. La tarea parecía demasiado fácil: ¿cuál de tres líneas mide lo mismo que una cuarta? Cualquier niño podía acertar.
+Y en 1951, un psicólogo llamado Solomon Asch decidió ponerla a prueba. La tarea parecía demasiado fácil. En una tarjeta había una línea, y en otra, tres líneas de distinto largo. Solo había que decir cuál de las tres era igual de larga que la primera, algo que cualquier niño podía resolver.
 
 # Scene: Las líneas
 > note@0: 1 PERSONA REAL | 7 actores

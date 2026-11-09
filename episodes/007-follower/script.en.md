@@ -36,7 +36,7 @@ He isn't faking it; he genuinely likes helping. But he can no longer tell where 
 > keywords: meeting room discussion team
 > card: THE BAD IDEA
 > cast: richard:smug, daniel:worried, margaret:neutral
-> set: glass_meeting
+> set: meeting
 > note@2: 5 HANDS UP | 1 doubt, unspoken
 
 Tuesday's meeting makes it even clearer. Richard proposes skipping the testing phase, the step where you check that a product works before customers touch it, to launch faster. Daniel knows it's a mistake, because the numbers are open on his laptop and none of them add up.
@@ -116,7 +116,7 @@ You say yes before you've even thought about it. You wait to hear what others th
 > keywords: stress office late night work
 > card: THE COST
 > cast: daniel:sad, bug:follower:neutral
-> set: office_evening
+> set: office
 > note@2: THE YES TRAP | yes → overload → resentment → yes
 
 Here's what The Follower does to Daniel's month.
@@ -224,7 +224,7 @@ And remember, the first no is the hardest, but each one after that gets a little
 > keywords: office meeting confident young man
 > card: KIND IS NOT THE SAME AS YES
 > cast: daniel:happy, richard:surprised, sarah:happy, bug:follower:happy
-> set: glass_meeting
+> set: meeting
 > switch: 0.3
 > note@3: RECAP | pause · cost · task · ally
 

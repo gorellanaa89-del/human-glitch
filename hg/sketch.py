@@ -118,6 +118,18 @@ CAST = {
     "margaret": Bean("Margaret Lane", "Finance Manager", (170, 140, 230), "bob", ("glasses", "pearls"), "smug", 15, (226, 224, 232)),
 }
 
+# Scientists and volunteers for the moments a video talks about a study (2026-11-09). Not real
+# likenesses: a generic researcher in a lab coat, and plain extras for the people in an experiment.
+CAST.update({
+    "scientist": Bean("The researcher", "Psychologist", (226, 190, 160), "sidepart", ("glasses", "labcoat"), "neutral", 21, (90, 80, 80)),
+    "scientist2": Bean("The researcher", "Neuroscientist", (200, 160, 130), "bun", ("glasses", "labcoat"), "happy", 22, (60, 50, 50)),
+    "volunteer": Bean("A volunteer", "Student", (120, 170, 220), "crop", (), "worried", 23, (90, 70, 60)),
+    "extra1": Bean("A student", "Actor", (150, 150, 160), "sidepart", (), "neutral", 24, (80, 80, 90)),
+    "extra2": Bean("A student", "Actor", (170, 160, 140), "bob", (), "neutral", 25, (90, 70, 60)),
+    "extra3": Bean("A student", "Actor", (140, 160, 150), "crop", (), "smug", 26, (70, 70, 70)),
+})
+COAT = (246, 246, 242)
+
 HEAD = (300, 250, 150, 138)  # cx, cy, rx, ry
 EYES = ((232, 262), (368, 262))
 EYE_R = (60, 80)
@@ -193,11 +205,11 @@ def _hose(sh, el, hd, r0=31, r1=25, n=26):
     return left + cap(hd, r1, a_end) + right[::-1] + cap(sh, r0, a_start)
 
 
-def _arms(p: Pencil, col, arms):
+def _arms(p: Pencil, col, arms, sleeve=None):
     for side, (upper, fore) in zip((-1, 1), arms):
         sh, el, hd = _limb(side, upper, fore)
         el = (el[0] + (el[0] - (sh[0] + hd[0]) / 2) * 0.3, el[1] + (el[1] - (sh[1] + hd[1]) / 2) * 0.3)  # keep the bend visible
-        p.shape(_hose(sh, el, hd), shade(col, 0.93), 5)
+        p.shape(_hose(sh, el, hd), sleeve or shade(col, 0.93), 5)
         p.shape(ellipse_pts(hd[0], hd[1], 27, 25, n=28), col, 5)
 
 
@@ -330,10 +342,18 @@ def _bean(b: Bean, expr: str, head=None, arms=None) -> Image.Image:
     col = b.color
     _hair(p, b, front=False)
     p.shape([(284, 370), (316, 370), (318, 410), (282, 410)], shade(col, 0.85), 4)  # neck
-    p.shape(_torso(), col, 5.5)
+    coat = COAT if "labcoat" in b.extras else None
+    p.shape(_torso(), coat or col, 5.5)
+    if coat:  # lab coat: open collar showing the shirt, lapels and a pocket
+        p.shape([(262, 398), (338, 398), (300, 560)], col, 4)
+        p.line([(262, 398), (300, 560)], 4)
+        p.line([(338, 398), (300, 560)], 4)
+        p.line([(300, 560), (300, 900)], 3.5)
+        p.shape([(340, 600), (400, 600), (398, 660), (342, 660)], coat, 3.5)
+        p.line([(356, 600), (360, 570)], 4, (60, 90, 200))
     if arms is None:
         for side in (-1, 1):
-            p.shape(_arm(side), shade(col, 0.93), 5)
+            p.shape(_arm(side), coat or shade(col, 0.93), 5)
             hx = 300 + side * 128
             p.shape(ellipse_pts(hx, 618, 26, 24, n=28), col, 5)
     p.hatch(286, 396, 306, 414, 3, 2.5)
@@ -359,7 +379,7 @@ def _bean(b: Bean, expr: str, head=None, arms=None) -> Image.Image:
         p.shape(bez((452, 150), (440, 180), (436, 196), (452, 198)) + bez((452, 198), (468, 196), (464, 180), (452, 150))[1:],
                 (170, 220, 255), 3.5)
     if arms is not None:  # posable arms go on top, so a hand can reach the face
-        _arms(p, col, arms)
+        _arms(p, col, arms, coat)
     return img
 
 

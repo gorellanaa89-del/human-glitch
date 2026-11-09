@@ -535,11 +535,58 @@ def home_office():
     return img
 
 
+
+def lab():
+    """A psychology lab: whiteboard with a graph, shelves with jars and binders, a brain poster."""
+    img, p = _base((228, 236, 238), (190, 196, 200), horizon=820, seed=46)
+    _rect(p, 560, 150, 1360, 470, WHITE)
+    p.line([(640, 420), (640, 200)], 4)
+    p.line([(640, 420), (1280, 420)], 4)
+    p.line(bez((660, 400), (820, 390), (900, 220), (1260, 210)), 5, (58, 99, 216))
+    for k in range(6):
+        x = 700 + k * 100
+        p.shape(ellipse_pts(x, 400 - [10, 30, 120, 170, 185, 190][k], 9, 9, n=14), (240, 120, 100), 2.5)
+    _rect(p, 550, 470, 1370, 486, (200, 200, 205), 3)
+    # poster of a brain
+    _rect(p, 120, 200, 400, 480, (250, 246, 236))
+    p.shape(ellipse_pts(260, 330, 100, 80, n=50), (245, 170, 180), LINE)
+    p.line(bez((180, 320), (220, 280), (260, 360), (300, 300)), 3.5)
+    p.line(bez((210, 370), (250, 340), (290, 390), (330, 350)), 3.5)
+    _text(img, "BRAIN", (260, 445), 34)
+    # shelf with jars and binders, and a lab bench at the right
+    _rect(p, 1480, 260, 1820, 276, (190, 150, 110))
+    for k, c in enumerate([(150, 200, 230), (180, 230, 180), (250, 210, 140)]):
+        p.shape([(1500 + k * 100, 260), (1500 + k * 100, 190), (1530 + k * 100, 170), (1560 + k * 100, 190), (1560 + k * 100, 260)], c, 3.5)
+    _rect(p, 1480, 420, 1820, 436, (190, 150, 110))
+    for k, c in enumerate([(240, 120, 100), (90, 150, 210), (250, 200, 90), (120, 180, 140), (170, 140, 220)]):
+        _rect(p, 1500 + k * 60, 330, 1545 + k * 60, 420, c, 3)
+    _rect(p, 1460, 640, 1900, 680, (230, 230, 228))
+    _rect(p, 1480, 680, 1880, 820, (150, 170, 190))
+    _monitor(p, 1680, 640, 200, 130)
+    return img
+
+
+def asch():
+    """The 1951 line test: a reference card and a card with three lines (A, B, C) on an easel."""
+    img, p = _base((236, 230, 214), (170, 150, 130), horizon=800, seed=47)
+    # the cards sit high on the wall so the people in front never hide them
+    for x0, lines in ((300, [(0, 190)]), (1300, [(-100, 130), (0, 190), (100, 225)])):
+        _rect(p, x0, 50, x0 + 330, 320, WHITE)
+        for k, (dx, L) in enumerate(lines):
+            cx = x0 + 165 + dx
+            p.line([(cx, 285), (cx, 285 - L)], 9, INK, wobble=0.4)
+            if len(lines) > 1:
+                _text(img, "ABC"[k], (cx, 305), 30)
+    _text(img, "=", (960, 170), 90)
+    _text(img, "?", (1110, 170), 90, (58, 99, 216))
+    return img
+
+
 SETS = {"office": office, "meeting": meeting, "cafe": cafe, "home_night": home_night, "savanna": savanna,
         "desk": office, "hallway": hallway, "elevator": elevator, "breakroom": breakroom,
         "boss_office": boss_office, "open_office": open_office, "lobby": lobby, "park": park, "street": street,
         "train": train, "bedroom": bedroom, "home_day": home_day, "kitchen": kitchen, "restaurant": restaurant,
-        "rooftop": rooftop, "home_office": home_office,
+        "rooftop": rooftop, "home_office": home_office, "lab": lab, "asch": asch,
         # photo-only names fall back to the closest drawing
         "office_evening": office, "glass_meeting": meeting, "bathroom": home_day}
 

@@ -70,6 +70,7 @@ And on Sunday night, that familiar knot shows up in his stomach, because another
 > cast: daniel:worried, bug:follower:neutral
 > set: hallway
 > enter: bug:follower@1
+> cutaway@3: lab | scientist:happy
 > note@3: 1951 | Solomon Asch, Swarthmore
 
 So let's put a face to that yes.
@@ -84,8 +85,9 @@ And in 1951, a psychologist named Solomon Asch decided to put that voice to the 
 > part: bug
 > keywords: classroom group experiment
 > card: 3 OUT OF 4
-> cast: bug:follower:neutral
-> set: meeting
+> cast: extra1:smug, volunteer:worried, extra2:neutral, bug:follower:neutral
+> set: asch
+> enter: bug:follower@3
 > note@0: 1 REAL PERSON | 7 actors
 > note@2: 75% | conformed at least once
 
@@ -149,6 +151,7 @@ And this happens in a lot of teams: often, the first person to spot a problem is
 > card: SAFETY IN NUMBERS
 > cast: bug:follower:neutral
 > set: savanna
+> cutaway@3: lab | scientist2:happy
 > note@1: ALONE = DANGER | the group = survival
 
 But here's the twist: The Follower is not your enemy. For our ancestors, it worked more like a bodyguard.
@@ -183,6 +186,7 @@ And that explains why saying no can feel so dramatic, even when the request is t
 > cast: daniel:worried -> daniel:happy, elena:happy, bug:follower:neutral -> bug:follower:happy
 > set: cafe
 > switch: 0.55
+> cutaway@4: asch | extra1:smug, volunteer:happy, extra3:neutral
 
 A few days later, Elena notices the dark circles under Daniel's eyes and invites him for a coffee.
 

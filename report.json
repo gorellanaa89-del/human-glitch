@@ -1,0 +1,78 @@
+{
+  "title": "Why You Can't Say No (People Pleasing Explained)",
+  "duration_seconds": 517.1,
+  "scenes": 14,
+  "stock_clips": 0,
+  "tts": "edge",
+  "files": {
+    "video": "video.mp4",
+    "captions_en": "captions.en.srt",
+    "audio_es": "audio.es.m4a",
+    "captions_es": "captions.es.srt",
+    "video_es": "video.es.mp4",
+    "thumbnail": "thumbnail.jpg",
+    "shorts": [
+      {
+        "file": "short-01-en.mp4",
+        "scene": 1,
+        "lang": "en",
+        "title": "Do You Say Yes When You Mean No?"
+      },
+      {
+        "file": "short-01-es.mp4",
+        "scene": 1,
+        "lang": "es",
+        "title": "¿Dices que sí cuando quieres decir que no?"
+      },
+      {
+        "file": "short-06-en.mp4",
+        "scene": 6,
+        "lang": "en",
+        "title": "3 Out of 4 People Ignored Their Own Eyes"
+      },
+      {
+        "file": "short-06-es.mp4",
+        "scene": 6,
+        "lang": "es",
+        "title": "3 de cada 4 personas ignoraron sus propios ojos"
+      },
+      {
+        "file": "short-07-en.mp4",
+        "scene": 7,
+        "lang": "en",
+        "title": "4 Signs You're a People Pleaser"
+      },
+      {
+        "file": "short-07-es.mp4",
+        "scene": 7,
+        "lang": "es",
+        "title": "4 señales de que complaces a todos"
+      },
+      {
+        "file": "short-12-en.mp4",
+        "scene": 12,
+        "lang": "en",
+        "title": "The Question That Shows What You Really Want"
+      },
+      {
+        "file": "short-12-es.mp4",
+        "scene": 12,
+        "lang": "es",
+        "title": "La pregunta que muestra lo que de verdad quieres"
+      },
+      {
+        "file": "short-13-en.mp4",
+        "scene": 13,
+        "lang": "en",
+        "title": "How to Say No Without Losing People"
+      },
+      {
+        "file": "short-13-es.mp4",
+        "scene": 13,
+        "lang": "es",
+        "title": "Cómo decir que no sin perder a nadie"
+      }
+    ]
+  },
+  "warnings": []
+}

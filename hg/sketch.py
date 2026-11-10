@@ -118,6 +118,18 @@ CAST = {
     "margaret": Bean("Margaret Lane", "Finance Manager", (170, 140, 230), "bob", ("glasses", "pearls"), "smug", 15, (226, 224, 232)),
 }
 
+# Scientists and volunteers for the moments a video talks about a study (2026-11-09). Not real
+# likenesses: a generic researcher in a lab coat, and plain extras for the people in an experiment.
+CAST.update({
+    "scientist": Bean("The researcher", "Psychologist", (226, 190, 160), "sidepart", ("glasses", "labcoat"), "neutral", 21, (90, 80, 80)),
+    "scientist2": Bean("The researcher", "Neuroscientist", (200, 160, 130), "bun", ("glasses", "labcoat"), "happy", 22, (60, 50, 50)),
+    "volunteer": Bean("A volunteer", "Student", (120, 170, 220), "crop", (), "worried", 23, (90, 70, 60)),
+    "extra1": Bean("A student", "Actor", (150, 150, 160), "sidepart", (), "neutral", 24, (80, 80, 90)),
+    "extra2": Bean("A student", "Actor", (170, 160, 140), "bob", (), "neutral", 25, (90, 70, 60)),
+    "extra3": Bean("A student", "Actor", (140, 160, 150), "crop", (), "smug", 26, (70, 70, 70)),
+})
+COAT = (246, 246, 242)
+
 HEAD = (300, 250, 150, 138)  # cx, cy, rx, ry
 EYES = ((232, 262), (368, 262))
 EYE_R = (60, 80)
@@ -193,11 +205,11 @@ def _hose(sh, el, hd, r0=31, r1=25, n=26):
     return left + cap(hd, r1, a_end) + right[::-1] + cap(sh, r0, a_start)
 
 
-def _arms(p: Pencil, col, arms):
+def _arms(p: Pencil, col, arms, sleeve=None):
     for side, (upper, fore) in zip((-1, 1), arms):
         sh, el, hd = _limb(side, upper, fore)
         el = (el[0] + (el[0] - (sh[0] + hd[0]) / 2) * 0.3, el[1] + (el[1] - (sh[1] + hd[1]) / 2) * 0.3)  # keep the bend visible
-        p.shape(_hose(sh, el, hd), shade(col, 0.93), 5)
+        p.shape(_hose(sh, el, hd), sleeve or shade(col, 0.93), 5)
         p.shape(ellipse_pts(hd[0], hd[1], 27, 25, n=28), col, 5)
 
 
@@ -330,10 +342,18 @@ def _bean(b: Bean, expr: str, head=None, arms=None) -> Image.Image:
     col = b.color
     _hair(p, b, front=False)
     p.shape([(284, 370), (316, 370), (318, 410), (282, 410)], shade(col, 0.85), 4)  # neck
-    p.shape(_torso(), col, 5.5)
+    coat = COAT if "labcoat" in b.extras else None
+    p.shape(_torso(), coat or col, 5.5)
+    if coat:  # lab coat: open collar showing the shirt, lapels and a pocket
+        p.shape([(262, 398), (338, 398), (300, 560)], col, 4)
+        p.line([(262, 398), (300, 560)], 4)
+        p.line([(338, 398), (300, 560)], 4)
+        p.line([(300, 560), (300, 900)], 3.5)
+        p.shape([(340, 600), (400, 600), (398, 660), (342, 660)], coat, 3.5)
+        p.line([(356, 600), (360, 570)], 4, (60, 90, 200))
     if arms is None:
         for side in (-1, 1):
-            p.shape(_arm(side), shade(col, 0.93), 5)
+            p.shape(_arm(side), coat or shade(col, 0.93), 5)
             hx = 300 + side * 128
             p.shape(ellipse_pts(hx, 618, 26, 24, n=28), col, 5)
     p.hatch(286, 396, 306, 414, 3, 2.5)
@@ -359,7 +379,7 @@ def _bean(b: Bean, expr: str, head=None, arms=None) -> Image.Image:
         p.shape(bez((452, 150), (440, 180), (436, 196), (452, 198)) + bez((452, 198), (468, 196), (464, 180), (452, 150))[1:],
                 (170, 220, 255), 3.5)
     if arms is not None:  # posable arms go on top, so a hand can reach the face
-        _arms(p, col, arms)
+        _arms(p, col, arms, coat)
     return img
 
 
@@ -495,6 +515,36 @@ def _draw(name, expression, height, arms=None):
     img = img.crop((0, 0, W0 * SS, (860 if name in BUGS else 690) * SS))
     w = int(height * img.width / img.height)
     return img.resize((w, height), Image.LANCZOS)
+
+
+def back(name: str, height: int = 700) -> Image.Image:
+    """A cast member seen from behind (head and shoulders), for over-the-shoulder shots."""
+    b = CAST[name]
+    hc = b.hair_color or shade(b.color, 0.62)
+    img = Image.new("RGBA", (600 * SS, 900 * SS), (0, 0, 0, 0))
+    p = Pencil(img, b.seed + 40)
+    p.shape(bez((40, 900), (50, 720), (120, 650), (230, 640)) + [(370, 640)] +
+            bez((370, 640), (480, 650), (550, 720), (560, 900))[1:], shade(b.color, 0.9), 6)
+    p.shape([(240, 560), (360, 560), (370, 660), (230, 660)], b.color, 5)
+    for ex in (112, 488):
+        p.shape(ellipse_pts(ex, 430, 30, 44), b.color, 5)
+    head = ellipse_pts(300, 410, 190, 176, n=70)
+    p.shape(head, b.color, 6)
+    if b.hair == "long":
+        p.shape(ellipse_pts(300, 400, 200, 186, math.pi, 2 * math.pi, 40) +
+                bez((500, 400), (520, 560), (500, 660), (470, 700)) + [(130, 700)] +
+                bez((130, 700), (100, 660), (80, 560), (100, 400))[1:], hc, 6)
+    elif b.hair == "bob":
+        p.shape(ellipse_pts(300, 405, 204, 190, math.pi * 0.92, math.pi * 2.08, 50) +
+                bez((496, 470), (470, 520), (400, 530), (300, 528)) + bez((300, 528), (200, 530), (130, 520), (104, 470)), hc, 6)
+    else:
+        p.shape(ellipse_pts(300, 405, 196, 182, math.pi * 1.02, math.pi * 1.98, 50) +
+                bez((490, 380), (450, 470), (380, 492), (300, 490)) + bez((300, 490), (220, 492), (150, 470), (110, 380)), hc, 6)
+        if b.hair == "bun":
+            p.shape(ellipse_pts(300, 300, 80, 70), hc, 6)
+    img = img.resize((600, 900), Image.LANCZOS)
+    img = img.crop(img.getchannel("A").getbbox())
+    return img.resize((int(height * img.width / img.height), height), Image.LANCZOS)
 
 
 # ---------- scene helpers ----------

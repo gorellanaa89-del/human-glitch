@@ -29,6 +29,9 @@ def main(argv=None):
     b.add_argument("--tts", default="edge", choices=["edge", "silent"])
     b.add_argument("--max-seconds", type=float, default=None, help="render only the opening, for quick tests")
     b.add_argument("--scene", type=int, default=None, help="render only this scene (1-based) into output/work")
+    sh = sub.add_parser("shorts", help="render only the scenes that have Shorts and cut the vertical Shorts")
+    sh.add_argument("episode", type=Path)
+    sh.add_argument("--tts", default="edge", choices=["edge", "silent"])
     sc = sub.add_parser("scenes", help="print the scene numbers of an episode as JSON (for parallel jobs)")
     sc.add_argument("episode", type=Path)
     u = sub.add_parser("upload", help="upload a rendered episode")
@@ -46,6 +49,8 @@ def main(argv=None):
 
     if args.cmd == "build":
         print(json.dumps(render.build(args.episode, args.tts, args.max_seconds, None if args.scene is None else args.scene - 1), indent=2, ensure_ascii=False))
+    elif args.cmd == "shorts":
+        print(json.dumps(render.build_shorts(args.episode, args.tts), indent=2))
     elif args.cmd == "visibility":
         print(json.dumps(youtube.set_visibility(args.video_id, args.privacy, args.at), indent=2))
     elif args.cmd == "playlists":

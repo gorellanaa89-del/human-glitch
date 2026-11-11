@@ -387,3 +387,33 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
     }
     (out_dir / "report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     return report
+
+
+def build_shorts(episode: Path, engine: str = "edge") -> list[str]:
+    """Only the Shorts: renders just the scenes listed under `shorts:` in meta.yaml (voice and picture,
+    cached in output/work like `build --scene`), then cuts the vertical Shorts into output/."""
+    import json as _json
+    meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
+    scenes = parse_script(episode / "script.en.md")
+    out_dir, work = episode / "output", episode / "output" / "work"
+    made = []
+    for spec in meta.get("shorts") or []:
+        k = int(spec["scene"]) - 1
+        if not 0 <= k < len(scenes):
+            continue
+        cache_file = work / f"s{k}.json"
+        if not cache_file.exists():
+            build(episode, engine, only_scene=k)
+        c = _json.loads(cache_file.read_text())
+        langs = [("en", work / f"s{k}_en.wav", c["words"], work / c["video"])]
+        if c.get("es_words"):
+            langs.append(("es", work / f"s{k}_es.wav", c["es_words"], work / (c.get("video_es") or c["video"])))
+        for lang, wav, words, video in langs:
+            if lang != "en" and not spec.get(lang):
+                continue
+            print(f"Short: scene {k + 1} ({lang})")
+            f = _short(video, wav, [tuple(w) for w in words], out_dir, work, scenes[k],
+                       name=f"short-{k + 1:02d}-{lang}.mp4", title=spec.get(lang))
+            if f:
+                made.append(f.name)
+    return made

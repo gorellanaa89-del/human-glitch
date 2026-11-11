@@ -3,6 +3,10 @@ name: TikTok Shorts
 # Renders only the scenes that have Shorts (listed in meta.yaml) and cuts the full-screen vertical Shorts.
 # No artifacts: each episode's Shorts are pushed to their own branch, tiktok-<episode>.
 on:
+  # a push that changes .github/tiktok-request.txt (one episode folder per line) also runs it,
+  # so it works from any branch before this file reaches main
+  push:
+    paths: [".github/tiktok-request.txt"]
   workflow_dispatch:
     inputs:
       episodes:
@@ -18,8 +22,16 @@ jobs:
     outputs:
       episodes: ${{ steps.list.outputs.episodes }}
     steps:
+      - uses: actions/checkout@v4
       - id: list
-        run: echo "episodes=$(python3 -c "import json;print(json.dumps([e.strip() for e in '${{ inputs.episodes }}'.split(',') if e.strip()]))")" >> "$GITHUB_OUTPUT"
+        env:
+          EPISODES: ${{ inputs.episodes }}
+        run: |
+          python3 - >> "$GITHUB_OUTPUT" <<'PY'
+          import json, os, pathlib
+          raw = os.environ.get("EPISODES") or pathlib.Path(".github/tiktok-request.txt").read_text()
+          print("episodes=" + json.dumps([e.strip() for e in raw.replace(",", "\n").splitlines() if e.strip()]))
+          PY
 
   shorts:
     needs: plan

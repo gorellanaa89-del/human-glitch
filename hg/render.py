@@ -173,19 +173,12 @@ def _short(scene_video: Path, scene_wav: Path, words, out_dir: Path, work: Path,
     stem = Path(name).stem
     out = out_dir / name
     if animated:
-        # Short layout: title band on top, the scene's own 16:9 animation in the middle (nothing re-laid out,
-        # so characters never pile up), karaoke subtitles in their own band below, never over a face.
+        # Full-screen vertical picture: each shot is framed on whoever is on screen and pulls back when
+        # several people are (see vertical.py); subtitles sit above TikTok's caption, left of its buttons.
+        from . import vertical
         ass = subtitles.write_ass([w for w in words if w[1] <= end], work / f"{stem}.ass", SHORT_W, SHORT_H,
-                                  vertical=True, margin=0.115)
-        frame = _short_frame(title or "", work / f"{stem}_frame.png")
-        mid_h, mid_y = 760, 560
-        fc = (f"[1:v]scale=-2:{mid_h},crop={SHORT_W}:{mid_h}[mid];"
-              f"[0:v][mid]overlay=0:{mid_y},subtitles={ass}[v]")
-        media.run(["-loop", "1", "-framerate", "30", "-i", frame, "-i", scene_video, "-i", scene_wav,
-                   "-t", f"{end:.3f}", "-filter_complex", fc, "-map", "[v]", "-map", "2:a",
-                   "-c:v", "libx264", "-preset", "faster", "-crf", "21", "-pix_fmt", "yuv420p",
-                   "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out])
-        return out
+                                  vertical=True, margin=0.235, size=70, margin_lr=(70, 170))
+        return vertical.render(scene_video, scene_wav, end, title or "", ass, work, out)
     ass = subtitles.write_ass([w for w in words if w[1] <= end], work / f"{stem}.ass", SHORT_W, SHORT_H,
                               vertical=True)
     fc = (f"[0:v]scale={SHORT_W}:{SHORT_H}:force_original_aspect_ratio=increase,crop={SHORT_W}:{SHORT_H},"

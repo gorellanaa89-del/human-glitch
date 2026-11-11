@@ -348,6 +348,7 @@ class SceneRenderer:
         prev = None
         self.cams = []
         self.styles = []
+        self.subjects = []  # the one person a shot is about (None for wide, group and pan shots)
         for i, (c, k) in enumerate(zip(cuts, kinds)):
             if k is not None and k[0] == "enter":
                 k = ("wide", None) if len(self.actors) > 2 else ("group", None)
@@ -380,6 +381,7 @@ class SceneRenderer:
                 z, cx0, cy0 = self._clamp(z, cx - drift / 2, cy)
                 z, cx1, cy1 = self._clamp(z, cx + drift / 2, cy)
             self.cams.append((c, end, z, cx0, cy0, cx1, cy1))
+            self.subjects.append(k[1] if k[0] in _STEPS else None)
             st = self._style(i, c, k, kinds[i] is not None)
             if st["ots"] is not None:  # rule of thirds: the face we look at moves away from the shoulder
                 sh = st["side"] * (self.w / z) * 0.2
@@ -663,7 +665,7 @@ class SceneRenderer:
         off = min(max(off, 0), bg.width - self.w)
         img = bg.crop((off, 0, off + self.w, self.h))
         cam = (z, cx, cy)
-        labels, heads = [], {}
+        labels, heads, boxes = [], {}, []
         st = self.styles[i]
         for a in self.actors:
             t0 = self.enter_t[a.name]
@@ -727,6 +729,7 @@ class SceneRenderer:
             if x > self.w or x + spr.width < 0:
                 continue
             heads[a.name] = (sx, sy - spr.height * (0.82 if not a.is_bug else 0.7) + bob)
+            boxes.append((sx - spr.width * 0.2, sx + spr.width * 0.2, a))  # the face, not arms or body
             age = t - t0
             if a.is_bug and age < 0.5:
                 g = self._glitch(spr, self.rng, 1.0 - age / 0.5)
@@ -750,17 +753,34 @@ class SceneRenderer:
             img.paste(lab, (0, 0), lab)
         img, fwd = self._camera(img, t, i, c, u, st)
         heads = {n: fwd(*p) for n, p in heads.items()}
+        mid = self.h * 0.5
+        subject = self.subjects[i]
+        faces = [(fwd(x0, mid)[0], fwd(x1, mid)[0]) for x0, x1, a in boxes if subject is None or a is subject]
+        edge = self.w * 0.03
+        whole = [f for f in faces if f[0] >= edge and f[1] <= self.w - edge]
+        if subject is not None and faces:  # a shot about one face: a vertical Short comes in close
+            c, half = (faces[0][0] + faces[0][1]) / 2, (faces[0][1] - faces[0][0]) * 0.36
+            whole = [(c - half, c + half)]
+        # a face cut by the edge of the picture only counts when no face is fully in it
+        boxes = whole or [(max(0, a), min(self.w, b)) for a, b in faces if min(self.w, b) - max(0, a) > self.w * 0.03]
         note = next((n for n in self.notes if n[0] <= t < n[1]), None)
         for qi, (q0, q1, text, spk) in enumerate(self.quotes):
             if note is None and q0 <= t < q1 and spk.name in heads:
                 hx, hy = heads[spk.name]
                 b, pos = self._bubble(qi, text, hx, hy, z)
                 img.paste(b, pos, b)
+                boxes.append((max(0, pos[0]), min(self.w, pos[0] + b.width)))
                 break
         if note is not None:
             card = self._note(note[2], note[3])
             side = -1 if self.portrait else self._note_side(note[:2], card, heads)
-            img.paste(card, self._note_pos(card, t, note[0], note[1], side), card)
+            npos = self._note_pos(card, t, note[0], note[1], side)
+            img.paste(card, npos, card)
+            if 0 <= npos[0] and npos[0] + card.width <= self.w:  # fully slid in: keep it in a vertical Short
+                boxes.append((npos[0], npos[0] + card.width))
+        # where things are on screen, so a vertical Short can frame them (see vertical.py)
+        self.track.append([i, round(min((b[0] for b in boxes), default=-1)), round(max((b[1] for b in boxes), default=-1)),
+                           int(note is not None)])
         return img
 
     def _camera(self, img, t, i, c, u, st):
@@ -822,6 +842,7 @@ class SceneRenderer:
 
     def render(self, out: Path, crf: int = 21):
         frames = max(1, int(round(self.seconds * FPS)))
+        self.track = []
         cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
                "-s", f"{self.w}x{self.h}", "-r", str(FPS), "-i", "-",
                "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-pix_fmt", "yuv420p", "-an", str(out)]
@@ -833,6 +854,7 @@ class SceneRenderer:
             proc.stdin.close()
             if proc.wait() != 0:
                 raise RuntimeError(f"ffmpeg failed while rendering {out}")
+        _save_track(out, {"w": self.w, "h": self.h, "frames": self.track})
         return out
 
 
@@ -864,6 +886,15 @@ def _fresh(option, prev) -> bool:
     return option[0] != prev[0] or option[1] is not prev[1]
 
 
+def track_path(video: Path) -> Path:
+    return video.with_name(video.stem + ".track.json")
+
+
+def _save_track(video: Path, data: dict):
+    import json
+    track_path(video).write_text(json.dumps(data, separators=(",", ":")))
+
+
 def is_animated(scene) -> bool:
     return "set" in scene.extra or "cast" in scene.extra
 
@@ -879,8 +910,16 @@ def render_scene(scene, seconds, words, out: Path, size, labeled=None, seed=0, l
         SceneRenderer(sub, t1 - t0, sub_words, size, labeled, seed + 17 * k, lang).render(f)
         files.append(f)
     media.concat_files(files, out)
+    import json
+    tracks = [json.loads(track_path(f).read_text()) for f in files]
+    joined, shot = [], 0
+    for tr in tracks:  # shot numbers keep counting across the parts
+        joined += [[r[0] + shot] + r[1:] for r in tr["frames"]]
+        shot += 1 + max((r[0] for r in tr["frames"]), default=0)
+    _save_track(out, {"w": tracks[0]["w"], "h": tracks[0]["h"], "frames": joined})
     for f in files:
         f.unlink()
+        track_path(f).unlink()
     return out
 
 

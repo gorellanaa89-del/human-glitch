@@ -30,8 +30,8 @@ def _srt_time(t: float) -> str:
 
 
 def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = False, top: bool = False,
-              margin: float | None = None) -> Path:
-    size = int(h * (0.044 if vertical else 0.06))
+              margin: float | None = None, size: int | None = None, margin_lr: tuple = (80, 80)) -> Path:
+    size = size or int(h * (0.044 if vertical else 0.06))
     margin_v = int(h * (margin if margin is not None else 0.12 if top else 0.27 if vertical else 0.08))
     align = 8 if top else 2
     header = (
@@ -43,7 +43,7 @@ def write_ass(words: list[Word], out: Path, w: int, h: int, vertical: bool = Fal
         "Alignment, MarginL, MarginR, MarginV, Encoding\n"
         # Spoken words turn brand light blue #5AB7E6 (BGR &H00E6B75A); upcoming words are white; navy outline.
         f"Style: Default,{SUB_FONT},{size},&H00E6B75A,&H00F8F4F0,&H002C1C05,&H64000000,"
-        f"-1,0,0,0,100,100,0,0,1,{max(3, size // 14)},0,{align},80,80,{margin_v},1\n\n"
+        f"-1,0,0,0,100,100,0,0,1,{max(3, size // 14)},0,{align},{margin_lr[0]},{margin_lr[1]},{margin_v},1\n\n"
         "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
     )
     events = []

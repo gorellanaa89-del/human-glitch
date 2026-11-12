@@ -1,0 +1,991 @@
+1
+00:00:00,086 --> 00:00:01,809
+Son las 6:40  de la mañana,
+
+2
+00:00:01,871 --> 00:00:03,709
+Sarah va en el tren al trabajo y ya
+
+3
+00:00:03,709 --> 00:00:05,673
+siente que va atrasada con su propia vida.
+
+4
+00:00:06,196 --> 00:00:07,593
+Abre la lista del celular:
+
+5
+00:00:07,634 --> 00:00:11,405
+veintitrés pendientes. Responder todos los correos antes de
+
+6
+00:00:11,405 --> 00:00:13,883
+las nueve, ir al gimnasio cuatro veces por semana,
+
+7
+00:00:13,935 --> 00:00:14,870
+llamar a su mamá,
+
+8
+00:00:14,911 --> 00:00:16,539
+terminar el informe trimestral,
+
+9
+00:00:16,539 --> 00:00:18,577
+aprender Python. Y,
+
+10
+00:00:18,597 --> 00:00:19,469
+casi al final,
+
+11
+00:00:19,500 --> 00:00:20,750
+estar más relajada.
+
+12
+00:00:21,275 --> 00:00:23,491
+Lo curioso es que Sarah todavía no ha hecho
+
+13
+00:00:23,491 --> 00:00:26,085
+nada mal. Ni siquiera ha desayunado y,
+
+14
+00:00:26,085 --> 00:00:28,353
+sin embargo, ya siente que está fallando.
+
+15
+00:00:28,878 --> 00:00:31,251
+Si alguna vez terminaste un día lleno de cosas
+
+16
+00:00:31,251 --> 00:00:33,425
+y aun así sentiste que no hiciste suficiente,
+
+17
+00:00:33,466 --> 00:00:34,790
+este video es para ti.
+
+18
+00:00:35,315 --> 00:00:37,762
+Porque esa sensación viene de una voz muy antigua,
+
+19
+00:00:37,793 --> 00:00:39,379
+y habla con una sola palabra.
+
+20
+00:00:40,305 --> 00:00:41,698
+Para entender esa palabra,
+
+21
+00:00:41,743 --> 00:00:43,681
+hay que conocer un poco mejor a Sarah.
+
+22
+00:00:44,248 --> 00:00:45,473
+Es analista sénior,
+
+23
+00:00:45,574 --> 00:00:47,078
+es brillante con los números,
+
+24
+00:00:47,112 --> 00:00:49,362
+y en la oficina todos confían en su trabajo
+
+25
+00:00:49,362 --> 00:00:50,376
+más que ella misma.
+
+26
+00:00:50,945 --> 00:00:52,950
+En el ascensor vuelve a leer su lista y
+
+27
+00:00:52,950 --> 00:00:55,469
+nota que casi todas las líneas empiezan igual.
+
+28
+00:00:56,038 --> 00:00:57,820
+Debería responder más rápido.
+
+29
+00:00:58,389 --> 00:01:00,573
+Debería estar más avanzada en mi carrera.
+
+30
+00:01:01,141 --> 00:01:03,470
+Debería alegrarme por el ascenso de mi amiga,
+
+31
+00:01:03,470 --> 00:01:04,417
+aunque me duela.
+
+32
+00:01:04,986 --> 00:01:06,189
+Dicho de otro modo,
+
+33
+00:01:06,245 --> 00:01:07,682
+no es una lista de planes,
+
+34
+00:01:07,694 --> 00:01:08,696
+sino de reglas,
+
+35
+00:01:08,708 --> 00:01:10,914
+y cada regla trae una frase escondida:
+
+36
+00:01:10,959 --> 00:01:11,972
+si no lo haces,
+
+37
+00:01:11,984 --> 00:01:13,410
+te estás quedando atrás.
+
+38
+00:01:13,979 --> 00:01:16,385
+Y en veintitrés líneas no hay una sola cosa
+
+39
+00:01:16,385 --> 00:01:17,600
+que Sarah de verdad quiera.
+
+40
+00:01:18,595 --> 00:01:20,577
+El sábado, su único día libre,
+
+41
+00:01:20,621 --> 00:01:22,031
+Sarah decide descansar.
+
+42
+00:01:22,560 --> 00:01:24,691
+Se prepara un café y pone una película,
+
+43
+00:01:24,756 --> 00:01:27,502
+justo el sábado que se venía prometiendo hace semanas.
+
+44
+00:01:28,034 --> 00:01:30,642
+Pero veinte minutos después aparece un pensamiento y se
+
+45
+00:01:30,642 --> 00:01:31,438
+sienta a su lado:
+
+46
+00:01:31,514 --> 00:01:33,252
+debería aprovechar mejor el tiempo.
+
+47
+00:01:33,784 --> 00:01:35,501
+La cocina está hecha un desastre,
+
+48
+00:01:35,556 --> 00:01:37,803
+el informe la espera y todavía no ha llamado
+
+49
+00:01:37,803 --> 00:01:38,302
+a su mamá.
+
+50
+00:01:38,834 --> 00:01:39,935
+Y, de pronto,
+
+51
+00:01:40,022 --> 00:01:42,280
+la película deja de ser un premio y empieza
+
+52
+00:01:42,280 --> 00:01:43,638
+a sentirse como un delito.
+
+53
+00:01:44,170 --> 00:01:45,229
+Así que la pausa,
+
+54
+00:01:45,284 --> 00:01:46,247
+solo un segundo,
+
+55
+00:01:46,281 --> 00:01:48,220
+y a las once de la noche sigue fregando
+
+56
+00:01:48,220 --> 00:01:50,162
+la cocina. No descansó,
+
+57
+00:01:50,248 --> 00:01:52,411
+no disfrutó limpiando y a su mamá nunca la
+
+58
+00:01:52,411 --> 00:01:55,116
+llamó. El día simplemente se le fue entre lo
+
+59
+00:01:55,116 --> 00:01:56,941
+que debía hacer y la culpa de no hacerlo.
+
+60
+00:01:57,878 --> 00:02:00,184
+Al día siguiente es el cumpleaños de su mejor
+
+61
+00:02:00,184 --> 00:02:02,926
+amiga. Sarah hace un brindis precioso,
+
+62
+00:02:02,983 --> 00:02:05,401
+revisa el correo del trabajo debajo de la mesa
+
+63
+00:02:05,401 --> 00:02:06,566
+y, antes del postre,
+
+64
+00:02:06,601 --> 00:02:08,325
+se va para terminar el informe.
+
+65
+00:02:08,897 --> 00:02:10,979
+Y en el camino a casa siente culpa por
+
+66
+00:02:10,979 --> 00:02:12,883
+haberse ido, porque una buena amiga,
+
+67
+00:02:12,930 --> 00:02:14,631
+piensa, se habría quedado.
+
+68
+00:02:15,204 --> 00:02:16,546
+Pero si se hubiera quedado,
+
+69
+00:02:16,581 --> 00:02:18,618
+habría sentido culpa por el informe.
+
+70
+00:02:19,191 --> 00:02:20,298
+Esa es la trampa:
+
+71
+00:02:20,367 --> 00:02:21,743
+cuando todo es un debería,
+
+72
+00:02:21,823 --> 00:02:23,603
+ya no queda ninguna opción correcta,
+
+73
+00:02:23,660 --> 00:02:26,022
+solo distintas formas de sentirse culpable.
+
+74
+00:02:26,595 --> 00:02:27,781
+Elija lo que elija,
+
+75
+00:02:27,816 --> 00:02:29,147
+alguna regla se rompe,
+
+76
+00:02:29,160 --> 00:02:30,469
+y la que paga es ella.
+
+77
+00:02:31,483 --> 00:02:33,598
+Así que pongámosle cara a esa palabra.
+
+78
+00:02:34,098 --> 00:02:35,245
+Te presento al Debería,
+
+79
+00:02:35,320 --> 00:02:37,505
+la voz que convierte cada deseo en una obligación
+
+80
+00:02:37,505 --> 00:02:38,828
+y cada descanso en una deuda.
+
+81
+00:02:39,331 --> 00:02:41,628
+No grita. Suena razonable,
+
+82
+00:02:41,642 --> 00:02:44,316
+casi sabio, como un profesor estricto que solo quiere
+
+83
+00:02:44,316 --> 00:02:45,110
+lo mejor para ti.
+
+84
+00:02:45,623 --> 00:02:47,055
+"Deberías haber hecho más.
+
+85
+00:02:47,557 --> 00:02:48,500
+Los demás pueden,
+
+86
+00:02:48,500 --> 00:02:51,209
+¿por qué tú no?" Y como suena tan razonable,
+
+87
+00:02:51,222 --> 00:02:52,756
+casi nunca lo cuestionamos.
+
+88
+00:02:53,259 --> 00:02:55,525
+Asumimos que tiene razón y que el problema somos
+
+89
+00:02:55,525 --> 00:02:57,999
+nosotros. Y cuanto más le obedecemos,
+
+90
+00:02:58,013 --> 00:02:59,944
+más fuerte y más exigente se vuelve.
+
+91
+00:03:00,821 --> 00:03:03,022
+Al Debería le encantan las personas responsables,
+
+92
+00:03:03,022 --> 00:03:04,648
+las que crecieron siendo el hijo bueno,
+
+93
+00:03:04,648 --> 00:03:06,140
+el que nunca daba problemas.
+
+94
+00:03:06,601 --> 00:03:08,081
+¿Y cómo saber si está contigo?
+
+95
+00:03:08,545 --> 00:03:10,496
+Hay cuatro señales que se repiten mucho.
+
+96
+00:03:10,960 --> 00:03:12,709
+Tu lista de pendientes nunca se acaba,
+
+97
+00:03:12,730 --> 00:03:14,807
+porque cada cosa que tachas trae dos más.
+
+98
+00:03:15,270 --> 00:03:17,154
+Descansar se siente como hacer trampa.
+
+99
+00:03:17,618 --> 00:03:19,329
+Dices debería mucho más que quiero.
+
+100
+00:03:19,792 --> 00:03:22,013
+Y eres más duro contigo que con cualquier amigo.
+
+101
+00:03:22,477 --> 00:03:24,187
+Si te reconociste en dos o más,
+
+102
+00:03:24,190 --> 00:03:27,305
+tranquilo. No significa que algo ande mal contigo.
+
+103
+00:03:27,769 --> 00:03:30,191
+Solo significa que el Debería ha estado haciendo horas
+
+104
+00:03:30,191 --> 00:03:32,531
+extra. Y aquí viene el giro:
+
+105
+00:03:32,586 --> 00:03:35,035
+tantos deberías no hacen que Sarah rinda más.
+
+106
+00:03:35,568 --> 00:03:37,047
+La hacen rendir menos.
+
+107
+00:03:37,583 --> 00:03:38,838
+El lunes por la mañana,
+
+108
+00:03:38,883 --> 00:03:41,470
+el informe que ya debería estar listo sigue abierto
+
+109
+00:03:41,470 --> 00:03:42,163
+en su pantalla.
+
+110
+00:03:42,698 --> 00:03:44,081
+Lleva ahí dos semanas y,
+
+111
+00:03:44,105 --> 00:03:45,158
+cada vez que lo mira,
+
+112
+00:03:45,192 --> 00:03:47,311
+se siente menos como trabajo y más como un
+
+113
+00:03:47,311 --> 00:03:49,570
+castigo, así que revisa un correo más.
+
+114
+00:03:50,105 --> 00:03:51,947
+Los psicólogos lo ven una y otra vez:
+
+115
+00:03:51,960 --> 00:03:54,654
+cuando hacemos algo porque sentimos que tenemos que hacerlo,
+
+116
+00:03:54,731 --> 00:03:57,275
+nos cansamos y abandonamos antes que cuando lo hacemos
+
+117
+00:03:57,275 --> 00:04:00,622
+porque queremos. Al convertir el informe en una obligación,
+
+118
+00:04:00,720 --> 00:04:03,041
+el Debería le quita a Sarah justo la energía
+
+119
+00:04:03,041 --> 00:04:04,480
+que necesita para terminarlo.
+
+120
+00:04:05,417 --> 00:04:07,221
+Y el Debería no se queda dentro de tu
+
+121
+00:04:07,221 --> 00:04:08,982
+cabeza. Esa tarde,
+
+122
+00:04:09,025 --> 00:04:11,136
+Daniel le entrega a Sarah un borrador con un
+
+123
+00:04:11,136 --> 00:04:12,034
+día de retraso y,
+
+124
+00:04:12,055 --> 00:04:13,385
+antes de poder frenarse,
+
+125
+00:04:13,439 --> 00:04:14,325
+ella se lo dice:
+
+126
+00:04:14,368 --> 00:04:17,767
+"Deberías habérmelo mandado ayer." A Daniel se le cae
+
+127
+00:04:17,767 --> 00:04:19,921
+la cara, y Sarah se arrepiente al instante.
+
+128
+00:04:20,449 --> 00:04:22,771
+Es el mismo tono que usa consigo misma cada
+
+129
+00:04:22,771 --> 00:04:24,714
+mañana y, al escucharlo en voz alta,
+
+130
+00:04:24,788 --> 00:04:26,118
+dirigido a otra persona,
+
+131
+00:04:26,172 --> 00:04:27,776
+se da cuenta de lo duro que es.
+
+132
+00:04:28,304 --> 00:04:30,690
+Eso pasa con los deberías que usamos con nosotros
+
+133
+00:04:30,690 --> 00:04:31,872
+mismos: poco a poco,
+
+134
+00:04:31,957 --> 00:04:33,857
+las reglas con las que vivimos se vuelven las
+
+135
+00:04:33,857 --> 00:04:35,525
+reglas con las que juzgamos a todos.
+
+136
+00:04:36,464 --> 00:04:38,143
+Pero el Debería no es tu enemigo.
+
+137
+00:04:38,681 --> 00:04:39,964
+Para nuestros ancestros,
+
+138
+00:04:39,989 --> 00:04:41,948
+funcionaba más bien como un guardián.
+
+139
+00:04:42,487 --> 00:04:44,875
+En un grupo pequeño en la sabana nadie sobrevivía
+
+140
+00:04:44,875 --> 00:04:46,997
+solo, y cada grupo tenía sus reglas:
+
+141
+00:04:46,997 --> 00:04:48,091
+comparte la comida,
+
+142
+00:04:48,095 --> 00:04:48,895
+haz tu parte,
+
+143
+00:04:48,942 --> 00:04:50,385
+no defraudes a los demás.
+
+144
+00:04:50,925 --> 00:04:52,369
+Romperlas era peligroso,
+
+145
+00:04:52,426 --> 00:04:55,092
+porque quien perdía la confianza del grupo podía perder
+
+146
+00:04:55,092 --> 00:04:56,057
+también su protección,
+
+147
+00:04:56,115 --> 00:04:58,298
+y estar solo en la sabana podía costarte la
+
+148
+00:04:58,298 --> 00:05:00,635
+vida. Por eso evolucionó la culpa,
+
+149
+00:05:00,635 --> 00:05:01,686
+como una alarma.
+
+150
+00:05:02,226 --> 00:05:04,602
+Se enciende cuando rompes una regla y te empuja
+
+151
+00:05:04,602 --> 00:05:05,407
+a reparar rápido:
+
+152
+00:05:05,410 --> 00:05:06,393
+a pedir perdón,
+
+153
+00:05:06,393 --> 00:05:08,216
+a devolver, a esforzarte más.
+
+154
+00:05:08,755 --> 00:05:11,218
+Quienes la sentían conservaban su lugar en el grupo
+
+155
+00:05:11,218 --> 00:05:11,925
+y, con él,
+
+156
+00:05:11,929 --> 00:05:13,705
+sus posibilidades de sobrevivir.
+
+157
+00:05:14,245 --> 00:05:17,393
+Además, los niños que aprendían rápido las reglas estaban
+
+158
+00:05:17,393 --> 00:05:20,042
+más seguros, así que nuestro cerebro se volvió experto
+
+159
+00:05:20,042 --> 00:05:22,926
+en absorberlas mucho antes de tener edad para cuestionarlas.
+
+160
+00:05:23,880 --> 00:05:25,101
+Hoy, en cambio,
+
+161
+00:05:25,187 --> 00:05:27,013
+las reglas vienen de todas partes:
+
+162
+00:05:27,043 --> 00:05:27,935
+de tus padres,
+
+163
+00:05:27,966 --> 00:05:30,340
+de tu primer jefe y de cientos de desconocidos
+
+164
+00:05:30,340 --> 00:05:32,933
+en tu celular que parecen correr diez kilómetros antes
+
+165
+00:05:32,933 --> 00:05:35,140
+del desayuno y nunca entregar nada tarde.
+
+166
+00:05:35,696 --> 00:05:38,016
+El guardián no distingue una regla real de una
+
+167
+00:05:38,016 --> 00:05:40,454
+importada, así que las trata todas como si tu
+
+168
+00:05:40,454 --> 00:05:42,310
+lugar en el grupo dependiera de ellas.
+
+169
+00:05:42,868 --> 00:05:45,550
+Por eso un solo correo sin responder puede sentirse
+
+170
+00:05:45,550 --> 00:05:47,044
+como una pequeña falta moral.
+
+171
+00:05:47,602 --> 00:05:48,977
+La alarma no está rota;
+
+172
+00:05:49,051 --> 00:05:51,799
+solo intenta protegerte de mil reglas que nadie acordó
+
+173
+00:05:51,799 --> 00:05:54,466
+de verdad. Unos días después,
+
+174
+00:05:54,513 --> 00:05:56,974
+Elena encuentra a Sarah almorzando en la azotea con
+
+175
+00:05:56,974 --> 00:05:57,878
+la laptop abierta,
+
+176
+00:05:57,914 --> 00:06:00,934
+suspirando que a estas alturas ya debería haberlo superado.
+
+177
+00:06:01,475 --> 00:06:03,569
+Elena sonríe y le hace una pregunta:
+
+178
+00:06:03,616 --> 00:06:05,022
+"Cada vez que dices debería,
+
+179
+00:06:05,080 --> 00:06:08,154
+¿de quién es esa voz?" Sarah empieza a responder
+
+180
+00:06:08,154 --> 00:06:08,724
+y se detiene,
+
+181
+00:06:08,761 --> 00:06:10,339
+porque nunca lo había pensado.
+
+182
+00:06:10,881 --> 00:06:12,631
+Llamar a su mamá todos los días:
+
+183
+00:06:12,668 --> 00:06:13,772
+eso es de su mamá.
+
+184
+00:06:14,314 --> 00:06:16,570
+Responder cada correo en menos de una hora:
+
+185
+00:06:16,618 --> 00:06:17,668
+de su primer jefe,
+
+186
+00:06:17,668 --> 00:06:18,809
+hace ocho años.
+
+187
+00:06:19,351 --> 00:06:21,435
+Estar más avanzada a los treinta y cuatro:
+
+188
+00:06:21,472 --> 00:06:23,221
+de lo que ve cada noche en redes.
+
+189
+00:06:23,764 --> 00:06:26,095
+Entonces Elena le hace la pregunta que de verdad
+
+190
+00:06:26,095 --> 00:06:28,452
+importa: "¿Y con cuáles de esas reglas estás de
+
+191
+00:06:28,452 --> 00:06:31,381
+acuerdo tú?" Y esa es la actualización.
+
+192
+00:06:31,839 --> 00:06:33,787
+No se trata de renunciar a tus exigencias,
+
+193
+00:06:33,787 --> 00:06:35,879
+sino de elegir cuáles son de verdad tuyas.
+
+194
+00:06:36,338 --> 00:06:37,971
+Aquí van cuatro formas de hacerlo.
+
+195
+00:06:38,430 --> 00:06:41,926
+Primero, descúbrelo. Nota cada vez que piensas la palabra
+
+196
+00:06:41,926 --> 00:06:44,151
+debería, porque no puedes cuestionar una regla que ni
+
+197
+00:06:44,151 --> 00:06:46,119
+siquiera escuchas. Segundo,
+
+198
+00:06:46,120 --> 00:06:47,715
+pregúntate de quién es esa regla.
+
+199
+00:06:48,174 --> 00:06:50,007
+Si es tuya y todavía crees en ella,
+
+200
+00:06:50,017 --> 00:06:52,348
+quédatela. Si es de otra persona,
+
+201
+00:06:52,386 --> 00:06:53,895
+tienes permiso para devolverla.
+
+202
+00:06:54,354 --> 00:06:56,264
+Tercero, cambia debería por podría,
+
+203
+00:06:56,264 --> 00:06:56,971
+o por quiero.
+
+204
+00:06:57,430 --> 00:06:59,636
+Debería ir al gimnasio se convierte en quiero ir,
+
+205
+00:06:59,646 --> 00:07:01,040
+porque duermo mejor cuando voy.
+
+206
+00:07:01,500 --> 00:07:02,521
+Parece poca cosa,
+
+207
+00:07:02,550 --> 00:07:04,460
+pero convierte una obligación en una elección,
+
+208
+00:07:04,480 --> 00:07:06,400
+y las elecciones se sostienen mucho mejor.
+
+209
+00:07:06,859 --> 00:07:09,237
+Y cuarto, háblate como le hablarías a un amigo.
+
+210
+00:07:09,696 --> 00:07:10,746
+No te volverá flojo:
+
+211
+00:07:10,756 --> 00:07:12,590
+en un estudio de 2012 en Berkeley,
+
+212
+00:07:12,667 --> 00:07:14,997
+los estudiantes que salieron mal en un examen difícil
+
+213
+00:07:14,997 --> 00:07:17,528
+y fueron animados a tratarse con amabilidad estudiaron después
+
+214
+00:07:17,528 --> 00:07:18,684
+más tiempo para el siguiente.
+
+215
+00:07:19,143 --> 00:07:20,279
+Así que pruébalo ahora:
+
+216
+00:07:20,328 --> 00:07:22,391
+piensa en un debería que te viene persiguiendo esta
+
+217
+00:07:22,391 --> 00:07:24,272
+semana. ¿De quién es esa voz,
+
+218
+00:07:24,272 --> 00:07:25,782
+y cómo sonaría como un podría?
+
+219
+00:07:26,601 --> 00:07:27,703
+Una semana después,
+
+220
+00:07:27,703 --> 00:07:28,723
+en el tren de la tarde,
+
+221
+00:07:28,780 --> 00:07:30,625
+la lista de Sarah tiene siete líneas,
+
+222
+00:07:30,625 --> 00:07:32,170
+y la mayoría empieza con quiero.
+
+223
+00:07:32,652 --> 00:07:33,951
+Entonces llama a su mamá,
+
+224
+00:07:33,989 --> 00:07:34,833
+no porque deba,
+
+225
+00:07:34,861 --> 00:07:35,843
+sino porque quiere.
+
+226
+00:07:36,327 --> 00:07:37,725
+Y por primera vez en meses,
+
+227
+00:07:37,733 --> 00:07:39,756
+la llamada se siente como un regalo y no
+
+228
+00:07:39,756 --> 00:07:40,548
+como un trámite.
+
+229
+00:07:41,042 --> 00:07:42,242
+El Debería sigue ahí,
+
+230
+00:07:42,260 --> 00:07:43,282
+sentado en su hombro,
+
+231
+00:07:43,300 --> 00:07:45,055
+pero ahora más pequeño y más callado,
+
+232
+00:07:45,103 --> 00:07:46,789
+más un recordatorio que un juez.
+
+233
+00:07:47,272 --> 00:07:49,038
+Así que, un resumen rápido.
+
+234
+00:07:49,521 --> 00:07:51,970
+El Debería convierte tus deseos en obligaciones y tu
+
+235
+00:07:51,970 --> 00:07:52,812
+descanso en culpa.
+
+236
+00:07:53,295 --> 00:07:55,387
+Existe porque, para nuestros ancestros,
+
+237
+00:07:55,395 --> 00:07:57,388
+seguir las reglas del grupo era la forma de
+
+238
+00:07:57,388 --> 00:07:58,210
+seguir en el grupo.
+
+239
+00:07:58,694 --> 00:08:00,469
+Y lo actualizas descubriendo la palabra,
+
+240
+00:08:00,496 --> 00:08:02,123
+preguntándote de quién es la regla,
+
+241
+00:08:02,151 --> 00:08:04,639
+cambiando debería por quiero y siendo tu propio amigo.
+
+242
+00:08:05,122 --> 00:08:07,046
+Porque no eres una lista de reglas que no
+
+243
+00:08:07,046 --> 00:08:10,028
+logras cumplir. Y no tienes que ganarte el descanso.
+
+244
+00:08:10,511 --> 00:08:12,167
+Así que cuéntame en los comentarios:
+
+245
+00:08:12,167 --> 00:08:13,950
+¿qué debería estás listo para devolver?
+
+246
+00:08:14,434 --> 00:08:17,229
+Y suscríbete, porque la próxima vez volvemos con Daniel,
+
+247
+00:08:17,277 --> 00:08:18,982
+y la voz que hace que todo tome más
+
+248
+00:08:18,982 --> 00:08:19,854
+tiempo del planeado.

@@ -1,0 +1,999 @@
+1
+00:00:00,112 --> 00:00:01,725
+It's 6:40 in the morning,
+
+2
+00:00:01,888 --> 00:00:03,675
+Sarah is on the train to work,
+
+3
+00:00:03,850 --> 00:00:06,212
+and she's already running late on her own life.
+
+4
+00:00:06,425 --> 00:00:08,200
+She opens the list on her phone:
+
+5
+00:00:08,375 --> 00:00:11,962
+twenty-three things. Answer every email before nine,
+
+6
+00:00:12,088 --> 00:00:14,150
+go to the gym four times a week,
+
+7
+00:00:14,188 --> 00:00:15,138
+call her mom,
+
+8
+00:00:15,312 --> 00:00:16,825
+finish the quarterly report,
+
+9
+00:00:16,938 --> 00:00:18,400
+learn Python. And,
+
+10
+00:00:18,562 --> 00:00:19,375
+near the bottom,
+
+11
+00:00:19,538 --> 00:00:20,700
+be more relaxed.
+
+12
+00:00:20,912 --> 00:00:22,237
+And here's the strange part:
+
+13
+00:00:22,450 --> 00:00:24,925
+Sarah hasn't done anything wrong yet today.
+
+14
+00:00:25,150 --> 00:00:26,838
+She hasn't even had breakfast,
+
+15
+00:00:26,862 --> 00:00:29,575
+and still, she already feels like she's failing.
+
+16
+00:00:29,788 --> 00:00:32,100
+If you've ever finished a busy day and still
+
+17
+00:00:32,100 --> 00:00:33,400
+felt you hadn't done enough,
+
+18
+00:00:33,500 --> 00:00:34,788
+this video is for you.
+
+19
+00:00:35,000 --> 00:00:37,625
+Because that feeling comes from a very old voice,
+
+20
+00:00:37,725 --> 00:00:39,688
+and it speaks in one tiny word.
+
+21
+00:00:40,314 --> 00:00:41,514
+To understand that word,
+
+22
+00:00:41,602 --> 00:00:43,302
+you need to know Sarah a little better.
+
+23
+00:00:43,526 --> 00:00:45,064
+She's a senior analyst,
+
+24
+00:00:45,102 --> 00:00:46,802
+she's brilliant with numbers,
+
+25
+00:00:46,814 --> 00:00:49,276
+and everyone at the office trusts her work more
+
+26
+00:00:49,276 --> 00:00:50,014
+than she does.
+
+27
+00:00:50,226 --> 00:00:52,664
+In the elevator she reads her list again,
+
+28
+00:00:52,852 --> 00:00:55,914
+and notices that almost every line starts the same
+
+29
+00:00:55,914 --> 00:00:57,714
+way. I should answer faster.
+
+30
+00:00:57,926 --> 00:00:59,927
+I should be further in my career by now.
+
+31
+00:01:00,139 --> 00:01:02,239
+I should be happy for my friend's promotion,
+
+32
+00:01:02,426 --> 00:01:03,639
+even though it stings.
+
+33
+00:01:03,852 --> 00:01:04,789
+In other words,
+
+34
+00:01:04,839 --> 00:01:06,689
+it isn't really a list of plans.
+
+35
+00:01:06,902 --> 00:01:08,176
+It's a list of rules,
+
+36
+00:01:08,176 --> 00:01:11,052
+and every rule carries a small sentence attached:
+
+37
+00:01:11,264 --> 00:01:12,102
+and if you don't,
+
+38
+00:01:12,314 --> 00:01:13,476
+you're falling behind.
+
+39
+00:01:13,689 --> 00:01:15,152
+And in twenty-three lines,
+
+40
+00:01:15,164 --> 00:01:17,976
+there isn't a single thing Sarah actually wants.
+
+41
+00:01:18,608 --> 00:01:20,658
+On Saturday, her one free day,
+
+42
+00:01:20,833 --> 00:01:22,320
+Sarah decides to rest.
+
+43
+00:01:22,545 --> 00:01:24,920
+She makes a coffee and puts on a movie,
+
+44
+00:01:25,083 --> 00:01:27,896
+the Saturday she's been promising herself for weeks.
+
+45
+00:01:28,133 --> 00:01:30,533
+But twenty minutes later a thought sits down next
+
+46
+00:01:30,533 --> 00:01:32,996
+to her: she should be using this time better.
+
+47
+00:01:33,220 --> 00:01:34,633
+The kitchen is a mess,
+
+48
+00:01:34,670 --> 00:01:35,920
+the report is waiting,
+
+49
+00:01:36,095 --> 00:01:37,858
+and she still hasn't called her mom.
+
+50
+00:01:38,070 --> 00:01:39,020
+And just like that,
+
+51
+00:01:39,183 --> 00:01:42,033
+the movie stops being a reward and starts feeling
+
+52
+00:01:42,033 --> 00:01:42,658
+like a crime.
+
+53
+00:01:42,883 --> 00:01:44,283
+So she pauses the movie,
+
+54
+00:01:44,370 --> 00:01:45,408
+just for a second,
+
+55
+00:01:45,595 --> 00:01:48,008
+and at eleven at night she's still scrubbing the
+
+56
+00:01:48,008 --> 00:01:49,670
+kitchen. She didn't rest,
+
+57
+00:01:49,720 --> 00:01:51,258
+she didn't enjoy the cleaning,
+
+58
+00:01:51,358 --> 00:01:52,808
+and she never called her mom.
+
+59
+00:01:53,020 --> 00:01:55,746
+The day simply vanished between what she should do
+
+60
+00:01:55,746 --> 00:01:57,258
+and the guilt of not doing it.
+
+61
+00:01:57,898 --> 00:02:00,674
+The next evening is her best friend's birthday dinner.
+
+62
+00:02:00,898 --> 00:02:02,699
+Sarah gives a lovely toast,
+
+63
+00:02:02,748 --> 00:02:05,086
+then checks her work email under the table,
+
+64
+00:02:05,274 --> 00:02:07,874
+and before dessert she leaves early to finish the
+
+65
+00:02:07,874 --> 00:02:09,236
+report. And then,
+
+66
+00:02:09,336 --> 00:02:10,324
+on the way home,
+
+67
+00:02:10,511 --> 00:02:12,198
+she feels guilty for leaving,
+
+68
+00:02:12,286 --> 00:02:13,548
+because a good friend,
+
+69
+00:02:13,711 --> 00:02:15,686
+she thinks, should have stayed.
+
+70
+00:02:15,911 --> 00:02:17,011
+But if she had stayed,
+
+71
+00:02:17,186 --> 00:02:19,198
+she'd have felt guilty about the report.
+
+72
+00:02:19,424 --> 00:02:20,348
+That's the trap:
+
+73
+00:02:20,448 --> 00:02:21,961
+when everything is a should,
+
+74
+00:02:22,086 --> 00:02:23,811
+there's no right choice left,
+
+75
+00:02:24,024 --> 00:02:26,074
+only different ways of feeling guilty.
+
+76
+00:02:26,286 --> 00:02:27,586
+Whatever Sarah picks,
+
+77
+00:02:27,611 --> 00:02:29,023
+some rule gets broken,
+
+78
+00:02:29,186 --> 00:02:30,873
+and she's the one who pays for it.
+
+79
+00:02:31,513 --> 00:02:33,075
+So let's put a face to that word.
+
+80
+00:02:33,288 --> 00:02:34,288
+Meet The Should,
+
+81
+00:02:34,450 --> 00:02:37,400
+the voice that turns every wish into a duty
+
+82
+00:02:37,400 --> 00:02:39,388
+and every rest into a debt.
+
+83
+00:02:39,600 --> 00:02:40,575
+It doesn't shout.
+
+84
+00:02:40,788 --> 00:02:42,050
+It sounds reasonable,
+
+85
+00:02:42,250 --> 00:02:45,500
+almost wise, like a strict teacher who only wants
+
+86
+00:02:45,500 --> 00:02:46,288
+the best for you.
+
+87
+00:02:46,550 --> 00:02:47,538
+"You should have done more.
+
+88
+00:02:47,750 --> 00:02:48,912
+Other people manage it,
+
+89
+00:02:49,000 --> 00:02:51,588
+so why can't you?" And because it sounds so
+
+90
+00:02:51,588 --> 00:02:53,600
+reasonable, we rarely question it.
+
+91
+00:02:53,812 --> 00:02:55,150
+We just assume it's right,
+
+92
+00:02:55,250 --> 00:02:56,325
+and that we're the problem.
+
+93
+00:02:56,538 --> 00:02:57,800
+And the more we obey it,
+
+94
+00:02:57,875 --> 00:03:00,212
+the louder and more demanding it gets.
+
+95
+00:03:00,855 --> 00:03:03,380
+The Should especially loves responsible people,
+
+96
+00:03:03,542 --> 00:03:05,580
+the ones who grew up being the good kid,
+
+97
+00:03:05,767 --> 00:03:07,817
+the one who never caused problems.
+
+98
+00:03:08,042 --> 00:03:09,392
+So how can you tell it's with you?
+
+99
+00:03:09,642 --> 00:03:10,980
+Four signs show up a lot.
+
+100
+00:03:11,192 --> 00:03:13,042
+Your to-do list never ends,
+
+101
+00:03:13,105 --> 00:03:15,992
+because every item you cross off brings two more.
+
+102
+00:03:16,205 --> 00:03:17,642
+Resting feels like cheating.
+
+103
+00:03:17,867 --> 00:03:19,630
+You say I should far more often than I
+
+104
+00:03:19,630 --> 00:03:22,367
+want. And you're harder on yourself than you'd ever
+
+105
+00:03:22,367 --> 00:03:23,204
+be on a friend.
+
+106
+00:03:23,417 --> 00:03:25,342
+If you recognized two or more,
+
+107
+00:03:25,380 --> 00:03:27,930
+don't worry. It doesn't mean something is wrong with
+
+108
+00:03:27,930 --> 00:03:30,192
+you. It just means The Should has been working
+
+109
+00:03:30,192 --> 00:03:32,534
+overtime. And here's the twist:
+
+110
+00:03:32,734 --> 00:03:34,796
+all those shoulds don't make Sarah do more.
+
+111
+00:03:35,022 --> 00:03:36,184
+They make her do less.
+
+112
+00:03:36,397 --> 00:03:37,434
+On Monday morning,
+
+113
+00:03:37,584 --> 00:03:40,059
+the report she should have finished is still open
+
+114
+00:03:40,059 --> 00:03:40,746
+on her screen.
+
+115
+00:03:40,959 --> 00:03:42,522
+It's been there for two weeks,
+
+116
+00:03:42,522 --> 00:03:44,046
+and every time she looks at it,
+
+117
+00:03:44,247 --> 00:03:46,396
+it feels less like work and more like a
+
+118
+00:03:46,396 --> 00:03:49,196
+punishment, so she checks one more email instead.
+
+119
+00:03:49,422 --> 00:03:52,384
+That's a pattern psychologists see again and again:
+
+120
+00:03:52,559 --> 00:03:54,884
+when we do something because we feel we have
+
+121
+00:03:54,884 --> 00:03:57,496
+to, we tire out and give up sooner than
+
+122
+00:03:57,496 --> 00:03:59,109
+when we do it because we want to.
+
+123
+00:03:59,334 --> 00:04:01,272
+By turning the report into a duty,
+
+124
+00:04:01,384 --> 00:04:04,209
+The Should drains the very energy Sarah needs to
+
+125
+00:04:04,209 --> 00:04:07,192
+finish it. And The Should doesn't stay inside your
+
+126
+00:04:07,192 --> 00:04:08,692
+head. That afternoon,
+
+127
+00:04:08,880 --> 00:04:11,380
+Daniel brings Sarah a draft one day late,
+
+128
+00:04:11,555 --> 00:04:13,192
+and before she can stop herself,
+
+129
+00:04:13,355 --> 00:04:14,155
+she says it:
+
+130
+00:04:14,543 --> 00:04:17,818
+"You should have sent this yesterday." Daniel's face drops,
+
+131
+00:04:17,880 --> 00:04:19,642
+and Sarah regrets it instantly.
+
+132
+00:04:19,855 --> 00:04:22,330
+It's the same tone she uses on herself every
+
+133
+00:04:22,330 --> 00:04:24,230
+morning, and hearing it out loud,
+
+134
+00:04:24,468 --> 00:04:25,630
+aimed at someone else,
+
+135
+00:04:25,818 --> 00:04:28,055
+she realizes how harsh it really is.
+
+136
+00:04:28,280 --> 00:04:30,305
+That's the thing about the shoulds we use on
+
+137
+00:04:30,305 --> 00:04:31,968
+ourselves: little by little,
+
+138
+00:04:32,130 --> 00:04:34,343
+the rules we live by become the rules we
+
+139
+00:04:34,343 --> 00:04:35,855
+judge everyone else by.
+
+140
+00:04:36,489 --> 00:04:38,088
+But The Should is not your enemy.
+
+141
+00:04:38,351 --> 00:04:39,538
+For our ancestors,
+
+142
+00:04:39,601 --> 00:04:41,088
+it worked more like a guardian.
+
+143
+00:04:41,301 --> 00:04:43,101
+In a small group on the savanna,
+
+144
+00:04:43,301 --> 00:04:44,851
+nobody survived alone,
+
+145
+00:04:45,014 --> 00:04:46,788
+and every group had its rules:
+
+146
+00:04:46,864 --> 00:04:47,876
+share your food,
+
+147
+00:04:48,064 --> 00:04:48,888
+do your part,
+
+148
+00:04:48,976 --> 00:04:50,326
+don't let the others down.
+
+149
+00:04:50,539 --> 00:04:52,751
+And breaking those rules was dangerous,
+
+150
+00:04:52,751 --> 00:04:55,689
+because whoever lost the group's trust could lose its
+
+151
+00:04:55,689 --> 00:04:58,114
+protection too, and alone on the savanna,
+
+152
+00:04:58,301 --> 00:04:59,751
+that could cost you your life.
+
+153
+00:04:59,964 --> 00:05:01,838
+So guilt evolved as an alarm.
+
+154
+00:05:02,051 --> 00:05:04,276
+It goes off when you break a rule and
+
+155
+00:05:04,276 --> 00:05:06,214
+pushes you to repair things fast,
+
+156
+00:05:06,276 --> 00:05:09,126
+to apologize, pay back and try harder.
+
+157
+00:05:09,351 --> 00:05:11,801
+The ones who felt that alarm kept their place
+
+158
+00:05:11,801 --> 00:05:12,338
+in the group,
+
+159
+00:05:12,451 --> 00:05:13,226
+and with it,
+
+160
+00:05:13,314 --> 00:05:14,801
+their chances of survival.
+
+161
+00:05:15,014 --> 00:05:17,638
+And children who learned the group's rules quickly were
+
+162
+00:05:17,638 --> 00:05:21,138
+safer, so our brains became experts at absorbing rules
+
+163
+00:05:21,138 --> 00:05:23,276
+long before we're old enough to question them.
+
+164
+00:05:23,903 --> 00:05:26,965
+Today, though, the rules come from everywhere:
+
+165
+00:05:27,178 --> 00:05:29,290
+your parents, your first boss,
+
+166
+00:05:29,290 --> 00:05:31,678
+and hundreds of strangers on your phone who seem
+
+167
+00:05:31,678 --> 00:05:34,865
+to run ten kilometers before breakfast and never miss
+
+168
+00:05:34,865 --> 00:05:37,778
+a deadline. The guardian can't tell a real rule
+
+169
+00:05:37,778 --> 00:05:38,802
+from an imported one,
+
+170
+00:05:38,990 --> 00:05:40,952
+so it treats all of them as if your
+
+171
+00:05:40,952 --> 00:05:42,640
+place in the group depended on it.
+
+172
+00:05:42,865 --> 00:05:45,528
+That's why a single unanswered email can feel like
+
+173
+00:05:45,528 --> 00:05:46,840
+a small moral failure.
+
+174
+00:05:47,065 --> 00:05:48,615
+The alarm isn't broken;
+
+175
+00:05:48,790 --> 00:05:50,890
+it's just trying to protect you from a thousand
+
+176
+00:05:50,890 --> 00:05:52,740
+rules that nobody really agreed on.
+
+177
+00:05:53,352 --> 00:05:54,352
+A few days later,
+
+178
+00:05:54,514 --> 00:05:57,227
+Elena finds Sarah eating lunch on the rooftop with
+
+179
+00:05:57,227 --> 00:05:58,177
+her laptop open,
+
+180
+00:05:58,340 --> 00:06:00,564
+sighing that she really should be over this by
+
+181
+00:06:00,564 --> 00:06:03,402
+now. Elena smiles and asks her a question.
+
+182
+00:06:03,690 --> 00:06:05,027
+"Every time you say should,
+
+183
+00:06:05,202 --> 00:06:08,014
+whose voice is that?" Sarah starts to answer,
+
+184
+00:06:08,165 --> 00:06:11,164
+then stops, because she has honestly never thought about
+
+185
+00:06:11,164 --> 00:06:12,977
+it. Call your mom every day:
+
+186
+00:06:13,190 --> 00:06:14,027
+that's her mom.
+
+187
+00:06:14,240 --> 00:06:16,414
+Answer every email within the hour:
+
+188
+00:06:16,590 --> 00:06:17,627
+her first boss,
+
+189
+00:06:17,827 --> 00:06:18,777
+eight years ago.
+
+190
+00:06:19,002 --> 00:06:21,277
+Be further in her career at thirty-four:
+
+191
+00:06:21,452 --> 00:06:23,590
+the feed she scrolls every night.
+
+192
+00:06:23,802 --> 00:06:26,552
+Then Elena asks the question that really matters:
+
+193
+00:06:26,814 --> 00:06:29,014
+"And which of those rules do you actually agree
+
+194
+00:06:29,014 --> 00:06:31,040
+with?" And that's the update.
+
+195
+00:06:31,252 --> 00:06:33,215
+It isn't about dropping your standards,
+
+196
+00:06:33,290 --> 00:06:35,852
+but about choosing which ones are really yours.
+
+197
+00:06:36,078 --> 00:06:37,427
+Here are four ways to do it.
+
+198
+00:06:37,678 --> 00:06:38,590
+First, catch it.
+
+199
+00:06:38,802 --> 00:06:41,115
+Notice every time you think the word should,
+
+200
+00:06:41,215 --> 00:06:43,652
+because you can't question a rule you don't even
+
+201
+00:06:43,652 --> 00:06:46,240
+hear. Second, ask whose rule it is.
+
+202
+00:06:46,452 --> 00:06:48,552
+If it's yours and you still believe in it,
+
+203
+00:06:48,565 --> 00:06:51,040
+keep it. If it belongs to someone else,
+
+204
+00:06:51,065 --> 00:06:52,515
+you're allowed to give it back.
+
+205
+00:06:52,778 --> 00:06:54,740
+Third, swap should for could,
+
+206
+00:06:54,928 --> 00:06:55,665
+or for want.
+
+207
+00:06:55,878 --> 00:06:57,628
+I should go to the gym becomes I want
+
+208
+00:06:57,628 --> 00:06:59,878
+to go, because I sleep better when I do.
+
+209
+00:07:00,090 --> 00:07:01,202
+It sounds small,
+
+210
+00:07:01,252 --> 00:07:03,452
+but it turns a duty into a choice,
+
+211
+00:07:03,465 --> 00:07:05,502
+and choices are much easier to keep.
+
+212
+00:07:05,715 --> 00:07:08,152
+And fourth, talk to yourself like you'd talk to
+
+213
+00:07:08,152 --> 00:07:10,140
+a friend. It won't make you lazy:
+
+214
+00:07:10,252 --> 00:07:12,465
+in a 2012 study at Berkeley,
+
+215
+00:07:12,540 --> 00:07:15,590
+students who failed a hard test and were encouraged
+
+216
+00:07:15,590 --> 00:07:18,515
+to treat themselves kindly then studied longer for the
+
+217
+00:07:18,515 --> 00:07:20,415
+next one. So try it right now:
+
+218
+00:07:20,665 --> 00:07:22,740
+think of one should that's been following you this
+
+219
+00:07:22,740 --> 00:07:24,352
+week. Whose voice is it,
+
+220
+00:07:24,540 --> 00:07:26,002
+and how would it sound as a could?
+
+221
+00:07:26,632 --> 00:07:27,482
+A week later,
+
+222
+00:07:27,520 --> 00:07:28,657
+on the evening train,
+
+223
+00:07:28,732 --> 00:07:30,695
+Sarah's list has seven lines,
+
+224
+00:07:30,720 --> 00:07:32,482
+and most of them start with want.
+
+225
+00:07:32,695 --> 00:07:33,970
+Then she calls her mom,
+
+226
+00:07:34,145 --> 00:07:35,445
+not because she should,
+
+227
+00:07:35,595 --> 00:07:36,882
+but because she wants to.
+
+228
+00:07:37,095 --> 00:07:38,607
+And for the first time in months,
+
+229
+00:07:38,645 --> 00:07:40,732
+the call feels like a gift instead of a
+
+230
+00:07:40,732 --> 00:07:42,682
+chore. The Should is still there,
+
+231
+00:07:42,720 --> 00:07:43,945
+sitting on her shoulder,
+
+232
+00:07:44,032 --> 00:07:45,770
+but smaller and quieter now,
+
+233
+00:07:45,970 --> 00:07:47,732
+more like a reminder than a judge.
+
+234
+00:07:47,945 --> 00:07:49,095
+So, a quick recap.
+
+235
+00:07:49,320 --> 00:07:52,082
+The Should turns your wishes into duties and your
+
+236
+00:07:52,082 --> 00:07:53,008
+rest into guilt.
+
+237
+00:07:53,220 --> 00:07:54,557
+It exists because,
+
+238
+00:07:54,557 --> 00:07:55,807
+for our ancestors,
+
+239
+00:07:55,832 --> 00:07:58,632
+following the group's rules meant staying in the group.
+
+240
+00:07:58,857 --> 00:08:00,795
+And you update it by catching the word,
+
+241
+00:08:00,958 --> 00:08:02,407
+asking whose rule it is,
+
+242
+00:08:02,458 --> 00:08:03,845
+swapping should for could,
+
+243
+00:08:04,045 --> 00:08:05,682
+and being a friend to yourself.
+
+244
+00:08:05,907 --> 00:08:07,795
+Because you are not a list of rules you
+
+245
+00:08:07,795 --> 00:08:09,795
+keep failing. And you don't have to earn your
+
+246
+00:08:09,795 --> 00:08:11,732
+rest. So tell me in the comments:
+
+247
+00:08:11,907 --> 00:08:13,745
+what's one should you're ready to give back?
+
+248
+00:08:13,958 --> 00:08:16,945
+And subscribe, because next time we're back with Daniel,
+
+249
+00:08:17,120 --> 00:08:19,620
+and the voice that makes everything take longer than
+
+250
+00:08:19,620 --> 00:08:20,107
+planned.

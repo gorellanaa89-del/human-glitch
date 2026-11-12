@@ -1,0 +1,78 @@
+{
+  "title": "Why \"I Should\" Leaves You Exhausted (The Psychology of Guilt)",
+  "duration_seconds": 500.6,
+  "scenes": 13,
+  "stock_clips": 0,
+  "tts": "edge",
+  "files": {
+    "video": "video.mp4",
+    "captions_en": "captions.en.srt",
+    "audio_es": "audio.es.m4a",
+    "captions_es": "captions.es.srt",
+    "video_es": "video.es.mp4",
+    "thumbnail": "thumbnail.jpg",
+    "shorts": [
+      {
+        "file": "short-01-en.mp4",
+        "scene": 1,
+        "lang": "en",
+        "title": "Do You Feel Behind Before Breakfast?"
+      },
+      {
+        "file": "short-01-es.mp4",
+        "scene": 1,
+        "lang": "es",
+        "title": "¿Te sientes atrasado antes del desayuno?"
+      },
+      {
+        "file": "short-03-en.mp4",
+        "scene": 3,
+        "lang": "en",
+        "title": "Why Resting Makes You Feel Guilty"
+      },
+      {
+        "file": "short-03-es.mp4",
+        "scene": 3,
+        "lang": "es",
+        "title": "Por qué descansar te hace sentir culpable"
+      },
+      {
+        "file": "short-06-en.mp4",
+        "scene": 6,
+        "lang": "en",
+        "title": "4 Signs \"Should\" Runs Your Life"
+      },
+      {
+        "file": "short-06-es.mp4",
+        "scene": 6,
+        "lang": "es",
+        "title": "4 señales de que el \"debería\" manda en tu vida"
+      },
+      {
+        "file": "short-11-en.mp4",
+        "scene": 11,
+        "lang": "en",
+        "title": "The Question That Silences Your Inner Critic"
+      },
+      {
+        "file": "short-11-es.mp4",
+        "scene": 11,
+        "lang": "es",
+        "title": "La pregunta que calla a tu crítico interno"
+      },
+      {
+        "file": "short-12-en.mp4",
+        "scene": 12,
+        "lang": "en",
+        "title": "Swap One Word, Lose the Guilt"
+      },
+      {
+        "file": "short-12-es.mp4",
+        "scene": 12,
+        "lang": "es",
+        "title": "Cambia una palabra y suelta la culpa"
+      }
+    ]
+  },
+  "warnings": []
+}

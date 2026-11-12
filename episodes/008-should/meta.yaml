@@ -12,13 +12,13 @@ shorts:
   - scene: 3
     en: "Why Resting Makes You Feel Guilty"
     es: "Por qué descansar te hace sentir culpable"
-  - scene: 7
+  - scene: 6
     en: "4 Signs \"Should\" Runs Your Life"
     es: "4 señales de que el \"debería\" manda en tu vida"
-  - scene: 12
+  - scene: 11
     en: "The Question That Silences Your Inner Critic"
     es: "La pregunta que calla a tu crítico interno"
-  - scene: 13
+  - scene: 12
     en: "Swap One Word, Lose the Guilt"
     es: "Cambia una palabra y suelta la culpa"
 short_scene: 5
@@ -26,12 +26,11 @@ tags:
   - guilt
   - should statements
   - cognitive distortions
-  - tyranny of the shoulds
   - self compassion
   - psychology
   - burnout
 description: |
-  Sarah has 23 things on her list, and almost every one starts with "I should". Meet The Should: the voice that turns every wish into a duty and every rest into guilt. We follow Sarah's week, look at Karen Horney's "tyranny of the shoulds" and Tory Higgins' research on the self we think we ought to be, see why guilt kept our ancestors in the group, and learn four ways to quiet the voice.
+  Sarah has 23 things on her list, and almost every one starts with "I should". Meet The Should: the voice that turns every wish into a duty and every rest into guilt. We follow Sarah's week, see why guilt kept our ancestors in the group, and learn four ways to quiet the voice.
 
   {chapters}
 
@@ -42,12 +41,11 @@ es:
   tags:
     - culpa
     - distorsiones cognitivas
-    - la tiranía de los deberías
     - autocompasión
     - psicología
     - agotamiento
   description: |
-    Sarah tiene 23 pendientes en su lista y casi todos empiezan con "debería". Conoce al Debería: la voz que convierte cada deseo en una obligación y cada descanso en culpa. Seguimos la semana de Sarah, vemos "la tiranía de los deberías" de Karen Horney y la investigación de Tory Higgins sobre el yo que creemos que debemos ser, entendemos por qué la culpa mantenía a nuestros ancestros dentro del grupo y aprendemos cuatro formas de calmar esa voz.
+    Sarah tiene 23 pendientes en su lista y casi todos empiezan con "debería". Conoce al Debería: la voz que convierte cada deseo en una obligación y cada descanso en culpa. Seguimos la semana de Sarah, entendemos por qué la culpa mantenía a nuestros ancestros dentro del grupo y aprendemos cuatro formas de calmar esa voz.
 
     {chapters}
 

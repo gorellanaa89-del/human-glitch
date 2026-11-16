@@ -52,7 +52,7 @@ NAMES_ES = {
     "impostor": "El Impostor", "catastrophizer": "El Catastrofista", "mind_reader": "El Lector de Mentes",
     "fortune_teller": "El Adivino", "all_or_nothing": "El Todo o Nada", "filter": "El Filtro",
     "should": "El Debería", "labeler": "El Etiquetador", "generalizer": "El Generalizador",
-    "blamer": "El Culpador", "know_it_all": "El Sabelotodo", "echo": "El Eco", "anchor": "El Ancla",
+    "blamer": "El Echaculpas", "know_it_all": "El Sabelotodo", "echo": "El Eco", "anchor": "El Ancla",
     "hoarder": "El Acumulador", "sunk_cost": "El Costo Hundido", "halo": "El Halo",
     "planner": "El Planificador", "follower": "El Seguidor",
 }

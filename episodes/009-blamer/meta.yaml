@@ -1,0 +1,52 @@
+# Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
+approved: false
+title: "Why Some People Are Never Wrong (The Psychology of Blame)"
+thumbnail_text: "IT WASN'T ME"
+publish_at: ""
+backgrounds: drawn
+synthetic_media: false
+shorts:
+  - scene: 1
+    en: "Do You Know Someone Who's Never Wrong?"
+    es: "¿Conoces a alguien que nunca se equivoca?"
+  - scene: 4
+    en: "Did You Grow Up With a Blamer?"
+    es: "¿Creciste con alguien que siempre culpa a otros?"
+  - scene: 7
+    en: "4 Signs Someone Always Blames Others"
+    es: "4 señales de que alguien siempre culpa a otros"
+  - scene: 11
+    en: "The Question That Disarms a Blamer"
+    es: "La pregunta que desarma a un echaculpas"
+  - scene: 12
+    en: "How to Deal With Someone Who Never Admits Fault"
+    es: "Cómo tratar con alguien que nunca admite un error"
+short_scene: 5
+tags:
+  - blame
+  - self serving bias
+  - toxic boss
+  - difficult people
+  - psychology
+  - workplace psychology
+description: |
+  The client got the wrong price, and Richard blamed Daniel, even though Richard approved it himself. Do you know someone like this? Meet The Blamer: the voice that points at someone else the second something goes wrong. We follow Richard's story, see why blaming protected our ancestors' place in the tribe, and learn four ways to deal with someone who never admits a mistake.
+
+  {chapters}
+
+  Inside Voice Psychology: the stories behind the voice in your head.
+es:
+  title: "Por qué hay gente que nunca tiene la culpa (la psicología de culpar a otros)"
+  thumbnail_text: "YO NO FUI"
+  tags:
+    - culpar a otros
+    - sesgo de autoservicio
+    - jefe tóxico
+    - personas difíciles
+    - psicología
+  description: |
+    El cliente recibió el precio equivocado y Richard culpó a Daniel, aunque el que lo aprobó fue él. ¿Conoces a alguien así? Conoce al Echaculpas: la voz que señala a otro apenas algo sale mal. Seguimos la historia de Richard, entendemos por qué culpar protegía el lugar de nuestros ancestros en la tribu y aprendemos cuatro formas de tratar con alguien que nunca admite un error.
+
+    {chapters}
+
+    Inside Voice Psychology: las historias detrás de la voz en tu cabeza.

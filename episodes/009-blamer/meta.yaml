@@ -5,6 +5,10 @@ thumbnail_text: "IT WASN'T ME"
 publish_at: ""
 backgrounds: drawn
 synthetic_media: false
+# Narrator for this episode (Giancarlo 2026-11-16: a warmer, slightly ironic woman's voice)
+voices:
+  en: en-US-AvaNeural
+  es: es-MX-DaliaNeural
 shorts:
   - scene: 1
     en: "Do You Know Someone Who's Never Wrong?"

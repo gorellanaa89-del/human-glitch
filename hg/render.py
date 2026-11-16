@@ -198,6 +198,9 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
     import json as _json
     meta = yaml.safe_load((episode / "meta.yaml").read_text(encoding="utf-8"))
     from . import sets
+    # per-episode narrator: meta.yaml `voices: {en: ..., es: ...}` and `voice_rate: {en: ..., es: ...}`
+    voices = {**VOICES, **(meta.get("voices") or {})}
+    rates = {**VOICE_RATE, **(meta.get("voice_rate") or {})}
     sets.MODE = os.environ.get("HG_BACKGROUNDS") or meta.get("backgrounds", "drawn")  # "photo": real photos where one exists
     scenes = parse_script(episode / "script.en.md")
     es_path = episode / "script.es.md"
@@ -243,7 +246,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             continue
         print(f"Scene {i + 1}/{len(scenes)}: {sc.title}")
         wav = work / f"s{i}_en.wav"
-        words = _attach_punctuation(tts.synthesize(sc.narration, VOICES["en"], wav, engine, VOICE_RATE["en"]), sc.narration)
+        words = _attach_punctuation(tts.synthesize(sc.narration, voices["en"], wav, engine, rates["en"]), sc.narration)
         seconds = media.duration(wav)
         full_seconds = seconds
         cut = False
@@ -270,7 +273,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
         if scenes_es:
             es_raw = work / f"s{i}_es_raw.wav"
             es_sc = scenes_es[i]
-            ew = _attach_punctuation(tts.synthesize(es_sc.narration, VOICES["es"], es_raw, engine, VOICE_RATE["es"]), es_sc.narration)
+            ew = _attach_punctuation(tts.synthesize(es_sc.narration, voices["es"], es_raw, engine, rates["es"]), es_sc.narration)
             es_wav = work / f"s{i}_es.wav"
             tempo, cut = _fit_spanish(es_raw, full_seconds, es_wav)
             if seconds < full_seconds:

@@ -27,7 +27,8 @@ Do this signed in with the channel's Google account.
 1. Open developers.google.com/oauthplayground.
 2. Gear icon (top right) > tick **Use your own OAuth credentials** > paste Client ID and secret.
 3. In "Input your own scopes" paste:
-   `https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl`
+   `https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/yt-analytics.readonly`
+   (the last one lets the "Channel stats" workflow read watch time, retention and CTR)
 4. Click **Authorize APIs**, choose the channel account, accept the warnings.
 5. Click **Exchange authorization code for tokens** and copy the **Refresh token**.
 

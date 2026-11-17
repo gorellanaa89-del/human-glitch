@@ -34,11 +34,11 @@ Pero Richard casi ni la mira. "Esas empresas no me tenían a mí."
 
 Margaret ya conoce esta película. Así que cierra su laptop y anota la fecha en su cuaderno, por si acaso.
 
-# Scene: Conoce a The Know-It-All
+# Scene: Conoce al Sabelotodo
 
 Así que pongámosle cara a esa certeza.
 
-Te presento a The Know-It-All, el sabelotodo.
+Te presento al Sabelotodo.
 
 Es la voz que te susurra: "Tú ya sabes esto. Preguntar es de principiantes. ¿Y dudar? Dudar es de débiles."
 
@@ -56,7 +56,7 @@ Ahora bien, todavía se discute qué tan grande es este efecto, y es posible que
 
 Y ojo, porque no solo visita a los jefes. En un estudio de 1981, cerca del noventa y tres por ciento de los conductores estadounidenses dijo manejar mejor que el promedio, algo que, si lo piensas, es matemáticamente imposible.
 
-De hecho, The Know-It-All adora a los expertos que se salen de su campo, a quienes acertaron muchas veces en el pasado y a cualquiera que ocupe un puesto donde verse inseguro parece peligroso.
+De hecho, El Sabelotodo adora a los expertos que se salen de su campo, a quienes acertaron muchas veces en el pasado y a cualquiera que ocupe un puesto donde verse inseguro parece peligroso.
 
 Incluso Sarah, que en el trabajo duda de sí misma todo el día, está segurísima de que maneja muy bien.
 
@@ -66,7 +66,7 @@ Mientras tanto, en la oficina, pasan dos semanas. Luego cuatro. Luego seis.
 
 Para la sexta semana, el sistema apenas va por el veinte por ciento. Y cada lunes, Richard asegura que ya casi está listo, pero cada lunes sigue sin estarlo.
 
-¿Y por qué no lo admite de una vez? Porque The Know-It-All no lo deja decir que se equivocó: para él, admitirlo sería perder su lugar. Por eso hace lo que la voz le dice. Presiona más, culpa al proveedor y promete otra fecha que tampoco podrá cumplir.
+¿Y por qué no lo admite de una vez? Porque El Sabelotodo no lo deja decir que se equivocó: para él, admitirlo sería perder su lugar. Por eso hace lo que la voz le dice. Presiona más, culpa al proveedor y promete otra fecha que tampoco podrá cumplir.
 
 Con el tiempo, el estrés empieza a notarse. Les levanta la voz a todos en las reuniones, responde correos a medianoche y ya no duerme bien. Porque, en el fondo, una parte de él ya lo sabe. Simplemente no puede decirlo.
 
@@ -76,13 +76,13 @@ Pero aquí viene lo importante: el costo real no es el retraso, sino el equipo.
 
 Piénsalo bien. Daniel dejó de advertirle después de esa primera risa, y Margaret dejó de mandarle números. Poco a poco, la gente aprendió que las malas noticias no eran bienvenidas, y por eso dejaron de llegar.
 
-Eso es lo que The Know-It-All le hace a un líder. No solo lo lleva a equivocarse, sino que, sin hacer ruido, lo aleja de las personas que podían avisarle.
+Eso es lo que El Sabelotodo le hace a un líder. No solo lo lleva a equivocarse, sino que, sin hacer ruido, lo aleja de las personas que podían avisarle.
 
 La investigadora Amy Edmondson, de Harvard, llama a esto seguridad psicológica: sentir que puedes hablar sin que te castiguen por ello. Y cuando desaparece, los errores no se acaban. Simplemente se esconden.
 
 # Scene: Por qué existe
 
-Aun así, The Know-It-All no es un villano. Al contrario: hace mucho tiempo, fue una gran ventaja.
+Aun así, El Sabelotodo no es un villano. Al contrario: hace mucho tiempo, fue una gran ventaja.
 
 Imagina a dos de nuestros ancestros decidiendo dónde cazar. Uno de ellos duda, mientras el otro señala y dice: "Allá. Estoy seguro." ¿A quién crees que sigue el grupo? Exacto, al que está seguro. Así, la seguridad le daba a la gente seguidores, pareja y más comida.
 
@@ -114,7 +114,7 @@ Y así, por primera vez en mucho tiempo, Richard lo admite. "No estoy seguro."
 
 Esa es la actualización: no se trata de apagar tu seguridad, sino de hacerle un chequeo. Aquí van cuatro formas.
 
-Primero, ponle nombre. Cuando te sientas totalmente seguro, dite que es The Know-It-All el que habla, porque la certeza es una sensación, no un hecho.
+Primero, ponle nombre. Cuando te sientas totalmente seguro, dite que es El Sabelotodo el que habla, porque la certeza es una sensación, no un hecho.
 
 Segundo, explícalo paso a paso. Los estudios muestran que cuando la gente intenta explicar cómo funciona algo, como un cierre o un inodoro, descubre lo poco que sabe. Si no puedes explicar los pasos, es que todavía no los conoces.
 
@@ -130,9 +130,9 @@ En la siguiente reunión, Richard hace algo que nadie le había visto hacer. Se 
 
 Daniel parpadea, sorprendido, y luego habla diez minutos seguidos. Al otro lado de la mesa, Margaret vuelve a abrir su laptop.
 
-Por supuesto, The Know-It-All sigue ahí, y a Richard todavía le encanta tener la razón. La diferencia es que ahora revisa antes de prometer.
+Por supuesto, El Sabelotodo sigue ahí, y a Richard todavía le encanta tener la razón. La diferencia es que ahora revisa antes de prometer.
 
-En resumen, The Know-It-All te hace sentir seguro, sobre todo donde menos sabes. Existe porque, hace mucho tiempo, la seguridad ganaba seguidores y comida. Y para actualizarlo, ponle nombre, explica las cosas paso a paso, pregúntate qué te demostraría que estás equivocado y lleva la cuenta.
+En resumen, El Sabelotodo te hace sentir seguro, sobre todo donde menos sabes. Existe porque, hace mucho tiempo, la seguridad ganaba seguidores y comida. Y para actualizarlo, ponle nombre, explica las cosas paso a paso, pregúntate qué te demostraría que estás equivocado y lleva la cuenta.
 
 Porque, al final, estar seguro no es lo mismo que tener la razón. Y los mejores líderes conocen la diferencia.
 

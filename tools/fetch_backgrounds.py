@@ -25,6 +25,25 @@ QUERIES = {
     "street": "city street sidewalk day",
     "savanna": "african savanna landscape",
 }
+# Second round (2026-11-08): more places, so episodes don't repeat the same rooms. `python ... OUT more`
+MORE = {
+    "hallway": "empty office corridor hallway",
+    "elevator": "elevator interior empty",
+    "breakroom": "office kitchen break room",
+    "lobby": "modern office lobby empty",
+    "office_night": "empty office at night city lights",
+    "glass_meeting": "glass meeting room modern office",
+    "open_office": "open plan office empty desks",
+    "window_city": "office window city skyline view",
+    "rooftop": "rooftop terrace city empty",
+    "park": "city park bench path empty",
+    "train": "empty train interior seats",
+    "car": "car interior dashboard steering wheel",
+    "stairs": "modern staircase interior empty",
+    "restaurant": "empty restaurant interior tables",
+    "bathroom_mirror": "bathroom mirror sink interior",
+    "home_office": "home office desk room",
+}
 PER = 12
 
 
@@ -34,13 +53,14 @@ def get(url):
         return r.read()
 
 
-def main(out: Path):
+def main(out: Path, group: str = "first"):
     key = os.environ["PIXABAY_API_KEY"].strip()
     try:
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 40)
     except OSError:
         font = ImageFont.load_default(40)
-    for name, q in QUERIES.items():
+    queries = MORE if group == "more" else QUERIES
+    for name, q in queries.items():
         params = urllib.parse.urlencode({"key": key, "q": q, "image_type": "photo", "orientation": "horizontal",
                                          "min_width": 1920, "safesearch": "true", "per_page": PER})
         hits = json.loads(get(f"https://pixabay.com/api/?{params}"))["hits"]
@@ -64,4 +84,4 @@ def main(out: Path):
 
 
 if __name__ == "__main__":
-    main(Path(sys.argv[1]))
+    main(Path(sys.argv[1]), sys.argv[2] if len(sys.argv) > 2 else "first")

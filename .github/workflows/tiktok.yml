@@ -1,0 +1,76 @@
+name: TikTok Shorts
+
+# Renders only the scenes that have Shorts (listed in meta.yaml) and cuts the full-screen vertical Shorts.
+# No artifacts: each episode's Shorts are pushed to their own branch, tiktok-<episode>.
+on:
+  # a push that changes .github/tiktok-request.txt (one episode folder per line) also runs it,
+  # so it works from any branch before this file reaches main
+  push:
+    paths: [".github/tiktok-request.txt"]
+  workflow_dispatch:
+    inputs:
+      episodes:
+        description: "Episode folders, comma separated, e.g. 001-impostor-syndrome,007-follower"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      episodes: ${{ steps.list.outputs.episodes }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        env:
+          EPISODES: ${{ inputs.episodes }}
+        run: |
+          python3 - >> "$GITHUB_OUTPUT" <<'PY'
+          import json, os, pathlib
+          raw = os.environ.get("EPISODES") or pathlib.Path(".github/tiktok-request.txt").read_text()
+          print("episodes=" + json.dumps([e.strip() for e in raw.replace(",", "\n").splitlines() if e.strip()]))
+          PY
+
+  shorts:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        episode: ${{ fromJson(needs.plan.outputs.episodes) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore cached ffmpeg packages
+        run: echo "IMG=${ImageVersion:-none}" >> "$GITHUB_ENV"
+      - uses: actions/cache/restore@v4
+        with:
+          path: ~/apt-debs
+          key: apt-ffmpeg-${{ runner.os }}-${{ env.IMG }}-v1
+      - name: Install ffmpeg and fonts
+        timeout-minutes: 15
+        run: bash tools/install-deps.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Render the Shorts
+        run: python -m hg shorts "episodes/${{ matrix.episode }}"
+
+      - name: Push the Shorts to tiktok-${{ matrix.episode }}
+        run: |
+          P=$(mktemp -d)
+          cp episodes/${{ matrix.episode }}/output/short-*.mp4 "$P/"
+          cd "$P"
+          git init -q -b "tiktok-${{ matrix.episode }}"
+          git config user.name "human-glitch-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -qm "TikTok Shorts for ${{ matrix.episode }}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "tiktok-${{ matrix.episode }}"

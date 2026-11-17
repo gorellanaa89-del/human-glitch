@@ -17,6 +17,10 @@ on:
         description: "Override the episode's backgrounds: drawn or photo. Empty = as in meta.yaml"
         required: false
         default: ""
+      branch:
+        description: "Branch the light preview is pushed to (use one per episode to render several at once)"
+        required: false
+        default: "previews"
 
 env:
   HG_BACKGROUNDS: ${{ inputs.backgrounds }}
@@ -81,11 +85,11 @@ jobs:
       - name: Render scene ${{ matrix.scene }}
         run: python -m hg build "episodes/${{ inputs.episode }}" --scene ${{ matrix.scene }}
 
-      - uses: actions/upload-artifact@v4
+      # Scenes travel to the joining job through the Actions cache (artifact storage is full on the free plan).
+      - uses: actions/cache/save@v4
         with:
-          name: scene-${{ matrix.scene }}
           path: episodes/${{ inputs.episode }}/output/work/
-          retention-days: 1
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-${{ matrix.scene }}
 
   # Join the scenes, mix the audio, cut the Shorts, push the previews.
   render:
@@ -120,13 +124,146 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Collect the rendered scenes
-        if: inputs.seconds == ''
-        uses: actions/download-artifact@v4
+      - name: Collect scene 1
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 1,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 1]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[1,')
+        uses: actions/cache/restore@v4
         with:
-          pattern: scene-*
-          merge-multiple: true
           path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-1
+          fail-on-cache-miss: true
+      - name: Collect scene 2
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 2,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 2]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[2,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-2
+          fail-on-cache-miss: true
+      - name: Collect scene 3
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 3,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 3]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[3,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-3
+          fail-on-cache-miss: true
+      - name: Collect scene 4
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 4,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 4]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[4,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-4
+          fail-on-cache-miss: true
+      - name: Collect scene 5
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 5,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 5]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[5,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-5
+          fail-on-cache-miss: true
+      - name: Collect scene 6
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 6,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 6]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[6,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-6
+          fail-on-cache-miss: true
+      - name: Collect scene 7
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 7,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 7]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[7,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-7
+          fail-on-cache-miss: true
+      - name: Collect scene 8
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 8,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 8]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[8,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-8
+          fail-on-cache-miss: true
+      - name: Collect scene 9
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 9,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 9]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[9,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-9
+          fail-on-cache-miss: true
+      - name: Collect scene 10
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 10,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 10]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[10,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-10
+          fail-on-cache-miss: true
+      - name: Collect scene 11
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 11,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 11]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[11,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-11
+          fail-on-cache-miss: true
+      - name: Collect scene 12
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 12,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 12]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[12,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-12
+          fail-on-cache-miss: true
+      - name: Collect scene 13
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 13,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 13]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[13,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-13
+          fail-on-cache-miss: true
+      - name: Collect scene 14
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 14,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 14]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[14,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-14
+          fail-on-cache-miss: true
+      - name: Collect scene 15
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 15,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 15]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[15,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-15
+          fail-on-cache-miss: true
+      - name: Collect scene 16
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 16,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 16]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[16,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-16
+          fail-on-cache-miss: true
+      - name: Collect scene 17
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 17,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 17]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[17,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-17
+          fail-on-cache-miss: true
+      - name: Collect scene 18
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 18,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 18]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[18,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-18
+          fail-on-cache-miss: true
+      - name: Collect scene 19
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 19,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 19]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[19,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-19
+          fail-on-cache-miss: true
+      - name: Collect scene 20
+        if: inputs.seconds == '' && contains(needs.plan.outputs.scenes, ' 20,') || inputs.seconds == '' && endsWith(needs.plan.outputs.scenes, ' 20]') || inputs.seconds == '' && startsWith(needs.plan.outputs.scenes, '[20,')
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/work/
+          key: scene-${{ inputs.episode }}-${{ github.run_id }}-20
+          fail-on-cache-miss: true
 
       - name: Render
         run: |
@@ -136,16 +273,14 @@ jobs:
             python -m hg build "episodes/${{ inputs.episode }}"
           fi
 
+      # The full files stay in the Actions cache (key render-<episode>-<run id>), where upload.yml picks them up.
+      - name: Set the work files aside
+        run: mv "episodes/${{ inputs.episode }}/output/work" "$RUNNER_TEMP/work" || true
       - name: Keep the full files
-        if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/cache/save@v4
         with:
-          name: render-${{ inputs.episode }}
-          path: |
-            episodes/${{ inputs.episode }}/output/*
-            !episodes/${{ inputs.episode }}/output/work
-          retention-days: 14
-          if-no-files-found: ignore
+          path: episodes/${{ inputs.episode }}/output/
+          key: render-${{ inputs.episode }}-${{ github.run_id }}
 
       - name: Push a light preview to the previews branch
         run: |
@@ -157,7 +292,11 @@ jobs:
             ffmpeg -loglevel error -y -i "$OUT/video.mp4" -vf scale=-2:540 -c:v libx264 -preset veryfast -crf 32 \
               -c:a aac -b:a 64k -movflags +faststart "$P/preview-720p.mp4"
           fi
-          if [ -f "$OUT/audio.es.m4a" ]; then
+          if [ -f "$OUT/video.es.mp4" ]; then
+            # the Spanish picture (Spanish voice names, bubbles and cards)
+            ffmpeg -loglevel error -y -i "$OUT/video.es.mp4" -vf scale=-2:720 -c:v libx264 -preset veryfast -crf 30 \
+              -c:a aac -b:a 96k -movflags +faststart "$P/preview-es-720p.mp4"
+          elif [ -f "$OUT/audio.es.m4a" ]; then
             # same picture, Spanish voice: what a viewer gets when picking the Spanish track on YouTube
             ffmpeg -loglevel error -y -i "$P/preview-720p.mp4" -i "$OUT/audio.es.m4a" -map 0:v -map 1:a \
               -c:v copy -c:a aac -b:a 96k -shortest -movflags +faststart "$P/preview-es-720p.mp4"
@@ -170,9 +309,9 @@ jobs:
             ffmpeg -loglevel error -y -ss "$T" -i "$OUT/video.mp4" -frames:v 1 -vf scale=960:-2 "$P/frames/$(printf %02d $k).jpg"
           done
           cd "$P"
-          git init -q -b previews
+          git init -q -b "${{ inputs.branch }}"
           git config user.name "human-glitch-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -qm "Preview of ${{ inputs.episode }}"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" previews
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "${{ inputs.branch }}"

@@ -55,7 +55,14 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - uses: actions/download-artifact@v4
+      # Newer renders keep their files in the Actions cache; older ones as a run artifact.
+      - id: cached
+        uses: actions/cache/restore@v4
+        with:
+          path: episodes/${{ inputs.episode }}/output/
+          key: render-${{ inputs.episode }}-${{ inputs.run_id }}
+      - if: steps.cached.outputs.cache-hit != 'true'
+        uses: actions/download-artifact@v4
         with:
           name: render-${{ inputs.episode }}
           run-id: ${{ inputs.run_id }}

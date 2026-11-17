@@ -34,11 +34,11 @@ Antes de dormir, escribe una lista. No de lo que ha logrado, sino de lo que toda
 
 Se queda despierta mirando el techo, con una frase dándole vueltas en la cabeza.
 
-# Scene: Conoce a The Impostor
+# Scene: Conoce al Impostor
 
 Esa voz, pongámosle cara.
 
-Te presento a The Impostor, el impostor.
+Te presento al Impostor.
 
 Aparece justo después de una buena noticia y siempre dice lo mismo: "Fue suerte. Los engañaste. Tarde o temprano se van a dar cuenta".
 
@@ -50,7 +50,7 @@ Luego se vio que los hombres también lo sienten, en todas las profesiones. Una 
 
 Tampoco perdona a los genios. Albert Einstein llegó a llamarse a sí mismo un "estafador involuntario". Después de once libros, Maya Angelou todavía pensaba: "Ay, ahora sí van a descubrirme".
 
-The Impostor aparece en momentos concretos: un trabajo nuevo, un ascenso, una sala llena de gente que admiras. Y le encantan quienes crecieron escuchando que eran "los inteligentes", porque si tu identidad es ser capaz, no saber se siente como una amenaza.
+El Impostor aparece en momentos concretos: un trabajo nuevo, un ascenso, una sala llena de gente que admiras. Y le encantan quienes crecieron escuchando que eran "los inteligentes", porque si tu identidad es ser capaz, no saber se siente como una amenaza.
 
 Fíjate en esto: no visita a quienes no les importa. Visita a quienes se están estirando hacia algo nuevo.
 
@@ -58,7 +58,7 @@ Cuatro señales comunes. Explicas tus logros con suerte y tus errores con tu fal
 
 # Scene: Lo que le hace a Sarah
 
-Esto es lo que The Impostor le hace a la semana de Sarah.
+Esto es lo que El Impostor le hace a la semana de Sarah.
 
 Llega más temprano y se va más tarde, para demostrar cada día que merece el puesto. Deja de preguntar en las reuniones, para que nadie note lo que no sabe.
 
@@ -70,13 +70,13 @@ Fíjate en la trampa. Mientras más trabaja, más cree que lo necesitaba, y meno
 
 El viernes, Sarah presenta ante la gerencia. Nueve personas le dicen que estuvo excelente. Una sugiere cambiar un gráfico. Adivina qué comentario repite todo el fin de semana. El sábado en el supermercado sigue rehaciendo ese gráfico en su cabeza. El domingo en la noche cambia la diapositiva cinco veces.
 
-Esa es una segunda voz, The Filter, el filtro. Se queda con el único detalle negativo y descarta el resto. Juntos, estos dos convierten una gran semana en la prueba de que estás fallando.
+Esa es una segunda voz, El Filtro. Se queda con el único detalle negativo y descarta el resto. Juntos, estos dos convierten una gran semana en la prueba de que estás fallando.
 
 Su equipo también paga. Por miedo a parecer sobrepasada, Sarah deja de delegar y rehace el trabajo de Daniel. Daniel cree que no confía en él. El equipo se vuelve lento, Sarah se cansa y la voz se hace más fuerte. Meses así suelen terminar en burnout.
 
 # Scene: Por qué existe
 
-Pero aquí viene lo importante. The Impostor no es tu enemigo. Es una alarma antigua, y alguna vez fue muy útil.
+Pero aquí viene lo importante. El Impostor no es tu enemigo. Es una alarma antigua, y alguna vez fue muy útil.
 
 Durante casi toda la historia humana vivimos en grupos pequeños. Pertenecer significaba comida y protección. Ser expulsado podía costarte la vida. Así que el cerebro se volvió experto en una pregunta: "¿Soy lo bastante bueno para que me quieran conservar?".
 
@@ -102,7 +102,7 @@ Por fin, Sarah lo dice: "Creo que eligieron a la persona equivocada. Solo tuve s
 
 Elena no discute. Le pregunta: "Está bien. ¿Qué hiciste tú para llegar aquí?".
 
-Sarah empieza a enumerar. El modelo que rehízo y ahorró dos semanas. El error que detectó antes de que lo viera un cliente. Los tres analistas que entrenó. Mientras más habla, más se calla The Impostor.
+Sarah empieza a enumerar. El modelo que rehízo y ahorró dos semanas. El error que detectó antes de que lo viera un cliente. Los tres analistas que entrenó. Mientras más habla, más se calla El Impostor.
 
 Entonces Elena le dice: "Cuando me nombraron directora de personas, pasé seis meses esperando que alguien descubriera que no tenía idea de lo que hacía. Todavía lo siento a veces".
 
@@ -112,11 +112,11 @@ Sarah se queda mirándola. Si hasta Elena lo siente, quizás esa sensación no d
 
 Esa es la actualización. No destruyes la voz. Dejas de tomarla como la verdad. Cinco formas.
 
-Uno: ponle nombre. "Ese es The Impostor hablando". Un sentimiento no es un hecho, y nombrarlo te da distancia, como escuchar una alarma y saber que es solo un simulacro.
+Uno: ponle nombre. "Ese es El Impostor hablando". Un sentimiento no es un hecho, y nombrarlo te da distancia, como escuchar una alarma y saber que es solo un simulacro.
 
 Dos: hazte la pregunta de la actualización. "¿Qué hice realmente para lograr esto?". Responde con hechos. Guarda un archivo con agradecimientos y logros, para que cuando llegue la duda leas hechos, no sensaciones.
 
-Tres: cuéntaselo a alguien de confianza. The Impostor crece en silencio, y muchas veces escucharás: "A mí también". Decirlo en voz alta le quita el secreto, y el secreto es lo que le da poder.
+Tres: cuéntaselo a alguien de confianza. El Impostor crece en silencio, y muchas veces escucharás: "A mí también". Decirlo en voz alta le quita el secreto, y el secreto es lo que le da poder.
 
 Cuatro: cambia "no sé" por "todavía no sé". Aprender en el trabajo no prueba que no perteneces. Es el trabajo. La próxima vez que Daniel le pregunta algo nuevo, Sarah responde: "Buena pregunta. Averigüémoslo juntos".
 
@@ -128,21 +128,21 @@ En las semanas siguientes, Sarah prueba las cinco. Crea una carpeta llamada "Hec
 
 # Scene: ¿Brecha o voz?
 
-Una aclaración importante. A veces de verdad te falta una habilidad. Es normal, y no es The Impostor.
+Una aclaración importante. A veces de verdad te falta una habilidad. Es normal, y no es El Impostor.
 
 La diferencia es esta. Una brecha de habilidad suena así: "Necesito aprender esto". Apunta a algo que puedes hacer.
 
-The Impostor suena así: "Soy un fraude". Apunta a quién eres, y nunca viene con un plan.
+El Impostor suena así: "Soy un fraude". Apunta a quién eres, y nunca viene con un plan.
 
 Así que cuando aparezca la duda, pregúntate: ¿esto es sobre algo que puedo aprender, o sobre quién soy? Si es una habilidad, haz un plan. Si es sobre quién eres, es la alarma vieja hablando.
 
 # Scene: Lo que de verdad significa
 
-Sarah todavía escucha a The Impostor a veces. Ahora le dice: "Hola, alarma vieja. Sé que intentas ayudar". Y sigue adelante. Vuelve a delegar, hace preguntas en las reuniones y, el viernes, también recuerda los nueve elogios.
+Sarah todavía escucha al Impostor a veces. Ahora le dice: "Hola, alarma vieja. Sé que intentas ayudar". Y sigue adelante. Vuelve a delegar, hace preguntas en las reuniones y, el viernes, también recuerda los nueve elogios.
 
 Una tarde, Daniel está pálido antes de su primera presentación con un cliente. Sarah se sienta a su lado y le pregunta: "¿Qué hiciste para prepararte?". Mientras enumera, sus hombros se relajan. Sarah sonríe. La pregunta que la ayudó a ella ahora ayuda a alguien más.
 
-Resumen rápido. The Impostor dice que tu éxito fue suerte. Aparece cuando creces, porque para nuestros ancestros pertenecer era sobrevivir. Lo actualizas poniéndole nombre, mirando los hechos, hablando del tema, aprendiendo sin esconderte y comparándote con quien eras.
+Resumen rápido. El Impostor dice que tu éxito fue suerte. Aparece cuando creces, porque para nuestros ancestros pertenecer era sobrevivir. Lo actualizas poniéndole nombre, mirando los hechos, hablando del tema, aprendiendo sin esconderte y comparándote con quien eras.
 
 Sentirte un impostor no significa que lo seas. Muchas veces significa que estás creciendo, y que te importa.
 

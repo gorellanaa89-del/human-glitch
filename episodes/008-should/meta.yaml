@@ -1,0 +1,52 @@
+# Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
+approved: false
+title: "Why \"I Should\" Leaves You Exhausted (The Psychology of Guilt)"
+thumbnail_text: "I SHOULD..."
+publish_at: ""
+backgrounds: drawn
+synthetic_media: false
+shorts:
+  - scene: 1
+    en: "Do You Feel Behind Before Breakfast?"
+    es: "¿Te sientes atrasado antes del desayuno?"
+  - scene: 3
+    en: "Why Resting Makes You Feel Guilty"
+    es: "Por qué descansar te hace sentir culpable"
+  - scene: 6
+    en: "4 Signs \"Should\" Runs Your Life"
+    es: "4 señales de que el \"debería\" manda en tu vida"
+  - scene: 11
+    en: "The Question That Silences Your Inner Critic"
+    es: "La pregunta que calla a tu crítico interno"
+  - scene: 12
+    en: "Swap One Word, Lose the Guilt"
+    es: "Cambia una palabra y suelta la culpa"
+short_scene: 5
+tags:
+  - guilt
+  - should statements
+  - cognitive distortions
+  - self compassion
+  - psychology
+  - burnout
+description: |
+  Sarah has 23 things on her list, and almost every one starts with "I should". Meet The Should: the voice that turns every wish into a duty and every rest into guilt. We follow Sarah's week, see why guilt kept our ancestors in the group, and learn four ways to quiet the voice.
+
+  {chapters}
+
+  Inside Voice Psychology: the stories behind the voice in your head.
+es:
+  title: "Por qué el \"debería\" te deja agotado (la psicología de la culpa)"
+  thumbnail_text: "DEBERÍA..."
+  tags:
+    - culpa
+    - distorsiones cognitivas
+    - autocompasión
+    - psicología
+    - agotamiento
+  description: |
+    Sarah tiene 23 pendientes en su lista y casi todos empiezan con "debería". Conoce al Debería: la voz que convierte cada deseo en una obligación y cada descanso en culpa. Seguimos la semana de Sarah, entendemos por qué la culpa mantenía a nuestros ancestros dentro del grupo y aprendemos cuatro formas de calmar esa voz.
+
+    {chapters}
+
+    Inside Voice Psychology: las historias detrás de la voz en tu cabeza.

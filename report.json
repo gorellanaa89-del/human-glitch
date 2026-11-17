@@ -1,0 +1,78 @@
+{
+  "title": "Why Some People Are Never Wrong (The Psychology of Blame)",
+  "duration_seconds": 552.0,
+  "scenes": 13,
+  "stock_clips": 0,
+  "tts": "edge",
+  "files": {
+    "video": "video.mp4",
+    "captions_en": "captions.en.srt",
+    "audio_es": "audio.es.m4a",
+    "captions_es": "captions.es.srt",
+    "video_es": "video.es.mp4",
+    "thumbnail": "thumbnail.jpg",
+    "shorts": [
+      {
+        "file": "short-01-en.mp4",
+        "scene": 1,
+        "lang": "en",
+        "title": "Do You Know Someone Who's Never Wrong?"
+      },
+      {
+        "file": "short-01-es.mp4",
+        "scene": 1,
+        "lang": "es",
+        "title": "¿Conoces a alguien que nunca se equivoca?"
+      },
+      {
+        "file": "short-04-en.mp4",
+        "scene": 4,
+        "lang": "en",
+        "title": "Did You Grow Up With a Blamer?"
+      },
+      {
+        "file": "short-04-es.mp4",
+        "scene": 4,
+        "lang": "es",
+        "title": "¿Creciste con alguien que siempre culpa a otros?"
+      },
+      {
+        "file": "short-07-en.mp4",
+        "scene": 7,
+        "lang": "en",
+        "title": "4 Signs Someone Always Blames Others"
+      },
+      {
+        "file": "short-07-es.mp4",
+        "scene": 7,
+        "lang": "es",
+        "title": "4 señales de que alguien siempre culpa a otros"
+      },
+      {
+        "file": "short-11-en.mp4",
+        "scene": 11,
+        "lang": "en",
+        "title": "The Question That Disarms a Blamer"
+      },
+      {
+        "file": "short-11-es.mp4",
+        "scene": 11,
+        "lang": "es",
+        "title": "La pregunta que desarma a un echaculpas"
+      },
+      {
+        "file": "short-12-en.mp4",
+        "scene": 12,
+        "lang": "en",
+        "title": "How to Deal With Someone Who Never Admits Fault"
+      },
+      {
+        "file": "short-12-es.mp4",
+        "scene": 12,
+        "lang": "es",
+        "title": "Cómo tratar con alguien que nunca admite un error"
+      }
+    ]
+  },
+  "warnings": []
+}

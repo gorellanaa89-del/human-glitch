@@ -140,6 +140,9 @@ def set_visibility(video_id: str, privacy: str = "public", publish_at: str | Non
     elif privacy == "private":
         status["publishAt"] = None  # cancel any scheduled publication
     if privacy == "check":
+        caps = yt.captions().list(part="snippet", videoId=video_id).execute().get("items", [])
+        cur["captions"] = [f'{c["snippet"]["language"]} {c["snippet"].get("name", "")} {c["snippet"].get("status", "")}'
+                           for c in caps]
         return cur
     res = yt.videos().update(part="status", body={"id": video_id, "status": status}).execute()["status"]
     print("after:", json.dumps(res))

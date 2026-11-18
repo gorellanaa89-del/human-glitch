@@ -1,0 +1,16 @@
+{
+  "title": "Why Some People Are Never Wrong (The Psychology of Blame)",
+  "duration_seconds": 60.0,
+  "scenes": 2,
+  "stock_clips": 0,
+  "tts": "edge",
+  "files": {
+    "video": "video.mp4",
+    "captions_en": "captions.en.srt",
+    "audio_es": "audio.es.m4a",
+    "captions_es": "captions.es.srt",
+    "video_es": "video.es.mp4",
+    "thumbnail": "thumbnail.jpg"
+  },
+  "warnings": []
+}

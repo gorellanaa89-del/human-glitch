@@ -80,7 +80,12 @@ def _align(text: str, audio: Path, lang: str) -> list[Word]:
     import difflib
     from faster_whisper import WhisperModel
     model = WhisperModel("small", device="cpu", compute_type="int8")
-    segs, _ = model.transcribe(str(audio), language=lang, word_timestamps=True, vad_filter=False)
+    import subprocess, numpy as np
+    # decode with ffmpeg ourselves (faster-whisper's PyAV decoder breaks with some av versions)
+    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(audio), "-f", "s16le", "-ac", "1", "-ar", "16000", "-"],
+                         capture_output=True, check=True).stdout
+    samples = np.frombuffer(pcm, np.int16).astype(np.float32) / 32768.0
+    segs, _ = model.transcribe(samples, language=lang, word_timestamps=True, vad_filter=False)
     heard = [(w.start, w.end, w.word.strip()) for s in segs for w in s.words]
     script = text.split()
     sm = difflib.SequenceMatcher(a=[_norm(w) for w in script], b=[_norm(h[2]) for h in heard], autojunk=False)

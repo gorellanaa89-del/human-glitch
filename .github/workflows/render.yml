@@ -30,7 +30,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: render-${{ inputs.episode }}
+  group: render-${{ inputs.episode }}-${{ inputs.branch }}
   cancel-in-progress: true
 
 jobs:

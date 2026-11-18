@@ -1595,13 +1595,15 @@ def _cutaway_parts(scene, seconds, words):
 
 def spanish_scene(en_scene, es_scene):
     """The scene as the Spanish picture sees it: the English staging (set, cast, entrances, gestures) with
-    the Spanish narration, and the Spanish note cards where the Spanish script has its own `> note@` lines."""
+    the Spanish narration, and the Spanish note cards and actions where the Spanish script has its own `> note@`
+    / `> act@` lines."""
     from dataclasses import replace
     extra = dict(en_scene.extra)
-    es_notes = {k: v for k, v in es_scene.extra.items() if k.startswith("note@")}
-    if es_notes:
-        extra = {k: v for k, v in extra.items() if not k.startswith("note@")}
-        extra.update(es_notes)
+    for prefix in ("note@", "act@"):  # Spanish note cards, and Spanish text on props (paper headlines)
+        es_own = {k: v for k, v in es_scene.extra.items() if k.startswith(prefix)}
+        if es_own:
+            extra = {k: v for k, v in extra.items() if not k.startswith(prefix)}
+            extra.update(es_own)
     return replace(en_scene, narration=es_scene.narration, extra=extra, title=es_scene.title)
 
 

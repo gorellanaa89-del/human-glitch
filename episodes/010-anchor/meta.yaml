@@ -1,0 +1,62 @@
+# Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
+approved: false
+title: "Why Some People Hate Every Change (The Psychology of Resistance)"
+thumbnail_text: "WE'VE ALWAYS DONE IT THIS WAY"
+publish_at: ""
+backgrounds: drawn
+synthetic_media: false
+# Narrator: Gemini's Callirrhoe (G1), picked by Giancarlo 2026-11-18; style direction in words below
+voices:
+  en: gemini:Callirrhoe
+  es: gemini:Callirrhoe
+voice_rate:
+  en: "+0%"
+  es: "+0%"
+voice_style:
+  en: "Read like a young narrator of curious-facts videos on TikTok: fast, high energy and curious, smiling, with a lot of pitch movement, very short pauses, stressing the key words, with a touch of irony"
+  es: "Lee en español latino neutro como una narradora joven de datos curiosos en TikTok: rápida, con mucha energía y curiosidad, sonriendo, subiendo y bajando mucho el tono, pausas muy cortas, remarcando las palabras clave y con un toque de ironía"
+shorts:
+  - scene: 1
+    en: "Do You Know Someone Who Hates Every Change?"
+    es: "¿Conoces a alguien que odia todo cambio?"
+  - scene: 4
+    en: "Does Your Mom Still Refuse to Use the App?"
+    es: "¿Tu mamá todavía se niega a usar la app?"
+  - scene: 7
+    en: "4 Signs Someone Is Stuck in the Old Way"
+    es: "4 señales de que alguien vive anclado al pasado"
+  - scene: 11
+    en: "The Question That Unlocks Someone Who Resists Change"
+    es: "La pregunta que desarma a quien se resiste al cambio"
+  - scene: 12
+    en: "How to Help Someone Who Resists Change"
+    es: "Cómo ayudar a alguien que se resiste al cambio"
+short_scene: 5
+tags:
+  - resistance to change
+  - status quo bias
+  - loss aversion
+  - difficult people
+  - psychology
+  - workplace psychology
+description: |
+  The company has a new system, and Margaret answers the way she always does: we've done it this way for fifteen years. Do you know someone like this? Meet The Anchor: the voice that grabs on to the way things are and won't let go. We follow Margaret's story, see why the familiar path kept our ancestors alive, and learn four ways to help someone who resists every change.
+
+  {chapters}
+
+  Inside Voice Psychology: the stories behind the voice in your head.
+es:
+  title: "Por qué hay gente que odia cualquier cambio (la psicología de la resistencia)"
+  thumbnail_text: "SIEMPRE SE HIZO ASÍ"
+  tags:
+    - resistencia al cambio
+    - sesgo del statu quo
+    - aversión a la pérdida
+    - personas difíciles
+    - psicología
+  description: |
+    La empresa estrena un sistema nuevo y Margaret responde como siempre: llevamos quince años haciéndolo así. ¿Conoces a alguien así? Conoce al Ancla: la voz que se aferra a cómo son las cosas y no las suelta. Seguimos la historia de Margaret, entendemos por qué el camino conocido mantenía vivos a nuestros ancestros y aprendemos cuatro formas de ayudar a alguien que se resiste a todo cambio.
+
+    {chapters}
+
+    Inside Voice Psychology: las historias detrás de la voz en tu cabeza.

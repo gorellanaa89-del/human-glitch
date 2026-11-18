@@ -100,8 +100,12 @@ def _layout(actors: list[Actor], portrait: bool):
 
 class SceneRenderer:
     def __init__(self, scene, seconds: float, words, size, labeled: set | None = None, seed: int = 0,
-                 lang: str = "en"):
+                 lang: str = "en", wipe_in: bool = True, wipe_out: bool = True, wipe_text: str | None = None):
         self.w, self.h = size
+        # paper-wipe transitions between scenes (not in a vertical Short)
+        self.wipe_in = wipe_in and self.h <= self.w and WIPE_T > 0
+        self.wipe_out = wipe_out and self.h <= self.w and WIPE_T > 0
+        self.wipe_text = (scene.title if wipe_text is None else wipe_text) or ""
         self.lang = lang
         self.portrait = self.h > self.w
         self.seconds = seconds
@@ -110,6 +114,7 @@ class SceneRenderer:
         self.set_name = ex.get("set", "office")
         self.actors = parse_cast(ex.get("cast", ""))
         _layout(self.actors, self.portrait)
+        self.scene = scene
         self.paras = paragraph_starts(scene.narration, words, seconds)
         for spec in [s.strip() for s in ex.get("enter", "").split(",") if s.strip()]:
             who, _, para = spec.partition("@")
@@ -123,7 +128,7 @@ class SceneRenderer:
             self.t_switch = self.paras[1]
         self.enter_t = {a.name: (self.paras[a.enter_para] if a.enter_para < len(self.paras) else 0.0) for a in self.actors}
         labeled = labeled if labeled is not None else set()
-        self.label_for = {a.name for a in self.actors if a.is_bug and a.name not in labeled}
+        self.label_for = {a.name for a in self.actors if (a.is_bug or a.name in NAMED) and a.name not in labeled}
         labeled.update(self.label_for)
         self._sprites = {}
         self._tilts = {}
@@ -194,16 +199,27 @@ class SceneRenderer:
         spans = []
         names = {a.name: a for a in self.actors}
         aliases = {a.name: (bugs.display_name(a.name, self.lang).split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
+        said = dict(quote_speakers(self.scene))
+        nth = {}
         for a, b in out:
-            before = " ".join(w[2] for w in self.words[max(0, a - 14):a]).lower()
-            speaker, best = None, -1
-            for name, alias in aliases.items():
-                k = before.rfind(alias)
-                if k > best:
-                    speaker, best = names[name], k
+            t0 = self.words[a][0]
+            para = max((k for k, tp in enumerate(self.paras) if tp <= t0 + 0.01), default=0)
+            n = nth[para] = nth.get(para, -1) + 1
+            speaker = None
+            if para in said:  # the script says who speaks: `> say@P: richard`
+                who = said[para][min(n, len(said[para]) - 1)]
+                speaker = names.get(who)
+            else:
+                # otherwise the last character named just before the quote, unless they are the one
+                # spoken to ("turns to Daniel", "se voltea hacia Daniel")
+                toks = [_norm_word(w[2]) for w in self.words[max(0, a - 14):a]]
+                best = -1
+                for name, alias in aliases.items():
+                    for k, tok in enumerate(toks):
+                        if tok == alias and k > best and not (k > 0 and toks[k - 1] in _ADDRESSEE):
+                            speaker, best = names[name], k
             if b - a + 1 < (2 if speaker else 3):  # very short quotes only when someone is named saying them
                 continue
-            t0 = self.words[a][0]
             if speaker is None or self.enter_t.get(speaker.name, 0) > t0:
                 vis = [x for x in self.actors if self.enter_t[x.name] <= t0]
                 bug_vis = [x for x in vis if x.is_bug]
@@ -263,10 +279,13 @@ class SceneRenderer:
         rest = sketch.POSES["rest"]
         arms = rest
         for g0, g1, pose in self.gest.get(a.name, ()):
-            if g0 - 0.25 <= t < g1 + 0.3:
-                k = (t - g0 + 0.25) / 0.25 if t < g0 else (1 - (t - g1) / 0.3 if t > g1 else 1.0)
-                k = max(0.0, min(1.0, k))
-                k = k * k * (3 - 2 * k)
+            if g0 - 0.3 <= t < g1 + 0.35:
+                if t < g0 + 0.1:  # swing up past the pose and settle back (follow-through)
+                    k = _ease_back((t - g0 + 0.3) / 0.4, 1.4)
+                elif t > g1:
+                    k = _ease_io(1 - (t - g1) / 0.35)
+                else:
+                    k = 1.0
                 arms = [[r + (p - r) * k for r, p in zip(ra, pa)] for ra, pa in zip(rest, sketch.POSES[pose])]
                 if pose == "wave":
                     arms[1][1] += 20 * k * math.sin(2 * math.pi * t / 0.55)
@@ -278,7 +297,7 @@ class SceneRenderer:
                 break
         if not self.portrait and a.x > 0.55:  # people on the right gesture towards the middle
             arms = [arms[1], arms[0]]
-        return tuple(tuple(int(round(v / 6) * 6) for v in side) for side in arms)
+        return tuple(tuple(int(round(v / ARM_STEP) * ARM_STEP) for v in side) for side in arms)
 
     def _notes(self, ex):
         notes = []
@@ -319,11 +338,34 @@ class SceneRenderer:
         Quotes cut to the speaker; entrances cut to a shot that shows the newcomer."""
         W = self.words
         forced = {}
+        # a quote (all its bubbles) is one stretch on the speaker
+        talks = []
         for t0, t1, text, spk in self.quotes:
+            if talks and talks[-1][2] is spk and t0 - talks[-1][1] < 0.6:
+                talks[-1][1] = t1
+            else:
+                talks.append([t0, t1, spk])
+        for t0, t1, spk in talks:
             forced[round(t0, 2)] = ("solo", spk)
         for a in self.actors:
             if self.enter_t[a.name] > 0:
                 forced[round(self.enter_t[a.name], 2)] = ("enter", a)
+        # the narration names someone on screen: the camera goes to them, so we know who is who
+        aliases = {a.name: (bugs.display_name(a.name, self.lang).split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
+        last = {}
+        for s_, e_, tok in self.words:
+            nt = _norm_word(tok)
+            for a in self.actors:
+                if nt != aliases[a.name] or self.enter_t[a.name] > s_ + 0.01 or s_ < 0.6:
+                    continue
+                if s_ - last.get(a.name, -99) < MENTION_GAP or round(s_, 2) in forced:
+                    continue
+                if any(n0 - 0.5 <= s_ < n1 for n0, n1, *_ in self.notes):
+                    continue  # a paper card is up: the shot stays open
+                if any(q0 - 0.5 <= s_ < q1 for q0, q1, *_ in self.quotes):
+                    continue
+                forced[round(s_, 2)] = ("mention", a)
+                last[a.name] = s_
         cuts = [0.0]
         kinds = [("wide", None)]
         for i, (s, e, t) in enumerate(W):
@@ -332,10 +374,14 @@ class SceneRenderer:
                 continue
             gap = nxt - cuts[-1]
             key = round(nxt, 2)
+            if key in forced and forced[key][0] == "solo" and gap < 1.2 and len(cuts) > 1:
+                kinds[-1] = forced[key]; continue  # someone starts talking: the shot just before becomes theirs
             if key in forced and gap >= 1.2:
                 cuts.append(nxt); kinds.append(forced[key]); continue
+            if any(q0 < nxt < q1 for q0, q1, _ in talks):
+                continue  # nobody cuts away while someone is talking
             # end of a quote: go back out to a wider shot
-            if any(abs(q[1] - 0.35 - e) < 0.01 for q in self.quotes) and gap >= 1.2:
+            if any(abs(q1 - 0.35 - e) < 0.01 for _, q1, _ in talks) and gap >= 1.2:
                 cuts.append(nxt); kinds.append(None); continue
             sentence_end = t.rstrip("\"”")[-1:] in ".?!"
             if (sentence_end and gap >= CUT_MIN) or (t[-1:] in ",;:" and gap >= CUT_COMMA) or gap >= CUT_MAX:
@@ -352,11 +398,16 @@ class SceneRenderer:
         for i, (c, k) in enumerate(zip(cuts, kinds)):
             if k is not None and k[0] == "enter":
                 k = ("wide", None) if len(self.actors) > 2 else ("group", None)
+            if k is not None and k[0] == "mention":
+                k = ("mid", k[1]) if prev != ("mid", k[1]) else ("solo", k[1])
             if k is None:
                 avail = [o for o in options if _fresh(o, prev) and (o[1] is None or self.enter_t[o[1].name] <= c + 0.01)]
                 if any(n0 - CUT_MAX <= c < n1 for n0, n1, *_ in self.notes):
                     # a paper card is (or is about to be) on screen: keep the shot open so it never covers a face
                     avail = [("wide", None)]
+                elif any(not x.is_bug and x.name in self.label_for and self._label_start(x) - CUT_MAX <= c < self._label_start(x) + 3.5
+                         for x in self.actors):
+                    avail = [("wide", None)]  # names are being introduced: everybody in the shot
                 k = self.rng.choice(avail) if avail else ("wide", None)
             if len(self.actors) == 0:
                 k = ("wide", None)
@@ -389,6 +440,11 @@ class SceneRenderer:
                 _, ax, ay = self._clamp(z, cam[3] + sh, cam[4])
                 _, bx, by = self._clamp(z, cam[5] + sh, cam[6])
                 self.cams[-1] = (cam[0], cam[1], z, ax, ay, bx, by)
+            # most cuts become a camera move: the camera glides from the last framing into this one
+            st["glide"] = 0.0
+            if i > 0 and not self.portrait and st["ots"] is None and self.styles[-1]["ots"] is None \
+                    and not st["whip"] and self.rng.random() < GLIDE:
+                st["glide"] = min(GLIDE_T, 0.55 * (end - c))
             self.styles.append(st)
             prev = k
         self.cuts = cuts
@@ -436,7 +492,7 @@ class SceneRenderer:
         elif expr == "happy" and r < 0.3:
             st["key"] = LOW * 0.7
         others = [b for b in self.actors if not b.is_bug and b is not a and self.enter_t[b.name] <= c + 0.01]
-        if others and kind in ("mid", "solo") and rng.random() < (0.75 if forced else 0.5):
+        if others and kind in ("mid", "solo") and rng.random() < (OTS_FORCED if forced else OTS_FREE):
             b = min(others, key=lambda o: abs(o.x - a.x))
             st["ots"], st["subject"] = b, a
             st["side"] = 1 if b.x > a.x else -1  # the listener's back is on their real side of the room
@@ -475,6 +531,18 @@ class SceneRenderer:
             self._shot_bgs = {i: (bg, fr, x0)}  # keep only the current shot in memory
         return self._shot_bgs[i]
 
+    def _room_at(self, z, bcx, cy):
+        """The room (and its foreground) seen by a camera between two shots, blurred like a shot of that size."""
+        vw, vh = self.w / z, self.h / z
+        bcx = min(max(bcx, vw / 2), self.world_w - vw / 2)
+        box = (bcx - vw / 2, cy - vh / 2, bcx + vw / 2, cy + vh / 2)
+        bg = self.bg.resize((self.w, self.h), Image.BILINEAR, box=box)
+        blur = max(0.0, z - 1.15) * 2.6 * self.h / 720
+        if blur > 0.4:
+            bg = bg.filter(ImageFilter.GaussianBlur(blur))
+        fr = self.front.resize((self.w, self.h), Image.BILINEAR, box=box) if self.front else None
+        return bg, fr
+
     def _bubble(self, qi, text, hx, hy, z):
         key = (qi, round(hx), round(hy))
         if key not in self._bubble_cache:
@@ -511,12 +579,13 @@ class SceneRenderer:
             for li, line in enumerate(lines):
                 dd.text((bx, by - th / 2 + (li + 0.5) * fsize * 1.15), line, font=font, fill=sketch.INK, anchor="mm")
             bbox = img.getbbox()
-            self._bubble_cache = {key: (img.crop(bbox), bbox[:2])}
+            self._bubble_cache = {key: (img.crop(bbox), bbox[:2], tip)}
         return self._bubble_cache[key]
 
     def _note(self, title, sub):
         """A lined paper card with a big handwritten fact. It slides over the scene in the upper part of
-        the frame, so it never covers the subtitles at the bottom."""
+        the frame, so it never covers the subtitles at the bottom. Built in layers (paper, title ink,
+        underline, small line) so the title can write itself on; see _note_frame."""
         key = (title, sub)
         if key not in self._note_cache:
             from PIL import ImageDraw, ImageFilter, ImageFont
@@ -542,15 +611,50 @@ class SceneRenderer:
             d.line([(pad + int(cw * 0.08), pad + 3), (pad + int(cw * 0.08), pad + ch - 3)], fill=(240, 190, 190, 255), width=3)
             cx = pad + cw / 2
             ty = pad + big * 0.85
-            d.text((cx, ty), title, font=font, fill=sketch.INK + (255,), anchor="mm")
+            title_l = Image.new("RGBA", card.size, (0, 0, 0, 0))
+            ImageDraw.Draw(title_l).text((cx, ty), title, font=font, fill=sketch.INK + (255,), anchor="mm")
             tl = d.textlength(title, font=font)
             yl = ty + big * 0.6
-            d.line([(cx - tl / 2, yl), (cx - tl / 6, yl + 5), (cx + tl / 6, yl - 3), (cx + tl / 2, yl + 3)], fill=BRAND_BLUE + (255,), width=6, joint="curve")
+            line_l = Image.new("RGBA", card.size, (0, 0, 0, 0))
+            ImageDraw.Draw(line_l).line([(cx - tl / 2, yl), (cx - tl / 6, yl + 5), (cx + tl / 6, yl - 3), (cx + tl / 2, yl + 3)],
+                                        fill=BRAND_BLUE + (255,), width=6, joint="curve")
+            sub_l = None
             if sub:
-                d.text((cx, yl + big * 0.62), sub, font=sf, fill=BRAND_GRAY + (255,), anchor="mm")
-            card = card.rotate(-2.5 if len(self._note_cache) % 2 == 0 else 2.0, resample=Image.BICUBIC, expand=True)
-            self._note_cache[key] = card
+                sub_l = Image.new("RGBA", card.size, (0, 0, 0, 0))
+                ImageDraw.Draw(sub_l).text((cx, yl + big * 0.62), sub, font=sf, fill=BRAND_GRAY + (255,), anchor="mm")
+            angle = -2.5 if len(self._note_cache) % 2 == 0 else 2.0
+            self._note_cache[key] = (card, title_l, line_l, sub_l, angle, (cx - tl / 2, cx + tl / 2))
         return self._note_cache[key]
+
+    def _note_frame(self, note, t):
+        """The card at time t: it lands tilted and settles, the title writes itself left to right,
+        then the underline is drawn and the small line fades in."""
+        paper, title_l, line_l, sub_l, angle, (xa, xb) = self._note(note[2], note[3])
+        age = t - note[0]
+        done = ("done", note[2], note[3])
+        if age > 1.3 and done in self._note_cache:
+            return self._note_cache[done]
+        card = paper.copy()
+        w_title = _ease_io((age - 0.2) / 0.55)
+        w_line = _ease_io((age - 0.7) / 0.3)
+        a_sub = _ease_io((age - 0.9) / 0.3)
+        if w_title > 0:
+            x = int(xa + (xb - xa + 12) * w_title)
+            card.alpha_composite(title_l.crop((0, 0, x, title_l.height)))
+        if w_line > 0:
+            x = int(xa + (xb - xa + 12) * w_line)
+            card.alpha_composite(line_l.crop((0, 0, x, line_l.height)))
+        if a_sub > 0 and sub_l is not None:
+            sm = sub_l
+            if a_sub < 1:
+                sm = sub_l.copy()
+                sm.putalpha(sm.getchannel("A").point(lambda v: int(v * a_sub)))
+            card.alpha_composite(sm)
+        tilt = angle + angle * 2.5 * (1 - _ease_back(min(1.0, age / 0.5), 1.2))
+        out = card.rotate(tilt, resample=Image.BICUBIC, expand=True)
+        if age > 1.3:
+            self._note_cache[done] = out
+        return out
 
     def _note_pos(self, card, t, t0, t1, side=-1):
         """Slide in from one side with a little overshoot, hold, then slide back out."""
@@ -618,6 +722,16 @@ class SceneRenderer:
         pad_y = (r.height - spr.height) / 2
         return r.crop((0, 0, r.width, int(r.height - pad_y))), dx
 
+    def _label_start(self, a):
+        """When a name label shows: shortly after the actor appears; a person's name waits until no paper
+        card is up (both sit in the top of the frame)."""
+        t = self.enter_t[a.name] + 0.6
+        if not a.is_bug:
+            for n0, n1, *_ in sorted(self.notes):
+                if n0 - 4.9 < t < n1:
+                    t = n1 + 0.3
+        return t
+
     def _label(self, cam, a: Actor, sx, sy, height):
         view = self._labels
         key = (a.name, round(sx / 3), round(sy / 3), height)
@@ -625,13 +739,108 @@ class SceneRenderer:
             view.clear()
         if key not in view:
             img = Image.new("RGBA", (self.w, self.h), (0, 0, 0, 0))
+            if not a.is_bug:  # a person: first name above the head, a short arrow down to it
+                size = int(height * 0.1)
+                top = sy - height * 0.80
+                ty = max(size * 0.8, top - size * 1.6)
+                sketch.label(img, sketch.CAST[a.name].name.split()[0], (int(sx), int(ty)), size=size,
+                             arrow_to=(int(sx + size * 0.2), int(top + size * 0.15)))
+                box = img.getbbox() or (0, 0, 1, 1)
+                view[key] = (img.crop(box), box[:2])
+                return view[key]
             size = int(height * 0.16)
             tx = min(self.w - size * 3.2, sx + height * 0.55)
             ty = max(size, sy - height * 0.95)
             sketch.label(img, bugs.display_name(a.name, self.lang), (int(tx), int(ty)), size=size,
                          arrow_to=(int(sx + height * 0.18), int(sy - height * 0.62)))
-            view[key] = img
+            box = img.getbbox() or (0, 0, 1, 1)
+            view[key] = (img.crop(box), box[:2])
         return view[key]
+
+    def _wipe(self, img, t):
+        """Scene change: a navy paper panel with a torn light-blue edge sweeps in from the right at the end
+        of a scene, and at the start of the next one it carries the scene's title off to the left."""
+        w, h = self.w, self.h
+        T_IN = WIPE_T + 0.2
+        if self.wipe_out and self.seconds - t < WIPE_T and t >= WIPE_T:
+            k = 1 - (self.seconds - t) / WIPE_T
+            k = k ** 2.4  # accelerates in
+            panel, E, Wsol = _wipe_panel(w, h)
+            X = w + (-E - w) * k
+            text = None
+        elif self.wipe_in and t < T_IN:
+            k = _ease_io(t / T_IN) ** 1.15
+            panel, E, Wsol = _wipe_panel(w, h)
+            X = -E + (-(Wsol + 2 * E) + E) * k
+            text = self._wipe_title()
+        else:
+            return
+        X = int(round(X))
+        lo, hi = max(0, -X), min(panel.width, w - X)
+        if hi <= lo:
+            return
+        part = panel.crop((lo, 0, hi, h))
+        img.paste(part, (X + lo, 0), part)
+        if text is not None:
+            tx = int(X + E + w / 2 - text.width / 2)
+            img.paste(text, (tx, int(h * 0.45 - text.height / 2)), text)
+
+    def _wipe_title(self):
+        if not hasattr(self, "_wipe_title_img"):
+            from PIL import ImageDraw, ImageFont
+            from .config import BRAND_LIGHT
+            txt = self.wipe_text.strip()
+            if not txt:
+                self._wipe_title_img = None
+                return None
+            size = int(self.h * 0.13)
+            font = ImageFont.truetype(str(sketch.HAND_FONT), size)
+            d = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+            while d.textlength(txt, font=font) > self.w * 0.8 and size > 30:
+                size -= 4
+                font = ImageFont.truetype(str(sketch.HAND_FONT), size)
+            tl = d.textlength(txt, font=font)
+            im = Image.new("RGBA", (int(tl + 40), int(size * 1.9)), (0, 0, 0, 0))
+            dd = ImageDraw.Draw(im)
+            dd.text((im.width / 2, size * 0.75), txt, font=font, fill=(255, 255, 255, 255), anchor="mm")
+            y = size * 1.45
+            dd.line([(20, y), (20 + tl * 0.35, y + 6), (20 + tl * 0.7, y - 3), (20 + tl, y + 4)],
+                    fill=BRAND_LIGHT + (255,), width=max(4, size // 14), joint="curve")
+            self._wipe_title_img = im
+        return self._wipe_title_img
+
+    def _burst(self, img, hx, hy, height, age, a):
+        """Hand-drawn emphasis strokes that shoot out around a head and pull back (an expression change,
+        a voice popping in). Drawn small at 3x and scaled down so the lines stay soft."""
+        from PIL import ImageDraw
+        k = age / BURST_T
+        r0 = height * (0.36 if not a.is_bug else 0.5)
+        grow = _ease_io(min(1.0, k / 0.45))
+        tail = _ease_io(max(0.0, (k - 0.35) / 0.65))
+        if grow - tail < 0.02:
+            return
+        L = height * 0.16
+        span = int((r0 + L) * 2 + 20)
+        S = 3
+        lay = Image.new("RGBA", (span * S, span * S), (0, 0, 0, 0))
+        d = ImageDraw.Draw(lay)
+        col = BRAND_LIGHT_RGBA if a.is_bug else sketch.INK + (235,)
+        n = 7 if a.is_bug else 5
+        rnd = random.Random(hash(a.name) & 0xffff)
+        for j in range(n):
+            # an arc above the head, from upper left to upper right
+            ang = math.radians(-160 + 140 * j / (n - 1) + rnd.uniform(-8, 8))
+            ln = L * rnd.uniform(0.8, 1.2)
+            a0, a1 = r0 + ln * tail, r0 + ln * grow
+            c = span / 2
+            p0 = ((c + math.cos(ang) * a0) * S, (c + math.sin(ang) * a0) * S)
+            p1 = ((c + math.cos(ang) * a1) * S, (c + math.sin(ang) * a1) * S)
+            wdt = int(max(2, height / 110) * S)
+            d.line([p0, p1], fill=col, width=wdt)
+            for q in (p0, p1):
+                d.ellipse((q[0] - wdt / 2, q[1] - wdt / 2, q[0] + wdt / 2, q[1] + wdt / 2), fill=col)
+        lay = lay.resize((span, span), Image.LANCZOS)
+        img.paste(lay, (int(hx - span / 2), int(hy - span / 2)), lay)
 
     @staticmethod
     def _glitch(sprite: Image.Image, rng: random.Random, strength: float) -> Image.Image:
@@ -653,19 +862,37 @@ class SceneRenderer:
 
 
     # ---- frames ----
+    def _glide(self, i, t):
+        """0..1 while shot i is still gliding in from the previous framing, None once it has arrived."""
+        g = self.styles[i].get("glide", 0.0)
+        if not g or t - self.cuts[i] >= g:
+            return None
+        return _ease_io((t - self.cuts[i]) / g)
+
     def frame(self, t: float) -> Image.Image:
         i = max(k for k, c in enumerate(self.cuts) if c <= t)
         c, end, z, cx0, cy0, cx1, cy1 = self.cams[i]
         u = 0.0 if end - c < 0.01 else (t - c) / (end - c)
         u = u * u * (3 - 2 * u)
         cx, cy = cx0 + (cx1 - cx0) * u, cy0 + (cy1 - cy0) * u
-        bg, fr, x0 = self._shot_layers(i)
         bcx = cx0 + (cx - cx0) * PARALLAX  # the room is further away than the people: it moves less
-        off = int(round((bcx - self.w / z / 2 - x0) * z))
-        off = min(max(off, 0), bg.width - self.w)
-        img = bg.crop((off, 0, off + self.w, self.h))
+        gk = self._glide(i, t)
+        if gk is None:
+            bg, fr, x0 = self._shot_layers(i)
+            off = int(round((bcx - self.w / z / 2 - x0) * z))
+            off = min(max(off, 0), bg.width - self.w)
+            img = bg.crop((off, 0, off + self.w, self.h))
+            fc = fr.crop((off, 0, off + self.w, self.h)) if fr is not None else None
+        else:
+            # a camera move: zoom and position travel together from where the last shot ended
+            _, _, pz, px0, py0, px1, py1 = self.cams[i - 1]
+            pb = px0 + (px1 - px0) * PARALLAX
+            z = math.exp(math.log(pz) + (math.log(z) - math.log(pz)) * gk)
+            z, cx, cy = self._clamp(z, px1 + (cx - px1) * gk, py1 + (cy - py1) * gk)
+            bcx = pb + (bcx - pb) * gk
+            img, fc = self._room_at(z, bcx, cy)
         cam = (z, cx, cy)
-        labels, heads, boxes = [], {}, []
+        labels, heads, boxes, bursts = [], {}, [], []
         st = self.styles[i]
         for a in self.actors:
             t0 = self.enter_t[a.name]
@@ -682,6 +909,8 @@ class SceneRenderer:
                 if switched and a.expr1 == "happy":
                     k = min(1.0, (t - self.t_switch) / 0.6)
                     scale = 1.0 - 0.18 * k
+                if t - t0 < 0.45 and t0 > 0:
+                    scale *= 0.25 + 0.75 * _ease_back((t - t0) / 0.45, 2.2)
                 height = int(self.bug_h * z * scale)
                 height -= height % 4
                 bob = -abs(math.sin(2 * math.pi * (t + a.seed) / 1.6)) * 16 * z
@@ -716,7 +945,7 @@ class SceneRenderer:
                     bob = -abs(math.sin(math.pi * step)) * 16 * z
                     angle = 4 * math.sin(math.pi * step) * (1 - k)
                     swing = 26 * math.sin(math.pi * step) * (1 - k * 0.7)
-                    arms = tuple(tuple(int(round(v / 6) * 6) for v in pair) for pair in
+                    arms = tuple(tuple(int(round(v / ARM_STEP) * ARM_STEP) for v in pair) for pair in
                                  ((16 + swing, -4 + swing * 0.6), (16 - swing, -4 - swing * 0.6)))
                 if t0 == 0:  # rise into frame at the start of the scene
                     k = min(1.0, max(0.0, (t - a.seed * 0.12) / 0.45))
@@ -736,8 +965,20 @@ class SceneRenderer:
                 img.paste(g, (x - 40, y - 40), g)
             else:
                 img.paste(spr, (x, y), spr)
-            if a.name in self.label_for and 0.6 < age < 5.5 and not any(q[0] <= t < q[1] for q in self.quotes):
-                labels.append(self._label((z, cx, cy), a, sx, sy, height))
+            l0 = self._label_start(a)
+            if a.name in self.label_for and l0 < t < l0 + 4.9 and not any(q[0] <= t < q[1] for q in self.quotes) \
+                    and (a.is_bug or z < 1.6):
+                lab, pos = self._label((z, cx, cy), a, sx, sy, height)
+                fade = min(1.0, (t - l0) / 0.3, (l0 + 4.9 - t) / 0.25)
+                if fade < 1:
+                    lab = lab.copy()
+                    lab.putalpha(lab.getchannel("A").point(lambda v, f=fade: int(v * f)))
+                pos = (pos[0], pos[1] + int(14 * (1 - _ease_io(fade))))
+                labels.append((lab, pos, lab))
+            if a.expr1 and 0 <= t - self.t_switch < BURST_T and not (st["ots"] is not None and a is not st["subject"]):
+                bursts.append((sx, sy - spr.height * (0.82 if not a.is_bug else 0.7) + bob, height, t - self.t_switch, a))
+            elif a.is_bug and t0 > 0 and 0 <= age < BURST_T:
+                bursts.append((sx, sy - spr.height * 0.5 + bob, height, age, a))
         b = st["ots"]
         if b is not None:
             spr = self._ots_sprite(b, int(self.h * 0.95))
@@ -746,12 +987,13 @@ class SceneRenderer:
             px = int((self.w - spr.width * 0.62 - self.w * k) if side > 0 else (-spr.width * 0.38 + self.w * k))
             py = int(self.h * 0.18)
             img.paste(spr, (px, py), spr)
-        if fr is not None:
-            fc = fr.crop((off, 0, off + self.w, self.h))
+        if fc is not None:
             img.paste(fc, (0, 0), fc)
+        for b_ in bursts:
+            self._burst(img, *b_)
         for lab in labels:
-            img.paste(lab, (0, 0), lab)
-        img, fwd = self._camera(img, t, i, c, u, st)
+            img.paste(*lab)
+        img, fwd = self._camera(img, t, i, c, u, st, gk)
         heads = {n: fwd(*p) for n, p in heads.items()}
         mid = self.h * 0.5
         subject = self.subjects[i]
@@ -767,33 +1009,51 @@ class SceneRenderer:
         for qi, (q0, q1, text, spk) in enumerate(self.quotes):
             if note is None and q0 <= t < q1 and spk.name in heads:
                 hx, hy = heads[spk.name]
-                b, pos = self._bubble(qi, text, hx, hy, z)
+                b, pos, tip = self._bubble(qi, text, hx, hy, z)
+                # the bubble pops out of the speaker's mouth with a small overshoot, and pops away
+                k = min(_ease_back((t - q0) / 0.28, 2.0), 1.0 if q1 - t > 0.14 else max(0.0, (q1 - t) / 0.14))
+                if k < 0.999:
+                    if k < 0.05:
+                        break
+                    nw, nh = max(1, int(b.width * k)), max(1, int(b.height * k))
+                    pos = (int(tip[0] + (pos[0] - tip[0]) * k), int(tip[1] + (pos[1] - tip[1]) * k))
+                    b = b.resize((nw, nh), Image.BILINEAR)
                 img.paste(b, pos, b)
                 boxes.append((max(0, pos[0]), min(self.w, pos[0] + b.width)))
                 break
         if note is not None:
-            card = self._note(note[2], note[3])
+            card = self._note_frame(note, t)
             side = -1 if self.portrait else self._note_side(note[:2], card, heads)
             npos = self._note_pos(card, t, note[0], note[1], side)
             img.paste(card, npos, card)
             if 0 <= npos[0] and npos[0] + card.width <= self.w:  # fully slid in: keep it in a vertical Short
                 boxes.append((npos[0], npos[0] + card.width))
+        self._wipe(img, t)
         # where things are on screen, so a vertical Short can frame them (see vertical.py)
         self.track.append([i, round(min((b[0] for b in boxes), default=-1)), round(max((b[1] for b in boxes), default=-1)),
                            int(note is not None)])
         return img
 
-    def _camera(self, img, t, i, c, u, st):
+    def _lens(self, i, u):
+        """Push-in scale, dutch tilt and keystone of shot i at progress u."""
+        st = self.styles[i]
+        push = st.get("push", PUSH)
+        s = 1 + push * (u if (i % 2 == 0 or push > PUSH) else 1 - u)
+        return s, st["dutch"] * (0.85 + 0.15 * u), st["key"] * (0.7 + 0.3 * u)
+
+    def _camera(self, img, t, i, c, u, st, gk=None):
         """Move the finished picture like a camera: slow push in or out, handheld float, dutch tilt,
         low/high angle keystone, whip pan and the shake when a voice pops in. One resample per frame.
         Returns the new picture and a function that maps a point of the old picture onto the new one."""
         w, h = self.w, self.h
-        push = st.get("push", PUSH)
-        s = 1 + push * (u if (i % 2 == 0 or push > PUSH) else 1 - u)
+        s, dutch, key = self._lens(i, u)
+        if gk is not None:  # gliding: the lens eases from how the last shot ended
+            ps, pd, pk = self._lens(i - 1, 1.0)
+            s, dutch, key = ps + (s - ps) * gk, pd + (dutch - pd) * gk, pk + (key - pk) * gk
         ang = 0.0 if self.portrait else HANDHELD * (0.6 * math.sin(2 * math.pi * t / 5.3) + 0.4 * math.sin(2 * math.pi * t / 2.9 + 1))
         tx = w * 0.004 * math.sin(2 * math.pi * t / 4.7)
         ty = h * 0.004 * math.sin(2 * math.pi * t / 3.7 + 2)
-        ang += st["dutch"] * (0.85 + 0.15 * u)
+        ang += dutch
         for a in self.actors:  # a voice pops in: punch in and shake
             age = t - self.enter_t[a.name]
             if a.is_bug and 0 <= age < 0.5 and self.enter_t[a.name] > 0:
@@ -809,8 +1069,7 @@ class SceneRenderer:
         cs, sn = math.cos(th), math.sin(th)
         s *= abs(cs) + abs(sn) * w / h + 2 * max(abs(tx) / w, abs(ty) / h)
         Cx, Cy = w / 2, h * 0.45
-        key = st["key"]
-        if abs(s - 1) < 1e-3 and abs(ang) < 1e-3 and not key and not whip:
+        if abs(s - 1) < 1e-3 and abs(ang) < 1e-3 and abs(key) < 1e-4 and not whip:
             return img, lambda x, y: (x, y)
         # inverse map (output -> input): in = C + R(-th) (out - C - T) / s
         def inv(x, y):
@@ -818,9 +1077,9 @@ class SceneRenderer:
             return Cx + (cs * dx + sn * dy) / s, Cy + (-sn * dx + cs * dy) / s
         dst = [(0, 0), (w, 0), (w, h), (0, h)]
         src = [inv(*p) for p in dst]
-        if key:  # low angle: the bottom of the picture comes closer; high angle: the top does
+        if abs(key) > 1e-4:  # low angle: the bottom of the picture comes closer; high angle: the top does
             pair = (2, 3) if key > 0 else (0, 1)
-            k = abs(key) * (0.7 + 0.3 * u)
+            k = abs(key)
             (ax, ay), (bx, by) = src[pair[0]], src[pair[1]]
             mx, my = (ax + bx) / 2, (ay + by) / 2
             src[pair[0]] = (ax + (mx - ax) * k, ay + (my - ay) * k)
@@ -862,16 +1121,91 @@ _STEPS = ("mid", "solo", "close")
 
 # Pacing: seconds between cuts (at a sentence end / at a comma / at most), sideways drift per shot
 # (fraction of the view) and how much each shot slowly zooms.
-CUT_MIN, CUT_COMMA, CUT_MAX = 1.8, 3.0, 4.0
+CUT_MIN, CUT_COMMA, CUT_MAX = 2.2, 3.4, 4.6
 DRIFT = 0.13
 PUSH = 0.07
 PARALLAX = 0.45   # how far the room moves compared with the people when the camera drifts
 HANDHELD = 0.35   # degrees of slow handheld float
 DUTCH = 5.0       # degrees of a tilted shot
 LOW, HIGH = 0.10, 0.08  # keystone of low and high angle shots
-WHIP, WHIP_T = 0.3, 0.24
+WHIP, WHIP_T = 0.15, 0.24
 DOLLY = 0.2       # push-in of a dolly shot (fraction of the frame by the end of the shot)  # share of free cuts that whip pan in, and how long the swing lasts
 WALK = 1.3  # seconds a person takes to walk into the scene
+# Smoother motion (2026-11-18): share of cuts that become a camera glide, and how long a glide takes
+GLIDE, GLIDE_T = 0.7, 0.8
+OTS_FREE, OTS_FORCED = 0.3, 0.5  # over-the-shoulder shots always cut (was 0.5 / 0.75)
+BURST_T = 0.6     # seconds an emphasis burst lasts
+BRAND_LIGHT_RGBA = (90, 183, 230, 255)
+WIPE_T = 0.45     # paper wipe between scenes: seconds to cover / uncover the picture
+ARM_STEP = 2      # degrees: arm angles are rounded to this (was 6, which made gestures step)
+
+
+_WIPE_PANELS = {}
+
+
+def _wipe_panel(w, h):
+    """The navy panel of a scene wipe, with torn light-blue edges on both sides (drawn once per size).
+    Returns (image, edge width, solid width)."""
+    if (w, h) not in _WIPE_PANELS:
+        from PIL import ImageDraw
+        from .config import BRAND_LIGHT, BRAND_NAVY
+        E, Wsol, S = int(w * 0.09), int(w * 1.2), 2
+        W_ = Wsol + 2 * E
+        img = Image.new("RGBA", (W_ * S, h * S), (0, 0, 0, 0))
+        d = ImageDraw.Draw(img)
+        rnd = random.Random(5)
+
+        def edge(x0, amp, side):
+            pts, y = [], -20
+            while y < h + 40:
+                pts.append(((x0 + side * rnd.uniform(0, amp)) * S, y * S))
+                y += rnd.uniform(18, 46)
+            return pts
+        band = int(w * 0.03)
+        left_b, left_n = edge(E * 0.25, E * 0.3, 1), edge(E * 0.25 + band, E * 0.35, 1)
+        right_n, right_b = edge(E + Wsol, E * 0.35, -1), edge(E + Wsol + band, E * 0.3, -1)
+        d.polygon(left_b + list(reversed(right_b)), fill=BRAND_LIGHT + (255,))
+        d.polygon(left_n + list(reversed(right_n)), fill=BRAND_NAVY + (255,))
+        _WIPE_PANELS[(w, h)] = (img.resize((W_, h), Image.LANCZOS), E, Wsol)
+    return _WIPE_PANELS[(w, h)]
+
+
+MENTION_GAP = 6.0  # seconds before the same name pulls the camera to that person again
+NAMED = ("sarah", "richard", "elena", "daniel", "margaret")  # people who get a name label on first appearance
+_ADDRESSEE = {"to", "at", "toward", "towards", "a", "al", "hacia", "con"}
+
+
+def _norm_word(w: str) -> str:
+    import unicodedata
+    w = unicodedata.normalize("NFD", w.lower())
+    w = "".join(c for c in w if c.isalnum() or c == "'")
+    for suf in ("'s", "’s"):
+        if w.endswith(suf):
+            w = w[: -len(suf)]
+    return w.strip("'")
+
+
+def quote_speakers(scene) -> list[tuple[int, list[str]]]:
+    """Who says the quotes of each paragraph, from `> say@P: richard, daniel` lines (P counts paragraphs
+    from 0; several names = the paragraph's quotes in order). Shared with the voice code."""
+    out = []
+    for key, val in scene.extra.items():
+        if key.startswith("say@"):
+            names = [v.strip().lower().removeprefix("bug:") for v in val.split(",") if v.strip()]
+            if names:
+                out.append((int(key.split("@")[1]), names))
+    return sorted(out)
+
+
+def _ease_io(x: float) -> float:
+    x = min(1.0, max(0.0, x))
+    return 4 * x ** 3 if x < 0.5 else 1 - (-2 * x + 2) ** 3 / 2
+
+
+def _ease_back(x: float, over: float = 1.7) -> float:
+    """Ease out with a small overshoot past 1, then settle (0 -> 1)."""
+    x = min(1.0, max(0.0, x)) - 1
+    return 1 + (over + 1) * x ** 3 + over * x ** 2
 
 
 def _fresh(option, prev) -> bool:
@@ -899,15 +1233,18 @@ def is_animated(scene) -> bool:
     return "set" in scene.extra or "cast" in scene.extra
 
 
-def render_scene(scene, seconds, words, out: Path, size, labeled=None, seed=0, lang="en") -> Path:
+def render_scene(scene, seconds, words, out: Path, size, labeled=None, seed=0, lang="en", first=False) -> Path:
+    """`first`: the episode's opening scene, which starts straight on the picture (no wipe in)."""
     parts = _cutaway_parts(scene, seconds, words)
     if len(parts) == 1:
-        return SceneRenderer(scene, seconds, words, size, labeled, seed, lang).render(out)
+        return SceneRenderer(scene, seconds, words, size, labeled, seed, lang, wipe_in=not first).render(out)
     from . import media
     files = []
     for k, (sub, t0, t1, sub_words) in enumerate(parts):
         f = out.with_name(f"{out.stem}_part{k}{out.suffix}")
-        SceneRenderer(sub, t1 - t0, sub_words, size, labeled, seed + 17 * k, lang).render(f)
+        # a cutaway (lab, experiment) wipes in and out too, without a title
+        SceneRenderer(sub, t1 - t0, sub_words, size, labeled, seed + 17 * k, lang,
+                      wipe_in=not (first and k == 0), wipe_text=None if k == 0 else "").render(f)
         files.append(f)
     media.concat_files(files, out)
     import json
@@ -1022,7 +1359,7 @@ def spanish_scene(en_scene, es_scene):
     if es_notes:
         extra = {k: v for k, v in extra.items() if not k.startswith("note@")}
         extra.update(es_notes)
-    return replace(en_scene, narration=es_scene.narration, extra=extra)
+    return replace(en_scene, narration=es_scene.narration, extra=extra, title=es_scene.title)
 
 
 

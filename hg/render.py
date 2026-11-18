@@ -237,7 +237,8 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
         if max_seconds and t >= max_seconds - 0.5:
             scenes = scenes[:i]
             break
-        bug_names = {a.name for a in animate.parse_cast(sc.extra.get("cast", "")) if a.is_bug}
+        # voices and main characters whose name label shows on their first appearance
+        bug_names = {a.name for a in animate.parse_cast(sc.extra.get("cast", "")) if a.is_bug or a.name in animate.NAMED}
         if only_scene is not None and i != only_scene:
             labeled.update(bug_names)  # keep the "first appearance" labels identical to a full build
             continue
@@ -274,7 +275,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
         labeled_before = set(labeled)
         if animate.is_animated(sc):
             video = work / f"s{i}_video.mp4"
-            animate.render_scene(sc, seconds, words, video, (W, H), labeled, seed=i)
+            animate.render_scene(sc, seconds, words, video, (W, H), labeled, seed=i, first=i == 0)
             broll_seg = None
         else:
             video, broll_seg = _scene_video(i, sc, seconds, work, used)
@@ -306,7 +307,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             if animate.is_animated(sc) and os.environ.get("HG_ES_PICTURE", "1") != "0":
                 video_es = work / f"s{i}_video_es.mp4"
                 animate.render_scene(animate.spanish_scene(sc, es_sc), seconds, local_es, video_es, (W, H),
-                                     labeled_before, seed=i, lang="es")
+                                     labeled_before, seed=i, lang="es", first=i == 0)
             videos_es.append(video_es)
             es_words += _shift(local_es, t)
         labeled.update(bug_names)

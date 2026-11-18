@@ -1,4 +1,5 @@
 # Scene: It wasn't me
+> say@1: richard
 > part: hook
 > keywords: office meeting angry boss
 > card: $40,000 TOO LOW
@@ -16,6 +17,7 @@ And here's the funny part: Richard approved that number himself, on Friday after
 So tell me, do you know someone like this? A boss, a parent, maybe an ex, someone who is never, ever wrong, because somehow it's always somebody else's fault? Well, that person isn't just difficult. They're listening to a very old voice, and today we're going to give it a face.
 
 # Scene: Richard's weather report
+> say@2: margaret
 > part: story
 > keywords: office corridor manager colleagues
 > card: NEVER HIS FAULT
@@ -150,6 +152,8 @@ And notice something important: the more someone's identity depends on looking c
 So in a strange way, the people who blame the most are often the ones who feel the most fragile. They're not strong, they're scared.
 
 # Scene: If nobody were to blame
+> say@1: elena
+> say@3: richard
 > part: update
 > keywords: coffee conversation office calm
 > card: WHAT WOULD WE FIX?
@@ -190,6 +194,7 @@ And fourth, leave them an exit. People admit far more when admitting doesn't cos
 But one more thing. If a face popped into your head while you were watching, that's fine. Just check, once in a while, whether it's the face in your mirror. So next time something goes wrong, notice what your mind does first: does it look for a fix, or for a culprit?
 
 # Scene: That one was mine
+> say@0: richard
 > part: close
 > keywords: office team meeting morning
 > card: THAT ONE WAS MINE

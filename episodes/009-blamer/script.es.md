@@ -1,4 +1,5 @@
 # Scene: Yo no fui
+> say@1: richard
 > note@0: -$40 000 | el precio equivocado
 
 Es lunes, nueve de la mañana, y acaba de llamar el cliente más grande del año. La propuesta que recibió el viernes tenía mal el precio: cuarenta mil dólares por debajo.
@@ -10,6 +11,7 @@ Y aquí viene lo curioso: ese número lo aprobó el propio Richard, el viernes e
 Así que dime, ¿conoces a alguien así? Un jefe, tu papá o tu mamá, quizás un ex, alguien que nunca, jamás, se equivoca, porque de alguna forma la culpa siempre es de otro. Pues esa persona no es solo difícil. Está escuchando una voz muy antigua, y hoy vamos a ponerle cara.
 
 # Scene: El pronóstico del clima de Richard
+> say@2: margaret
 > note@1: EL ÉXITO = YO | el fracaso = ellos
 
 Para ser justos, esto no es nuevo. Quien haya trabajado una semana con Richard ya conoce el patrón.
@@ -92,6 +94,8 @@ Y fíjate en algo importante: cuanto más depende la identidad de alguien de ver
 Así que, por raro que suene, quienes más culpan suelen ser quienes se sienten más frágiles. No son fuertes, tienen miedo.
 
 # Scene: Si nadie tuviera la culpa
+> say@1: elena
+> say@3: richard
 
 Esa tarde, Elena invita a Richard a tomar un café. Y en vez de decirle que se equivocó, lo que solo despertaría al abogado, le hace una sola pregunta.
 
@@ -120,6 +124,7 @@ Y cuarto, déjale una salida. La gente admite mucho más cuando admitirlo no le 
 Pero una cosa más. Si mientras veías esto se te vino una cara a la cabeza, está bien. Solo revisa, de vez en cuando, si no es la que ves en el espejo. Así que la próxima vez que algo salga mal, fíjate qué hace primero tu mente: ¿busca una solución o un culpable?
 
 # Scene: Ese fue mío
+> say@0: richard
 > note@3: RESUMEN | baja la amenaza · qué, no quién · hechos · salida
 
 En la siguiente reunión, Richard hace algo que nadie le había visto hacer. "Ese error de precio fue en parte mío. Lo aprobé muy rápido. Desde ahora, dos personas revisan cada propuesta."

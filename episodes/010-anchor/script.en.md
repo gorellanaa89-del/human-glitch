@@ -1,6 +1,6 @@
-# Scene: We've always done it this way
+# Scene: It has always worked
 > say@1: margaret
-> act@1: margaret drop paper:FINAL_v47 @0.2
+> act@1: margaret drop paper:NEW SYSTEM? @0.3
 > part: hook
 > keywords: office meeting presentation colleagues
 > card: IT HAS ALWAYS WORKED
@@ -8,64 +8,65 @@
 > set: meeting
 > switch: 0.3
 > gesture: daniel:explain@0
-> note@0: NEW SYSTEM | goes live in 30 days
+> note@2: SAME SENTENCE | three different people
 
-It's Tuesday morning, and Daniel is presenting the company's new finance system, with the energy of someone who barely slept. One click instead of four hours of copy and paste, and reports that build themselves.
+On Tuesday morning, Daniel proposes a simple change at work: a new system that would save the team four hours a week.
 
-He's barely on the second slide when Margaret Lane drops a thick printout of her old spreadsheet on the table, folds her arms and says, very calmly: "We've done it this way for fifteen years, and it has always worked."
+And before he can finish, Margaret Lane drops the proposal back on the table, folds her arms and says, very calmly: "We've done it this way for fifteen years, and it has always worked."
 
-And the room goes quiet, because once Margaret says that sentence, the new system has a problem, no matter how good it is.
+That same night, Sarah's mom says almost the exact same sentence about her bank. And on Sunday, Daniel's grandfather says it too, about a car he really shouldn't be driving anymore.
 
-So tell me, do you know someone like this? A boss who answers every new idea by saying that's not how we do things here, a mom who still prints her emails, or a partner who orders the same dish every single time? Well, that person isn't just stubborn. They're listening to a very old voice, and today we're going to give it a face.
+So tell me, do you know someone like this? A boss, a mom, a grandfather, or a partner who orders the same dish every single time? Well, that person isn't just stubborn. They're listening to a very old voice, and today we're going to give it a face.
 
-# Scene: The spreadsheet
+# Scene: Margaret's way
+> say@2: margaret
 > part: story
-> keywords: office desk woman spreadsheet computer
-> card: 38 TABS, ONE EXPERT
+> keywords: office desk woman binders computer
+> card: FIFTEEN YEARS, ONE WAY
 > cast: margaret:happy, daniel:neutral
 > set: open_office
 > gesture: margaret:point@1
-> note@1: FINAL_v47.xlsx | 38 tabs · 15 years
+> note@1: 15 YEARS | the one who knows
 
-To understand Margaret, you first need to understand her spreadsheet.
+Let's start with Margaret, because she isn't a difficult person at all.
 
-It's called FINAL version forty-seven, it has thirty-eight tabs, and she has been building it for fifteen years, one formula at a time. Nobody else understands it, but if you need a number from 2014, Margaret finds it in under a minute. So that file isn't just a tool. It's the proof that Margaret is the one who knows.
+She's the one who remembers everyone's birthday, and the one who can find any number from the last fifteen years in under a minute. Her way of doing things isn't just a habit. It's the proof that she's the one who knows.
 
-And she isn't a difficult person, either. She's the one who remembers everyone's birthday, and the one who has rescued Richard's budget more times than he would ever admit.
-
-# Scene: Yes in the meeting
-> say@0: margaret
-> part: story
-> keywords: office desk two screens woman working late
-> card: JUST IN CASE
-> cast: margaret:neutral -> margaret:worried, daniel:surprised
-> set: office
-> switch: 0.55
-> gesture: margaret:clasp@1
-> note@1: EVERY NUMBER | typed twice
-
-So at the training session, she smiles, takes notes and says: "Of course, I'll give it a try."
-
-But two weeks later, Daniel notices something strange. Margaret enters every invoice into the new system, like everyone else, and then, quietly, she types the same invoice again into her spreadsheet. Just in case. And when Daniel asks why, she has an answer ready: the system might crash, and someone has to keep a backup.
-
-None of those reasons is crazy, and that's exactly what makes it so hard to argue with her.
+So at the training for the new system she smiles, takes notes and says: "Of course, I'll give it a try." And then, two weeks later, Daniel discovers that she's doing every task twice, once in the new system and once the old way. Just in case.
 
 # Scene: Sarah's mom and the bank
 > act@0: sarah phone @0.1
 > part: story
 > keywords: kitchen phone call woman laughing
-> card: IT RUNS IN THE FAMILY
+> card: TWO HOURS IN LINE
 > cast: sarah:surprised -> sarah:happy
 > set: kitchen
 > switch: 0.5
 > gesture: sarah:shrug@1
 > note@0: 2 HOURS IN LINE | vs 2 minutes in the app
 
-That evening, Sarah is on the phone with her mom, who refuses to use the banking app. Every month she waits two hours in line at the bank to do what the app does in two minutes, because, according to her, apps steal your money, and the bank line never has.
+Meanwhile, Sarah is on the phone with her mom, who refuses to use the banking app. Every month she waits two hours in line at the bank to do what the app does in two minutes, because, according to her, apps steal your money, and the bank line never has.
 
-And Sarah laughs, but then she stops, because she realizes that her mom and Margaret are saying exactly the same thing in different words. And maybe, if you're watching this, you have one of them at home too.
+And Sarah has tried everything: she's installed the app three times, written the steps on a piece of paper and even offered to sit next to her. But every time, her mom has a new reason. Her eyes, the tiny buttons, the hackers on the news.
 
-So, what's going on inside people like this?
+None of those reasons is crazy, of course, and that's exactly what makes it so hard to argue with her.
+
+# Scene: Grandpa's keys
+> act@0: daniel phone @0.1
+> part: story
+> keywords: home living room young man worried phone
+> card: THE KEYS
+> cast: daniel:worried -> daniel:sad
+> set: home_day
+> switch: 0.6
+> gesture: daniel:clasp@2
+> note@1: 2 SCRATCHES | in one month
+
+And on Sunday, Daniel gets the hardest call of all. His grandfather, who is eighty-four, has scratched the car twice this month, and the whole family agrees that it's time for him to stop driving.
+
+Everyone except Grandpa, of course, who has driven for sixty years and answers every suggestion the same way: he doesn't need a taxi, he doesn't need help, and he definitely doesn't need anyone taking his keys.
+
+Three people, three different situations, and the same answer. So, what's going on inside people like this?
 
 # Scene: Meet The Anchor
 > say@3: voice
@@ -84,9 +85,9 @@ And here's what makes it so tricky. The Anchor doesn't sound like fear. It sound
 
 "If it isn't broken, why fix it?"
 
-The catch is that it never compares the old and the new fairly. The problems of the old way are familiar, so they become invisible, like those four hours of copy and paste. Meanwhile every problem of the new way is fresh, so it looks huge.
+The catch is that it never compares the old and the new fairly. The problems of the old way are familiar, so they become invisible, like those two hours in line. Meanwhile every problem of the new way is fresh, so it looks huge.
 
-# Scene: Not just Margaret
+# Scene: Not just them
 > part: bug
 > keywords: research study psychology office
 > card: THE STATUS QUO BIAS
@@ -95,38 +96,38 @@ The catch is that it never compares the old and the new fairly. The problems of 
 > cutaway@0: lab | scientist:happy, scientist2:neutral
 > note@0: STATUS QUO BIAS | Samuelson & Zeckhauser, 1988
 
-In 1988, two economists, William Samuelson and Richard Zeckhauser, looked at how employees at Harvard chose their health insurance. When new and better plans appeared, the new hires picked them, but most of the people who had been there for years simply kept the plan they already had. The researchers called it the status quo bias.
+In 1988, two economists, William Samuelson and Richard Zeckhauser, looked at how employees at Harvard chose their health insurance. When new and better plans appeared, the new hires picked them, but most of the people who had been there for years simply kept the plan they already had. They called it the status quo bias.
 
-So yes, The Anchor visits all of us a little. But in some people it practically moves in, especially in people who spent years mastering one way of doing things, and who have the most to lose if it disappears.
+So yes, The Anchor visits all of us a little. But in some people it practically moves in, especially in people who spent years doing things one way, and who feel they have the most to lose if that way disappears.
 
 # Scene: Four signs
 > part: bug
-> keywords: office meeting colleagues discussion
+> keywords: family dinner table conversation
 > card: FOUR SIGNS
-> cast: margaret:smug, daniel:worried, bug:anchor:neutral
-> set: meeting
-> gesture: daniel:explain@1
+> cast: sarah:worried, daniel:worried, bug:anchor:neutral
+> set: restaurant
+> gesture: sarah:explain@1
 > note@1: 4 SIGNS | always · ten problems · yes, but no · later
 
-So how do you spot The Anchor in someone you know?
+So how do you spot The Anchor in someone you love?
 
-Four signs show up again and again. They defend the old way with the word always. They can find ten problems in the new thing and none in the old one. They say yes in the meeting, and then nothing changes. And their favorite answer is later: let's wait a bit, let's see how it goes, and somehow the right moment never comes.
+Four signs show up again and again. They defend the old way with the word always. They can find ten problems in the new thing and none in the old one. They say yes to calm you down, and then nothing changes. And their favorite answer is later: let's wait a bit, maybe next year, and somehow the right moment never comes.
 
-If two or more of those just reminded you of a specific person, you're not imagining it. You've been living next to a very heavy anchor.
+If two or more of those just reminded you of your dad, your partner or your boss, you're not imagining it. You've been living next to a very heavy anchor.
 
 # Scene: What it costs
 > part: consequence
-> keywords: office team tired late night
-> card: TWO VERSIONS OF EVERY NUMBER
-> cast: margaret:worried, daniel:sad, richard:worried, bug:anchor:worried
+> keywords: family tired worried evening
+> card: THE CHANGE COMES ANYWAY
+> cast: margaret:worried, sarah:sad, daniel:sad, bug:anchor:worried
 > set: open_office
-> note@1: MONTH-END | 2 numbers that don't match
+> note@2: IT DOESN'T STOP THE CHANGE | it just takes the wheel away
 
-And the cost of that anchor goes far beyond one awkward meeting.
+And that anchor has a cost.
 
-At the end of the month, the company has two versions of every number, one in the new system and one in Margaret's spreadsheet, and of course they don't match. The team spends three days hunting for the difference, and Margaret is the most exhausted of all, because she's doing her job twice.
+Margaret ends up exhausted, doing her job twice. Sarah's mom spends twenty-four hours a year standing in a line. And Daniel's family lives with a knot in their stomach every time Grandpa takes the car, until the day the decision gets made for him, by a doctor, or by an accident.
 
-That's the hidden price of The Anchor: it doesn't stop the change. The change happens anyway, just without you steering it.
+That's the hidden price of The Anchor: it doesn't stop the change. The change comes anyway, just without you steering it.
 
 # Scene: Why it exists
 > part: why
@@ -142,20 +143,19 @@ Picture a small group on the savanna. They know one path to the water, and every
 
 On top of that, our ancestors lived with almost no margin, so losing the food they had could mean starving, while finding a little more was just a bonus. That's why, even today, losing something hurts much more than gaining the same thing feels good.
 
-# Scene: Old anchor, new office
+# Scene: Not change, loss
 > part: why
-> keywords: office woman alone desk evening
+> keywords: older man window home alone
 > card: NOT CHANGE, LOSS
 > cast: margaret:worried, bug:anchor:worried
 > set: hallway
-> note@0: THEN | an unknown path
-> note@2: NOW | being a beginner again
+> note@1: MARGARET · MOM · GRANDPA | expertise · control · freedom
 
-Today, of course, a new finance system won't eat anyone. But The Anchor doesn't know that, so it reacts to new software as if it were a path full of lions.
+Today, of course, a banking app won't eat anyone. But The Anchor doesn't know that, so it reacts to every new thing as if it were a path full of lions.
 
-But here's what changes how you see Margaret. For her, this was never really about software. After fifteen years of being the one who knows, the new system turns her into a beginner again, next to a twenty-four-year-old who learned it in a weekend.
+And here's what changes how you see all three of them. None of this was ever really about a system, an app or a car. For Margaret, the new system means becoming a beginner after fifteen years of being the expert. For Sarah's mom, the app means depending on her daughter for something she always did alone. And for Grandpa, giving up the keys means giving up his freedom.
 
-So people don't really resist change. They resist losing something: their expertise, their status, their place. That's why the ones who cling the hardest often have the most to lose, like a parent who used to know everything and suddenly needs their kid to set up the phone.
+So people don't really resist change. They resist losing something: their expertise, their control, their independence.
 
 # Scene: What would you lose?
 > say@1: elena
@@ -174,15 +174,15 @@ So one afternoon, Elena invites Margaret for a coffee. And instead of selling he
 
 "If this new system works perfectly, what are you afraid of losing?"
 
-Margaret starts to say the backups, then stops, and the real answer comes out almost in a whisper. "Being the one who knows where every number is."
+Margaret starts to talk about backups, then stops, and the real answer comes out almost in a whisper. "Being the one who knows."
 
-And Elena smiles, because that's the first honest thing anyone has said about this project. "Then we need you. Nobody knows what this system has to get right better than you."
+And Elena smiles. "Then we need you. Nobody knows better than you what this has to get right." And when Sarah hears that story, she realizes that's the question she's never asked her mom, or that Daniel has never asked his grandfather.
 
 # Scene: The update
 > part: update
 > keywords: notebook desk planning calm
 > card: FOUR UPDATES
-> cast: margaret:neutral, daniel:neutral, bug:anchor:neutral
+> cast: sarah:neutral, daniel:neutral, bug:anchor:neutral
 > set: office
 > note@1: 1. NAME THE LOSS | not just the gains
 > note@2: 2. GIVE THEM A ROLE | their experience matters
@@ -191,35 +191,36 @@ And Elena smiles, because that's the first honest thing anyone has said about th
 
 And that's the update. You can't pull up someone else's anchor by force, but you can help them lift it. Here are four ways.
 
-First, name the loss. Say out loud what they're giving up, because people stop defending what you've already acknowledged.
+First, name the loss. Say out loud what they're giving up, like, I know it's hard to stop driving after sixty years, because people stop defending what you've already acknowledged.
 
-Second, give them a role. Their experience isn't the obstacle, it's the quality control, so ask them to test the new way.
+Second, give them a role. Their experience isn't the obstacle. Ask your mom to teach you how she budgets, and then do it together in the app.
 
-Third, take small, safe steps. Try it for a month, keep the old way as a backup, and give that backup an end date.
+Third, take small, safe steps. One bill in the app this month, with the bank line as a backup, instead of everything at once.
 
-And fourth, say clearly what stays. The anchor relaxes a lot when it knows which ground is still solid.
+And fourth, say clearly what stays. Grandpa still goes to his Sunday lunch, and the family drives him there. The anchor relaxes a lot when it knows which ground is still solid.
 
 But one more thing. If a face popped into your head while you were watching, that's fine. Just check whether it's the one in your mirror. Is there a change you've been waiting months for the right moment to make?
 
-# Scene: Fifteen years of practice
-> say@1: daniel, margaret
+# Scene: What they kept
+> say@1: margaret
+> say@3: sarah
 > act@0: margaret drop paper:TAX ERROR @0.5
 > part: close
 > keywords: office team meeting morning
-> card: FIFTEEN YEARS OF PRACTICE
-> cast: margaret:neutral -> margaret:happy, daniel:surprised -> daniel:happy, elena:happy, bug:anchor:neutral
+> card: WHAT THEY KEPT
+> cast: margaret:neutral -> margaret:happy, daniel:surprised -> daniel:happy, sarah:happy, bug:anchor:neutral
 > set: meeting
 > switch: 0.3
-> note@3: RECAP | name the loss · a role · small steps · what stays
+> note@4: RECAP | name the loss · a role · small steps · what stays
 
-Three weeks later, Margaret is the official tester of the new system, and on her second day she drops a report on the table: a tax rule set up wrong, a mistake that would have cost thousands, and nobody else had seen it.
+A few weeks later, Margaret is the official tester of the new system, and on her second day she catches a tax error that nobody else had seen.
 
-Daniel stares at the page. "How did you even see that?" And Margaret just shrugs. "Fifteen years with the old one."
+When Daniel asks how, she just shrugs. "Fifteen years with the old one."
 
-As for FINAL version forty-seven, she saves it one last time into a folder called archive. The Anchor is still there, but smaller and calmer, more like an anchor resting in a harbor than one holding the whole ship in place.
+Daniel's grandfather hands over his keys on one condition: he picks the music every Sunday. And Sarah's mom pays her first bill in the app, with Sarah sitting next to her, and the bank line as a backup she never ends up using.
 
-So, a quick recap. The Anchor makes people cling to the way things are. It exists because, for our ancestors, the known path was the one they'd already survived. And you deal with it by naming the loss, giving people a role, taking small steps and saying what stays.
+At dinner, Sarah tells Daniel what her mom said afterwards. "It was easier than the line."
 
-Because people don't hate change. They hate losing. Show them what they keep, and the anchor lets go on its own.
+So, a quick recap. The Anchor makes people cling to the way things are. It exists because the known path was the one our ancestors had already survived. And you deal with it by naming the loss, giving people a role, taking small steps and saying what stays.
 
-So tell me in the comments: what's the one change someone in your family refuses to make? And subscribe, because next time we're meeting the voice of people who are sure they know exactly what you're thinking.
+Because people don't hate change. They hate losing. Show them what they keep, and the anchor lets go on its own. So tell me in the comments: what's the one change someone in your family refuses to make? And subscribe, because next time we're meeting the voice of people who are sure they know exactly what you're thinking.

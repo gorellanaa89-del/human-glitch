@@ -19,15 +19,15 @@ shorts:
   - scene: 1
     en: "Do You Know Someone Who Hates Every Change?"
     es: "¿Conoces a alguien que odia todo cambio?"
-  - scene: 4
+  - scene: 3
     en: "Does Your Mom Still Refuse to Use the App?"
     es: "¿Tu mamá todavía se niega a usar la app?"
+  - scene: 4
+    en: "When Grandpa Won't Give Up the Car Keys"
+    es: "Cuando el abuelo no quiere soltar las llaves"
   - scene: 7
     en: "4 Signs Someone Is Stuck in the Old Way"
     es: "4 señales de que alguien vive anclado al pasado"
-  - scene: 11
-    en: "The Question That Unlocks Someone Who Resists Change"
-    es: "La pregunta que desarma a quien se resiste al cambio"
   - scene: 12
     en: "How to Help Someone Who Resists Change"
     es: "Cómo ayudar a alguien que se resiste al cambio"
@@ -40,7 +40,7 @@ tags:
   - psychology
   - workplace psychology
 description: |
-  The company has a new system, and Margaret answers the way she always does: we've done it this way for fifteen years. Do you know someone like this? Meet The Anchor: the voice that grabs on to the way things are and won't let go. We follow Margaret's story, see why the familiar path kept our ancestors alive, and learn four ways to help someone who resists every change.
+  A boss who says we've always done it this way, a mom who won't touch the banking app, a grandfather who won't give up the car keys. Do you know someone like this? Meet The Anchor: the voice that grabs on to the way things are and won't let go. We follow Margaret, Sarah's mom and Daniel's grandfather, see why the familiar path kept our ancestors alive, and learn four ways to help someone who resists every change.
 
   {chapters}
 
@@ -55,7 +55,7 @@ es:
     - personas difíciles
     - psicología
   description: |
-    La empresa estrena un sistema nuevo y Margaret responde como siempre: llevamos quince años haciéndolo así. ¿Conoces a alguien así? Conoce al Ancla: la voz que se aferra a cómo son las cosas y no las suelta. Seguimos la historia de Margaret, entendemos por qué el camino conocido mantenía vivos a nuestros ancestros y aprendemos cuatro formas de ayudar a alguien que se resiste a todo cambio.
+    Una jefa que dice siempre lo hemos hecho así, una mamá que no quiere usar la app del banco, un abuelo que no suelta las llaves del auto. ¿Conoces a alguien así? Conoce al Ancla: la voz que se aferra a cómo son las cosas y no las suelta. Seguimos a Margaret, a la mamá de Sarah y al abuelo de Daniel, entendemos por qué el camino conocido mantenía vivos a nuestros ancestros y aprendemos cuatro formas de ayudar a alguien que se resiste a todo cambio.
 
     {chapters}
 

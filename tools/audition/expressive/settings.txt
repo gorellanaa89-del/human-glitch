@@ -1,0 +1,6 @@
+# name|exaggeration|cfg_weight|temperature|use the synthetic prompt
+cb1-default-0.5|0.5|0.5|0.8|no
+cb2-default-0.8|0.8|0.3|0.8|no
+cb3-default-1.1|1.1|0.25|0.9|no
+cb4-emma-0.8|0.8|0.3|0.8|yes
+cb5-emma-1.1|1.1|0.25|0.9|yes

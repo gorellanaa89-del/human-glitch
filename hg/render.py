@@ -7,8 +7,8 @@ from pathlib import Path
 
 import yaml
 
-from . import animate, broll, graphics, media, subtitles, tts
-from .config import BROLL_SECONDS, CARD_SECONDS, FPS, H, MAX_ES_TEMPO, SHORT_H, SHORT_W, VOICE_RATE, VOICES, W
+from . import animate, broll, bugs, graphics, media, subtitles, tts
+from .config import BROLL_SECONDS, CARD_SECONDS, FPS, H, MAX_ES_TEMPO, SHORT_H, SHORT_W, VOICE_RATE, VOICES, W, CAST
 from .script import parse_script
 
 X264 = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p", "-r", str(FPS), "-an"]
@@ -28,6 +28,17 @@ def _attach_punctuation(words, text):
             j = k + 1
         else:
             out.append((s, e, w))
+    return out
+
+
+def _speakers(sc) -> dict:
+    """`> say@P: richard, daniel` lines: who says the quotes of paragraph P, in order."""
+    out = {}
+    for key, value in sc.extra.items():
+        if key.startswith("say@") and key[4:].isdigit():
+            names = [n.strip().lower() for n in value.split(",") if n.strip()]
+            # an inner voice (e.g. "blamer" or "bug:blamer") speaks with the shared inner-voice voice
+            out[int(key[4:])] = ["voice" if n.removeprefix("bug:") in bugs.BUGS else n for n in names]
     return out
 
 
@@ -202,6 +213,9 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
     voices = {**VOICES, **(meta.get("voices") or {})}
     rates = {**VOICE_RATE, **(meta.get("voice_rate") or {})}
     styles = meta.get("voice_style") or {}  # only for gemini:<Voice> narrators
+    cast = {lang: {**CAST.get(lang, {}), **{k: tuple(v) if isinstance(v, (list, tuple)) else (v, "")
+                                            for k, v in ((meta.get("cast") or {}).get(lang) or {}).items()}}
+            for lang in ("en", "es")}
     sets.MODE = os.environ.get("HG_BACKGROUNDS") or meta.get("backgrounds", "drawn")  # "photo": real photos where one exists
     scenes = parse_script(episode / "script.en.md")
     es_path = episode / "script.es.md"
@@ -247,7 +261,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
             continue
         print(f"Scene {i + 1}/{len(scenes)}: {sc.title}")
         wav = work / f"s{i}_en.wav"
-        words = _attach_punctuation(tts.synthesize(sc.narration, voices["en"], wav, engine, rates["en"], styles.get("en", "")), sc.narration)
+        words = _attach_punctuation(tts.synthesize(sc.narration, voices["en"], wav, engine, rates["en"], styles.get("en", ""), _speakers(sc), cast["en"]), sc.narration)
         seconds = media.duration(wav)
         full_seconds = seconds
         cut = False
@@ -274,7 +288,7 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
         if scenes_es:
             es_raw = work / f"s{i}_es_raw.wav"
             es_sc = scenes_es[i]
-            ew = _attach_punctuation(tts.synthesize(es_sc.narration, voices["es"], es_raw, engine, rates["es"], styles.get("es", "")), es_sc.narration)
+            ew = _attach_punctuation(tts.synthesize(es_sc.narration, voices["es"], es_raw, engine, rates["es"], styles.get("es", ""), _speakers(es_sc), cast["es"]), es_sc.narration)
             es_wav = work / f"s{i}_es.wav"
             tempo, cut = _fit_spanish(es_raw, full_seconds, es_wav)
             if seconds < full_seconds:

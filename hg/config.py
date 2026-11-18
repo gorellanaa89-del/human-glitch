@@ -72,3 +72,25 @@ def font_sans():
 
 # Font family name used by the burned-in subtitles (libass looks it up by name).
 SUB_FONT = "Inter"
+
+# Voices for the characters' quoted lines (Giancarlo 2026-11-18: characters must sound different from the narrator).
+# The script marks who speaks with `> say@P: name` (P = paragraph, from 0). "voice" = any of the inner voices.
+# Spanish: Gemini voices with a direction in words; English: Edge voices. meta.yaml `cast:` can override.
+CAST = {
+    "es": {
+        "richard": ("gemini:Algenib", "Di esto como un director de empresa arrogante y molesto, con voz grave, firme y cortante"),
+        "daniel": ("gemini:Puck", "Di esto como un joven nervioso e inseguro que no quiere molestar a nadie"),
+        "elena": ("gemini:Sulafat", "Di esto como una mentora calmada y cálida, con voz serena y pausada"),
+        "sarah": ("gemini:Achernar", "Di esto como una analista ansiosa que habla rápido y duda de sí misma"),
+        "margaret": ("gemini:Gacrux", "Di esto como una gerente veterana, seca y sarcástica"),
+        "voice": ("gemini:Enceladus", "Di esto como una voz interior intensa y susurrada, muy convencida"),
+    },
+    "en": {
+        "richard": ("en-US-ChristopherNeural", ""),
+        "daniel": ("en-US-EricNeural", ""),
+        "elena": ("en-US-JennyNeural", ""),
+        "sarah": ("en-US-AriaNeural", ""),
+        "margaret": ("en-GB-SoniaNeural", ""),
+        "voice": ("en-US-RogerNeural", ""),
+    },
+}

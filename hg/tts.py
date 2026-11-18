@@ -6,6 +6,7 @@ which takes a style direction in words; its word timings come from aligning a Wh
 engine="silent" writes silence with estimated timings, for testing the pipeline offline.
 """
 import asyncio
+import re
 import time
 from pathlib import Path
 
@@ -112,38 +113,98 @@ def _align(text: str, audio: Path, lang: str) -> list[Word]:
     return [(s, e, w) for (s, e), w in zip(times, script)]
 
 
-def synthesize(text: str, voice: str, wav: Path, engine: str = "edge", rate: str = "+0%", style: str = "") -> list[Word]:
-    """Write a 48 kHz mono WAV with SCENE_GAP of trailing silence and return word timings."""
-    if engine != "silent" and voice.startswith("gemini:"):
+def _one(text: str, voice: str, wav: Path, engine: str, rate: str, style: str):
+    """One stretch of speech, no trailing gap: returns edge word timings, or None for Gemini (aligned later)."""
+    if voice.startswith("gemini:"):
         raw = wav.with_suffix(".g24.wav")
-        flat = text.replace("\n\n", " ")
-        _gemini(flat, voice.split(":", 1)[1], raw, style or DEFAULT_STYLE)
+        _gemini(text, voice.split(":", 1)[1], raw, style or DEFAULT_STYLE)
         # trim the model's leading/trailing silence, apply the rate (e.g. "+10%") as a tempo change
         pct = float(rate.rstrip("%") or 0)
         tempo = f",atempo={1 + pct / 100:.3f}" if pct else ""
         media.run(["-i", raw, "-af", "silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
-                   "silenceremove=start_periods=1:start_threshold=-45dB,areverse" + tempo
-                   + f",apad=pad_dur={SCENE_GAP}", "-ar", "48000", "-ac", "1", wav])
+                   "silenceremove=start_periods=1:start_threshold=-45dB,areverse" + tempo,
+                   "-ar", "48000", "-ac", "1", wav])
         raw.unlink()
-        lang = "es" if any(c in text for c in "ñáéíóú¿¡") else "en"
-        return _align(flat, wav, lang)
-    if engine == "edge":
-        mp3 = wav.with_suffix(".mp3")
-        words = None
-        for attempt in range(4):  # the free voice service sometimes drops a request
-            try:
-                words = asyncio.run(_edge(text.replace("\n\n", " "), voice, mp3, rate))
+        return None
+    mp3 = wav.with_suffix(".mp3")
+    words = None
+    for attempt in range(4):  # the free voice service sometimes drops a request
+        try:
+            words = asyncio.run(_edge(text, voice, mp3, rate))
+            break
+        except Exception as e:  # noqa: BLE001
+            if attempt == 3:
+                raise
+            print(f"  voice request failed ({e.__class__.__name__}), retrying...")
+            time.sleep(5 * (attempt + 1))
+    media.run(["-i", mp3, "-ar", "48000", "-ac", "1", wav])
+    mp3.unlink()
+    return words
+
+
+QUOTE = re.compile(r'["“][^"”]+["”][.,;:!?]*')
+
+
+def segments(text: str, speakers: dict | None) -> list[tuple[str, str | None]]:
+    """Split narration into (text, speaker) stretches: quotes in paragraph P go to speakers[P] in order
+    (the last name repeats); everything else, and quotes with no speaker, is the narrator (None)."""
+    out: list = []
+    for p, para in enumerate(text.split("\n\n")):
+        names = (speakers or {}).get(p) or []
+        pos, q = 0, 0
+        for m in QUOTE.finditer(para):
+            if not names:
                 break
-            except Exception as e:  # noqa: BLE001
-                if attempt == 3:
-                    raise
-                print(f"  voice request failed ({e.__class__.__name__}), retrying...")
-                time.sleep(5 * (attempt + 1))
-        media.run(["-i", mp3, "-af", f"apad=pad_dur={SCENE_GAP}", "-ar", "48000", "-ac", "1", wav])
-        mp3.unlink()
-    elif engine == "silent":
+            out.append((para[pos:m.start()], None))
+            out.append((m.group(0), names[min(q, len(names) - 1)]))
+            pos, q = m.end(), q + 1
+        out.append((para[pos:], None))
+    merged: list = []
+    for t, who in out:
+        t = t.strip()
+        if not t:
+            continue
+        if merged and merged[-1][1] == who:
+            merged[-1] = (merged[-1][0] + " " + t, who)
+        else:
+            merged.append((t, who))
+    return merged
+
+
+def synthesize(text: str, voice: str, wav: Path, engine: str = "edge", rate: str = "+0%", style: str = "",
+               speakers: dict | None = None, cast: dict | None = None) -> list[Word]:
+    """Write a 48 kHz mono WAV with SCENE_GAP of trailing silence and return word timings.
+    speakers ({paragraph: [name, ...]}, from `> say@P:` lines) and cast ({name: (voice, style)}) give the
+    characters' quoted lines their own voices."""
+    if engine == "silent":
         words = _estimate(text)
         media.silence(wav, words[-1][1] + SCENE_GAP)
-    else:
-        raise ValueError(f"Unknown TTS engine: {engine}")
+        return words
+    flat = text.replace("\n\n", " ")
+    segs = segments(text, speakers) if speakers and cast else [(flat, None)]
+    parts, words, t, needs_align = [], [], 0.0, False
+    for k, (seg, who) in enumerate(segs):
+        v, st = (cast or {}).get(who, (voice, style)) if who else (voice, style)
+        part = wav.with_name(f"{wav.stem}_p{k}.wav")
+        w = _one(seg, v, part, engine, rate, st)
+        if w is None:
+            needs_align = True
+        else:
+            words += [(a + t, b + t, x) for a, b, x in w]
+        parts.append(part)
+        t += media.duration(part) + 0.15
+    gap = 0.15
+    inputs = []
+    for part in parts:
+        inputs += ["-i", part]
+    n = len(parts)
+    chain = "".join(f"[{i}:a]apad=pad_dur={gap}[p{i}];" for i in range(n - 1))
+    labels = "".join(f"[p{i}]" for i in range(n - 1)) + f"[{n - 1}:a]"
+    media.run([*inputs, "-filter_complex", f"{chain}{labels}concat=n={n}:v=0:a=1,apad=pad_dur={SCENE_GAP}[o]",
+               "-map", "[o]", "-ar", "48000", "-ac", "1", wav])
+    for part in parts:
+        part.unlink()
+    if needs_align:
+        lang = "es" if any(c in text for c in "ñáéíóú¿¡") else "en"
+        return _align(flat, wav, lang)
     return words

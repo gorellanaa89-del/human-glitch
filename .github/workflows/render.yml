@@ -24,6 +24,7 @@ on:
 
 env:
   HG_BACKGROUNDS: ${{ inputs.backgrounds }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
 permissions:
   contents: write

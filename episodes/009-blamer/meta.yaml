@@ -8,10 +8,12 @@ synthetic_media: false
 # Narrator for this episode (Giancarlo 2026-11-16: a warmer, slightly ironic woman's voice)
 voices:
   en: en-US-AvaNeural
-  es: en-US-EmmaMultilingualNeural
-# 2026-11-18 voice test: closest match to Giancarlo's reference clip (woman, mid-low pitch, fast, short pauses)
+  es: gemini:Callirrhoe
+# 2026-11-18 Giancarlo picked Gemini's Callirrhoe (G1) for Spanish; style direction in words below
 voice_rate:
-  es: "+18%"
+  es: "+0%"
+voice_style:
+  es: "Lee en español latino neutro como una narradora joven de datos curiosos en TikTok: rápida, con mucha energía y curiosidad, sonriendo, subiendo y bajando mucho el tono, pausas muy cortas, remarcando las palabras clave y con un toque de ironía"
 shorts:
   - scene: 1
     en: "Do You Know Someone Who's Never Wrong?"

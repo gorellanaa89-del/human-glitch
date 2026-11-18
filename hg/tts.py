@@ -1,6 +1,8 @@
 """Text to speech with word timings.
 
 engine="edge" uses Microsoft Edge's free online voices (no key needed).
+A voice named "gemini:<Voice>" (e.g. gemini:Callirrhoe) uses Google's Gemini TTS instead (secret GEMINI_API_KEY),
+which takes a style direction in words; its word timings come from aligning a Whisper transcript to the script.
 engine="silent" writes silence with estimated timings, for testing the pipeline offline.
 """
 import asyncio
@@ -37,8 +39,89 @@ def _estimate(text: str, wps: float = 2.6) -> list[Word]:
     return words
 
 
-def synthesize(text: str, voice: str, wav: Path, engine: str = "edge", rate: str = "+0%") -> list[Word]:
+GEMINI_MODELS = ["gemini-2.5-flash-preview-tts", "gemini-2.5-pro-preview-tts"]
+DEFAULT_STYLE = ("Lee en español latino neutro como una narradora joven de datos curiosos en TikTok: "
+                 "rápida, con mucha energía y curiosidad, sonriendo, subiendo y bajando mucho el tono, "
+                 "pausas muy cortas, remarcando las palabras clave y con un toque de ironía")
+
+
+def _gemini(text: str, voice: str, wav24: Path, style: str) -> None:
+    import base64, json, os, urllib.error, urllib.request, wave
+    key = os.environ["GEMINI_API_KEY"]
+    body = {"contents": [{"parts": [{"text": f"{style}:\n\n{text}"}]}],
+            "generationConfig": {"responseModalities": ["AUDIO"],
+                                 "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}}}}
+    last = None
+    for attempt in range(8):  # free tier: a few requests per minute, so wait and retry on 429/5xx
+        model = GEMINI_MODELS[0] if attempt < 6 else GEMINI_MODELS[1]
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
+        try:
+            req = urllib.request.Request(url, json.dumps(body).encode(), {"Content-Type": "application/json"})
+            data = json.load(urllib.request.urlopen(req, timeout=300))
+            pcm = base64.b64decode(data["candidates"][0]["content"]["parts"][0]["inlineData"]["data"])
+            with wave.open(str(wav24), "wb") as w:
+                w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(pcm)
+            return
+        except (urllib.error.HTTPError, urllib.error.URLError, KeyError, TimeoutError) as e:
+            last = e
+            print(f"  gemini voice failed ({getattr(e, 'code', e.__class__.__name__)}), retrying...")
+            time.sleep(min(90, 15 * (attempt + 1)))
+    raise RuntimeError(f"Gemini TTS failed: {last}")
+
+
+def _norm(w: str) -> str:
+    import unicodedata
+    w = unicodedata.normalize("NFD", w.lower())
+    return "".join(c for c in w if c.isalnum())
+
+
+def _align(text: str, audio: Path, lang: str) -> list[Word]:
+    """Word timings for `text` as spoken in `audio`: Whisper words matched to the script words."""
+    import difflib
+    from faster_whisper import WhisperModel
+    model = WhisperModel("small", device="cpu", compute_type="int8")
+    segs, _ = model.transcribe(str(audio), language=lang, word_timestamps=True, vad_filter=False)
+    heard = [(w.start, w.end, w.word.strip()) for s in segs for w in s.words]
+    script = text.split()
+    sm = difflib.SequenceMatcher(a=[_norm(w) for w in script], b=[_norm(h[2]) for h in heard], autojunk=False)
+    times: list = [None] * len(script)
+    for a, b, n in sm.get_matching_blocks():
+        for k in range(n):
+            times[a + k] = heard[b + k][:2]
+    end = heard[-1][1] if heard else 1.0
+    # words Whisper heard differently: spread them evenly between the matched neighbours
+    k = 0
+    while k < len(script):
+        if times[k] is None:
+            j = k
+            while j < len(script) and times[j] is None:
+                j += 1
+            t0 = times[k - 1][1] if k > 0 else 0.0
+            t1 = times[j][0] if j < len(script) else end
+            step = max(0.05, (t1 - t0) / (j - k))
+            for m in range(k, j):
+                times[m] = (t0 + step * (m - k), t0 + step * (m - k + 1))
+            k = j
+        else:
+            k += 1
+    return [(s, e, w) for (s, e), w in zip(times, script)]
+
+
+def synthesize(text: str, voice: str, wav: Path, engine: str = "edge", rate: str = "+0%", style: str = "") -> list[Word]:
     """Write a 48 kHz mono WAV with SCENE_GAP of trailing silence and return word timings."""
+    if engine != "silent" and voice.startswith("gemini:"):
+        raw = wav.with_suffix(".g24.wav")
+        flat = text.replace("\n\n", " ")
+        _gemini(flat, voice.split(":", 1)[1], raw, style or DEFAULT_STYLE)
+        # trim the model's leading/trailing silence, apply the rate (e.g. "+10%") as a tempo change
+        pct = float(rate.rstrip("%") or 0)
+        tempo = f",atempo={1 + pct / 100:.3f}" if pct else ""
+        media.run(["-i", raw, "-af", "silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
+                   "silenceremove=start_periods=1:start_threshold=-45dB,areverse" + tempo
+                   + f",apad=pad_dur={SCENE_GAP}", "-ar", "48000", "-ac", "1", wav])
+        raw.unlink()
+        lang = "es" if any(c in text for c in "ñáéíóú¿¡") else "en"
+        return _align(flat, wav, lang)
     if engine == "edge":
         mp3 = wav.with_suffix(".mp3")
         words = None

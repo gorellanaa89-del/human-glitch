@@ -1,0 +1,13 @@
+es-MX-JorgeNeural|+0%|+0Hz
+es-MX-JorgeNeural|+12%|+8Hz
+es-US-AlonsoNeural|+12%|+5Hz
+es-CO-GonzaloNeural|+12%|+5Hz
+es-PE-AlexNeural|+12%|+5Hz
+es-AR-TomasNeural|+12%|+5Hz
+es-MX-DaliaNeural|+5%|+0Hz
+en-US-AndrewMultilingualNeural|+10%|+5Hz
+en-US-BrianMultilingualNeural|+10%|+5Hz
+fr-FR-RemyMultilingualNeural|+10%|+5Hz
+de-DE-FlorianMultilingualNeural|+10%|+5Hz
+en-US-EmmaMultilingualNeural|+10%|+0Hz
+en-US-AvaMultilingualNeural|+10%|+0Hz

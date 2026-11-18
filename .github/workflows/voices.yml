@@ -2,6 +2,9 @@ name: Voice audition
 
 # Reads one short text with several narrator voices and pushes the mp3s to a branch, to choose a voice by ear.
 on:
+  # also runs when the audition list changes on a branch (a new workflow can only be dispatched once it is on main)
+  push:
+    paths: ["tools/audition/**"]
   workflow_dispatch:
     inputs:
       text:
@@ -9,7 +12,7 @@ on:
         default: "tools/audition/hook.es.txt"
       voices:
         description: "Space separated voice|rate|pitch, e.g. es-MX-JorgeNeural|+10%|+5Hz"
-        required: true
+        default: ""
       branch:
         description: "Branch the clips are pushed to"
         default: "previews-voices"
@@ -30,14 +33,15 @@ jobs:
       - name: Read the text with each voice
         env:
           VOICES: ${{ inputs.voices }}
-          TEXT: ${{ inputs.text }}
+          TEXT: ${{ inputs.text || 'tools/audition/hook.es.txt' }}
         run: |
+          [ -z "$VOICES" ] && VOICES=$(grep -v '^#' tools/audition/voices.txt | tr '\n' ' ')
           P=$(mktemp -d)
           python tools/audition/voice_audition.py "$TEXT" "$P" $VOICES
           cd "$P"
-          git init -q -b "${{ inputs.branch }}"
+          git init -q -b "${{ inputs.branch || 'previews-voices' }}"
           git config user.name "human-glitch-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -qm "Voice audition"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "${{ inputs.branch }}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "${{ inputs.branch || 'previews-voices' }}"

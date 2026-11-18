@@ -114,6 +114,7 @@ class SceneRenderer:
         self.set_name = ex.get("set", "office")
         self.actors = parse_cast(ex.get("cast", ""))
         _layout(self.actors, self.portrait)
+        self.scene = scene
         self.paras = paragraph_starts(scene.narration, words, seconds)
         for spec in [s.strip() for s in ex.get("enter", "").split(",") if s.strip()]:
             who, _, para = spec.partition("@")
@@ -127,7 +128,7 @@ class SceneRenderer:
             self.t_switch = self.paras[1]
         self.enter_t = {a.name: (self.paras[a.enter_para] if a.enter_para < len(self.paras) else 0.0) for a in self.actors}
         labeled = labeled if labeled is not None else set()
-        self.label_for = {a.name for a in self.actors if a.is_bug and a.name not in labeled}
+        self.label_for = {a.name for a in self.actors if (a.is_bug or a.name in NAMED) and a.name not in labeled}
         labeled.update(self.label_for)
         self._sprites = {}
         self._tilts = {}
@@ -198,16 +199,27 @@ class SceneRenderer:
         spans = []
         names = {a.name: a for a in self.actors}
         aliases = {a.name: (bugs.display_name(a.name, self.lang).split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
+        said = dict(quote_speakers(self.scene))
+        nth = {}
         for a, b in out:
-            before = " ".join(w[2] for w in self.words[max(0, a - 14):a]).lower()
-            speaker, best = None, -1
-            for name, alias in aliases.items():
-                k = before.rfind(alias)
-                if k > best:
-                    speaker, best = names[name], k
+            t0 = self.words[a][0]
+            para = max((k for k, tp in enumerate(self.paras) if tp <= t0 + 0.01), default=0)
+            n = nth[para] = nth.get(para, -1) + 1
+            speaker = None
+            if para in said:  # the script says who speaks: `> say@P: richard`
+                who = said[para][min(n, len(said[para]) - 1)]
+                speaker = names.get(who)
+            else:
+                # otherwise the last character named just before the quote, unless they are the one
+                # spoken to ("turns to Daniel", "se voltea hacia Daniel")
+                toks = [_norm_word(w[2]) for w in self.words[max(0, a - 14):a]]
+                best = -1
+                for name, alias in aliases.items():
+                    for k, tok in enumerate(toks):
+                        if tok == alias and k > best and not (k > 0 and toks[k - 1] in _ADDRESSEE):
+                            speaker, best = names[name], k
             if b - a + 1 < (2 if speaker else 3):  # very short quotes only when someone is named saying them
                 continue
-            t0 = self.words[a][0]
             if speaker is None or self.enter_t.get(speaker.name, 0) > t0:
                 vis = [x for x in self.actors if self.enter_t[x.name] <= t0]
                 bug_vis = [x for x in vis if x.is_bug]
@@ -326,11 +338,34 @@ class SceneRenderer:
         Quotes cut to the speaker; entrances cut to a shot that shows the newcomer."""
         W = self.words
         forced = {}
+        # a quote (all its bubbles) is one stretch on the speaker
+        talks = []
         for t0, t1, text, spk in self.quotes:
+            if talks and talks[-1][2] is spk and t0 - talks[-1][1] < 0.6:
+                talks[-1][1] = t1
+            else:
+                talks.append([t0, t1, spk])
+        for t0, t1, spk in talks:
             forced[round(t0, 2)] = ("solo", spk)
         for a in self.actors:
             if self.enter_t[a.name] > 0:
                 forced[round(self.enter_t[a.name], 2)] = ("enter", a)
+        # the narration names someone on screen: the camera goes to them, so we know who is who
+        aliases = {a.name: (bugs.display_name(a.name, self.lang).split()[-1].lower() if a.is_bug else a.name) for a in self.actors}
+        last = {}
+        for s_, e_, tok in self.words:
+            nt = _norm_word(tok)
+            for a in self.actors:
+                if nt != aliases[a.name] or self.enter_t[a.name] > s_ + 0.01 or s_ < 0.6:
+                    continue
+                if s_ - last.get(a.name, -99) < MENTION_GAP or round(s_, 2) in forced:
+                    continue
+                if any(n0 - 0.5 <= s_ < n1 for n0, n1, *_ in self.notes):
+                    continue  # a paper card is up: the shot stays open
+                if any(q0 - 0.5 <= s_ < q1 for q0, q1, *_ in self.quotes):
+                    continue
+                forced[round(s_, 2)] = ("mention", a)
+                last[a.name] = s_
         cuts = [0.0]
         kinds = [("wide", None)]
         for i, (s, e, t) in enumerate(W):
@@ -339,10 +374,14 @@ class SceneRenderer:
                 continue
             gap = nxt - cuts[-1]
             key = round(nxt, 2)
+            if key in forced and forced[key][0] == "solo" and gap < 1.2 and len(cuts) > 1:
+                kinds[-1] = forced[key]; continue  # someone starts talking: the shot just before becomes theirs
             if key in forced and gap >= 1.2:
                 cuts.append(nxt); kinds.append(forced[key]); continue
+            if any(q0 < nxt < q1 for q0, q1, _ in talks):
+                continue  # nobody cuts away while someone is talking
             # end of a quote: go back out to a wider shot
-            if any(abs(q[1] - 0.35 - e) < 0.01 for q in self.quotes) and gap >= 1.2:
+            if any(abs(q1 - 0.35 - e) < 0.01 for _, q1, _ in talks) and gap >= 1.2:
                 cuts.append(nxt); kinds.append(None); continue
             sentence_end = t.rstrip("\"”")[-1:] in ".?!"
             if (sentence_end and gap >= CUT_MIN) or (t[-1:] in ",;:" and gap >= CUT_COMMA) or gap >= CUT_MAX:
@@ -359,11 +398,16 @@ class SceneRenderer:
         for i, (c, k) in enumerate(zip(cuts, kinds)):
             if k is not None and k[0] == "enter":
                 k = ("wide", None) if len(self.actors) > 2 else ("group", None)
+            if k is not None and k[0] == "mention":
+                k = ("mid", k[1]) if prev != ("mid", k[1]) else ("solo", k[1])
             if k is None:
                 avail = [o for o in options if _fresh(o, prev) and (o[1] is None or self.enter_t[o[1].name] <= c + 0.01)]
                 if any(n0 - CUT_MAX <= c < n1 for n0, n1, *_ in self.notes):
                     # a paper card is (or is about to be) on screen: keep the shot open so it never covers a face
                     avail = [("wide", None)]
+                elif any(not x.is_bug and x.name in self.label_for and self._label_start(x) - CUT_MAX <= c < self._label_start(x) + 3.5
+                         for x in self.actors):
+                    avail = [("wide", None)]  # names are being introduced: everybody in the shot
                 k = self.rng.choice(avail) if avail else ("wide", None)
             if len(self.actors) == 0:
                 k = ("wide", None)
@@ -678,6 +722,16 @@ class SceneRenderer:
         pad_y = (r.height - spr.height) / 2
         return r.crop((0, 0, r.width, int(r.height - pad_y))), dx
 
+    def _label_start(self, a):
+        """When a name label shows: shortly after the actor appears; a person's name waits until no paper
+        card is up (both sit in the top of the frame)."""
+        t = self.enter_t[a.name] + 0.6
+        if not a.is_bug:
+            for n0, n1, *_ in sorted(self.notes):
+                if n0 - 4.9 < t < n1:
+                    t = n1 + 0.3
+        return t
+
     def _label(self, cam, a: Actor, sx, sy, height):
         view = self._labels
         key = (a.name, round(sx / 3), round(sy / 3), height)
@@ -685,6 +739,15 @@ class SceneRenderer:
             view.clear()
         if key not in view:
             img = Image.new("RGBA", (self.w, self.h), (0, 0, 0, 0))
+            if not a.is_bug:  # a person: first name above the head, a short arrow down to it
+                size = int(height * 0.1)
+                top = sy - height * 0.80
+                ty = max(size * 0.8, top - size * 1.6)
+                sketch.label(img, sketch.CAST[a.name].name.split()[0], (int(sx), int(ty)), size=size,
+                             arrow_to=(int(sx + size * 0.2), int(top + size * 0.15)))
+                box = img.getbbox() or (0, 0, 1, 1)
+                view[key] = (img.crop(box), box[:2])
+                return view[key]
             size = int(height * 0.16)
             tx = min(self.w - size * 3.2, sx + height * 0.55)
             ty = max(size, sy - height * 0.95)
@@ -902,9 +965,11 @@ class SceneRenderer:
                 img.paste(g, (x - 40, y - 40), g)
             else:
                 img.paste(spr, (x, y), spr)
-            if a.name in self.label_for and 0.6 < age < 5.5 and not any(q[0] <= t < q[1] for q in self.quotes):
+            l0 = self._label_start(a)
+            if a.name in self.label_for and l0 < t < l0 + 4.9 and not any(q[0] <= t < q[1] for q in self.quotes) \
+                    and (a.is_bug or z < 1.6):
                 lab, pos = self._label((z, cx, cy), a, sx, sy, height)
-                fade = min(1.0, (age - 0.6) / 0.3, (5.5 - age) / 0.25)
+                fade = min(1.0, (t - l0) / 0.3, (l0 + 4.9 - t) / 0.25)
                 if fade < 1:
                     lab = lab.copy()
                     lab.putalpha(lab.getchannel("A").point(lambda v, f=fade: int(v * f)))
@@ -1103,6 +1168,33 @@ def _wipe_panel(w, h):
         d.polygon(left_n + list(reversed(right_n)), fill=BRAND_NAVY + (255,))
         _WIPE_PANELS[(w, h)] = (img.resize((W_, h), Image.LANCZOS), E, Wsol)
     return _WIPE_PANELS[(w, h)]
+
+
+MENTION_GAP = 6.0  # seconds before the same name pulls the camera to that person again
+NAMED = ("sarah", "richard", "elena", "daniel", "margaret")  # people who get a name label on first appearance
+_ADDRESSEE = {"to", "at", "toward", "towards", "a", "al", "hacia", "con"}
+
+
+def _norm_word(w: str) -> str:
+    import unicodedata
+    w = unicodedata.normalize("NFD", w.lower())
+    w = "".join(c for c in w if c.isalnum() or c == "'")
+    for suf in ("'s", "’s"):
+        if w.endswith(suf):
+            w = w[: -len(suf)]
+    return w.strip("'")
+
+
+def quote_speakers(scene) -> list[tuple[int, list[str]]]:
+    """Who says the quotes of each paragraph, from `> say@P: richard, daniel` lines (P counts paragraphs
+    from 0; several names = the paragraph's quotes in order). Shared with the voice code."""
+    out = []
+    for key, val in scene.extra.items():
+        if key.startswith("say@"):
+            names = [v.strip().lower().removeprefix("bug:") for v in val.split(",") if v.strip()]
+            if names:
+                out.append((int(key.split("@")[1]), names))
+    return sorted(out)
 
 
 def _ease_io(x: float) -> float:

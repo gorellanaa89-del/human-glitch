@@ -223,7 +223,8 @@ def build(episode: Path, engine: str = "edge", max_seconds: float | None = None,
         if max_seconds and t >= max_seconds - 0.5:
             scenes = scenes[:i]
             break
-        bug_names = {a.name for a in animate.parse_cast(sc.extra.get("cast", "")) if a.is_bug}
+        # voices and main characters whose name label shows on their first appearance
+        bug_names = {a.name for a in animate.parse_cast(sc.extra.get("cast", "")) if a.is_bug or a.name in animate.NAMED}
         if only_scene is not None and i != only_scene:
             labeled.update(bug_names)  # keep the "first appearance" labels identical to a full build
             continue

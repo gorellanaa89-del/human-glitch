@@ -138,6 +138,8 @@ class SceneRenderer:
         self.quotes = self._quotes()
         self._build_gestures(ex)
         self.notes = self._notes(ex)
+        self._build_actions(ex)
+        self._build_facing(ex)
         self._build_shots()
 
     # ---- world and camera ----
@@ -275,7 +277,184 @@ class SceneRenderer:
             expr = (a.expr1 if a.expr1 and tp >= self.t_switch else a.expr0) or getattr(sketch.CAST.get(a.name), "default", "neutral")
             add(a.name, tp + 0.25, tp + 1.9, rng.choice(idle.get(expr, ("explain", "shrug", "point"))))
 
-    def _arms_at(self, a, t):
+    # ---- actions and facing (2026-11-18) ----
+    def _build_actions(self, ex):
+        """`> act@P: richard drop paper:-$40,000 @0.3` (who, verb, prop[:headline], when in paragraph P as a
+        fraction). Verbs: drop (lift it and slam it down on the table, where it stays), hold (keeps it in
+        hand from then on), phone (holds a phone to the ear)."""
+        self.actions = []
+        self._hand = {}
+        names = {a.name: a for a in self.actors}
+        for key, val in ex.items():
+            if not key.startswith("act@"):
+                continue
+            para = int(key.split("@")[1])
+            if para >= len(self.paras):
+                continue
+            frac = 0.0
+            m = re.search(r"@\s*([0-9.]+)\s*$", val)
+            if m:
+                frac, val = float(m.group(1)), val[:m.start()]
+            parts = val.split(None, 2)
+            if len(parts) < 2 or parts[0] not in names:
+                continue
+            who, verb = names[parts[0]], parts[1].lower()
+            kind, _, text = (parts[2] if len(parts) > 2 else ("phone" if verb == "phone" else "paper")).partition(":")
+            p0 = self.paras[para]
+            p1 = self.paras[para + 1] if para + 1 < len(self.paras) else self.seconds
+            T = max(1.2, p0 + frac * (p1 - p0))
+            if T > self.seconds - 0.5:
+                continue
+            others = [b for b in self.actors if b is not who and not b.is_bug]
+            tx = sum(b.x for b in others) / len(others) if others else 0.5
+            d = 1 if tx >= who.x else -1
+            land = (self._world_x(who) + d * self.person_h * 0.42, self.world_h * SURFACE.get(self.set_name, 0.95))
+            self.actions.append({"who": who, "verb": verb, "kind": kind.strip(), "text": text.strip(), "T": T, "dir": d,
+                                 "land": land})
+            # the action replaces any gesture of that arm around it
+            g = self.gest.get(who.name)
+            if g is not None:
+                g[:] = [x for x in g if x[1] < T - 1.2 or (verb == "drop" and x[0] > T + 1.0)]
+
+    def _action_arms(self, a, t):
+        """Arm pose (same for both arms entries) while an action runs, or None."""
+        for ac in self.actions:
+            if ac["who"] is not a:
+                continue
+            T = ac["T"]
+            rest = sketch.POSES["rest"][1]
+            if ac["verb"] == "drop" and T - 0.9 <= t < T + 0.9:
+                up, slam = (150, 172), (80, 98)
+                if t < T - 0.5:
+                    k, a0, a1 = _ease_back((t - T + 0.9) / 0.4, 1.2), rest, up
+                elif t < T - 0.15:
+                    k, a0, a1 = 1.0, up, up
+                elif t < T:
+                    k, a0, a1 = ((t - T + 0.15) / 0.15) ** 2, up, slam
+                elif t < T + 0.5:
+                    k, a0, a1 = 1.0, slam, slam
+                else:
+                    k, a0, a1 = _ease_io((t - T - 0.5) / 0.4), slam, rest
+                pose = tuple(x + (y - x) * k for x, y in zip(a0, a1))
+                if T - 0.5 <= t < T - 0.15:
+                    pose = (pose[0] + 4 * math.sin(t * 40), pose[1])
+                return pose
+            if ac["verb"] in ("hold", "phone") and t >= T - 0.3:
+                target = (40, 98) if ac["verb"] == "hold" else (138, 196)
+                k = _ease_io((t - T + 0.3) / 0.3)
+                return tuple(x + (y - x) * k for x, y in zip(rest, target))
+        return None
+
+    def _held(self, a, t):
+        """The action whose prop is in this person's hand at t."""
+        for ac in self.actions:
+            if ac["who"] is a and ((ac["verb"] == "drop" and ac["T"] - 0.9 <= t < ac["T"] - 0.04)
+                                   or (ac["verb"] in ("hold", "phone") and t >= ac["T"] - 0.2)):
+                return ac
+        return None
+
+    def _prop_sprite(self, kind, text, height, angle=0.0, flat=False):
+        key = ("prop", kind, text, height, round(angle / 3) * 3, flat)
+        if key not in self._sprites:
+            im = sketch.prop(kind, text, max(8, height))
+            if flat:  # lying on the table: seen from above at a slant
+                im = im.resize((im.width, max(4, int(im.height * 0.34))), Image.LANCZOS)
+            if abs(angle) > 0.5:
+                im = im.rotate(round(angle / 3) * 3, resample=Image.BICUBIC, expand=True)
+            self._sprites[key] = im
+        return self._sprites[key]
+
+    def _build_facing(self, ex):
+        """When people turn to the side to face someone: while they talk to them (and the one listening),
+        and while they act on something. `> to@P: daniel` names who paragraph P's quotes are said to."""
+        self.face = {a.name: [] for a in self.actors if not a.is_bug}
+        names = {a.name: a for a in self.actors}
+        to = {int(k.split("@")[1]): v.strip().lower() for k, v in ex.items() if k.startswith("to@")}
+        self.listener = {}
+        for q0, q1, _, spk in self.quotes:
+            if spk.is_bug:
+                continue
+            para = max((k for k, tp in enumerate(self.paras) if tp <= q0 + 0.01), default=0)
+            lis = names.get(to.get(para, ""))
+            if lis is None:
+                # "turns straight to Daniel": the name after to/a/hacia just before the quote
+                i0 = next((i for i, w in enumerate(self.words) if w[0] >= q0 - 0.01), 0)
+                toks = [_norm_word(w[2]) for w in self.words[max(0, i0 - 14):i0]]
+                for k in range(len(toks) - 1, 0, -1):
+                    if toks[k - 1] in _ADDRESSEE and toks[k] in names and names[toks[k]] is not spk:
+                        lis = names[toks[k]]
+                        break
+            if lis is None:
+                vis = [b for b in self.actors if b is not spk and not b.is_bug and self.enter_t[b.name] <= q0]
+                lis = min(vis, key=lambda b: abs(b.x - spk.x)) if vis else None
+            if lis is None or lis.x == spk.x:
+                continue
+            self.listener[round(q0, 2)] = lis
+            d = 1 if lis.x > spk.x else -1
+            self.face[spk.name].append((q0 - 0.25, q1 + 0.3, d))
+            if not lis.is_bug:
+                self.face[lis.name].append((q0 - 0.05, q1 + 0.3, -d))
+        for ac in self.actions:
+            if ac["verb"] == "drop":
+                self.face[ac["who"].name].append((ac["T"] - 0.2, ac["T"] + 0.8, ac["dir"]))  # lifts it facing us, turns to slam it
+        for k in self.face:  # merge overlapping stretches that face the same way
+            out = []
+            for iv in sorted(self.face[k]):
+                if out and iv[2] == out[-1][2] and iv[0] <= out[-1][1] + 0.4:
+                    out[-1] = (out[-1][0], max(out[-1][1], iv[1]), iv[2])
+                else:
+                    out.append(iv)
+            self.face[k] = out
+
+    def _draw_dropped(self, img, t, cam):
+        """Props that were dropped: flying from the hand to the table, then lying there."""
+        z = cam[0]
+        for ac in self.actions:
+            if ac["verb"] != "drop" or t < ac["T"] - 0.04:
+                continue
+            T, d = ac["T"], ac["dir"]
+            lx, ly = ac["land"]
+            w_flat = self.person_h * 0.27 * z
+            u = (t - T + 0.04) / DROP_T
+            if u < 1:
+                sx0, sy0 = self._hand.get(ac["who"].name, (lx - d * self.person_h * 0.2, ly - self.person_h * 0.5))
+                k = u ** 1.7
+                wx, wy = sx0 + (lx - sx0) * k, sy0 + (ly - sy0) * k - math.sin(math.pi * u) * self.person_h * 0.05
+                px, py = self._to_screen(cam, wx, wy)
+                h_up = int(self.person_h * z * 0.3)
+                if u < 0.65:
+                    ps = self._prop_sprite(ac["kind"], ac["text"], h_up, -d * 12 + d * 40 * u)
+                else:
+                    ps = self._prop_sprite(ac["kind"], ac["text"], int(w_flat / 0.7), d * 4, flat=True)
+                img.paste(ps, (int(px - ps.width / 2), int(py - ps.height / 2)), ps)
+                continue
+            px, py = self._to_screen(cam, lx, ly)
+            ps = self._prop_sprite(ac["kind"], ac["text"], int(w_flat / 0.7), d * 4, flat=True)
+            age = t - T - DROP_T + 0.04
+            if age < 0.18:  # a little bounce as it lands
+                py -= math.sin(math.pi * age / 0.18) * 10 * z
+            if -ps.width < px < self.w + ps.width:
+                img.paste(ps, (int(px - ps.width / 2), int(py - ps.height / 2)), ps)
+                if age < BURST_T:
+                    self._burst(img, px, py, int(ps.width * 1.4), age, ac["who"])
+
+    def _facing(self, a, t):
+        """(direction, width factor): 0 = front, 1/-1 = profile looking right/left; the width dips while
+        they turn, so the switch reads as a quick turn instead of a pop."""
+        ivs = self.face.get(a.name, ())
+        d = next((iv[2] for iv in ivs if iv[0] <= t < iv[1]), 0)
+        near = min((min(abs(t - iv[0]), abs(t - iv[1])) for iv in ivs), default=9)
+        return d, (0.4 + 0.6 * min(1.0, near / TURN_T)) if near < TURN_T else 1.0
+
+    def _arms_at(self, a, t, swap=True):
+        act = self._action_arms(a, t)
+        if act is not None:
+            pose = tuple(int(round(v / ARM_STEP) * ARM_STEP) for v in act)
+            rest = sketch.POSES["rest"][0]
+            if not swap:
+                return (rest, pose)
+            d = next((ac["dir"] for ac in self.actions if ac["who"] is a), 1)
+            return (pose, rest) if d < 0 else (rest, pose)  # the arm on the side of what they act on
         rest = sketch.POSES["rest"]
         arms = rest
         for g0, g1, pose in self.gest.get(a.name, ()):
@@ -295,7 +474,7 @@ class SceneRenderer:
                     for side in arms:
                         side[1] += 10 * k * math.sin(2 * math.pi * t / 1.1)
                 break
-        if not self.portrait and a.x > 0.55:  # people on the right gesture towards the middle
+        if swap and not self.portrait and a.x > 0.55:  # people on the right gesture towards the middle
             arms = [arms[1], arms[0]]
         return tuple(tuple(int(round(v / ARM_STEP) * ARM_STEP) for v in side) for side in arms)
 
@@ -346,7 +525,21 @@ class SceneRenderer:
             else:
                 talks.append([t0, t1, spk])
         for t0, t1, spk in talks:
-            forced[round(t0, 2)] = ("solo", spk)
+            lis = self.listener.get(round(t0, 2))
+            forced[round(t0, 2)] = ("two", spk, lis) if lis is not None and not self.portrait else ("solo", spk)
+        starts = [w[0] for w in self.words]
+
+        def word_at(tt):
+            later = [x for x in starts if x >= tt]
+            return round(later[0], 2) if later else None
+        for ac in self.actions:
+            if ac["verb"] != "drop":
+                continue
+            k0, k1 = word_at(ac["T"] - 1.4), word_at(ac["T"] + 0.2)
+            if k0 is not None and k0 not in forced:
+                forced[k0] = ("mid", ac["who"])
+            if k1 is not None and k1 not in forced and not self.portrait:
+                forced[k1] = ("detail", ac["who"])
         for a in self.actors:
             if self.enter_t[a.name] > 0:
                 forced[round(self.enter_t[a.name], 2)] = ("enter", a)
@@ -374,7 +567,7 @@ class SceneRenderer:
                 continue
             gap = nxt - cuts[-1]
             key = round(nxt, 2)
-            if key in forced and forced[key][0] == "solo" and gap < 1.2 and len(cuts) > 1:
+            if key in forced and forced[key][0] in ("solo", "two") and gap < 1.2 and len(cuts) > 1:
                 kinds[-1] = forced[key]; continue  # someone starts talking: the shot just before becomes theirs
             if key in forced and gap >= 1.2:
                 cuts.append(nxt); kinds.append(forced[key]); continue
@@ -417,7 +610,22 @@ class SceneRenderer:
                 vis = [a for a in self.actors if self.enter_t[a.name] <= c + 0.01]
                 if len(vis) < 2:
                     k = ("group", None) if len(vis) > 1 else ("wide", None)
-            if k[0] == "pan":
+            if k[0] == "two":  # speaker and listener, facing each other
+                lis = k[2]
+                k = ("two", k[1])
+                xa, xb = self._world_x(k[1]), self._world_x(lis)
+                span = abs(xa - xb) + self.person_h * 0.95
+                z = max(1.0, min(1.7, self.w / max(1, span)))
+                z, cx, cy = self._clamp(z, (xa + xb) / 2, self.person_bottom - self.person_h * 0.56)
+                drift = (self.w / z) * DRIFT * 0.5 * (1 if i % 2 == 0 else -1)
+                z, cx0, cy0 = self._clamp(z, cx - drift / 2, cy)
+                z, cx1, cy1 = self._clamp(z, cx + drift / 2, cy)
+            elif k[0] == "detail":  # insert: the thing on the table
+                ac = next(x for x in self.actions if x["who"] is k[1] and x["verb"] == "drop")
+                lx, ly = ac["land"]
+                z, cx0, cy0 = self._clamp(2.3, lx, ly - self.person_h * 0.08)
+                z, cx1, cy1 = self._clamp(2.55, lx, ly - self.person_h * 0.08)
+            elif k[0] == "pan":
                 a0, a1 = min(vis, key=lambda a: a.x), max(vis, key=lambda a: a.x)
                 if self.rng.random() < 0.5:
                     a0, a1 = a1, a0
@@ -466,6 +674,8 @@ class SceneRenderer:
             return st
         rng = self.rng
         kind, a = k
+        if kind in ("two", "detail"):
+            return st
         if not forced and rng.random() < WHIP:
             st["whip"] = rng.choice((-1, 1))
         if kind not in ("wide", "pan") and rng.random() < 0.35:
@@ -693,13 +903,15 @@ class SceneRenderer:
         return (x - cx) * z + self.w / 2, (y - cy) * z + self.h / 2
 
     # ---- sprites ----
-    def _sprite(self, a: Actor, expr, blink, height, arms=None):
-        key = (a.name, expr, blink, height, arms)
+    def _sprite(self, a: Actor, expr, blink, height, arms=None, facing=0):
+        key = (a.name, expr, blink, height, arms, facing)
         if key not in self._sprites:
             if len(self._sprites) > 700:
                 self._sprites.clear()
             if a.is_bug:
                 self._sprites[key] = bugs.draw(a.name, expr, height=height, blink=blink)
+            elif facing:
+                self._sprites[key] = sketch.profile(a.name, expr, height=height, blink=blink, arms=arms, facing=facing)
             else:
                 self._sprites[key] = sketch.draw(a.name, expr, height=height, blink=blink, arms=arms)
         return self._sprites[key]
@@ -932,7 +1144,8 @@ class SceneRenderer:
                     angle += 3 * math.sin(2 * math.pi * t / 0.84)
                 if a.expr1 and abs(t - self.t_switch) < 0.35:  # a hop on the expression change
                     bob -= math.sin(math.pi * (t - self.t_switch + 0.35) / 0.7) * 30 * z
-                arms = self._arms_at(a, t)
+                fdir, fsq = self._facing(a, t)
+                arms = self._arms_at(a, t, swap=not fdir)
                 wx, wy = self._world_x(a), self.person_bottom
                 if 0 < t0 and 0 <= t - t0 < WALK:  # people who join later walk in from the nearest side
                     k = (t - t0) / WALK
@@ -950,10 +1163,14 @@ class SceneRenderer:
                 if t0 == 0:  # rise into frame at the start of the scene
                     k = min(1.0, max(0.0, (t - a.seed * 0.12) / 0.45))
                     bob += (1 - k) ** 2 * height * 0.5
-            spr = self._sprite(a, expr, blink, height, arms)
+            if a.is_bug:
+                fdir, fsq = 0, 1.0
+            spr = self._sprite(a, expr, blink, height, arms, fdir)
             sx, sy = self._to_screen(cam, wx, wy)
             sx += sway
-            spr, dx = self._tilt(spr, a, expr, blink, height, angle, arms)
+            spr, dx = self._tilt(spr, a, expr, blink, height, angle, (arms, fdir))
+            if fsq < 0.999:  # turning
+                spr = spr.resize((max(2, int(spr.width * fsq)), spr.height), Image.BILINEAR)
             x, y = int(sx - spr.width / 2 + dx), int(sy - spr.height + bob)
             if x > self.w or x + spr.width < 0:
                 continue
@@ -965,6 +1182,22 @@ class SceneRenderer:
                 img.paste(g, (x - 40, y - 40), g)
             else:
                 img.paste(spr, (x, y), spr)
+            held = None if a.is_bug else self._held(a, t)
+            if held is not None:
+                sc_ = height / 690
+                if fdir:
+                    hx, hy = sketch.profile_hand(arms[1])
+                    hx = hx if fdir > 0 else 600 - hx
+                elif arms[0] != sketch.POSES["rest"][0]:
+                    hx, hy = sketch.front_hand(arms[0], -1)
+                else:
+                    hx, hy = sketch.front_hand(arms[1], 1)
+                hsx, hsy = sx - 300 * sc_ + hx * sc_ + dx, sy - height + bob + hy * sc_
+                self._hand[a.name] = ((hsx - self.w / 2) / z + cx, (hsy - self.h / 2) / z + cy)
+                ph = int(self.person_h * z * (0.3 if held["kind"] == "paper" else 0.16))
+                tilt_p = -held["dir"] * 12 if held["verb"] == "drop" else 0
+                ps = self._prop_sprite(held["kind"], held["text"], ph, tilt_p)
+                img.paste(ps, (int(hsx - ps.width / 2), int(hsy - ps.height * 0.75)), ps)
             l0 = self._label_start(a)
             if a.name in self.label_for and l0 < t < l0 + 4.9 and not any(q[0] <= t < q[1] for q in self.quotes) \
                     and (a.is_bug or z < 1.6):
@@ -989,6 +1222,7 @@ class SceneRenderer:
             img.paste(spr, (px, py), spr)
         if fc is not None:
             img.paste(fc, (0, 0), fc)
+        self._draw_dropped(img, t, (z, cx, cy))
         for b_ in bursts:
             self._burst(img, *b_)
         for lab in labels:
@@ -1061,6 +1295,12 @@ class SceneRenderer:
                 s *= 1 + 0.07 * d
                 tx += w * 0.012 * d * math.sin(age * 90)
                 ty += h * 0.012 * d * math.cos(age * 70)
+        for ac in self.actions:
+            age = t - ac["T"] - DROP_T + 0.04
+            if ac["verb"] == "drop" and 0 <= age < 0.3:
+                d = 1 - age / 0.3
+                s *= 1 + 0.02 * d
+                ty += h * 0.01 * d * math.cos(age * 80)
         whip = 0.0
         if st["whip"] and t - c < WHIP_T:
             whip = 1 - (t - c) / WHIP_T
@@ -1133,6 +1373,9 @@ DOLLY = 0.2       # push-in of a dolly shot (fraction of the frame by the end of
 WALK = 1.3  # seconds a person takes to walk into the scene
 # Smoother motion (2026-11-18): share of cuts that become a camera glide, and how long a glide takes
 GLIDE, GLIDE_T = 0.7, 0.8
+TURN_T = 0.09     # seconds of the squash when someone turns to the side or back
+DROP_T = 0.26     # seconds a dropped prop takes to fall from the hand to the table
+SURFACE = {"meeting": 0.80, "boss_office": 0.80, "open_office": 0.86, "breakroom": 0.86, "kitchen": 0.86}
 OTS_FREE, OTS_FORCED = 0.3, 0.5  # over-the-shoulder shots always cut (was 0.5 / 0.75)
 BURST_T = 0.6     # seconds an emphasis burst lasts
 BRAND_LIGHT_RGBA = (90, 183, 230, 255)

@@ -581,3 +581,206 @@ def shock_lines(img: Image.Image, cx, cy, color=WHITE, seed=5):
         y = cy + k * 40
         p.line([(cx, y), (cx + 40, y - 30), (cx + 70, y + 10), (cx + 110, y - 24), (cx + 140, y)], 4, color)
     img.alpha_composite(tmp.resize(img.size, Image.LANCZOS))
+
+
+# ---------- profile (2026-11-18): a cast member seen from the side, facing right ----------
+# Same head size, colour and pencil line as the front view; one big eye near the front of the face,
+# a small nose bump, the ear in the middle of the head and the hair falling at the back.
+P_HEAD = (300, 250, 146, 138)
+P_EYE = (372, 272)
+P_EYE_R = (46, 70)
+
+
+def _p_arm(p: Pencil, col, upper, fore, sleeve=None):
+    """The near arm in profile: angles as in POSES, positive = forward (towards the face)."""
+    sh = (300, 452)
+    u, f = math.radians(upper), math.radians(fore)
+    el = (sh[0] + UPPER * math.sin(u), sh[1] + UPPER * math.cos(u))
+    hd = (el[0] + FORE * math.sin(f), el[1] + FORE * math.cos(f))
+    el2 = (el[0] + (el[0] - (sh[0] + hd[0]) / 2) * 0.3, el[1] + (el[1] - (sh[1] + hd[1]) / 2) * 0.3)
+    p.shape(_hose(sh, el2, hd), sleeve or shade(col, 0.93), 5)
+    p.shape(ellipse_pts(hd[0], hd[1], 27, 25, n=28), col, 5)
+    return hd
+
+
+def profile_hand(arm=(16, -4)):
+    """Where the near hand is in base units (600 x 690 crop) for a profile arm pose."""
+    sh = (300, 452)
+    u, f = math.radians(arm[0]), math.radians(arm[1])
+    el = (sh[0] + UPPER * math.sin(u), sh[1] + UPPER * math.cos(u))
+    return (el[0] + FORE * math.sin(f), el[1] + FORE * math.cos(f))
+
+
+def front_hand(arm=(16, -4), side=1):
+    """Where a hand is in base units (600 x 690 crop) for a front-view arm pose (side 1 = picture right)."""
+    return _limb(side, *arm)[2]
+
+
+def _p_hair(p: Pencil, b: Bean, front: bool):
+    hc = b.hair_color or shade(b.color, 0.62)
+    cx, cy, rx, ry = P_HEAD
+    if not front:
+        if b.hair == "long":
+            p.shape(bez((330, 150), (150, 150), (130, 330), (150, 500)) + [(290, 500)] +
+                    bez((290, 500), (270, 420), (250, 330), (300, 250))[1:], hc, 5)
+        if b.hair == "bun":
+            p.shape(ellipse_pts(170, 140, 54, 46), hc, 5)
+        return
+    if b.hair == "none":
+        return
+    # a cap over the top and the back of the head, ending above the ear; a fringe at the front
+    back_to = {"long": 0.62, "bob": 0.55, "sidepart": 0.86, "bun": 0.86, "crop": 0.9}.get(b.hair, 0.9)
+    cap = ellipse_pts(cx, cy, rx + 6, ry + 6, math.pi * (2 - 0.2), math.pi * (2 - 0.2) - math.pi * (1 + 0.2 - back_to + 0.6), 40)
+    if b.hair == "crop":
+        zig = [(cap[-1][0] + 10, cap[-1][1] + 10), (180, 200), (210, 186), (240, 196), (270, 176), (300, 188), (330, 168), (360, 180), (390, 162), (420, 172)]
+        p.shape(cap + zig, hc, 5)
+    elif b.hair == "bob":
+        p.shape(cap + bez(cap[-1], (226, 340), (214, 262), (250, 212)) + bez((250, 212), (320, 186), (380, 176), (430, 182)), hc, 5)
+    elif b.hair == "long":
+        p.shape(cap + bez(cap[-1], (214, 330), (210, 262), (250, 212)) + bez((250, 212), (320, 186), (380, 176), (430, 182)), hc, 5)
+    else:  # sidepart, bun
+        p.shape(cap + bez(cap[-1], (200, 270), (230, 240), (250, 210)) + bez((250, 210), (320, 186), (380, 176), (430, 182)), hc, 5)
+        if b.hair == "sidepart":
+            p.line(bez((420, 176), (380, 150), (320, 140), (260, 150)), 4)
+
+
+def _p_face(p: Pencil, expr, col, b: Bean):
+    ex, ey = P_EYE
+    rx, ry = P_EYE_R
+    # brow
+    by = ey - ry - 14
+    if expr in ("worried", "sad"):
+        p.line([(ex - 26, by - 10), (ex + 26, by + 6)], 5)
+    elif expr == "surprised":
+        p.line(ellipse_pts(ex, by + 6, 28, 16, math.pi * 1.15, math.pi * 1.85, 16), 5)
+    elif expr == "happy":
+        p.line(ellipse_pts(ex, by + 30, 24, 14, math.pi * 1.2, math.pi * 1.8, 16), 5)
+    else:
+        p.line([(ex - 22, by + 2), (ex + 22, by - 2)], 5)
+    # eye
+    if _BLINK and expr != "happy":
+        p.line(ellipse_pts(ex, ey + 20, 40, 18, math.pi * 0.1, math.pi * 0.9, 20), 6)
+    elif expr == "happy":
+        p.line(ellipse_pts(ex, ey + 18, 36, 30, math.pi * 1.1, math.pi * 1.9), 7)
+    else:
+        p.shape(ellipse_pts(ex, ey, rx, ry), WHITE, 5.5)
+        pr, dx, dy = (10, 15), 22, 30
+        if expr == "surprised":
+            pr, dx, dy = (7, 9), 18, 0
+        elif expr in ("worried", "sad"):
+            pr, dx, dy = (9, 14), 18, 44
+        elif expr == "smug":
+            pr, dx, dy = (10, 13), 22, 34
+        px, py = ex + dx, ey + dy
+        p.d.ellipse([(px - pr[0]) * SS, (py - pr[1]) * SS, (px + pr[0]) * SS, (py + pr[1]) * SS], fill=INK)
+        p.d.ellipse([(px - 4) * SS, (py - pr[1] + 2) * SS, px * SS, (py - pr[1] + 7) * SS], fill=WHITE)
+        if expr == "smug":
+            lid = ellipse_pts(ex, ey, rx + 7, ry + 7, math.pi, 2 * math.pi) + [(ex + rx + 7, ey + 6), (ex - rx - 7, ey + 6)]
+            p.d.polygon([(x * SS, y * SS) for x, y in lid], fill=col)
+            p.line([(ex - rx + 4, ey + 6), (ex + rx - 4, ey + 4)], 6)
+    # mouth, at the front of the face
+    y, x = 372, 414
+    if expr == "happy":
+        pts = [(x - 34, y - 8), (x + 22, y - 10)] + bez((x + 22, y - 10), (x + 16, y + 26), (x - 26, y + 26), (x - 34, y - 8))[1:]
+        p.shape(pts, (40, 26, 30), 5)
+    elif expr == "worried":
+        p.line([(x - 22, y + 6), (x - 12, y), (x - 2, y + 6), (x + 8, y)], 4.5)
+    elif expr == "surprised":
+        p.shape(ellipse_pts(x - 4, y + 4, 10, 15, n=24), (40, 26, 30), 4.5)
+    elif expr == "smug":
+        p.line(bez((x - 30, y + 2), (x - 14, y + 10), (x + 2, y + 6), (x + 14, y - 8)), 5)
+    elif expr == "sad":
+        p.line(ellipse_pts(x - 6, y + 18, 16, 12, math.pi * 1.15, math.pi * 1.85, 16), 5)
+    else:
+        p.line(ellipse_pts(x - 6, y - 8, 14, 10, math.pi * 0.2, math.pi * 0.8, 16), 5)
+    if "glasses" in b.extras:
+        p.line(ellipse_pts(ex, ey, rx + 12, ry + 10), 5)
+        p.line([(ex - rx - 12, ey - 6), (262, ey - 2)], 5)
+    if expr == "worried":
+        p.shape(bez((214, 160), (202, 190), (198, 206), (214, 208)) + bez((214, 208), (230, 206), (226, 190), (214, 160))[1:],
+                (170, 220, 255), 3.5)
+
+
+def _bean_profile(b: Bean, expr: str, arms=None) -> Image.Image:
+    img = Image.new("RGBA", (W0 * SS, H0 * SS), (0, 0, 0, 0))
+    p = Pencil(img, b.seed + 60)
+    col = b.color
+    _p_hair(p, b, front=False)
+    p.shape([(296, 370), (330, 370), (334, 412), (292, 412)], shade(col, 0.85), 4)  # neck
+    coat = COAT if "labcoat" in b.extras else None
+    torso = [(300 + (x - 300) * 0.78 + 8, y) for x, y in _torso()]
+    p.shape(torso, coat or col, 5.5)
+    if "tie" in b.extras:  # the tie seen from the side: a sliver down the chest
+        p.shape([(388, 414), (404, 418), (400, 520), (386, 540)], (60, 70, 120), 3.5)
+    if "badge" in b.extras:
+        p.line(bez((330, 404), (370, 460), (392, 500), (396, 540)), 3.5, (60, 90, 200))
+        p.shape([(380, 540), (412, 540), (412, 596), (380, 596)], WHITE, 4)
+    if "pearls" in b.extras:
+        for k in range(5):
+            p.shape(ellipse_pts(332 + k * 14, 404 + k * 3, 7, 7, n=14), (250, 248, 240), 2.5)
+    cx, cy, rx, ry = P_HEAD
+    p.shape(ellipse_pts(cx, cy, rx, ry, n=90), col, 6)
+    p.shape(ellipse_pts(cx + rx - 6, 300, 18, 20, -math.pi * 0.55, math.pi * 0.55, 20) + [(cx + rx - 14, 318), (cx + rx - 14, 282)],
+            col, 4.5)  # nose bump
+    _p_hair(p, b, front=True)
+    p.shape(ellipse_pts(258, 282, 20, 28, n=24), col, 4.5)  # ear
+    if "earrings" in b.extras:
+        p.shape(ellipse_pts(258, 322, 9, 9, n=20), (250, 214, 90), 3)
+    _p_face(p, expr, col, b)
+    _p_arm(p, col, *(arms[1] if arms else (16, -4)), sleeve=coat)
+    return img
+
+
+def profile(name: str, expression: str | None = None, height: int = 700, blink: bool = False, arms=None,
+            facing: int = 1) -> Image.Image:
+    """A cast member from the side, `facing` 1 = looking right, -1 = looking left. Only the near arm shows;
+    it takes the picture-right entry of an arm pose (positive angles reach forward)."""
+    global _BLINK
+    _BLINK = blink
+    try:
+        b = CAST[name]
+        img = _bean_profile(b, expression or b.default, arms=arms)
+    finally:
+        _BLINK = False
+    img = img.crop((0, 0, W0 * SS, 690 * SS))
+    if facing < 0:
+        img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    w = int(height * img.width / img.height)
+    return img.resize((w, height), Image.LANCZOS)
+
+
+# ---------- props (2026-11-18): things the cast holds, drops or puts down ----------
+
+def prop(kind: str, text: str = "", height: int = 200) -> Image.Image:
+    """A hand-drawn object, `height` pixels tall: paper (a printed sheet; `text` is its big headline),
+    phone, mug."""
+    img = Image.new("RGBA", (400 * SS, 520 * SS), (0, 0, 0, 0))
+    p = Pencil(img, 77 + len(kind))
+    if kind == "paper":
+        p.shape([(40, 30), (360, 22), (368, 494), (34, 500)], (252, 251, 246), 6)
+        p.d.polygon([(x * SS, y * SS) for x, y in [(300, 22), (360, 22), (360, 82)]], fill=(0, 0, 0, 0))
+        p.shape([(300, 24), (360, 82), (304, 80)], (226, 224, 216), 4)  # folded corner
+        if text:
+            f = ImageFont.truetype(str(HAND_FONT), 10)
+            size = 110
+            while size > 30:
+                f = ImageFont.truetype(str(HAND_FONT), size * SS)
+                if p.d.textlength(text, font=f) < 290 * SS:
+                    break
+                size -= 6
+            p.d.text((200 * SS, 140 * SS), text, font=f, fill=(214, 60, 60), anchor="mm")
+            p.line([(70, 200), (330, 196)], 5, (214, 60, 60))
+        for y in range(250, 470, 34):
+            p.line([(70, y), (70 + 220 + (y * 7) % 60, y + 2)], 4, (150, 150, 160), wobble=0.8)
+    elif kind == "phone":
+        p.shape([(130, 60), (270, 60), (280, 80), (280, 460), (270, 480), (130, 480), (120, 460), (120, 80)], (40, 44, 56), 6)
+        p.shape([(140, 100), (260, 100), (260, 430), (140, 430)], (120, 190, 240), 4)
+    elif kind == "mug":
+        p.line(ellipse_pts(300, 290, 70, 80, -math.pi / 2, math.pi / 2, 30), 14)
+        p.shape([(80, 160), (300, 160), (290, 470), (90, 470)], (250, 250, 250), 6)
+        p.line([(110, 260), (270, 260)], 6, (58, 99, 216))
+    else:
+        raise ValueError(f"unknown prop {kind}")
+    img = img.crop(img.getbbox())
+    w = max(1, int(height * img.width / img.height))
+    return img.resize((w, height), Image.LANCZOS)

@@ -1,5 +1,6 @@
 # Scene: It wasn't me
 > say@1: richard
+> act@1: richard drop paper:-$40,000 @0.3
 > part: hook
 > keywords: office meeting angry boss
 > card: $40,000 TOO LOW

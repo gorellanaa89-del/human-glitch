@@ -24,23 +24,31 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python tools/audition/expressive/gemini_audition.py tools/audition/hook.es.txt out
+      - name: Engines to try (tools/audition/expressive/engines.txt, default both)
+        run: |
+          E=$(cat tools/audition/expressive/engines.txt 2>/dev/null || echo "gemini chatterbox")
+          echo "ENGINES=$E" >> "$GITHUB_ENV"
+          echo "OUTBRANCH=previews-$(echo $E | tr ' ' '-')" >> "$GITHUB_ENV"
       - name: Install Chatterbox (CPU)
+        if: contains(env.ENGINES, 'chatterbox')
         run: |
           pip install -q torch torchaudio --index-url https://download.pytorch.org/whl/cpu
           pip install -q chatterbox-tts edge-tts==7.3.1
       - name: Synthetic timbre prompt (Emma, a Microsoft voice, not a real person)
+        if: contains(env.ENGINES, 'chatterbox')
         run: |
           edge-tts --voice en-US-EmmaMultilingualNeural --rate=+10% --text "Y lo curioso es esto: casi nadie se da cuenta de que lo hace. Pero cuando lo ves una vez, ya no puedes dejar de verlo en todas partes." --write-media p.mp3
           ffmpeg -v error -y -i p.mp3 -ar 24000 -ac 1 prompt.wav
       - name: Chatterbox
+        if: contains(env.ENGINES, 'chatterbox')
         run: python tools/audition/expressive/chatterbox_audition.py tools/audition/hook.es.txt out prompt.wav
       - name: Push clips
         if: always()
         run: |
           cd out || exit 0
           for f in *.wav; do ffmpeg -v error -y -i "$f" -b:a 96k "${f%.wav}.mp3" && rm "$f"; done
-          git init -q -b previews-expressive
+          git init -q -b "$OUTBRANCH"
           git config user.name "human-glitch-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A && git commit -qm "Expressive audition"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" previews-expressive
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "$OUTBRANCH"

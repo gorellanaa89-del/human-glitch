@@ -8,7 +8,10 @@ synthetic_media: false
 # Narrator for this episode (Giancarlo 2026-11-16: a warmer, slightly ironic woman's voice)
 voices:
   en: en-US-AvaNeural
-  es: es-MX-DaliaNeural
+  es: en-US-EmmaMultilingualNeural
+# 2026-11-18 voice test: closest match to Giancarlo's reference clip (woman, mid-low pitch, fast, short pauses)
+voice_rate:
+  es: "+18%"
 shorts:
   - scene: 1
     en: "Do You Know Someone Who's Never Wrong?"

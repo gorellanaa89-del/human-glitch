@@ -1,7 +1,7 @@
 # Set approved: true when you have reviewed the script. Only approved episodes are rendered and uploaded.
 approved: false
-title: "Why Some People Hate Every Change (The Psychology of Resistance)"
-thumbnail_text: "WE'VE ALWAYS DONE IT THIS WAY"
+title: "Why Your Mom Refuses to Change (The Psychology of Resistance)"
+thumbnail_text: "THIS LINE NEVER ROBBED ME"
 publish_at: ""
 backgrounds: drawn
 synthetic_media: false
@@ -17,45 +17,45 @@ voice_style:
   es: "Lee en español latino neutro como una narradora joven de datos curiosos en TikTok: rápida, con mucha energía y curiosidad, sonriendo, subiendo y bajando mucho el tono, pausas muy cortas, remarcando las palabras clave y con un toque de ironía"
 shorts:
   - scene: 1
-    en: "Do You Know Someone Who Hates Every Change?"
-    es: "¿Conoces a alguien que odia todo cambio?"
-  - scene: 3
     en: "Does Your Mom Still Refuse to Use the App?"
     es: "¿Tu mamá todavía se niega a usar la app?"
   - scene: 4
-    en: "When Grandpa Won't Give Up the Car Keys"
-    es: "Cuando el abuelo no quiere soltar las llaves"
+    en: "She'd Rather Take Two Buses Than Open an App"
+    es: "Prefiere tomar dos buses antes que abrir una app"
   - scene: 7
     en: "4 Signs Someone Is Stuck in the Old Way"
     es: "4 señales de que alguien vive anclado al pasado"
+  - scene: 11
+    en: "The Question That Unlocks a Parent Who Resists Change"
+    es: "La pregunta que desarma a un papá que se resiste al cambio"
   - scene: 12
-    en: "How to Help Someone Who Resists Change"
-    es: "Cómo ayudar a alguien que se resiste al cambio"
+    en: "How to Help a Parent Who Resists Change"
+    es: "Cómo ayudar a tus papás a aceptar un cambio"
 short_scene: 5
 tags:
   - resistance to change
   - status quo bias
-  - loss aversion
-  - difficult people
+  - parents and technology
+  - family psychology
   - psychology
-  - workplace psychology
+  - loss aversion
 description: |
-  A boss who says we've always done it this way, a mom who won't touch the banking app, a grandfather who won't give up the car keys. Do you know someone like this? Meet The Anchor: the voice that grabs on to the way things are and won't let go. We follow Margaret, Sarah's mom and Daniel's grandfather, see why the familiar path kept our ancestors alive, and learn four ways to help someone who resists every change.
+  Linda would rather wait two hours in line at the bank, or take two buses across the city, than open the banking app. Do you know someone like this? Meet The Anchor: the voice that grabs on to the way things are and won't let go. We follow Linda and her daughter Sarah, see why the familiar path kept our ancestors alive, and learn four ways to help a parent who resists every change.
 
   {chapters}
 
   Inside Voice Psychology: the stories behind the voice in your head.
 es:
-  title: "Por qué hay gente que odia cualquier cambio (la psicología de la resistencia)"
-  thumbnail_text: "SIEMPRE SE HIZO ASÍ"
+  title: "Por qué tu mamá se niega a cambiar (la psicología de la resistencia)"
+  thumbnail_text: "ESTA COLA NUNCA ME ROBÓ"
   tags:
     - resistencia al cambio
     - sesgo del statu quo
-    - aversión a la pérdida
-    - personas difíciles
+    - papás y tecnología
+    - psicología familiar
     - psicología
   description: |
-    Una jefa que dice siempre lo hemos hecho así, una mamá que no quiere usar la app del banco, un abuelo que no suelta las llaves del auto. ¿Conoces a alguien así? Conoce al Ancla: la voz que se aferra a cómo son las cosas y no las suelta. Seguimos a Margaret, a la mamá de Sarah y al abuelo de Daniel, entendemos por qué el camino conocido mantenía vivos a nuestros ancestros y aprendemos cuatro formas de ayudar a alguien que se resiste a todo cambio.
+    Linda prefiere hacer dos horas de cola en el banco, o tomar dos buses al otro lado de la ciudad, antes que abrir la app. ¿Conoces a alguien así? Conoce al Ancla: la voz que se aferra a cómo son las cosas y no las suelta. Seguimos a Linda y a su hija Sarah, entendemos por qué el camino conocido mantenía vivos a nuestros ancestros y aprendemos cuatro formas de ayudar a un papá o una mamá que se resiste a todo cambio.
 
     {chapters}
 

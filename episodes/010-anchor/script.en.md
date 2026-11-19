@@ -1,131 +1,128 @@
-# Scene: It has always worked
-> say@1: margaret
-> act@1: margaret drop paper:NEW SYSTEM? @0.3
-> part: hook
-> keywords: office meeting presentation colleagues
-> card: IT HAS ALWAYS WORKED
-> cast: daniel:happy -> daniel:surprised, margaret:smug, richard:neutral
-> set: meeting
-> switch: 0.3
-> gesture: daniel:explain@0
-> note@2: SAME SENTENCE | three different people
-
-On Tuesday morning, Daniel proposes a simple change at work: a new system that would save the team four hours a week.
-
-And before he can finish, Margaret Lane drops the proposal back on the table, folds her arms and says, very calmly: "We've done it this way for fifteen years, and it has always worked."
-
-That same night, Sarah's mom says almost the exact same sentence about her bank. And on Sunday, Daniel's grandfather says it too, about a car he really shouldn't be driving anymore.
-
-So tell me, do you know someone like this? A boss, a mom, a grandfather, or a partner who orders the same dish every single time? Well, that person isn't just stubborn. They're listening to a very old voice, and today we're going to give it a face.
-
-# Scene: Margaret's way
-> say@2: margaret
-> part: story
-> keywords: office desk woman binders computer
-> card: FIFTEEN YEARS, ONE WAY
-> cast: margaret:happy, daniel:neutral
-> set: open_office
-> gesture: margaret:point@1
-> note@1: 15 YEARS | the one who knows
-
-Let's start with Margaret, because she isn't a difficult person at all.
-
-She's the one who remembers everyone's birthday, and the one who can find any number from the last fifteen years in under a minute. Her way of doing things isn't just a habit. It's the proof that she's the one who knows.
-
-So at the training for the new system she smiles, takes notes and says: "Of course, I'll give it a try." And then, two weeks later, Daniel discovers that she's doing every task twice, once in the new system and once the old way. Just in case.
-
-# Scene: Linda and the bank
+# Scene: Two hours in line
 > say@1: sarah, mom
 > act@1: sarah hold phone @0.05
-> part: story
+> part: hook
 > keywords: bank line older woman daughter phone
-> card: TWO HOURS IN LINE
+> card: THIS LINE HAS NEVER ROBBED ME
 > cast: extra1:neutral, mom:smug, sarah:worried
 > set: bank
-> gesture: mom:stop@1, sarah:shrug@2
+> gesture: mom:stop@1
 > note@0: TICKET A-127 | 2 hours in line
 
-Now meet Linda, Sarah's mom. It's the first Monday of the month, so, like every month, she's standing in line at the bank with her ticket in her hand, ready to wait two hours to pay a bill that the app would pay in two minutes. And today Sarah came with her, determined to change that.
+It's the first Monday of the month, and like every first Monday, Linda, Sarah's mom, is standing in line at the bank with her little paper ticket, ready to wait two hours to pay a bill that the app on her phone would pay in two minutes.
 
-So she tries one more time. "Mom, look, it's three taps and you're done." And Linda doesn't even look at the phone. "Apps steal your money. This line has never stolen anything from me."
+Today Sarah came with her, and she tries one more time. "Mom, look, it's three taps and you're done." And Linda doesn't even look at the phone. "Apps steal your money. This line has never robbed me."
 
-Sarah has heard every version of this: her eyes, the tiny buttons, the hackers on the news. None of those reasons is crazy, and that's exactly what makes it so hard to argue with her. So, two hours later, they're both still in line.
+Sarah has heard that sentence a hundred times, so she just sighs and settles in for the next two hours.
 
-# Scene: Grandpa's keys
-> say@1: daniel, grandpa
+So tell me, do you know someone like this? A mom who won't touch the banking app, a dad who still prints every email, or a grandpa who refuses to video call because the phone was made for talking? Well, that person isn't just stubborn. They're listening to a very old voice, and today we're going to give it a face.
+
+# Scene: The notebook
 > part: story
-> keywords: family lunch home grandfather grandson
-> card: THE KEYS
-> cast: daniel:worried -> daniel:sad, grandpa:smug
+> keywords: kitchen older woman notebook bills
+> card: 40 YEARS, ONE NOTEBOOK
+> cast: mom:happy, sarah:neutral
+> set: kitchen
+> gesture: mom:point@1
+> note@1: 40 YEARS | every bill paid on time
+
+To understand Linda, you first need to understand her notebook.
+
+For forty years, she has written down every bill, every payment and every coin in the same kind of blue notebook, and she has never, not once, paid anything late. She raised Sarah on a tight budget and saved for her university with a pen, a notebook and that bank line. So for Linda, doing things her way isn't just a habit. It's the proof that she's always been able to manage on her own.
+
+And she isn't a difficult woman, either. She's the mom who calls every Sunday and still sends Sarah home with food for the whole week.
+
+# Scene: Ten reasons
+> say@1: mom
+> part: story
+> keywords: living room mother daughter phone argument
+> card: TEN REASONS
+> cast: mom:smug, sarah:worried
 > set: home_day
-> switch: 0.55
-> gesture: daniel:clasp@1, grandpa:point@1
-> note@0: 2 SCRATCHES | in one month
+> gesture: sarah:explain@0, mom:shrug@1
+> note@1: INSTALLED | 3 times
 
-And on Sunday, at the family lunch, Daniel gets the hardest job of all. His grandfather Walter, who is eighty-four, has scratched the car twice this month, and the whole family has quietly chosen Daniel to bring it up.
+And it's not that Sarah hasn't tried. She has installed the app on her mom's phone three times, written the steps on a piece of paper and even offered to sit next to her every month.
 
-So he takes a breath. "Grandpa, what if I drive you on Sundays?" And Walter puts down his fork. "Sixty years behind the wheel without an accident. I don't need a chauffeur."
+But every time, Linda has a new reason. Her eyes, the buttons are too tiny, the hackers she saw on the news. And when Sarah answers one reason, another one shows up. "Maybe next year, when I have more time."
 
-Three people, three different situations, and the same answer. So, what's going on inside people like this?
+None of those reasons is crazy, of course, and that's exactly what makes it so hard to argue with her.
+
+# Scene: The letter
+> say@1: mom
+> act@0: mom drop paper:BRANCH CLOSING @0.4
+> part: story
+> keywords: kitchen letter older woman worried
+> card: THE BRANCH IS CLOSING
+> cast: mom:surprised -> mom:worried, sarah:worried
+> set: kitchen
+> switch: 0.3
+> note@0: LAST DAY | in 30 days
+
+Then, one Thursday, a letter arrives. Linda's bank branch, the one she's been going to for twenty years, is closing next month, and the nearest one is across the city, two buses away.
+
+Linda drops the letter on the kitchen table and stares at it for a long time. "Well, then I'll take the two buses."
+
+And Sarah realizes her mom would rather spend four hours on buses than open an app. So, what's going on inside people like this?
 
 # Scene: Meet The Anchor
 > say@3: voice
 > part: bug
-> keywords: office desk woman thinking
+> keywords: older woman thinking home window
 > card: THE ANCHOR
-> cast: margaret:worried, bug:anchor:neutral
-> set: boss_office
+> cast: mom:worried, bug:anchor:neutral
+> set: bedroom
 > enter: bug:anchor@1
 
 Let's give it a face.
 
 Meet The Anchor, the voice that, whenever something new shows up, grabs on to the way things are and refuses to let go.
 
-And here's what makes it so tricky. The Anchor doesn't sound like fear. It sounds like common sense.
+And here's what makes it so tricky. The Anchor doesn't sound like fear. It sounds like common sense, like experience talking.
 
-"If it isn't broken, why fix it?"
+"If it has always worked, why change it?"
 
-The catch is that it never compares the old and the new fairly. The problems of the old way are familiar, so they become invisible, like those two hours in line. Meanwhile every problem of the new way is fresh, so it looks huge.
+The catch is that it never compares the old and the new fairly. The problems of the old way are familiar, so they become invisible, like those two hours in line. Meanwhile every problem of the new way is fresh, so it looks huge: the passwords, the tiny buttons, the scams.
 
-# Scene: Not just them
+# Scene: Not just Linda
 > part: bug
-> keywords: research study psychology office
+> keywords: research study psychology
 > card: THE STATUS QUO BIAS
-> cast: margaret:neutral, bug:anchor:neutral
-> set: office
+> cast: mom:neutral, bug:anchor:neutral
+> set: home_day
 > cutaway@0: lab | scientist:happy, scientist2:neutral
 > note@0: STATUS QUO BIAS | Samuelson & Zeckhauser, 1988
 
 In 1988, two economists, William Samuelson and Richard Zeckhauser, looked at how employees at Harvard chose their health insurance. When new and better plans appeared, the new hires picked them, but most of the people who had been there for years simply kept the plan they already had. They called it the status quo bias.
 
-So yes, The Anchor visits all of us a little. But in some people it practically moves in, especially in people who spent years doing things one way, and who feel they have the most to lose if that way disappears.
+So yes, The Anchor visits all of us a little. But in some people it practically moves in, especially in people who spent decades doing things one way, and who feel they have the most to lose if that way disappears.
 
 # Scene: Four signs
 > part: bug
 > keywords: family dinner table conversation
 > card: FOUR SIGNS
-> cast: sarah:worried, daniel:worried, bug:anchor:neutral
+> cast: mom:smug, sarah:worried, bug:anchor:neutral
 > set: restaurant
 > gesture: sarah:explain@1
-> note@1: 4 SIGNS | always · ten problems · yes, but no · later
+> note@1: 4 SIGNS | always · ten problems · I'll try · later
 
 So how do you spot The Anchor in someone you love?
 
-Four signs show up again and again. They defend the old way with the word always. They can find ten problems in the new thing and none in the old one. They say yes to calm you down, and then nothing changes. And their favorite answer is later: let's wait a bit, maybe next year, and somehow the right moment never comes.
+Four signs show up again and again. They defend the old way with the word always. They can find ten problems in the new option and none in the old one. They say I'll try, just to calm you down, and then nothing changes. And their favorite answer is later: maybe next year, maybe when I have more time, and somehow the right moment never comes.
 
-If two or more of those just reminded you of your dad, your partner or your boss, you're not imagining it. You've been living next to a very heavy anchor.
+If two or more of those just reminded you of your mom, your dad or your grandpa, you're not imagining it. You've been living next to a very heavy anchor.
 
 # Scene: What it costs
 > part: consequence
-> keywords: family tired worried evening
+> keywords: bus older woman tired evening
 > card: THE CHANGE COMES ANYWAY
-> cast: margaret:worried, sarah:sad, daniel:sad, bug:anchor:worried
-> set: open_office
-> note@2: IT DOESN'T STOP THE CHANGE | it just takes the wheel away
+> cast: mom:worried, sarah:sad, bug:anchor:worried
+> set: street
+> note@1: 4 HOURS | on buses every month
 
 And that anchor has a cost.
 
-Margaret ends up exhausted, doing her job twice. Linda spends twenty-four hours a year standing in a line. And Daniel's family lives with a knot in their stomach every time Walter takes the car, until the day the decision gets made for him, by a doctor, or by an accident.
+Linda now spends four hours a month on buses, standing, with her bad knee. Sarah worries every time her mom carries cash across the city. And they argue about it so often that the topic sits at every Sunday lunch like an extra guest.
 
 That's the hidden price of The Anchor: it doesn't stop the change. The change comes anyway, just without you steering it.
 
@@ -141,88 +138,85 @@ Still, The Anchor is not a villain. For our ancestors, it worked more like a sea
 
 Picture a small group on the savanna. They know one path to the water, and everyone who walked it came back alive. A new path might be shorter, but it might hide a lion. So the brain learned a simple rule: familiar means safe, because everything familiar is something you've already survived.
 
-On top of that, our ancestors lived with almost no margin, so losing the food they had could mean starving, while finding a little more was just a bonus. That's why, even today, losing something hurts much more than gaining the same thing feels good.
+On top of that, our ancestors lived with almost no margin, so losing what they had could mean starving, while gaining a little more was just a bonus. That's why, even today, losing something hurts much more than gaining the same thing feels good.
 
-# Scene: Not change, loss
+# Scene: Not the app, the control
 > part: why
-> keywords: older man window home alone
-> card: NOT CHANGE, LOSS
-> cast: margaret:worried, bug:anchor:worried
-> set: hallway
-> note@1: MARGARET · MOM · GRANDPA | expertise · control · freedom
+> keywords: older woman alone kitchen evening
+> card: NOT THE APP. THE CONTROL.
+> cast: mom:worried, bug:anchor:worried
+> set: home_night
+> note@1: THE APP = | asking her daughter for help
 
-Today, of course, a banking app won't eat anyone. But The Anchor doesn't know that, so it reacts to every new thing as if it were a path full of lions.
+Today, of course, a banking app won't eat anyone. But The Anchor doesn't know that, so it reacts to a new app as if it were a path full of lions.
 
-And here's what changes how you see all three of them. None of this was ever really about a system, an app or a car. For Margaret, the new system means becoming a beginner after fifteen years of being the expert. For Linda, the app means depending on her daughter for something she always did alone. And for Walter, giving up the keys means giving up his freedom.
+And here's what changes how you see Linda. This was never really about the app. For a woman who managed every coin on her own for forty years, the app means something much bigger: feeling clumsy, making a mistake she can't undo, and needing her daughter to explain things to her.
 
-So people don't really resist change. They resist losing something: their expertise, their control, their independence.
+So people don't really resist change. They resist losing something: their control, their confidence, their place as the one who knows. And the parents who cling the hardest are often the ones most afraid of feeling useless.
 
-# Scene: What would you lose?
-> say@1: elena
-> say@2: margaret
-> say@3: elena
-> act@0: elena hold mug @0.2
+# Scene: What scares you?
+> say@1: sarah
+> say@2: mom
+> say@3: sarah
+> act@0: sarah hold mug @0.2
 > part: update
-> keywords: coffee conversation calm two women
-> card: WHAT WOULD YOU LOSE?
-> cast: margaret:worried -> margaret:neutral, elena:happy, bug:anchor:worried -> bug:anchor:neutral
+> keywords: coffee mother daughter calm talk
+> card: WHAT SCARES YOU?
+> cast: mom:worried -> mom:neutral, sarah:neutral, bug:anchor:worried -> bug:anchor:neutral
 > set: cafe
 > switch: 0.5
-> gesture: elena:explain@1
+> gesture: sarah:explain@3
 
-So one afternoon, Elena invites Margaret for a coffee. And instead of selling her the new system one more time, she asks her just one question.
+So one afternoon, Sarah invites her mom for a coffee. And instead of having the same argument one more time, she asks her just one question.
 
-"If this new system works perfectly, what are you afraid of losing?"
+"Mom, what scares you most about the app?"
 
-Margaret starts to talk about backups, then stops, and the real answer comes out almost in a whisper. "Being the one who knows."
+Linda starts to talk about hackers, about the tiny buttons, and then she stops, and the real answer comes out almost in a whisper. "Pressing the wrong thing, losing money, and you seeing that I can't do it alone."
 
-And Elena smiles. "Then we need you. Nobody knows better than you what this has to get right." And when Sarah hears that story, she realizes that's the question she's never asked her mom, or that Daniel has never asked his grandfather.
+And Sarah takes her hand, because for the first time, she gets it. "Then you'll do it, not me. I'll just sit next to you, and you keep your notebook."
 
 # Scene: The update
 > part: update
-> keywords: notebook desk planning calm
+> keywords: notebook kitchen planning calm
 > card: FOUR UPDATES
-> cast: sarah:neutral, daniel:neutral, bug:anchor:neutral
-> set: office
+> cast: mom:neutral, sarah:neutral, bug:anchor:neutral
+> set: kitchen
 > note@1: 1. NAME THE LOSS | not just the gains
 > note@2: 2. GIVE THEM A ROLE | their experience matters
-> note@3: 3. SMALL, SAFE STEPS | a trial with an end date
+> note@3: 3. SMALL, SAFE STEPS | a trial with a backup
 > note@4: 4. SAY WHAT STAYS | not everything changes
 
 And that's the update. You can't pull up someone else's anchor by force, but you can help them lift it. Here are four ways.
 
-First, name the loss. Say out loud what they're giving up, like, I know it's hard to stop driving after sixty years, because people stop defending what you've already acknowledged.
+First, name the loss. Say out loud what they're giving up, because people stop defending what you've already acknowledged.
 
-Second, give them a role. Their experience isn't the obstacle. Ask your mom to teach you how she budgets, and then do it together in the app.
+Second, give them a role. Their experience isn't the obstacle. Linda writes the steps in her own words, in her own notebook, and she holds the phone.
 
-Third, take small, safe steps. One bill in the app this month, with the bank line as a backup, instead of everything at once.
+Third, take small, safe steps. This month, only check the balance. Next month, pay one bill, with the bank line as a backup.
 
-And fourth, say clearly what stays. Grandpa still goes to his Sunday lunch, and the family drives him there. The anchor relaxes a lot when it knows which ground is still solid.
+And fourth, say clearly what stays. The notebook stays, the Sunday calls stay, and she's still the one in charge of her money. The anchor relaxes a lot when it knows which ground is still solid.
 
-But one more thing. If a face popped into your head while you were watching, that's fine. Just check whether it's the one in your mirror. Is there a change you've been waiting months for the right moment to make?
+But one more thing. If a face popped into your head while you were watching, that's fine. Just check whether it's the one in your mirror. Is there a change you've been putting off for months, waiting for the right moment?
 
-# Scene: What they kept
-> say@1: margaret
-> say@2: grandpa
+# Scene: Easier than the line
+> say@1: mom
 > say@3: mom
-> act@0: margaret drop paper:TAX ERROR @0.5
-> cutaway@2: home_day | grandpa:happy, daniel:happy
-> cutaway@3: kitchen | mom:happy, sarah:happy
+> act@0: mom hold phone @0.3
 > part: close
-> keywords: office team meeting morning
-> card: WHAT THEY KEPT
-> cast: margaret:neutral -> margaret:happy, daniel:surprised -> daniel:happy, sarah:happy, bug:anchor:neutral
-> set: meeting
-> switch: 0.3
+> keywords: kitchen mother daughter happy phone
+> card: EASIER THAN THE LINE
+> cast: mom:neutral -> mom:happy, sarah:surprised -> sarah:happy, bug:anchor:neutral
+> set: kitchen
+> switch: 0.4
 > note@4: RECAP | name the loss · a role · small steps · what stays
 
-A few weeks later, Margaret is the official tester of the new system, and on her second day she catches a tax error that nobody else had seen.
+A month later, at the kitchen table, Linda pays her first bill in the app, with Sarah sitting next to her, hands in her lap, not touching anything.
 
-When Daniel asks how, she just shrugs. "Fifteen years with the old one."
+Linda stares at the screen for a long second. "That's it? That was easier than the line."
 
-Walter hands Daniel the car keys, with one condition. "On Sundays, I pick the music."
+Then she writes it down in her blue notebook, the date, the amount and a little check mark, like she has done for forty years. The Anchor is still there, but smaller and calmer, like an anchor resting in a harbor.
 
-And Linda pays her first bill in the app, with Sarah sitting next to her, and stares at the screen for a long second. "That was easier than the line."
+And two weeks later, Sarah gets a call. "Your aunt Rosa doesn't know how to use the app. Don't worry, I'm teaching her."
 
 So, a quick recap. The Anchor makes people cling to the way things are. It exists because the known path was the one our ancestors had already survived. And you deal with it by naming the loss, giving people a role, taking small steps and saying what stays.
 

@@ -83,6 +83,8 @@ CAST = {
         "elena": ("gemini:Sulafat", "Di esto como una mentora calmada y cálida, con voz serena y pausada"),
         "sarah": ("gemini:Achernar", "Di esto como una analista ansiosa que habla rápido y duda de sí misma"),
         "margaret": ("gemini:Gacrux", "Di esto como una gerente veterana, seca y sarcástica"),
+        "mom": ("gemini:Laomedeia", "Di esto como una mamá de sesenta y tantos, cariñosa pero muy terca y desconfiada"),
+        "grandpa": ("gemini:Charon", "Di esto como un abuelo de ochenta años, orgulloso, de voz grave y algo gruñón"),
         "voice": ("gemini:Enceladus", "Di esto como una voz interior intensa y susurrada, muy convencida"),
     },
     "en": {
@@ -91,6 +93,8 @@ CAST = {
         "elena": ("en-US-JennyNeural", ""),
         "sarah": ("en-US-AriaNeural", ""),
         "margaret": ("en-GB-SoniaNeural", ""),
+        "mom": ("en-US-MichelleNeural", ""),
+        "grandpa": ("en-US-DavisNeural", ""),
         "voice": ("en-US-RogerNeural", ""),
     },
 }

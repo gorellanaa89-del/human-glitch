@@ -34,37 +34,37 @@ She's the one who remembers everyone's birthday, and the one who can find any nu
 
 So at the training for the new system she smiles, takes notes and says: "Of course, I'll give it a try." And then, two weeks later, Daniel discovers that she's doing every task twice, once in the new system and once the old way. Just in case.
 
-# Scene: Sarah's mom and the bank
-> act@0: sarah phone @0.1
+# Scene: Linda and the bank
+> say@1: sarah, mom
+> act@1: sarah hold phone @0.05
 > part: story
-> keywords: kitchen phone call woman laughing
+> keywords: bank line older woman daughter phone
 > card: TWO HOURS IN LINE
-> cast: sarah:surprised -> sarah:happy
-> set: kitchen
-> switch: 0.5
-> gesture: sarah:shrug@1
-> note@0: 2 HOURS IN LINE | vs 2 minutes in the app
+> cast: extra1:neutral, mom:smug, sarah:worried
+> set: bank
+> gesture: mom:stop@1, sarah:shrug@2
+> note@0: TICKET A-127 | 2 hours in line
 
-Meanwhile, Sarah is on the phone with her mom, who refuses to use the banking app. Every month she waits two hours in line at the bank to do what the app does in two minutes, because, according to her, apps steal your money, and the bank line never has.
+Now meet Linda, Sarah's mom. It's the first Monday of the month, so, like every month, she's standing in line at the bank with her ticket in her hand, ready to wait two hours to pay a bill that the app would pay in two minutes. And today Sarah came with her, determined to change that.
 
-And Sarah has tried everything: she's installed the app three times, written the steps on a piece of paper and even offered to sit next to her. But every time, her mom has a new reason. Her eyes, the tiny buttons, the hackers on the news.
+So she tries one more time. "Mom, look, it's three taps and you're done." And Linda doesn't even look at the phone. "Apps steal your money. This line has never stolen anything from me."
 
-None of those reasons is crazy, of course, and that's exactly what makes it so hard to argue with her.
+Sarah has heard every version of this: her eyes, the tiny buttons, the hackers on the news. None of those reasons is crazy, and that's exactly what makes it so hard to argue with her. So, two hours later, they're both still in line.
 
 # Scene: Grandpa's keys
-> act@0: daniel phone @0.1
+> say@1: daniel, grandpa
 > part: story
-> keywords: home living room young man worried phone
+> keywords: family lunch home grandfather grandson
 > card: THE KEYS
-> cast: daniel:worried -> daniel:sad
+> cast: daniel:worried -> daniel:sad, grandpa:smug
 > set: home_day
-> switch: 0.6
-> gesture: daniel:clasp@2
-> note@1: 2 SCRATCHES | in one month
+> switch: 0.55
+> gesture: daniel:clasp@1, grandpa:point@1
+> note@0: 2 SCRATCHES | in one month
 
-And on Sunday, Daniel gets the hardest call of all. His grandfather, who is eighty-four, has scratched the car twice this month, and the whole family agrees that it's time for him to stop driving.
+And on Sunday, at the family lunch, Daniel gets the hardest job of all. His grandfather Walter, who is eighty-four, has scratched the car twice this month, and the whole family has quietly chosen Daniel to bring it up.
 
-Everyone except Grandpa, of course, who has driven for sixty years and answers every suggestion the same way: he doesn't need a taxi, he doesn't need help, and he definitely doesn't need anyone taking his keys.
+So he takes a breath. "Grandpa, what if I drive you on Sundays?" And Walter puts down his fork. "Sixty years behind the wheel without an accident. I don't need a chauffeur."
 
 Three people, three different situations, and the same answer. So, what's going on inside people like this?
 
@@ -125,7 +125,7 @@ If two or more of those just reminded you of your dad, your partner or your boss
 
 And that anchor has a cost.
 
-Margaret ends up exhausted, doing her job twice. Sarah's mom spends twenty-four hours a year standing in a line. And Daniel's family lives with a knot in their stomach every time Grandpa takes the car, until the day the decision gets made for him, by a doctor, or by an accident.
+Margaret ends up exhausted, doing her job twice. Linda spends twenty-four hours a year standing in a line. And Daniel's family lives with a knot in their stomach every time Walter takes the car, until the day the decision gets made for him, by a doctor, or by an accident.
 
 That's the hidden price of The Anchor: it doesn't stop the change. The change comes anyway, just without you steering it.
 
@@ -153,7 +153,7 @@ On top of that, our ancestors lived with almost no margin, so losing the food th
 
 Today, of course, a banking app won't eat anyone. But The Anchor doesn't know that, so it reacts to every new thing as if it were a path full of lions.
 
-And here's what changes how you see all three of them. None of this was ever really about a system, an app or a car. For Margaret, the new system means becoming a beginner after fifteen years of being the expert. For Sarah's mom, the app means depending on her daughter for something she always did alone. And for Grandpa, giving up the keys means giving up his freedom.
+And here's what changes how you see all three of them. None of this was ever really about a system, an app or a car. For Margaret, the new system means becoming a beginner after fifteen years of being the expert. For Linda, the app means depending on her daughter for something she always did alone. And for Walter, giving up the keys means giving up his freedom.
 
 So people don't really resist change. They resist losing something: their expertise, their control, their independence.
 
@@ -203,8 +203,11 @@ But one more thing. If a face popped into your head while you were watching, tha
 
 # Scene: What they kept
 > say@1: margaret
-> say@3: sarah
+> say@2: grandpa
+> say@3: mom
 > act@0: margaret drop paper:TAX ERROR @0.5
+> cutaway@2: home_day | grandpa:happy, daniel:happy
+> cutaway@3: kitchen | mom:happy, sarah:happy
 > part: close
 > keywords: office team meeting morning
 > card: WHAT THEY KEPT
@@ -217,9 +220,9 @@ A few weeks later, Margaret is the official tester of the new system, and on her
 
 When Daniel asks how, she just shrugs. "Fifteen years with the old one."
 
-Daniel's grandfather hands over his keys on one condition: he picks the music every Sunday. And Sarah's mom pays her first bill in the app, with Sarah sitting next to her, and the bank line as a backup she never ends up using.
+Walter hands Daniel the car keys, with one condition. "On Sundays, I pick the music."
 
-At dinner, Sarah tells Daniel what her mom said afterwards. "It was easier than the line."
+And Linda pays her first bill in the app, with Sarah sitting next to her, and stares at the screen for a long second. "That was easier than the line."
 
 So, a quick recap. The Anchor makes people cling to the way things are. It exists because the known path was the one our ancestors had already survived. And you deal with it by naming the loss, giving people a role, taking small steps and saying what stays.
 

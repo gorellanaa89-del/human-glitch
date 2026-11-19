@@ -369,6 +369,27 @@ def lobby():
     return img
 
 
+def bank():
+    """A bank branch (2026-11-19, episode 6): teller windows, a queue-number display and a roped line."""
+    img, p = _base((226, 232, 236), (200, 204, 210), horizon=800, seed=41)
+    _rect(p, 660, 110, 1260, 220, (5, 28, 44))
+    _text(img, "BANK", (960, 165), 76, (250, 250, 250))
+    for k, x in enumerate((180, 620, 1060)):  # teller windows
+        _rect(p, x, 300, x + 380, 640, (205, 228, 238))
+        p.line([(x + 190, 300), (x + 190, 640)], LINE)
+        _rect(p, x - 20, 640, x + 400, 680, (230, 220, 205))
+        _rect(p, x, 680, x + 380, 800, (150, 120, 95))
+        _text(img, str(k + 1), (x + 190, 270), 44, (60, 70, 90))
+    _rect(p, 1540, 300, 1800, 420, (30, 34, 44))  # queue number display
+    _text(img, "A-127", (1670, 360), 60, (250, 120, 90))
+    for x in (300, 700, 1100, 1500):  # stanchions with a rope
+        _rect(p, x - 8, 860, x + 8, 990, (200, 170, 70))
+        p.shape(ellipse_pts(x, 860, 16, 10, n=16), (220, 190, 80), 3)
+    for x0 in (300, 700, 1100):
+        p.line(bez((x0, 870), (x0 + 130, 930), (x0 + 270, 930), (x0 + 400, 870)), 9, (180, 40, 60))
+    return img
+
+
 def park():
     img = Image.new("RGBA", (W * SS, H * SS), (176, 214, 236, 255))
     p = Pencil(img, 37)
@@ -586,7 +607,7 @@ SETS = {"office": office, "meeting": meeting, "cafe": cafe, "home_night": home_n
         "desk": office, "hallway": hallway, "elevator": elevator, "breakroom": breakroom,
         "boss_office": boss_office, "open_office": open_office, "lobby": lobby, "park": park, "street": street,
         "train": train, "bedroom": bedroom, "home_day": home_day, "kitchen": kitchen, "restaurant": restaurant,
-        "rooftop": rooftop, "home_office": home_office, "lab": lab, "asch": asch,
+        "rooftop": rooftop, "home_office": home_office, "lab": lab, "asch": asch, "bank": bank,
         # photo-only names fall back to the closest drawing
         "office_evening": office, "glass_meeting": meeting, "bathroom": home_day}
 

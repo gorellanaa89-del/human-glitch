@@ -21,21 +21,23 @@ Es la que se acuerda del cumpleaños de todos, y la que encuentra cualquier núm
 
 Así que en la capacitación del sistema nuevo sonríe, toma apuntes y dice: "Claro que sí, lo voy a intentar." Y dos semanas después, Daniel descubre que hace cada tarea dos veces: una en el sistema nuevo y otra a la antigua. Por si acaso.
 
-# Scene: La mamá de Sarah y el banco
-> note@0: 2 HORAS DE COLA | vs 2 minutos en la app
+# Scene: Linda y el banco
+> say@1: sarah, mom
+> note@0: TICKET A-127 | 2 horas de cola
 
-Mientras tanto, Sarah habla por teléfono con su mamá, que se niega a usar la app del banco. Cada mes hace dos horas de cola en la agencia para algo que la app resuelve en dos minutos, porque, según ella, las apps te roban la plata, y la cola del banco nunca le ha robado nada.
+Ahora te presento a Linda, la mamá de Sarah. Es el primer lunes del mes, así que, como cada mes, está haciendo cola en el banco con su ticket en la mano, lista para esperar dos horas y pagar una cuenta que la app pagaría en dos minutos. Y hoy Sarah vino con ella, decidida a cambiar eso.
 
-Y Sarah ya lo intentó todo: le instaló la app tres veces, le escribió los pasos en un papel y hasta se ofreció a sentarse a su lado. Pero cada vez, su mamá tiene una razón nueva. La vista, los botones chiquitos, los hackers que salen en las noticias.
+Así que lo intenta una vez más. "Mamá, mira, son tres toques y listo." Y Linda ni siquiera mira el celular. "Las apps te roban la plata. Esta cola nunca me ha robado nada."
 
-Ninguna de esas razones es absurda, y justamente por eso es tan difícil discutir con ella.
+Sarah ya escuchó todas las versiones: la vista, los botones chiquitos, los hackers que salen en las noticias. Ninguna de esas razones es absurda, y justamente por eso es tan difícil discutir con ella. Así que, dos horas después, las dos siguen en la cola.
 
 # Scene: Las llaves del abuelo
-> note@1: 2 RASPONES | en un mes
+> say@1: daniel, grandpa
+> note@0: 2 RASPONES | en un mes
 
-Y el domingo, a Daniel le toca la llamada más difícil de todas. Su abuelo, de ochenta y cuatro años, rayó el auto dos veces este mes, y toda la familia está de acuerdo en que ya es hora de que deje de manejar.
+Y el domingo, en el almuerzo familiar, a Daniel le toca la tarea más difícil de todas. Su abuelo Walter, de ochenta y cuatro años, rayó el auto dos veces este mes, y toda la familia, sin decirlo, eligió a Daniel para sacar el tema.
 
-Todos menos el abuelo, claro, que lleva sesenta años manejando y responde a cada sugerencia de la misma forma: no necesita un taxi, no necesita ayuda, y definitivamente no necesita que nadie le quite las llaves.
+Así que respira hondo. "Abuelo, ¿y si yo te llevo los domingos?" Y Walter deja el tenedor sobre la mesa. "Sesenta años manejando sin un solo accidente. No necesito chofer."
 
 Tres personas, tres situaciones distintas, y la misma respuesta. Entonces, ¿qué pasa dentro de la cabeza de gente así?
 
@@ -73,7 +75,7 @@ Si dos o más de estas señales te recordaron a tu papá, a tu pareja o a tu jef
 
 Y esa ancla tiene un costo.
 
-Margaret termina agotada, haciendo su trabajo dos veces. La mamá de Sarah pasa veinticuatro horas al año parada en una cola. Y la familia de Daniel vive con un nudo en el estómago cada vez que el abuelo saca el auto, hasta el día en que alguien más decide por él: un médico, o un accidente.
+Margaret termina agotada, haciendo su trabajo dos veces. Linda pasa veinticuatro horas al año parada en una cola. Y la familia de Daniel vive con un nudo en el estómago cada vez que Walter saca el auto, hasta el día en que alguien más decide por él: un médico, o un accidente.
 
 Ese es el precio oculto del Ancla: no detiene el cambio. El cambio igual llega, solo que sin ti al timón.
 
@@ -91,7 +93,7 @@ Para colmo, nuestros ancestros vivían sin ningún margen, así que perder la co
 
 Hoy, claro, una app del banco no se va a comer a nadie. Pero el Ancla no lo sabe, así que reacciona ante cualquier cosa nueva como si fuera un camino lleno de leones.
 
-Y aquí está lo que cambia cómo ves a los tres. Nada de esto fue nunca realmente sobre un sistema, una app o un auto. Para Margaret, el sistema nuevo significa volver a ser principiante después de quince años de ser la experta. Para la mamá de Sarah, la app significa depender de su hija para algo que siempre hizo sola. Y para el abuelo, entregar las llaves significa entregar su libertad.
+Y aquí está lo que cambia cómo ves a los tres. Nada de esto fue nunca realmente sobre un sistema, una app o un auto. Para Margaret, el sistema nuevo significa volver a ser principiante después de quince años de ser la experta. Para Linda, la app significa depender de su hija para algo que siempre hizo sola. Y para Walter, entregar las llaves significa entregar su libertad.
 
 Dicho de otro modo, la gente no se resiste al cambio. Se resiste a perder algo: su experiencia, su control, su independencia.
 
@@ -128,7 +130,8 @@ Pero una cosa más. Si mientras veías esto se te vino una cara a la cabeza, est
 
 # Scene: Lo que conservaron
 > say@1: margaret
-> say@3: sarah
+> say@2: grandpa
+> say@3: mom
 > act@0: margaret drop paper:ERROR DE IMPUESTO @0.5
 > note@4: RESUMEN | nombra la pérdida · un rol · pasos pequeños · qué se queda
 
@@ -136,9 +139,9 @@ Unas semanas después, Margaret es la encargada oficial de probar el sistema nue
 
 Cuando Daniel le pregunta cómo, ella solo se encoge de hombros. "Quince años con el sistema viejo."
 
-El abuelo de Daniel entrega sus llaves con una condición: los domingos, la música la elige él. Y la mamá de Sarah hace su primer pago en la app, con Sarah sentada a su lado y la cola del banco como un respaldo que nunca llega a usar.
+Walter le entrega a Daniel las llaves del auto, con una condición. "Los domingos, la música la elijo yo."
 
-En la cena, Sarah le cuenta a Daniel lo que le dijo su mamá después. "Fue más fácil que la cola."
+Y Linda hace su primer pago en la app, con Sarah sentada a su lado, y se queda mirando la pantalla un largo segundo. "Fue más fácil que la cola."
 
 Así que, un resumen rápido. El Ancla hace que la gente se aferre a cómo son las cosas. Existe porque el camino conocido era el que nuestros ancestros ya habían sobrevivido. Y se maneja nombrando la pérdida, dando un rol, avanzando con pasos pequeños y diciendo qué se queda.
 

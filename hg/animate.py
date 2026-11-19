@@ -1414,7 +1414,7 @@ def _wipe_panel(w, h):
 
 
 MENTION_GAP = 6.0  # seconds before the same name pulls the camera to that person again
-NAMED = ("sarah", "richard", "elena", "daniel", "margaret")  # people who get a name label on first appearance
+NAMED = ("sarah", "richard", "elena", "daniel", "margaret", "mom", "grandpa")  # people who get a name label on first appearance
 _ADDRESSEE = {"to", "at", "toward", "towards", "a", "al", "hacia", "con"}
 
 

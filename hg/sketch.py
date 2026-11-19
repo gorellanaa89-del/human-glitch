@@ -128,6 +128,11 @@ CAST.update({
     "extra2": Bean("A student", "Actor", (170, 160, 140), "bob", (), "neutral", 25, (90, 70, 60)),
     "extra3": Bean("A student", "Actor", (140, 160, 150), "crop", (), "smug", 26, (70, 70, 70)),
 })
+# Family of the cast (2026-11-19, episode 6): Sarah's mother and Daniel's grandfather, for scenes outside the office.
+CAST.update({
+    "mom": Bean("Linda Collins", "Sarah's mom", (110, 200, 220), "bob", ("earrings", "pearls"), "smug", 31, (205, 205, 210)),
+    "grandpa": Bean("Walter Brooks", "Daniel's grandpa", (150, 176, 112), "none", ("glasses", "tufts", "mustache"), "smug", 32, (215, 215, 220)),
+})
 COAT = (246, 246, 242)
 
 HEAD = (300, 250, 150, 138)  # cx, cy, rx, ry
@@ -329,6 +334,15 @@ def _extras(p: Pencil, b: Bean):
         for side in (-1, 1):
             x = 300 + side * 148
             p.shape(ellipse_pts(x, 318, 9, 9, n=20), (250, 214, 90), 3)
+    if "tufts" in b.extras:  # a bald head with grey hair left at the sides (an older man)
+        hc = b.hair_color or shade(b.color, 0.62)
+        for side in (-1, 1):
+            x = 300 + side * 138
+            p.shape(ellipse_pts(x, 236, 22, 50, n=30), hc, 4)
+    if "mustache" in b.extras:
+        hc = b.hair_color or shade(b.color, 0.62)
+        p.shape(bez((300, 352), (270, 336), (236, 340), (222, 362)) + bez((222, 362), (260, 366), (284, 362), (300, 358)) +
+                bez((300, 358), (316, 362), (340, 366), (378, 362)) + bez((378, 362), (364, 340), (330, 336), (300, 352)), hc, 4)
     if "pearls" in b.extras:
         for k in range(11):
             t = math.pi * (0.2 + 0.6 * k / 10)
@@ -373,8 +387,9 @@ def _bean(b: Bean, expr: str, head=None, arms=None) -> Image.Image:
     _brows(p, expr)
     _eyes(p, expr, col)
     _mouth(p, expr)
-    if "glasses" in b.extras:
-        _extras(p, Bean(b.name, b.role, col, extras=("glasses",), seed=b.seed))
+    face = tuple(e for e in ("glasses", "tufts", "mustache") if e in b.extras)
+    if face:
+        _extras(p, Bean(b.name, b.role, col, extras=face, seed=b.seed, hair_color=b.hair_color))
     if expr == "worried":
         p.shape(bez((452, 150), (440, 180), (436, 196), (452, 198)) + bez((452, 198), (468, 196), (464, 180), (452, 150))[1:],
                 (170, 220, 255), 3.5)
@@ -693,6 +708,12 @@ def _p_face(p: Pencil, expr, col, b: Bean):
         p.line(ellipse_pts(x - 6, y + 18, 16, 12, math.pi * 1.15, math.pi * 1.85, 16), 5)
     else:
         p.line(ellipse_pts(x - 6, y - 8, 14, 10, math.pi * 0.2, math.pi * 0.8, 16), 5)
+    hc = b.hair_color or shade(col, 0.62)
+    if "mustache" in b.extras:
+        p.shape(bez((x + 18, y - 22), (x - 4, y - 34), (x - 40, y - 30), (x - 46, y - 12)) +
+                bez((x - 46, y - 12), (x - 20, y - 8), (x + 6, y - 8), (x + 18, y - 22)), hc, 4)
+    if "tufts" in b.extras:
+        p.shape(ellipse_pts(216, 252, 20, 44, n=30), hc, 4)
     if "glasses" in b.extras:
         p.line(ellipse_pts(ex, ey, rx + 12, ry + 10), 5)
         p.line([(ex - rx - 12, ey - 6), (262, ey - 2)], 5)

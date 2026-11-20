@@ -5,9 +5,9 @@ thumbnail_text: "THIS LINE NEVER ROBBED ME"
 publish_at: ""
 backgrounds: drawn
 synthetic_media: false
-# Narrator: Gemini's Callirrhoe (G1), picked by Giancarlo 2026-11-18; style direction in words below
+# Narrator: Gemini's Callirrhoe (G1) for Spanish, picked by Giancarlo 2026-11-18; English on Edge's Ava to spare the free Gemini quota
 voices:
-  en: gemini:Callirrhoe
+  en: en-US-AvaNeural
   es: gemini:Callirrhoe
 voice_rate:
   en: "+0%"

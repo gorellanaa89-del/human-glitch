@@ -1,0 +1,78 @@
+{
+  "title": "Why Your Mom Refuses to Change (The Psychology of Resistance)",
+  "duration_seconds": 532.8,
+  "scenes": 13,
+  "stock_clips": 0,
+  "tts": "edge",
+  "files": {
+    "video": "video.mp4",
+    "captions_en": "captions.en.srt",
+    "audio_es": "audio.es.m4a",
+    "captions_es": "captions.es.srt",
+    "video_es": "video.es.mp4",
+    "thumbnail": "thumbnail.jpg",
+    "shorts": [
+      {
+        "file": "short-01-en.mp4",
+        "scene": 1,
+        "lang": "en",
+        "title": "Does Your Mom Still Refuse to Use the App?"
+      },
+      {
+        "file": "short-01-es.mp4",
+        "scene": 1,
+        "lang": "es",
+        "title": "¿Tu mamá todavía se niega a usar la app?"
+      },
+      {
+        "file": "short-04-en.mp4",
+        "scene": 4,
+        "lang": "en",
+        "title": "She'd Rather Take Two Buses Than Open an App"
+      },
+      {
+        "file": "short-04-es.mp4",
+        "scene": 4,
+        "lang": "es",
+        "title": "Prefiere tomar dos buses antes que abrir una app"
+      },
+      {
+        "file": "short-07-en.mp4",
+        "scene": 7,
+        "lang": "en",
+        "title": "4 Signs Someone Is Stuck in the Old Way"
+      },
+      {
+        "file": "short-07-es.mp4",
+        "scene": 7,
+        "lang": "es",
+        "title": "4 señales de que alguien vive anclado al pasado"
+      },
+      {
+        "file": "short-11-en.mp4",
+        "scene": 11,
+        "lang": "en",
+        "title": "The Question That Unlocks a Parent Who Resists Change"
+      },
+      {
+        "file": "short-11-es.mp4",
+        "scene": 11,
+        "lang": "es",
+        "title": "La pregunta que desarma a un papá que se resiste al cambio"
+      },
+      {
+        "file": "short-12-en.mp4",
+        "scene": 12,
+        "lang": "en",
+        "title": "How to Help a Parent Who Resists Change"
+      },
+      {
+        "file": "short-12-es.mp4",
+        "scene": 12,
+        "lang": "es",
+        "title": "Cómo ayudar a tus papás a aceptar un cambio"
+      }
+    ]
+  },
+  "warnings": []
+}
